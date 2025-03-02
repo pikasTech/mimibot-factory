@@ -1,0 +1,5 @@
+model_name_or_path: output/llama3_8b_mimibot
+adapter_name_or_path: saves/llama3_8b_mimibot2/checkpoint-400
+template: llama3
+infer_backend: huggingface # choices: [huggingface, vllm]
+trust_remote_code: true

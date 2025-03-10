@@ -152,12 +152,11 @@ def format_chat_message(record):
     return f"<{speaker}>:{record['content']}"
 
 
-def alpaca_gen(input_json, similarity_method='model', system_message="你是一个友好的助手，请根据群聊记录进行回复。"):
+def alpaca_gen(input_json, similarity_method='model'):
     """将聊天记录转换为 Alpaca 格式数据，跳过包含图片的消息，并计算数据质量
     Args:
         input_json: 输入的JSON文件路径
         similarity_method: 相似度计算方法，可选 'traditional' 或 'model'
-        system_message: system字段的内容，用于为模型提供上下文或角色定义
     Returns:
         None，直接保存为新的JSON文件
     """
@@ -200,7 +199,7 @@ def alpaca_gen(input_json, similarity_method='model', system_message="你是一�
                 filtered_records.append(record)
 
     alpaca_data = []
-    window_size = 6  # 10条输入 + 1条输出
+    window_size = 5  # 10条输入 + 1条输出
     total_windows = len(filtered_records) - window_size + 1
 
     print("\n正在生成训练数据...")
@@ -208,35 +207,29 @@ def alpaca_gen(input_json, similarity_method='model', system_message="你是一�
     for i in tqdm(range(total_windows), desc="生成对话"):
         window = filtered_records[i:i + window_size]
 
-        # 前n-1条作为历史记录
-        input_messages = window[:-1]  # 取前n-1条消息作为输入
-        history_messages = input_messages[:-1]
-        # 最后一条输入消息作为指令
-        instruction_message = input_messages[-1]
+        # 前10条作为输入
+        input_messages = window[:-1]
+        # 第11条作为输出
+        output_message = window[-1]
 
-        # 格式化最新输入消息
-        formatted_instruction = format_chat_message(instruction_message)
-
-        # 格式化历史消息
-        formatted_history = []
-        for msg in history_messages:
-            formatted_msg = format_chat_message(msg)
-            formatted_history.append([formatted_msg, ""])
+        # 格式化输入消息
+        formatted_input = "\\n".join(
+            [format_chat_message(msg) for msg in input_messages])
 
         # 格式化输出消息
-        formatted_output = window[-1]['content']
+        formatted_output = output_message['content']
 
         # 计算数据质量分数
-        similarity = calculate_similarity(formatted_instruction, formatted_output)
+
+        similarity = calculate_similarity(formatted_input, formatted_output)
+
         quality = similarity
 
         # 构建 Alpaca 格式数据
         alpaca_item = {
-            "system": system_message,
+            "instruction": "回复群聊" + formatted_input,
             "input": "",
-            "instruction": formatted_instruction,
             "output": formatted_output,
-            "history": formatted_history,
             "quantity": round(quality, 3)  # 保留三位小数
         }
 
@@ -266,10 +259,7 @@ if __name__ == "__main__":
     parser.add_argument(
         '--input', default="data/吉大·东方project同好会.txt", help='输入文件路径')
     parser.add_argument('--similarity', choices=['traditional', 'model'],
-                        default='model', help='相似度计算方法')
-    parser.add_argument('--system', 
-                        default="你是调皮的mimi波特，请根据群聊记录进行回复。",
-                        help='system字段的内容，用于为模型提供上下文或角色定义')
+                        default='traditional', help='相似度计算方法')
 
     args = parser.parse_args()
 
@@ -286,6 +276,6 @@ if __name__ == "__main__":
 
         if os.path.exists(output_file):
             print("\n开始生成 Alpaca 格式数据...")
-            alpaca_gen(output_file, args.similarity, args.system)
+            alpaca_gen(output_file, args.similarity)
     else:
         print(f"文件不存在: {args.input}")

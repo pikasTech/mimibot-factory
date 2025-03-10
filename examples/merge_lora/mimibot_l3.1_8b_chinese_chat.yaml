@@ -1,0 +1,13 @@
+### Note: DO NOT use quantized model or quantization_bit when merging lora adapters
+
+### model
+model_name_or_path: shenzhi-wang/Llama3.1-8B-Chinese-Chat
+adapter_name_or_path: saves/mimibot_l3.1_8b_chinese_chat_v3/checkpoint-5500
+template: llama3
+trust_remote_code: true
+
+### export
+export_dir: output/mimibot_l3.1_8b_chinese_chat_v3
+export_size: 5
+export_device: cpu
+export_legacy_format: false

@@ -679,13 +679,23 @@
     },
     "folder": "python"
   },
-  "alpaca_mimibot":{
+  "alpaca_mimibot": {
     "file_name": "alpaca_mimibot.json"
   },
-  "alpaca_Beautiful-Chinese":{
+  "alpaca_Beautiful-Chinese": {
     "file_name": "alpaca_Beautiful-Chinese.json"
   },
-  "吉大·东方project同好会_alpaca":{
+  "吉大·东方project同好会_alpaca": {
     "file_name": "吉大·东方project同好会_alpaca.json"
+  },
+  "alpaca_data_processed": {
+    "file_name": "alpaca_data_processed.json",
+    "columns": {
+      "prompt": "instruction",
+      "query": "input",
+      "response": "output",
+      "system": "system",
+      "history": "history"
+    }
   }
 }

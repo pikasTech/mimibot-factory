@@ -11,15 +11,15 @@ lora_target: all
 deepspeed: examples/deepspeed/ds_z2_config.json  # choices: [ds_z0_config.json, ds_z2_config.json, ds_z3_config.json]
 
 ### dataset
-dataset: 吉大·东方project同好会_alpaca
+dataset: alpaca_data_processed
 template: llama3
-cutoff_len: 256
-max_samples: 20000
+cutoff_len: 512
+max_samples: 4096
 overwrite_cache: true
 preprocessing_num_workers: 16
 
 ### output
-output_dir: saves/mimibot_l3.1_8b_chinese_chat_v3
+output_dir: saves/mimibot_l3.1_8b_chinese_chat_v5
 logging_steps: 1
 save_steps: 100
 plot_loss: true
@@ -37,7 +37,7 @@ lr_scheduler_type: cosine
 warmup_ratio: 0.1
 bf16: true 
 ddp_timeout: 180000000
-resume_from_checkpoint: true
+# resume_from_checkpoint: true
 
 ### eval
 # val_size: 0.1

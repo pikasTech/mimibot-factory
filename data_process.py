@@ -144,9 +144,11 @@ def format_chat_message(record):
     """格式化单条聊天记录"""
     # 过滤掉@和(和<后的内容
     speaker = record['speaker'].split('@')[0].split('(')[0].split('<')[0].strip().split(
-        '（')[0].strip().split('_')[0].strip().split(' ')[0].strip().split('の')[-1].strip()
+        '（')[0].strip().split('_')[0].strip().split(' ')[0].strip().split('の')[-1].strip().split('|')[0].strip()
     # 只保留中英文字符和数字
     speaker = re.sub(r'[^\u4e00-\u9fff\w\s]+', '', speaker)
+    # 只保留 4 个字符
+    speaker = speaker[:4]
     return f"<{speaker}>:{record['content']}"
 
 
@@ -180,14 +182,24 @@ def alpaca_gen(input_json, similarity_method='model'):
             # 删除@XXXX到末尾的内容
             record['content'] = re.sub(r'@.*$', '', record['content'])
             record['content'] = record['content'].replace('orcs stood still, and a dead silence fell. orcs stood still, and a dead silence fell.', '')
+            record['content'] = record['content'].replace('| 凯萨', '')
             # 只保留中英文和常见符号和数字
             cleaned_content = re.sub(
                 r'[^\u4e00-\u9fff\w\s.,!?]+', '', record['content'])
+            # 判断是否含有链接
+            if 'http' in cleaned_content:
+                continue
+            # 判断是否没有中文
+            if not re.search(r'[\u4e00-\u9fff]', cleaned_content):
+                continue
+            # 判断是否包含日文字符（平假名：3040-309F，片假名：30A0-30FF，日文汉字：4E00-9FFF）
+            if re.search(r'[\u3040-\u309F\u30A0-\u30FF]', cleaned_content):
+                continue
             if cleaned_content.strip():  # 确保清理后还有内容
                 filtered_records.append(record)
 
     alpaca_data = []
-    window_size = 11  # 10条输入 + 1条输出
+    window_size = 5  # 10条输入 + 1条输出
     total_windows = len(filtered_records) - window_size + 1
 
     print("\n正在生成训练数据...")

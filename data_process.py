@@ -18,6 +18,16 @@ def init_model():
         model = SentenceTransformer('paraphrase-multilingual-mpnet-base-v2')
 
 
+def remove_emoji(text):
+    """删除文本中的所有emoji表情符号，保留中文字符"""
+    pattern = re.compile(u'['u'\U0001F300-\U0001F64F'
+                     u'\U0001F680-\U0001F6FF'
+                     u'\u2600-\u2B55'
+                     u'\U00010000-\U0010FFFF]+', 
+                     flags=re.UNICODE) 
+    return pattern.sub(r'', text)
+
+
 def calculate_traditional_similarity(text1, text2):
     """使用传统方法(编辑距离)计算相似度"""
     from difflib import SequenceMatcher
@@ -147,9 +157,16 @@ def format_chat_message(record):
         '（')[0].strip().split('_')[0].strip().split(' ')[0].strip().split('の')[-1].strip().split('|')[0].strip()
     # 只保留中英文字符和数字
     speaker = re.sub(r'[^\u4e00-\u9fff\w\s]+', '', speaker)
+    # 删除emoji
+    speaker = remove_emoji(speaker)
     # 只保留 4 个字符
     speaker = speaker[:4]
-    return f"<{speaker}>:{record['content']}"
+    # 删除content中的emoji
+    content = record['content']
+    content = remove_emoji(content)
+    # 截断 Content 到 50 个字符
+    content = content[:50]
+    return f"<{speaker}>:{content}"
 
 
 def save_filtered_data(formatted_instructions, output_file):
@@ -197,6 +214,8 @@ def alpaca_gen(input_json, similarity_method='model', system_message="你是一�
             record['content'] = re.sub(r'@.*$', '', record['content'])
             record['content'] = record['content'].replace('orcs stood still, and a dead silence fell. orcs stood still, and a dead silence fell.', '')
             record['content'] = record['content'].replace('| 凯萨', '')
+            # 删除emoji
+            record['content'] = remove_emoji(record['content'])
             # 只保留中英文和常见符号和数字
             cleaned_content = re.sub(
                 r'[^\u4e00-\u9fff\w\s.,!?]+', '', record['content'])
@@ -240,9 +259,10 @@ def alpaca_gen(input_json, similarity_method='model', system_message="你是一�
         for msg in history_messages:
             formatted_msg = format_chat_message(msg)
             formatted_history.append([formatted_msg, ""])
-
-        # 格式化输出消息
+        
+        # 格式化输出消息 (删除emoji)
         formatted_output = window[-1]['content']
+        formatted_output = remove_emoji(formatted_output)
 
         # 计算数据质量分数
         similarity = calculate_similarity(formatted_instruction, formatted_output)

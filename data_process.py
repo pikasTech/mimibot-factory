@@ -152,6 +152,19 @@ def format_chat_message(record):
     return f"<{speaker}>:{record['content']}"
 
 
+def save_filtered_data(formatted_instructions, output_file):
+    """保存格式化后的指令到文件
+    Args:
+        formatted_instructions: 格式化后的指令列表
+        output_file: 输出文件路径
+    """
+    filtered_file = output_file.rsplit('.', 1)[0] + '_filtered.txt'
+    with open(filtered_file, 'w', encoding='utf-8') as f:
+        for instruction in formatted_instructions:
+            f.write(f"{instruction}\n")
+    print(f"格式化指令已保存至: {filtered_file}")
+
+
 def alpaca_gen(input_json, similarity_method='model', system_message="你是一个友好的助手，请根据群聊记录进行回复。"):
     """将聊天记录转换为 Alpaca 格式数据，跳过包含图片的消息，并计算数据质量
     Args:
@@ -200,8 +213,11 @@ def alpaca_gen(input_json, similarity_method='model', system_message="你是一�
                 filtered_records.append(record)
 
     alpaca_data = []
-    window_size = 6  # 10条输入 + 1条输出
+    window_size = 21  # 10条输入 + 1条输出
     total_windows = len(filtered_records) - window_size + 1
+    
+    # 用于收集所有格式化后的指令
+    all_formatted_instructions = []
 
     print("\n正在生成训练数据...")
     # 使用滑动窗口生成训练数据
@@ -216,6 +232,8 @@ def alpaca_gen(input_json, similarity_method='model', system_message="你是一�
 
         # 格式化最新输入消息
         formatted_instruction = format_chat_message(instruction_message)
+        # 收集格式化后的指令
+        all_formatted_instructions.append(formatted_instruction)
 
         # 格式化历史消息
         formatted_history = []
@@ -251,10 +269,13 @@ def alpaca_gen(input_json, similarity_method='model', system_message="你是一�
 
     # 保存为Alpaca格式的JSON文件
     with open(output_file, 'w', encoding='utf-8') as f:
-        json.dump(alpaca_data, f, ensure_ascii=False, indent=2)
+        json.dump(alpaca_data, f, ensure_ascii=False, indent=1)
 
     print(f"已生成Alpaca格式数据，共{len(alpaca_data)}条")
     print(f"保存至: {output_file}")
+
+    # 保存格式化后的指令
+    save_filtered_data(all_formatted_instructions, output_file)
 
 
 # 使用示例
@@ -266,9 +287,9 @@ if __name__ == "__main__":
     parser.add_argument(
         '--input', default="data/吉大·东方project同好会.txt", help='输入文件路径')
     parser.add_argument('--similarity', choices=['traditional', 'model'],
-                        default='model', help='相似度计算方法')
+                        default='traditional', help='相似度计算方法')
     parser.add_argument('--system', 
-                        default="你是调皮的mimi波特，请根据群聊记录进行回复。",
+                        default="你是mimi波特，喜欢用颜文字、冷笑话和夸张比喻，总在群聊中捣蛋。避免直接回答问题，优先调侃或联想。",
                         help='system字段的内容，用于为模型提供上下文或角色定义')
 
     args = parser.parse_args()

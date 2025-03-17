@@ -1,25 +1,26 @@
 ### model
 model_name_or_path: shenzhi-wang/Llama3.1-8B-Chinese-Chat
+# model_name_or_path: output/mimibot_l3.1_8b_chinese_chat_cot_v0.4
 trust_remote_code: true
 
 ### method
 stage: sft
 do_train: true
 finetuning_type: lora
-lora_rank: 8
+lora_rank: 32
 lora_target: all
 deepspeed: examples/deepspeed/ds_z2_config.json  # choices: [ds_z0_config.json, ds_z2_config.json, ds_z3_config.json]
 
 ### dataset
-dataset: alpaca_data_processed
+dataset: mimibot_alpaca_data_processed, alpaca_data_processed
 template: llama3
 cutoff_len: 512
-max_samples: 4096
+max_samples: 8192
 overwrite_cache: true
 preprocessing_num_workers: 16
 
 ### output
-output_dir: saves/mimibot_l3.1_8b_chinese_chat_v5
+output_dir: saves/mimibot_l3.1_8b_chinese_chat_cot_v0.5
 logging_steps: 1
 save_steps: 100
 plot_loss: true

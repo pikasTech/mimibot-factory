@@ -1,5 +1,5 @@
 model_name_or_path: shenzhi-wang/Llama3.1-8B-Chinese-Chat
-adapter_name_or_path: saves/mimibot_l3.1_8b_chinese_chat_v3/checkpoint-5500
+adapter_name_or_path: saves/mimibot_l3.1_8b_chinese_chat_v5/checkpoint-1000
 template: llama3
 infer_backend: huggingface # choices: [huggingface, vllm]
 trust_remote_code: true

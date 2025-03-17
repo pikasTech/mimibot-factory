@@ -697,5 +697,15 @@
       "system": "system",
       "history": "history"
     }
+  },
+  "mimibot_alpaca_data_processed":{
+    "file_name": "mimibot_alpaca_data_processed.json",
+    "columns": {
+      "prompt": "instruction",
+      "query": "input",
+      "response": "output",
+      "system": "system",
+      "history": "history"
+    }
   }
 }

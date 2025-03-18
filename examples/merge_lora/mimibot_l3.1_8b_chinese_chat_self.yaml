@@ -1,0 +1,13 @@
+### Note: DO NOT use quantized model or quantization_bit when merging lora adapters
+
+### model
+model_name_or_path: output/mimibot_l3.1_8b_chinese_chat_cot_v0.3
+adapter_name_or_path: saves/mimibot_l3.1_8b_chinese_chat_cot_v0.3_self
+template: llama3
+trust_remote_code: true
+
+### export
+export_dir: output/mimibot_l3.1_8b_chinese_chat_cot_v0.3_self
+export_size: 5
+export_device: cpu
+export_legacy_format: false

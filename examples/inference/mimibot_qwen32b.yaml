@@ -1,0 +1,5 @@
+model_name_or_path: /root/autodl-tmp/models/Qwen2.5-32B
+adapter_name_or_path: /root/autodl-tmp/saves/mimibot_qwen32b_v0.1
+template: qwen
+infer_backend: huggingface # choices: [huggingface, vllm]
+trust_remote_code: true

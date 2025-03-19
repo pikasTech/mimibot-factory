@@ -518,7 +518,7 @@ def parallel_download(file_list, num_workers=10, min_file_size=52428800, threads
     # 输出下载统计
     success_count = sum(1 for r in results if r['success'])
     print(f"下载完成: {success_count}/{len(results)} 个文件成功")
-    
+    gg
     # 返回失败的文件，便于后续重试
     failed_files = [r['file'] for r in results if not r['success']]
     if failed_files:

@@ -27,13 +27,16 @@ def parse_args():
     parser.add_argument(
         "--model_id", 
         type=str,
-        default="shenzhi-wang/Llama3.1-8B-Chinese-Chat",
+        # default="shenzhi-wang/Llama3.1-8B-Chinese-Chat",
+        # default="Qwen/Qwen2.5-32B",
+        default="Qwen/Qwen2.5-32B-Instruct",
         help="Model ID to download"
     )
     parser.add_argument(
         "--output_dir", 
         type=str,
-        default="./models",
+        # default="./models",
+        default="/root/autodl-tmp/models",
         help="Directory to save the downloaded model"
     )
     parser.add_argument(
@@ -67,7 +70,7 @@ def parse_args():
     parser.add_argument(
         "--num_workers", 
         type=int, 
-        default=1,
+        default=4,
         help="Number of parallel workers for downloading files"
     )
     parser.add_argument(
@@ -79,7 +82,7 @@ def parse_args():
     parser.add_argument(
         "--retry_delay", 
         type=int, 
-        default=5,
+        default=1,
         help="Delay in seconds between retries"
     )
     parser.add_argument(
@@ -91,7 +94,7 @@ def parse_args():
     parser.add_argument(
         "--chunk_size",
         type=int,
-        default=1024 * 1024 * 100,  # 10MB
+        default=1024 * 1024 * 200,  # 10MB
         help="Chunk size for multi-threaded file download in bytes"
     )
     parser.add_argument(
@@ -103,7 +106,7 @@ def parse_args():
     parser.add_argument(
         "--threads_per_file",
         type=int,
-        default=8,
+        default=4,
         help="Number of threads per file for multi-threaded download"
     )
     return parser.parse_args()
@@ -192,7 +195,7 @@ def get_file_size(url, timeout=30, max_retries=3, retry_delay=2):
     print(f"无法获取文件大小，所有方法均失败")
     return 0
 
-def download_chunk(url, local_path, start_byte, end_byte, chunk_id, max_retries=5, retry_delay=5, timeout=100):
+def download_chunk(url, local_path, start_byte, end_byte, chunk_id, max_retries=5, retry_delay=1, timeout=100):
     """下载文件的一个块"""
     temp_chunk_path = f"{local_path}.part{chunk_id}"
     headers = {'Range': f'bytes={start_byte}-{end_byte}'}
@@ -209,13 +212,13 @@ def download_chunk(url, local_path, start_byte, end_byte, chunk_id, max_retries=
             return True
     
     # 下载速度监控相关参数
-    min_speed_bytes = 100 * 1024  # 最低可接受速度 5KB/s
+    min_speed_bytes = 200 * 1024  # 最低可接受速度 5KB/s
     speed_check_interval = 5  # 每5秒检查一次速度
-    slow_speed_duration = 120  # 如果连续15秒速度过慢，则重试
+    slow_speed_duration = 30  # 如果连续15秒速度过慢，则重试
     
     for attempt in range(max_retries):
         # 随机等待一段时间，避免多个线程同时请求
-        time.sleep(retry_delay * (0.5 + 0.5 * attempt))
+        # time.sleep(retry_delay * (0.5 + 0.5 * attempt))
         try:
             if attempt > 0:
                 print(f"正在重试文件 {filename} 的分块 {chunk_id} ({attempt}/{max_retries})...")

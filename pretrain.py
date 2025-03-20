@@ -27,16 +27,16 @@ def parse_args():
     parser.add_argument(
         "--model_id", 
         type=str,
-        # default="shenzhi-wang/Llama3.1-8B-Chinese-Chat",
+        default="shenzhi-wang/Llama3.1-8B-Chinese-Chat",
         # default="Qwen/Qwen2.5-32B",
-        default="Qwen/Qwen2.5-32B-Instruct",
+        # default="Qwen/Qwen2.5-32B-Instruct",
         help="Model ID to download"
     )
     parser.add_argument(
         "--output_dir", 
         type=str,
-        # default="./models",
-        default="/root/autodl-tmp/models",
+        default="./models",
+        # default="/root/autodl-tmp/models",
         help="Directory to save the downloaded model"
     )
     parser.add_argument(
@@ -76,7 +76,7 @@ def parse_args():
     parser.add_argument(
         "--max_retries", 
         type=int, 
-        default=5,
+        default=99,
         help="Maximum number of retries for failed downloads"
     )
     parser.add_argument(
@@ -214,7 +214,7 @@ def download_chunk(url, local_path, start_byte, end_byte, chunk_id, max_retries=
     # 下载速度监控相关参数
     min_speed_bytes = 200 * 1024  # 最低可接受速度 5KB/s
     speed_check_interval = 5  # 每5秒检查一次速度
-    slow_speed_duration = 30  # 如果连续15秒速度过慢，则重试
+    slow_speed_duration = 60 # 如果连续15秒速度过慢，则重试
     
     for attempt in range(max_retries):
         # 随机等待一段时间，避免多个线程同时请求
@@ -521,7 +521,6 @@ def parallel_download(file_list, num_workers=10, min_file_size=52428800, threads
     # 输出下载统计
     success_count = sum(1 for r in results if r['success'])
     print(f"下载完成: {success_count}/{len(results)} 个文件成功")
-    gg
     # 返回失败的文件，便于后续重试
     failed_files = [r['file'] for r in results if not r['success']]
     if failed_files:

@@ -4,27 +4,30 @@ from trl import GRPOTrainer, GRPOConfig
 from transformers import AutoModelForCausalLM, AutoTokenizer
 from peft import LoraConfig, get_peft_model
 import os
+import json
+import argparse
+import re
 
 if __name__ == "__main__":
+    # 添加命令行参数解析
+    parser = argparse.ArgumentParser(description='GRPO训练脚本')
+    parser.add_argument('--dataset_type', type=str, default='alpaca', choices=['tldr', 'alpaca'], 
+                        help='数据集类型: tldr或alpaca')
+    parser.add_argument('--alpaca_path', type=str, default='data/alpaca_data_processed.json', 
+                        help='Alpaca数据集路径')
+    args = parser.parse_args()
+
     # 设置环境变量以避免内存碎片
     # os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
     SYSTEM_PROMPT = """
-    你是一个有感情的人类
-    <user>用户提问</user>
-    回复模板:
-    <think>
-    你的自主思考
-    </think>
-    你的回答...
-    
+    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 
     """
-
 
     # MODEL_PATH = "/root/autodl-fs/models/Tifa-DeepsexV2-7b-Cot-0317-F16"
     # MODEL_PATH = "Qwen/Qwen2-0.5B-Instruct"
     # MODEL_PATH = "/root/autodl-tmp/models/Qwen2-0.5B-Instruct"
-    MODEL_PATH = "/root/autodl-fs/models/Llama3.1-8B-Chinese-Chat"
-    # MODEL_PATH = "/root/autodl-fs/models/Tifa-DeepsexV2-7b-Cot-0317-F16"
+    # MODEL_PATH = "/root/autodl-fs/models/Llama3.1-8B-Chinese-Chat"
+    MODEL_PATH = "/root/autodl-fs/models/Tifa-DeepsexV2-7b-Cot-0317-F16"
 
     max_seq_length = 2048 # Can increase for longer reasoning traces
     lora_rank = 32 # Larger rank = smarter, but slower
@@ -39,9 +42,48 @@ if __name__ == "__main__":
         gpu_memory_utilization = 0.7, # Reduce if out of memory
     )
 
+    # 加载Alpaca格式数据集
+    def load_alpaca_dataset(file_path):
+        with open(file_path, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+        
+        processed_data = {
+            "prompt": [],
+            "completion": []
+        }
+        
+        for item in data:
+            # 处理历史对话
+            history_text = ""
+            if item["history"]:
+                for turn in item["history"]:
+                    if turn[0] and turn[1]:
+                        history_text += f"{turn[0]}\n{turn[1]}\n"
+                    elif turn[0]:
+                        history_text += f"{turn[0]}\n"
+            
+            # 构建提示
+            prompt = "【任务目标】\n你是mimi波特，回复最新消息，多使用颜文字，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n"
+            if history_text:
+                prompt += f"【历史消息】:\n{history_text}\n\n"
+            
+            prompt += "【最新消息】\n" + f"{item['input']}"
+            
+            # 提取输出
+            completion = item["output"]
+            
+            processed_data["prompt"].append(prompt)
+            processed_data["completion"].append(completion)
+        
+        return Dataset.from_dict(processed_data)
 
-    dataset = load_dataset("trl-lib/tldr", split="train")
-    # uncomment middle messages for 1-shot prompting
+    # 根据选择加载不同的数据集
+    if args.dataset_type == 'tldr':
+        dataset = load_dataset("trl-lib/tldr", split="train")
+    else:  # alpaca
+        dataset = load_alpaca_dataset(args.alpaca_path)
+
+    # 应用模板的函数，处理不同格式的数据
     def apply_template(x):
         message = [
             {"role": "system", "content": SYSTEM_PROMPT},
@@ -52,7 +94,6 @@ if __name__ == "__main__":
             tokenize=False,
             add_generation_prompt=True,
         )
-        # print(prompt)
         return {
             "prompt": prompt,
             "completion": x['completion'],
@@ -65,6 +106,8 @@ if __name__ == "__main__":
         return data # type: ignore
 
     dataset = get_promt_dataset(dataset=dataset)
+    # 打印一个 dataset 例子
+    print(dataset[0])
     
     model = FastLanguageModel.get_peft_model(
         model,
@@ -80,11 +123,9 @@ if __name__ == "__main__":
 
     # Dummy reward function: count the number of unique characters in the completions
     def reward_num_unique_chars(completions, **kwargs):
-        # return [-abs(100 - len(c)) for c in completions]
         # 奖励中文回答，惩罚英文回答
         rewared = []
         for c in completions:
-            # c = c.split("</think>")[-1]
             c = c.replace("<think>", "")
             c = c.replace("</think>", "")
             count_en = 0
@@ -114,6 +155,90 @@ if __name__ == "__main__":
             rewared.append(res * 100)
         return rewared
 
+    # 新增重复惩罚奖励函数
+    def reward_no_repetition(completions, prompts=None, **kwargs):
+        rewared = []
+        for i, completion in enumerate(completions):
+            # 获取输入提示和回复的纯文本版本（只保留中文、英文和数字）
+            prompt = prompts[i] if prompts else ""
+            print("Prompt:", prompt)
+            
+            # 提取用户的最后一条消息，可能在【最新消息】标记后
+            user_message = ""
+            if "【最新消息】" in prompt:
+                user_message = prompt.split("【最新消息】")[-1].strip()
+                print("User message:", user_message)
+            elif "<user>" in prompt:
+                user_message = prompt.split("<user>")[-1].split("</user>")[0].strip()
+                print("User message:", user_message)
+            
+            # 提取历史消息
+            history_messages = []
+            if "【历史消息】" in prompt:
+                history_section = prompt.split("【历史消息】:")[-1].split("\n\n")[0].strip()
+                history_messages = [msg.strip() for msg in history_section.split("\n") if msg.strip()]
+                print("History messages:", history_messages)
+            
+            # 处理completion，去除思考部分
+            response = completion
+            if "</think>" in response:
+                response = response.split("</think>")[-1].strip()
+            
+            print("Response:", response)
+            
+            # 转换为纯文本进行比较
+            def to_pure_text(text):
+                return re.sub(r'[^\u4e00-\u9fa5a-zA-Z0-9]', '', text).strip().lower()
+            
+            response_pure = to_pure_text(response)
+            user_message_pure = to_pure_text(user_message)
+            
+            # 计算惩罚分数
+            penalty = 0
+            
+            # 1. 检查是否与用户消息重复
+            if response_pure == user_message_pure or response_pure in user_message_pure:
+                penalty -= 100  # 严重惩罚完全重复
+            elif len(response_pure) > 10 and user_message_pure and user_message_pure in response_pure:
+                similarity = len(user_message_pure) / len(response_pure)
+                if similarity > 0.7:  # 如果重复部分占比大于70%
+                    penalty -= 80 * similarity
+            
+            # 2. 检查是否与历史消息重复
+            for history_msg in history_messages:
+                history_pure = to_pure_text(history_msg)
+                if len(history_pure) > 5 and response_pure == history_pure:
+                    penalty -= 100  # 严重惩罚完全重复历史
+                    break
+                elif len(history_pure) > 10 and len(response_pure) > 10 and (history_pure in response_pure or response_pure in history_pure):
+                    overlap = max(len(response_pure), len(history_pure)) / min(len(response_pure), len(history_pure))
+                    if overlap > 0.7:  # 如果重复部分占比大于70%
+                        penalty -= 60 * overlap
+                        break
+            
+            # 3. 检查是否包含"禁止重复"等提示词
+            if "禁止重复" in response or "不要重复" in response:
+                penalty -= 40
+            
+            # 4. 检查回复是否以问号结尾
+            if response.strip().endswith('?') or response.strip().endswith('？'):
+                penalty -= 30
+            
+            # 5. 检查是否包含"历史消息"字样
+            if "历史消息" in response:
+                penalty -= 50
+            
+            # 6. 检查"帽"出现的次数是否过多
+            if response.count("帽") >= 3:
+                penalty -= 30
+            
+            # 7. 确保回复中至少包含有效字符
+            if not re.search(r'[\u4e00-\u9fa5a-zA-Z0-9]', response):
+                penalty -= 100
+            
+            rewared.append(penalty)
+        
+        return rewared
 
     # 使用GRPOConfig而非TrainingArguments
     training_args = GRPOConfig(
@@ -138,7 +263,7 @@ if __name__ == "__main__":
 
     trainer = GRPOTrainer(
         model=model,
-        reward_funcs=[reward_num_unique_chars, reward_one_line],
+        reward_funcs=[reward_num_unique_chars, reward_one_line, reward_no_repetition],
         train_dataset=dataset,
         args=training_args
     )

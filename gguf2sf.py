@@ -15,11 +15,11 @@ def convert_gguf_to_hf(input_gguf: str, output_dir: str):
     """
     # 创建输出目录
     # 分离文件名和路径
-    if '/' in input_gguf:
-        file_name, path = os.path.split(input_gguf)
-    else:
-        file_name = input_gguf
-        path = './'
+    #if '/' in input_gguf:
+    #    file_name, path = os.path.split(input_gguf)
+    #else:
+    file_name = input_gguf
+    path = '.'
     output_path = Path(output_dir)
     output_path.mkdir(parents=True, exist_ok=True)
 

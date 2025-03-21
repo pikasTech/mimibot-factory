@@ -27,16 +27,17 @@ def parse_args():
     parser.add_argument(
         "--model_id", 
         type=str,
-        default="shenzhi-wang/Llama3.1-8B-Chinese-Chat",
+        # default="shenzhi-wang/Llama3.1-8B-Chinese-Chat",
         # default="Qwen/Qwen2.5-32B",
         # default="Qwen/Qwen2.5-32B-Instruct",
+        default="Qwen/Qwen2-0.5B-Instruct",
         help="Model ID to download"
     )
     parser.add_argument(
         "--output_dir", 
         type=str,
-        default="./models",
-        # default="/root/autodl-tmp/models",
+        # default="./models",
+        default="/root/autodl-tmp/models",
         help="Directory to save the downloaded model"
     )
     parser.add_argument(

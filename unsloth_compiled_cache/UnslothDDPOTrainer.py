@@ -1,8 +1,15 @@
+"""
+2025.3.15
+2025.3.17
+4.49.0
+0.15.2
+__UNSLOTH_VERSIONING__
+"""
 from torch import Tensor
 import torch
 import torch.nn as nn
 from torch.nn import functional as F
-from trl.trainer.ddpo_trainer import (Accelerator, Any, BaseTrainer, Callable, DDPOConfig, DDPOStableDiffusionPipeline, DDPOTrainer, MODEL_CARD_TEMPLATE, Optional, PerPromptStatTracker, ProjectConfiguration, Tuple, defaultdict, futures, logger, os, set_seed, torch, warn, warnings, whoami)
+from trl.trainer.ddpo_trainer import (Accelerator, Any, Callable, DDPOConfig, DDPOStableDiffusionPipeline, DDPOTrainer, Optional, PerPromptStatTracker, ProjectConfiguration, PyTorchModelHubMixin, Union, defaultdict, futures, generate_model_card, get_comet_experiment_url, is_wandb_available, logger, os, set_seed, textwrap, torch, warn)
 
 
 import os
@@ -13,6 +20,8 @@ import torch
 import numpy as np
 from contextlib import nullcontext
 from torch.nn import functional as F
+from transformers import DataCollatorForSeq2Seq, DataCollatorForLanguageModeling
+
 torch_compile_options = {
     "epilogue_fusion"   : True,
     "max_autotune"      : False,
@@ -34,7 +43,96 @@ def selective_log_softmax(logits, index):
 class UnslothDDPOConfig(DDPOConfig):
     """
     
-    Configuration class for DDPOTrainer
+    Configuration class for the [`DDPOTrainer`].
+
+    Using [`~transformers.HfArgumentParser`] we can turn this class into
+    [argparse](https://docs.python.org/3/library/argparse#module-argparse) arguments that can be specified on the
+    command line.
+
+    Parameters:
+        exp_name (`str`, *optional*, defaults to `os.path.basename(sys.argv[0])[: -len(".py")]`):
+            Name of this experiment (by default is the file name without the extension name).
+        run_name (`str`, *optional*, defaults to `""`):
+            Name of this run.
+        seed (`int`, *optional*, defaults to `0`):
+            Random seed.
+        log_with (`Literal["wandb", "tensorboard"]]` or `None`, *optional*, defaults to `None`):
+            Log with either 'wandb' or 'tensorboard', check
+            https://huggingface.co/docs/accelerate/usage_guides/tracking for more details.
+        tracker_kwargs (`Dict`, *optional*, defaults to `{}`):
+            Keyword arguments for the tracker (e.g. wandb_project).
+        accelerator_kwargs (`Dict`, *optional*, defaults to `{}`):
+            Keyword arguments for the accelerator.
+        project_kwargs (`Dict`, *optional*, defaults to `{}`):
+            Keyword arguments for the accelerator project config (e.g. `logging_dir`).
+        tracker_project_name (`str`, *optional*, defaults to `"trl"`):
+            Name of project to use for tracking.
+        logdir (`str`, *optional*, defaults to `"logs"`):
+            Top-level logging directory for checkpoint saving.
+        num_epochs (`int`, *optional*, defaults to `100`):
+            Number of epochs to train.
+        save_freq (`int`, *optional*, defaults to `1`):
+            Number of epochs between saving model checkpoints.
+        num_checkpoint_limit (`int`, *optional*, defaults to `5`):
+            Number of checkpoints to keep before overwriting old ones.
+        mixed_precision (`str`, *optional*, defaults to `"fp16"`):
+            Mixed precision training.
+        allow_tf32 (`bool`, *optional*, defaults to `True`):
+            Allow `tf32` on Ampere GPUs.
+        resume_from (`str`, *optional*, defaults to `""`):
+            Resume training from a checkpoint.
+        sample_num_steps (`int`, *optional*, defaults to `50`):
+            Number of sampler inference steps.
+        sample_eta (`float`, *optional*, defaults to `1.0`):
+            Eta parameter for the DDIM sampler.
+        sample_guidance_scale (`float`, *optional*, defaults to `5.0`):
+            Classifier-free guidance weight.
+        sample_batch_size (`int`, *optional*, defaults to `1`):
+            Batch size (per GPU) to use for sampling.
+        sample_num_batches_per_epoch (`int`, *optional*, defaults to `2`):
+            Number of batches to sample per epoch.
+        train_batch_size (`int`, *optional*, defaults to `1`):
+            Batch size (per GPU) to use for training.
+        train_use_8bit_adam (`bool`, *optional*, defaults to `False`):
+            Use 8bit Adam optimizer from bitsandbytes.
+        train_learning_rate (`float`, *optional*, defaults to `3e-4`):
+            Learning rate.
+        train_adam_beta1 (`float`, *optional*, defaults to `0.9`):
+            Adam beta1.
+        train_adam_beta2 (`float`, *optional*, defaults to `0.999`):
+            Adam beta2.
+        train_adam_weight_decay (`float`, *optional*, defaults to `1e-4`):
+            Adam weight decay.
+        train_adam_epsilon (`float`, *optional*, defaults to `1e-8`):
+            Adam epsilon.
+        train_gradient_accumulation_steps (`int`, *optional*, defaults to `1`):
+            Number of gradient accumulation steps.
+        train_max_grad_norm (`float`, *optional*, defaults to `1.0`):
+            Maximum gradient norm for gradient clipping.
+        train_num_inner_epochs (`int`, *optional*, defaults to `1`):
+            Number of inner epochs per outer epoch.
+        train_cfg (`bool`, *optional*, defaults to `True`):
+            Whether to use classifier-free guidance during training.
+        train_adv_clip_max (`float`, *optional*, defaults to `5.0`):
+            Clip advantages to the range.
+        train_clip_range (`float`, *optional*, defaults to `1e-4`):
+            PPO clip range.
+        train_timestep_fraction (`float`, *optional*, defaults to `1.0`):
+            Fraction of timesteps to train on.
+        per_prompt_stat_tracking (`bool`, *optional*, defaults to `False`):
+            Whether to track statistics for each prompt separately.
+        per_prompt_stat_tracking_buffer_size (`int`, *optional*, defaults to `16`):
+            Number of reward values to store in the buffer for each prompt.
+        per_prompt_stat_tracking_min_count (`int`, *optional*, defaults to `16`):
+            Minimum number of reward values to store in the buffer.
+        async_reward_computation (`bool`, *optional*, defaults to `False`):
+            Whether to compute rewards asynchronously.
+        max_workers (`int`, *optional*, defaults to `2`):
+            Maximum number of workers to use for async reward computation.
+        negative_prompts (`str`, *optional*, defaults to `""`):
+            Comma-separated list of prompts to use as negative examples.
+        push_to_hub (`bool`, *optional*, defaults to `False`):
+            Whether to push the final model checkpoint to the Hub.
     
     """
     vllm_sampling_params: Optional[Any] = field(
@@ -47,7 +145,7 @@ class UnslothDDPOConfig(DDPOConfig):
     )
     def __init__(
         self,
-        exp_name = 'llamafactory-',
+        exp_name = 'grpo',
         run_name = '',
         seed = 3407,
         log_with = None,
@@ -75,7 +173,7 @@ class UnslothDDPOConfig(DDPOConfig):
         train_max_grad_norm = 1.0,
         train_num_inner_epochs = 1,
         train_cfg = True,
-        train_adv_clip_max = 5,
+        train_adv_clip_max = 5.0,
         train_clip_range = 0.0001,
         train_timestep_fraction = 1.0,
         per_prompt_stat_tracking = False,
@@ -84,6 +182,7 @@ class UnslothDDPOConfig(DDPOConfig):
         async_reward_computation = False,
         max_workers = 2,
         negative_prompts = '',
+        push_to_hub = False,
         vllm_sampling_params = None,
         unsloth_num_chunks = -1,
         **kwargs,
@@ -126,12 +225,13 @@ class UnslothDDPOConfig(DDPOConfig):
             per_prompt_stat_tracking_min_count = per_prompt_stat_tracking_min_count,
             async_reward_computation = async_reward_computation,
             max_workers = max_workers,
-            negative_prompts = negative_prompts,**kwargs)
+            negative_prompts = negative_prompts,
+            push_to_hub = push_to_hub,**kwargs)
         self.vllm_sampling_params = vllm_sampling_params
         self.unsloth_num_chunks = unsloth_num_chunks
 pass
 
-class _UnslothDDPOTrainer(BaseTrainer):
+class _UnslothDDPOTrainer(PyTorchModelHubMixin):
     """"""
 
     _tag_names = ["trl", "ddpo"]
@@ -139,8 +239,8 @@ class _UnslothDDPOTrainer(BaseTrainer):
     def __init__(
         self,
         config: DDPOConfig,
-        reward_function: Callable[[torch.Tensor, Tuple[str], Tuple[Any]], torch.Tensor],
-        prompt_function: Callable[[], Tuple[str, Any]],
+        reward_function: Callable[[torch.Tensor, tuple[str], tuple[Any]], torch.Tensor],
+        prompt_function: Callable[[], tuple[str, Any]],
         sd_pipeline: DDPOStableDiffusionPipeline,
         image_samples_hook: Optional[Callable[[Any, Any, Any], Any]] = None,
     ):
@@ -519,7 +619,7 @@ class _UnslothDDPOTrainer(BaseTrainer):
             batch_size (int): Batch size to use for sampling
 
         Returns:
-            samples (List[Dict[str, torch.Tensor]]), prompt_image_pairs (List[List[Any]])
+            samples (list[dict[str, torch.Tensor]]), prompt_image_pairs (list[list[Any]])
         """
         samples = []
         prompt_image_pairs = []
@@ -580,7 +680,7 @@ class _UnslothDDPOTrainer(BaseTrainer):
             inner_epoch (int): The current inner epoch
             epoch (int): The current epoch
             global_step (int): The current global step
-            batched_samples (List[Dict[str, torch.Tensor]]): The batched samples to train on
+            batched_samples (list[dict[str, torch.Tensor]]): The batched samples to train on
 
         Side Effects:
             - Model weights are updated
@@ -633,7 +733,7 @@ class _UnslothDDPOTrainer(BaseTrainer):
                     info = defaultdict(list)
         return global_step
 
-    def _config_check(self) -> Tuple[bool, str]:
+    def _config_check(self) -> tuple[bool, str]:
         samples_per_epoch = (
             self.config.sample_batch_size * self.accelerator.num_processes * self.config.sample_num_batches_per_epoch
         )
@@ -670,30 +770,67 @@ class _UnslothDDPOTrainer(BaseTrainer):
         for epoch in range(self.first_epoch, epochs):
             global_step = self.step(epoch, global_step)
 
-    def create_model_card(self, path: str, model_name: Optional[str] = "TRL DDPO Model") -> None:
-        """Creates and saves a model card for a TRL model.
-
-        Args:
-            path (`str`): The path to save the model card to.
-            model_name (`str`, *optional*): The name of the model, defaults to `TRL DDPO Model`.
-        """
-        try:
-            user = whoami()["name"]
-        # handle the offline case
-        except Exception:
-            warnings.warn("Cannot retrieve user information assuming you are running in offline mode.")
-            return
-
-        if not os.path.exists(path):
-            os.makedirs(path)
-
-        model_card_content = MODEL_CARD_TEMPLATE.format(model_name=model_name, model_id=f"{user}/{path}")
-        with open(os.path.join(path, "README.md"), "w", encoding="utf-8") as f:
-            f.write(model_card_content)
-
     def _save_pretrained(self, save_directory):
         self.sd_pipeline.save_pretrained(save_directory)
-        self.create_model_card(save_directory)
+        self.create_model_card()
+
+    def create_model_card(
+        self,
+        model_name: Optional[str] = None,
+        dataset_name: Optional[str] = None,
+        tags: Union[str, list[str], None] = None,
+    ):
+        """
+        Creates a draft of a model card using the information available to the `Trainer`.
+
+        Args:
+            model_name (`str` or `None`, *optional*, defaults to `None`):
+                Name of the model.
+            dataset_name (`str` or `None`, *optional*, defaults to `None`):
+                Name of the dataset used for training.
+            tags (`str`, `list[str]` or `None`, *optional*, defaults to `None`):
+                Tags to be associated with the model card.
+        """
+        if not self.is_world_process_zero():
+            return
+
+        if hasattr(self.model.config, "_name_or_path") and not os.path.isdir(self.model.config._name_or_path):
+            base_model = self.model.config._name_or_path
+        else:
+            base_model = None
+
+        tags = tags or []
+        if isinstance(tags, str):
+            tags = [tags]
+
+        if hasattr(self.model.config, "unsloth_version"):
+            tags.append("unsloth")
+
+        citation = textwrap.dedent("""\
+        @inproceedings{black2024training,
+            title        = {{Training Diffusion Models with Reinforcement Learning}},
+            author       = {Kevin Black and Michael Janner and Yilun Du and Ilya Kostrikov and Sergey Levine},
+            year         = 2024,
+            booktitle    = {The Twelfth International Conference on Learning Representations, {ICLR} 2024, Vienna, Austria, May 7-11, 2024},
+            publisher    = {OpenReview.net},
+            url          = {https://openreview.net/forum?id=YCWjhGrJFD},
+        }""")
+
+        model_card = generate_model_card(
+            base_model=base_model,
+            model_name=model_name,
+            hub_model_id=self.hub_model_id,
+            dataset_name=dataset_name,
+            tags=tags,
+            wandb_url=wandb.run.get_url() if is_wandb_available() and wandb.run is not None else None,
+            comet_url=get_comet_experiment_url(),
+            trainer_name="DDPO",
+            trainer_citation=citation,
+            paper_title="Training Diffusion Models with Reinforcement Learning",
+            paper_id="2305.13301",
+        )
+
+        model_card.save(os.path.join(self.args.output_dir, "README.md"))
 class UnslothDDPOTrainer(_UnslothDDPOTrainer):
     """
     
@@ -704,8 +841,8 @@ class UnslothDDPOTrainer(_UnslothDDPOTrainer):
     Attributes:
         **config** (`DDPOConfig`) -- Configuration object for DDPOTrainer. Check the documentation of `PPOConfig` for more
          details.
-        **reward_function** (Callable[[torch.Tensor, Tuple[str], Tuple[Any]], torch.Tensor]) -- Reward function to be used
-        **prompt_function** (Callable[[], Tuple[str, Any]]) -- Function to generate prompts to guide model
+        **reward_function** (Callable[[torch.Tensor, tuple[str], tuple[Any]], torch.Tensor]) -- Reward function to be used
+        **prompt_function** (Callable[[], tuple[str, Any]]) -- Function to generate prompts to guide model
         **sd_pipeline** (`DDPOStableDiffusionPipeline`) -- Stable Diffusion pipeline to be used for training.
         **image_samples_hook** (Optional[Callable[[Any, Any, Any], Any]]) -- Hook to be called to log images
     

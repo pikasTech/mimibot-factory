@@ -1,8 +1,15 @@
+"""
+2025.3.15
+2025.3.17
+4.49.0
+0.15.2
+__UNSLOTH_VERSIONING__
+"""
 from torch import Tensor
 import torch
 import torch.nn as nn
 from torch.nn import functional as F
-from trl.trainer.sft_trainer import (AutoModelForCausalLM, AutoTokenizer, Callable, ConstantLengthDataset, DataCollator, DataCollatorForCompletionOnlyLM, DataCollatorForLanguageModeling, Dataset, DatasetGenerationError, Dict, EvalPrediction, List, Optional, PartialState, PeftConfig, PeftModel, PreTrainedModel, PreTrainedTokenizerBase, RichProgressCallback, SFTConfig, SFTTrainer, SchemaInferenceError, Trainer, TrainerCallback, Tuple, Union, _deprecate_arguments, dataclasses, datasets, get_formatting_func_from_dataset, get_peft_model, inspect, is_peft_available, neftune_post_forward_hook, nn, peft_module_casting_to_bf16, prepare_model_for_kbit_training, torch, trl_sanitze_kwargs_for_tagging, unwrap_model, warnings, wraps)
+from trl.trainer.sft_trainer import (Any, AutoModelForCausalLM, AutoTokenizer, BaseImageProcessor, Callable, ConstantLengthDataset, DataCollator, DataCollatorForLanguageModeling, Dataset, EvalPrediction, FeatureExtractionMixin, IterableDataset, Optional, PeftConfig, PeftModel, PreTrainedModel, PreTrainedTokenizerBase, ProcessorMixin, SFTConfig, SFTTrainer, Trainer, TrainerCallback, TrainingArguments, Type, Union, dataclasses, defaultdict, deprecate_kwarg, generate_model_card, get_comet_experiment_url, get_peft_model, is_liger_kernel_available, is_peft_available, is_wandb_available, nn, os, pack_examples, peft, peft_module_casting_to_bf16, prepare_model_for_kbit_training, torch, transformers, version, warnings, Callable, ConstantLengthDataset, DataCollator, DataCollatorForLanguageModeling, Dataset, IterableDataset, Optional, Union, os, pack_examples, transformers, os)
 
 
 import os
@@ -13,6 +20,8 @@ import torch
 import numpy as np
 from contextlib import nullcontext
 from torch.nn import functional as F
+from transformers import DataCollatorForSeq2Seq, DataCollatorForLanguageModeling
+
 torch_compile_options = {
     "epilogue_fusion"   : True,
     "max_autotune"      : False,
@@ -34,37 +43,48 @@ def selective_log_softmax(logits, index):
 class UnslothSFTConfig(SFTConfig):
     """
     
-    Initialize SFTConfig.
+    Configuration class for the [`SFTTrainer`].
 
-    Args:
-        dataset_text_field (`Optional[str]`):
-            The name of the text field of the dataset, in case this is passed by a user, the trainer will automatically create a
-            `ConstantLengthDataset` based on the `dataset_text_field` argument. Defaults to None.
-        packing (`Optional[bool]`):
-            Used only in case `dataset_text_field` is passed. This argument is used by the `ConstantLengthDataset` to pack the sequences
-            of the dataset. Defaults to False.
-        max_seq_length (`Optional[int]`):
-            The maximum sequence length to use for the `ConstantLengthDataset` and for automatically creating the Dataset. Defaults to min of the smaller of the `tokenizer.model_max_length` and `1024`.
-        dataset_num_proc (`Optional[int]`):
-            The number of workers to use to tokenize the data. Only used when `packing=False`. Defaults to None.
-        dataset_batch_size (`int`):
-            The number of examples to tokenize per batch. If batch_size <= 0 or batch_size == None,
-            tokenize the full dataset as a single batch. Defaults to 1000.
-        neftune_noise_alpha (`Optional[float]`):
-            If not `None`, this will activate NEFTune noise embeddings. This has been proven to drastically improve model performances for instruction
-            fine-tuning. Check out the original paper here: https://arxiv.org/abs/2310.05914 and the original code here: https://github.com/neelsjain/NEFTune
-        model_init_kwargs: (`Optional[Dict]`, *optional*):
-            Dict of Optional kwargs to pass when instantiating the model from a string.
-        dataset_kwargs: (`Optional[Dict]`, *optional*):
-            Dict of Optional kwargs to pass when creating packed or non-packed datasets
-        eval_packing: (`Optional[bool]`, *optional*):
-            Whether to pack the eval dataset as well. Defaults to `packing` if `None` is passed.
-        num_of_sequences (`Optional[int]`):
-            The number of sequences to use for the `ConstantLengthDataset`. Defaults to `1024`.
-        chars_per_token (`Optional[float]`):
-            The number of characters per token to use for the `ConstantLengthDataset`. Defaults to `3.6`. You can check how this is computed in the
-            stack-llama example:
-            [chars_token_ratio](https://github.com/huggingface/trl/blob/08f550674c553c36c51d1027613c29f14f3676a5/examples/stack_llama/scripts/supervised_finetuning.py#L53).
+    Only the parameters specific to SFT training are listed here. For details on other parameters, refer to the
+    [`~transformers.TrainingArguments`] documentation.
+
+    Using [`~transformers.HfArgumentParser`] we can turn this class into
+    [argparse](https://docs.python.org/3/library/argparse#module-argparse) arguments that can be specified on the
+    command line.
+
+    Parameters:
+        > Parameters that control the model
+
+        model_init_kwargs (`dict[str, Any]` or `None`, *optional*, defaults to `None`):
+            Keyword arguments for [`~transformers.AutoModelForCausalLM.from_pretrained`], used when the `model`
+            argument of the [`SFTTrainer`] is provided as a string.
+        use_liger (`bool`, *optional*, defaults to `False`):
+            Monkey patch the model with Liger kernels to increase throughput and reduce memory usage.
+
+        > Parameters that control the data preprocessing
+
+        dataset_text_field (`str`, *optional*, defaults to `"text"`):
+            Name of the column that contains text data in the dataset.
+        dataset_kwargs (`dict[str, Any]` or `None`, *optional*, defaults to `None`):
+            Dictionary of optional keyword arguments for the dataset preparation. The only supported key is
+            `skip_prepare_dataset`.
+        dataset_num_proc (`int` or `None`, *optional*, defaults to `None`):
+            Number of processes to use for processing the dataset.
+        max_seq_length (`int` or `None`, *optional*, defaults to `1024`):
+            Maximum length of the tokenized sequence. Sequences longer than `max_seq_length` are truncated from the
+            right.
+            If `None`, no truncation is applied. When packing is enabled, this value sets the sequence length.
+        packing (`bool`, *optional*, defaults to `False`):
+            Whether to pack multiple sequences into a fixed-length format. Uses `max_seq_length` to define sequence
+            length.
+        eval_packing (`bool` or `None`, *optional*, defaults to `None`):
+            Whether to pack the eval dataset. If `None`, uses the same value as `packing`.
+
+        > Parameters that control the training
+
+        learning_rate (`float`, *optional*, defaults to `2e-5`):
+            Initial learning rate for [`AdamW`] optimizer. The default value replaces that of
+            [`~transformers.TrainingArguments`].
     
     """
     vllm_sampling_params: Optional[Any] = field(
@@ -175,7 +195,7 @@ class UnslothSFTConfig(SFTConfig):
         hub_model_id = None,
         hub_strategy = 'every_save',
         hub_token = None,
-        hub_private_repo = False,
+        hub_private_repo = None,
         hub_always_push = False,
         gradient_checkpointing = False,
         gradient_checkpointing_kwargs = None,
@@ -205,16 +225,18 @@ class UnslothSFTConfig(SFTConfig):
         eval_on_start = False,
         use_liger_kernel = False,
         eval_use_gather_object = False,
-        dataset_text_field = None,
-        packing = False,
-        max_seq_length = None,
-        dataset_num_proc = None,
-        dataset_batch_size = 1000,
+        average_tokens_across_devices = False,
         model_init_kwargs = None,
+        use_liger = False,
+        dataset_text_field = 'text',
         dataset_kwargs = None,
+        dataset_num_proc = None,
+        max_seq_length = None,
+        packing = False,
         eval_packing = None,
-        num_of_sequences = 1024,
-        chars_per_token = 3.6,
+        dataset_batch_size = None,
+        num_of_sequences = None,
+        chars_per_token = None,
         vllm_sampling_params = None,
         unsloth_num_chunks = -1,
         **kwargs,
@@ -357,14 +379,16 @@ class UnslothSFTConfig(SFTConfig):
             eval_on_start = eval_on_start,
             use_liger_kernel = use_liger_kernel,
             eval_use_gather_object = eval_use_gather_object,
-            dataset_text_field = dataset_text_field,
-            packing = packing,
-            max_seq_length = max_seq_length,
-            dataset_num_proc = dataset_num_proc,
-            dataset_batch_size = dataset_batch_size,
+            average_tokens_across_devices = average_tokens_across_devices,
             model_init_kwargs = model_init_kwargs,
+            use_liger = use_liger,
+            dataset_text_field = dataset_text_field,
             dataset_kwargs = dataset_kwargs,
+            dataset_num_proc = dataset_num_proc,
+            max_seq_length = max_seq_length,
+            packing = packing,
             eval_packing = eval_packing,
+            dataset_batch_size = dataset_batch_size,
             num_of_sequences = num_of_sequences,
             chars_per_token = chars_per_token,**kwargs)
         self.vllm_sampling_params = vllm_sampling_params
@@ -372,653 +396,535 @@ class UnslothSFTConfig(SFTConfig):
 pass
 
 class _UnslothSFTTrainer(Trainer):
-    r""""""
+    """"""
 
     _tag_names = ["trl", "sft"]
 
-    @_deprecate_arguments(
-        version="1.0.0",
-        deprecated_args=[
-            "dataset_text_field",
-            "packing",
-            "max_seq_length",
-            "dataset_num_proc",
-            "dataset_batch_size",
-            "neftune_noise_alpha",
-            "model_init_kwargs",
-            "dataset_kwargs",
-            "eval_packing",
-            "num_of_sequences",
-            "chars_per_token",
-        ],
-        custom_message="Deprecated positional argument(s) used in SFTTrainer, please use the SFTConfig to set these arguments instead.",
+    @deprecate_kwarg(
+        "tokenizer", "0.16.0", "processing_class", warn_if_greater_or_equal_version=True, raise_if_both_names=True
     )
     def __init__(
         self,
-        model: Optional[Union[PreTrainedModel, nn.Module, str]] = None,
-        args: Optional[SFTConfig] = None,
+        model: Union[str, nn.Module, PreTrainedModel],
+        args: Optional[Union[SFTConfig, TrainingArguments]] = None,
         data_collator: Optional[DataCollator] = None,  # type: ignore
-        train_dataset: Optional[Dataset] = None,
-        eval_dataset: Optional[Union[Dataset, Dict[str, Dataset]]] = None,
-        tokenizer: Optional[PreTrainedTokenizerBase] = None,
-        model_init: Optional[Callable[[], PreTrainedModel]] = None,
-        compute_metrics: Optional[Callable[[EvalPrediction], Dict]] = None,
-        callbacks: Optional[List[TrainerCallback]] = None,
-        optimizers: Tuple[torch.optim.Optimizer, torch.optim.lr_scheduler.LambdaLR] = (None, None),
+        train_dataset: Optional[Union[Dataset, IterableDataset]] = None,
+        eval_dataset: Optional[Union[Dataset, dict[str, Dataset]]] = None,
+        processing_class: Optional[
+            Union[PreTrainedTokenizerBase, BaseImageProcessor, FeatureExtractionMixin, ProcessorMixin]
+        ] = None,
+        compute_loss_func: Optional[Callable] = None,
+        compute_metrics: Optional[Callable[[EvalPrediction], dict]] = None,
+        callbacks: Optional[list[TrainerCallback]] = None,
+        optimizers: tuple[Optional[torch.optim.Optimizer], Optional[torch.optim.lr_scheduler.LambdaLR]] = (None, None),
+        optimizer_cls_and_kwargs: Optional[tuple[Type[torch.optim.Optimizer], dict[str, Any]]] = None,
         preprocess_logits_for_metrics: Optional[Callable[[torch.Tensor, torch.Tensor], torch.Tensor]] = None,
         peft_config: Optional["PeftConfig"] = None,
-        dataset_text_field: Optional[str] = None,
-        packing: Optional[bool] = False,
-        formatting_func: Optional[Callable] = None,
-        max_seq_length: Optional[int] = None,
-        infinite: Optional[bool] = None,
-        num_of_sequences: Optional[int] = 1024,
-        chars_per_token: Optional[float] = 3.6,
-        dataset_num_proc: Optional[int] = None,
-        dataset_batch_size: int = 1000,
-        neftune_noise_alpha: Optional[float] = None,
-        model_init_kwargs: Optional[Dict] = None,
-        dataset_kwargs: Optional[Dict] = None,
-        eval_packing: Optional[bool] = None,
+        formatting_func: Optional[Union[Callable[[dict], str], Callable[[dict], list[str]]]] = None,
     ):
+        # Args
         if args is None:
-            output_dir = "tmp_trainer"
-            warnings.warn(f"No `SFTConfig` passed, using `output_dir={output_dir}`.")
-            args = SFTConfig(output_dir=output_dir)
-        elif args is not None and args.__class__.__name__ == "TrainingArguments":
-            args_as_dict = args.to_dict()
-            # Manually copy token values as TrainingArguments.to_dict() redacts them
-            args_as_dict.update({k: getattr(args, k) for k in args_as_dict.keys() if k.endswith("_token")})
-            args = SFTConfig(**args_as_dict)
+            model_name = model if isinstance(model, str) else model.config._name_or_path
+            model_name = model_name.split("/")[-1]
+            args = SFTConfig(f"{model_name}-SFT")
+        elif isinstance(args, TrainingArguments) and not isinstance(args, SFTConfig):
+            dict_args = args.to_dict()
+            dict_args["hub_token"] = args.hub_token  # to_dict hides the hub_token
+            dict_args.pop("push_to_hub_token")
+            args = SFTConfig(**dict_args)
 
-        if model_init_kwargs is not None:
+        # Model
+        if args.model_init_kwargs is not None and not isinstance(model, str):
             warnings.warn(
-                "You passed `model_init_kwargs` to the SFTTrainer, the value you passed will override the one in the `SFTConfig`."
+                "You passed model_init_kwargs to the `SFTConfig`, but your model is already instantiated. "
+                "The `model_init_kwargs` will be ignored."
             )
-            args.model_init_kwargs = model_init_kwargs
-        if getattr(args, "model_init_kwargs", None) is None:
-            model_init_kwargs = {}
-        elif not isinstance(model, str):
-            raise ValueError("You passed model_init_kwargs to the SFTConfig, but your model is already instantiated.")
-        else:
-            model_init_kwargs = args.model_init_kwargs
-
-            torch_dtype = model_init_kwargs["torch_dtype"]
-            if torch_dtype is not None:
-                # Convert to `torch.dtype` if an str is passed
-                if isinstance(torch_dtype, str) and torch_dtype != "auto":
-                    torch_dtype = getattr(torch, torch_dtype)
-
-                if torch_dtype != "auto" and not isinstance(torch_dtype, torch.dtype):
-                    raise ValueError(
-                        f"Invalid `torch_dtype` passed to the SFTConfig. Expected a string with either `torch.dtype` or 'auto', but got {torch_dtype}."
-                    )
-
-            model_init_kwargs["torch_dtype"] = torch_dtype
-
-        if infinite is not None:
-            warnings.warn(
-                "The `infinite` argument is deprecated and will be removed in a future version of TRL. Use `TrainingArguments.max_steps` or `TrainingArguments.num_train_epochs` instead to control training length."
-            )
-
         if isinstance(model, str):
-            warnings.warn(
-                "You passed a model_id to the SFTTrainer. This will automatically create an "
-                "`AutoModelForCausalLM` or a `PeftModel` (if you passed a `peft_config`) for you."
+            model = self._create_model_from_path(model, args)
+
+        # PEFT configuration and model wrapping
+        if False:
+            model = self._prepare_peft_model(model, peft_config, args)
+
+        # Handle the tokenizer
+        if processing_class is None:
+            processing_class = AutoTokenizer.from_pretrained(model.config._name_or_path)
+            if processing_class.pad_token is None:
+                processing_class.pad_token = processing_class.eos_token  # required for padding when collating data
+
+        # Dataset
+        preprocess_dataset = args.dataset_kwargs is None or not args.dataset_kwargs.get("skip_prepare_dataset", False)
+        if preprocess_dataset:
+            train_dataset = self._prepare_dataset(
+                train_dataset, processing_class, args, args.packing, formatting_func, "train"
             )
-            model = AutoModelForCausalLM.from_pretrained(model, **model_init_kwargs)
-
-        if packing:
-            warnings.warn(
-                "You passed a `packing` argument to the SFTTrainer, the value you passed will override the one in the `SFTConfig`."
-            )
-            args.packing = packing
-        if eval_packing is not None:
-            warnings.warn(
-                "You passed a `eval_packing` argument to the SFTTrainer, the value you passed will override the one in the `SFTConfig`."
-            )
-            args.eval_packing = eval_packing
-
-        if args.packing and data_collator is not None and isinstance(data_collator, DataCollatorForCompletionOnlyLM):
-            raise ValueError(
-                "You passed a `DataCollatorForCompletionOnlyLM` to the SFTTrainer. This is not compatible with the `packing` argument."
-            )
-
-        if is_peft_available() and peft_config is not None:
-            if not isinstance(peft_config, PeftConfig):
-                raise ValueError(
-                    "If you want to use the PeftModel, you need to pass a PeftConfig object to the SFTTrainer."
-                    f" and you passed a {type(peft_config)}."
-                )
-
-            if not isinstance(model, PeftModel):
-                _support_gc_kwargs = hasattr(
-                    args, "gradient_checkpointing_kwargs"
-                ) and "gradient_checkpointing_kwargs" in list(
-                    inspect.signature(prepare_model_for_kbit_training).parameters
-                )
-                gradient_checkpointing_kwargs = getattr(args, "gradient_checkpointing_kwargs", None) or {}
-                is_sharded_qlora = False
-                # Below is to support QLoRA + FSDP / DS-Zero3 - one should never call
-                # peft_module_casting_to_bf16 or prepare_model_for_kbit_training when doing
-                # QLoRA + FSDP / DS-Zero3
-                if getattr(model, "is_loaded_in_4bit", False):
-                    for _, param in model.named_parameters():
-                        if param.__class__.__name__ == "Params4bit":
-                            is_sharded_qlora = param.data.device.type == "cpu"
-                            break
-                if getattr(model, "is_loaded_in_8bit", False) or (
-                    getattr(model, "is_loaded_in_4bit", False) and not is_sharded_qlora
-                ):
-                    prepare_model_kwargs = {
-                        "use_gradient_checkpointing": getattr(args, "gradient_checkpointing", False)
-                    }
-
-                    if _support_gc_kwargs:
-                        prepare_model_kwargs["gradient_checkpointing_kwargs"] = gradient_checkpointing_kwargs
-
-                    model = prepare_model_for_kbit_training(model, **prepare_model_kwargs)
-
-                    if args is not None:
-                        args = dataclasses.replace(args, gradient_checkpointing=False)
-                elif getattr(args, "gradient_checkpointing", False) and (
-                    "use_reentrant" not in gradient_checkpointing_kwargs
-                    or gradient_checkpointing_kwargs["use_reentrant"]
-                ):
-                    # For backward compatibility with older versions of transformers
-                    if hasattr(model, "enable_input_require_grads"):
-                        model.enable_input_require_grads()
-                    else:
-
-                        def make_inputs_require_grad(module, input, output):
-                            output.requires_grad_(True)
-
-                        model.get_input_embeddings().register_forward_hook(make_inputs_require_grad)
-
-                if (
-                    "autocast_adapter_dtype" in list(inspect.signature(get_peft_model).parameters)
-                    and getattr(model, "is_loaded_in_4bit", False)
-                    and is_sharded_qlora
-                ):
-                    model = get_peft_model(model, peft_config, autocast_adapter_dtype=False)
-                else:
-                    model = model
-                if (
-                    args is not None
-                    and args.bf16
-                    and getattr(model, "is_loaded_in_4bit", False)
-                    and not is_sharded_qlora
-                ):
-                    peft_module_casting_to_bf16(model)
-
-        if tokenizer is None:
-            tokenizer = AutoTokenizer.from_pretrained(model.config._name_or_path)
-            if getattr(tokenizer, "pad_token", None) is None:
-                tokenizer.pad_token = tokenizer.eos_token
-
-        if max_seq_length is not None:
-            warnings.warn(
-                "You passed a `max_seq_length` argument to the SFTTrainer, the value you passed will override the one in the `SFTConfig`."
-            )
-            args.max_seq_length = max_seq_length
-
-        if args.max_seq_length is None:
-            # to overcome some issues with broken tokenizers
-            max_seq_length = min(tokenizer.model_max_length, 1024)
-
-            warnings.warn(
-                f"You didn't pass a `max_seq_length` argument to the SFTTrainer, this will default to {max_seq_length}"
-            )
-
-        if dataset_num_proc is not None:
-            warnings.warn(
-                "You passed a `dataset_num_proc` argument to the SFTTrainer, the value you passed will override the one in the `SFTConfig`."
-            )
-            args.dataset_num_proc = dataset_num_proc
-        self.dataset_num_proc = args.dataset_num_proc
-
-        if dataset_batch_size != args.dataset_batch_size:
-            warnings.warn(
-                "You passed a `dataset_batch_size` argument to the SFTTrainer, the value you passed will override the one in the `SFTConfig`."
-            )
-            args.dataset_batch_size = dataset_batch_size
-        self.dataset_batch_size = args.dataset_batch_size
-
-        self._trainer_supports_neftune = hasattr(args, "neftune_noise_alpha")
-        if neftune_noise_alpha is not None and self._trainer_supports_neftune:
-            args.neftune_noise_alpha = neftune_noise_alpha
-            warnings.warn(
-                "You passed a `neftune_noise_alpha` argument to the SFTTrainer, the value you passed will override the one in the `SFTConfig`."
-            )
-            # self.neftune_noise_alpha is done at Trainer level
-        elif not self._trainer_supports_neftune:
-            self.neftune_noise_alpha = neftune_noise_alpha
-
-        if dataset_text_field is not None:
-            warnings.warn(
-                "You passed a `dataset_text_field` argument to the SFTTrainer, the value you passed will override the one in the `SFTConfig`."
-            )
-            args.dataset_text_field = dataset_text_field
-
-        if formatting_func is None and args.dataset_text_field is None:
-            # check if dataset has ChatML format or instruction format and is supported
-            # if not stays #None
-            formatting_func = get_formatting_func_from_dataset(train_dataset, tokenizer)
-            # if a template is detected, we don't need to add special tokens again
-            if formatting_func is not None:
-                if dataset_kwargs is None:
-                    dataset_kwargs = {"add_special_tokens": False}
-                else:
-                    dataset_kwargs["add_special_tokens"] = False
-
-        if not args.packing:
-            # If we aren't skipping data preparation, then a dataset_text_field
-            # or formatting_func must be provided.
-            if (
-                args.dataset_text_field is None
-                and formatting_func is None
-                and dataset_kwargs is not None
-                and "skip_prepare_dataset" in dataset_kwargs
-                and dataset_kwargs["skip_prepare_dataset"]
-            ):
-                raise ValueError(
-                    "You passed `packing=False` to the SFTTrainer/SFTConfig, but you didn't pass a `dataset_text_field` or `formatting_func` argument."
-                )
-
-            if data_collator is None:
-                data_collator = DataCollatorForLanguageModeling(tokenizer=tokenizer, mlm=False)
-
-        if num_of_sequences != args.num_of_sequences:
-            warnings.warn(
-                "You passed a `num_of_sequences` argument to the SFTTrainer, the value you passed will override the one in the `SFTConfig`."
-            )
-            args.num_of_sequences = num_of_sequences
-
-        if chars_per_token != args.chars_per_token:
-            warnings.warn(
-                "You passed a `chars_per_token` argument to the SFTTrainer, the value you passed will override the one in the `SFTConfig`."
-            )
-            args.chars_per_token = chars_per_token
-
-        # Pre-process the datasets only once per node. The remaining processes will use the cache.
-        with PartialState().local_main_process_first():
-            if dataset_kwargs is not None:
-                warnings.warn(
-                    "You passed a `dataset_kwargs` argument to the SFTTrainer, the value you passed will override the one in the `SFTConfig`."
-                )
-                args.dataset_kwargs = dataset_kwargs
-            if args.dataset_kwargs is None:
-                args.dataset_kwargs = {}
-            if train_dataset is not None:
-                train_dataset = self._prepare_dataset(
-                    train_dataset,
-                    tokenizer,
-                    args.packing,
-                    args.dataset_text_field,
-                    args.max_seq_length,
-                    formatting_func,
-                    args.num_of_sequences,
-                    args.chars_per_token,
-                    remove_unused_columns=args.remove_unused_columns if args is not None else True,
-                    **args.dataset_kwargs,
-                )
             if eval_dataset is not None:
-                _multiple = isinstance(eval_dataset, dict)
-                _eval_datasets = eval_dataset if _multiple else {"singleton": eval_dataset}
-
-                eval_packing = args.packing if args.eval_packing is None else args.eval_packing
-
-                for _eval_dataset_name, _eval_dataset in _eval_datasets.items():
-                    _eval_datasets[_eval_dataset_name] = self._prepare_dataset(
-                        _eval_dataset,
-                        tokenizer,
-                        eval_packing,
-                        args.dataset_text_field,
-                        args.max_seq_length,
-                        formatting_func,
-                        args.num_of_sequences,
-                        args.chars_per_token,
-                        remove_unused_columns=args.remove_unused_columns if args is not None else True,
-                        **args.dataset_kwargs,
+                packing = args.packing if args.eval_packing is None else args.eval_packing
+                if isinstance(eval_dataset, dict):
+                    eval_dataset = {
+                        key: self._prepare_dataset(dataset, processing_class, args, packing, formatting_func, key)
+                        for key, dataset in eval_dataset.items()
+                    }
+                else:
+                    eval_dataset = self._prepare_dataset(
+                        eval_dataset, processing_class, args, packing, formatting_func, "eval"
                     )
-                if not _multiple:
-                    eval_dataset = _eval_datasets["singleton"]
 
-        if tokenizer.padding_side is not None and tokenizer.padding_side != "right":
-            warnings.warn(
-                "You passed a tokenizer with `padding_side` not equal to `right` to the SFTTrainer. This might lead to some unexpected behaviour due to "
-                "overflow issues when training a model in half-precision. You might consider adding `tokenizer.padding_side = 'right'` to your code."
-            )
+        # Data collator
+        if data_collator is None:
+            data_collator = DataCollatorForLanguageModeling(tokenizer=processing_class, mlm=False)
 
+        # Initialize the metrics
+        self._metrics = defaultdict(list)
+
+        # Initialize the Trainer. Parent class will handle:
+        # - DeepSpeed configuration (through create_accelerator_and_postprocess)
+        # - FSDP setup
+        # - Distributed training setup
+        # - Optimizer and scheduler creation
+        # Some arguments are only available for transformers>=4.47.0. Can be removed when the min version is bumped.
+        super_init_kwargs = {}
+        if version.parse(transformers.__version__) >= version.parse("4.47.0.dev0"):
+            super_init_kwargs["optimizer_cls_and_kwargs"] = optimizer_cls_and_kwargs
+        else:
+            if optimizer_cls_and_kwargs is not None:
+                warnings.warn(
+                    "The `optimizer_cls_and_kwargs` argument is only available for `transformers>=4.47.0`. "
+                    "The default optimizer will be used. "
+                    "Remove the `optimizer_cls_and_kwargs` or upgrade to `transformers>=4.47.0`."
+                )
         super().__init__(
             model=model,
             args=args,
             data_collator=data_collator,
             train_dataset=train_dataset,
             eval_dataset=eval_dataset,
-            tokenizer=tokenizer,
-            model_init=model_init,
+            processing_class=processing_class,
+            compute_loss_func=compute_loss_func,
             compute_metrics=compute_metrics,
             callbacks=callbacks,
             optimizers=optimizers,
             preprocess_logits_for_metrics=preprocess_logits_for_metrics,
+            **super_init_kwargs,
         )
 
         # Add tags for models that have been loaded with the correct transformers version
         if hasattr(self.model, "add_model_tags"):
             self.model.add_model_tags(self._tag_names)
 
-        if self.args.max_steps > 0 and args.packing:
-            warnings.warn(
-                "You passed `packing=True` to the SFTTrainer/SFTConfig, and you are training your model with `max_steps` strategy. The dataset will be iterated until the `max_steps` are reached."
+    def _create_model_from_path(self, model_path: str, args: SFTConfig) -> PreTrainedModel:
+        """Creates a model from a path or model identifier."""
+        model_init_kwargs = args.model_init_kwargs or {}
+        # Handle torch dtype
+        torch_dtype = model_init_kwargs.get("torch_dtype")
+        if isinstance(torch_dtype, torch.dtype) or torch_dtype == "auto" or torch_dtype is None:
+            pass  # torch_dtype is already a torch.dtype or "auto" or None
+        elif isinstance(torch_dtype, str):  # it's a str, but not "auto"
+            torch_dtype = getattr(torch, torch_dtype)
+            model_init_kwargs["torch_dtype"] = torch_dtype
+        else:
+            raise ValueError(
+                "Invalid `torch_dtype` passed to `SFTConfig`. Expected either 'auto' or a string representing "
+                f"a `torch.dtype` (e.g., 'float32'), but got {torch_dtype}."
             )
-            self.train_dataset.infinite = True
-        elif self.args.max_steps == -1 and args.packing:
-            self.train_dataset.infinite = False
+        # Disable caching if gradient checkpointing is enabled (not supported)
+        if args.gradient_checkpointing:
+            model_init_kwargs["use_cache"] = False
 
-        if any(isinstance(callback, RichProgressCallback) for callback in self.callback_handler.callbacks):
-            for callback in self.callback_handler.callbacks:
-                # Remove the PrinterCallback to avoid duplicated prints in case we passed a `RichProgressCallback`
-                if callback.__class__.__name__ == "PrinterCallback":
-                    self.callback_handler.pop_callback(callback)
+        # Create model
+        if args.use_liger:
+            if not is_liger_kernel_available():
+                raise ImportError("Please install Liger-kernel for use_liger=True")
+            model = AutoLigerKernelForCausalLM.from_pretrained(model_path, **model_init_kwargs)
+        else:
+            model = AutoModelForCausalLM.from_pretrained(model_path, **model_init_kwargs)
+        return model
 
-    @wraps(Trainer.train)
-    def train(self, *args, **kwargs):
-        # Activate neftune right before training.
-        if self.neftune_noise_alpha is not None and not self._trainer_supports_neftune:
-            self.model = self._trl_activate_neftune(self.model)
+    def _prepare_peft_model(self, model: PreTrainedModel, peft_config: Any, args: SFTConfig) -> PreTrainedModel:
+        """Prepares a model for PEFT training."""
+        if not is_peft_available():
+            raise ImportError("To use PeftModel, you need to install the `peft` library.")
 
-        output = super().train(*args, **kwargs)
+        if not isinstance(peft_config, PeftConfig):
+            raise ValueError(
+                f"Expected PeftConfig object but got {type(peft_config)}. If you want to use the PeftModel, you need "
+                "to pass a PeftConfig object to the SFTTrainer."
+            )
 
-        # After training we make sure to retrieve back the original forward pass method
-        # for the embedding layer by removing the forward post hook.
-        if self.neftune_noise_alpha is not None and not self._trainer_supports_neftune:
-            unwrapped_model = unwrap_model(self.model)
-            if is_peft_available() and isinstance(unwrapped_model, PeftModel):
-                embeddings = unwrapped_model.base_model.model.get_input_embeddings()
+        if isinstance(model, PeftModel):
+            return model
+
+        # Handle quantized models (QLoRA)
+        is_qlora = getattr(model, "is_loaded_in_4bit", False) or getattr(model, "is_loaded_in_8bit", False)
+
+        is_sharded_qlora = False
+        if getattr(model, "is_loaded_in_4bit", False):
+            # Check if model is sharded (FSDP/DS-Zero3)
+            for _, param in model.named_parameters():
+                if param.__class__.__name__ == "Params4bit":
+                    is_sharded_qlora = param.data.device.type in {"cpu", "meta"}
+                    break
+
+        # Prepare model for kbit training if needed
+        if is_qlora and not is_sharded_qlora:
+            model = self._prepare_model_for_kbit_training(model, args)
+            # Disable gradient checkpointing as it's handled by prepare_model_for_kbit_training
+            args = dataclasses.replace(args, gradient_checkpointing=False)
+        elif args.gradient_checkpointing:
+            model = self._enable_gradient_checkpointing(model, args)
+
+        # Create PEFT model
+        if (
+            version.parse(peft.__version__) >= version.parse("0.12")  # autocast_adapter_dtype introduced in 0.12
+            and getattr(model, "is_loaded_in_4bit", False)
+            and is_sharded_qlora
+        ):
+            model = get_peft_model(model, peft_config, autocast_adapter_dtype=False)
+        else:
+            model = get_peft_model(model, peft_config)
+
+        # Handle bf16 casting for 4-bit models
+        if args.bf16 and getattr(model, "is_loaded_in_4bit", False) and not is_sharded_qlora:
+            peft_module_casting_to_bf16(model)
+
+        return model
+
+    def _prepare_model_for_kbit_training(self, model: PreTrainedModel, args: SFTConfig) -> PreTrainedModel:
+        """Prepares a quantized model for kbit training."""
+        prepare_model_kwargs = {
+            "use_gradient_checkpointing": args.gradient_checkpointing,
+            "gradient_checkpointing_kwargs": args.gradient_checkpointing_kwargs or {},
+        }
+
+        return prepare_model_for_kbit_training(model, **prepare_model_kwargs)
+
+    def _enable_gradient_checkpointing(self, model: PreTrainedModel, args: SFTConfig) -> PreTrainedModel:
+        """Enables gradient checkpointing for the model."""
+        gradient_checkpointing_kwargs = args.gradient_checkpointing_kwargs or {}
+        use_reentrant = (
+            "use_reentrant" not in gradient_checkpointing_kwargs or gradient_checkpointing_kwargs["use_reentrant"]
+        )
+
+        if use_reentrant:
+            if hasattr(model, "enable_input_require_grads"):
+                model.enable_input_require_grads()
             else:
-                embeddings = unwrapped_model.get_input_embeddings()
 
-            self.neftune_hook_handle.remove()
-            del embeddings.neftune_noise_alpha
+                def make_inputs_require_grad(module, input, output):
+                    output.requires_grad_(True)
 
-        return output
+                model.get_input_embeddings().register_forward_hook(make_inputs_require_grad)
 
-    @wraps(Trainer.push_to_hub)
-    def push_to_hub(self, commit_message: Optional[str] = "End of training", blocking: bool = True, **kwargs) -> str:
-        """
-        Overwrite the `push_to_hub` method in order to force-add the tag "sft" when pushing the
-        model on the Hub. Please refer to `~transformers.Trainer.push_to_hub` for more details.
-        """
-        kwargs = trl_sanitze_kwargs_for_tagging(model=self.model, tag_names=self._tag_names, kwargs=kwargs)
-
-        return super().push_to_hub(commit_message=commit_message, blocking=blocking, **kwargs)
+        return model
 
     def _prepare_dataset(
         self,
-        dataset,
-        tokenizer,
-        packing,
-        dataset_text_field,
-        max_seq_length,
-        formatting_func,
-        num_of_sequences,
-        chars_per_token,
-        remove_unused_columns=True,
-        append_concat_token=True,
-        add_special_tokens=True,
-        skip_prepare_dataset=False,
-    ):
-        if dataset is None:
-            raise ValueError("The dataset should not be None")
-
-        if skip_prepare_dataset:
-            return dataset
-
-        # If the dataset is already preprocessed (tokenized), return as-is. Only works if dataset is
-        # a datasets.Dataset or datasets.IterableDataset -- not for torch Dataset
-        column_names = (
-            dataset.column_names if isinstance(dataset, (datasets.Dataset, datasets.IterableDataset)) else None
-        )
-        if column_names and "input_ids" in column_names:
-            if formatting_func is not None:
-                warnings.warn(
-                    "You passed a dataset that is already processed (contains an `input_ids` field) together with a valid formatting function. Therefore `formatting_func` will be ignored."
-                )
-
-            return dataset
-
-        # check if torch dataset / dataloader and do nothing
-        # see https://github.com/huggingface/trl/pull/1468 for why datasets.IterableDataset needs a separate check
-        if isinstance(
-            dataset, (torch.utils.data.IterableDataset, torch.utils.data.Dataset, ConstantLengthDataset)
-        ) and not isinstance(dataset, datasets.IterableDataset):
-            return dataset
-
-        if not packing:
-            return self._prepare_non_packed_dataloader(
-                tokenizer,
-                dataset,
-                dataset_text_field,
-                max_seq_length,
-                formatting_func,
-                add_special_tokens,
-                remove_unused_columns,
-            )
-
-        else:
-            return self._prepare_packed_dataloader(
-                tokenizer,
-                dataset,
-                dataset_text_field,
-                max_seq_length,
-                num_of_sequences,
-                chars_per_token,
-                formatting_func,
-                append_concat_token,
-                add_special_tokens,
-            )
-
-    def _prepare_non_packed_dataloader(
-        self,
-        tokenizer,
-        dataset,
-        dataset_text_field,
-        max_seq_length,
-        formatting_func=None,
-        add_special_tokens=True,
-        remove_unused_columns=True,
-    ):
-        use_formatting_func = formatting_func is not None and dataset_text_field is None
-        self._dataset_sanity_checked = False
-
-        # Inspired from: https://huggingface.co/learn/nlp-course/chapter7/6?fw=pt
-        def tokenize(element):
-            outputs = tokenizer(
-                element[dataset_text_field] if not use_formatting_func else formatting_func(element),
-                add_special_tokens=add_special_tokens,
-                truncation=True,
-                padding=False,
-                max_length=max_seq_length,
-                return_overflowing_tokens=False,
-                return_length=False,
-            )
-
-            if use_formatting_func and not self._dataset_sanity_checked:
-                if not isinstance(formatting_func(element), list):
+        dataset: Union[Dataset, IterableDataset],
+        processing_class,
+        args,
+        packing: bool,
+        formatting_func: Optional[Callable[[dict], str]],
+        dataset_name: str,
+    ) -> Union[Dataset, IterableDataset]:
+        # All Unsloth Zoo code licensed under LGPLv3
+        if isinstance(dataset, ConstantLengthDataset): return dataset
+    
+        map_kwargs = {}
+        use_desc = isinstance(dataset, Dataset)
+        is_vlm = hasattr(processing_class, "tokenizer")
+        tokenizer = processing_class
+        if is_vlm: tokenizer = processing_class.tokenizer
+    
+        # Get max length
+        max_seq_length = getattr(args, "max_length", 0)
+        if max_seq_length == 0: max_seq_length = getattr(args, "max_seq_length", 0)
+        if max_seq_length == 0: max_seq_length = getattr(self, "max_seq_length", 0)
+        if max_seq_length == 0: max_seq_length = getattr(self, "max_seq", 0)
+        if max_seq_length == 0: raise RuntimeError("Unsloth: max_seq_length is 0! Please specify one!")
+        dataset_text_field = getattr(args, "dataset_text_field", "text")
+        do_truncation = max_seq_length != 0
+        do_formatting_func = False
+        do_tokenize = True
+    
+        # Get correct column names
+        column_names = set(next(iter(dataset)).keys())
+        used_column_names = ["input_ids"]
+        if "attention_mask" in column_names:
+            used_column_names.append("attention_mask")
+    
+        # Check if already tokenized so skip
+        from transformers import DataCollatorForSeq2Seq, DataCollatorForLanguageModeling
+        if "labels" in column_names:
+            # Most likely forgot data collator!
+            if is_vlm and not hasattr(tokenizer, "pad"):
+                # Check if processing_class has a .pad, if not, use tokenizer.tokenizer
+                raise RuntimeError(f"Unsloth: {processing_class.__class__} does not have .pad!")
+            self.data_collator = DataCollatorForSeq2Seq(tokenizer)
+            used_column_names.append("labels")
+            do_tokenize = False
+        elif "input_ids" in column_names:
+            # Skip dataset prep, and set data collator
+            if is_vlm and not hasattr(tokenizer, "pad"):
+                # Check if processing_class has a .pad, if not, use tokenizer.tokenizer
+                raise RuntimeError(f"Unsloth: {processing_class.__class__} does not have .pad!")
+            self.data_collator = DataCollatorForLanguageModeling(tokenizer, mlm = False)
+            do_tokenize = False
+        elif dataset_text_field not in column_names:
+            do_formatting_func = True
+            if formatting_func is None:
+                raise RuntimeError("Unsloth: You must specify a `formatting_func`")
+        pass
+    
+        if do_tokenize:
+            # Check double BOS tokens
+            if do_formatting_func:
+                test_text = formatting_func(dataset[0])
+                if not isinstance(test_text, list):
                     raise ValueError(
-                        "The `formatting_func` should return a list of processed strings since it can lead to silent bugs."
+                        "Unsloth: The `formatting_func` should return a list of processed strings."
                     )
-                else:
-                    self._dataset_sanity_checked = True
-
-            return {"input_ids": outputs["input_ids"], "attention_mask": outputs["attention_mask"]}
-
-        signature_columns = ["input_ids", "labels", "attention_mask"]
-
-        extra_columns = list(set(dataset.column_names) - set(signature_columns))
-
-        if not remove_unused_columns and len(extra_columns) > 0:
-            warnings.warn(
-                "You passed `remove_unused_columns=False` on a non-packed dataset. This might create some issues with the default collator and yield to errors. If you want to "
-                f"inspect dataset other columns (in this case {extra_columns}), you can subclass `DataCollatorForLanguageModeling` in case you used the default collator and create your own data collator in order to inspect the unused dataset columns."
+                test_text = test_text[0]
+            else:
+                test_text = dataset[0][dataset_text_field]
+    
+            # Get chat template
+            chat_template = getattr(processing_class, 'chat_template', '')
+            if chat_template == '' and is_vlm:
+                chat_template = getattr(tokenizer, 'chat_template', '')
+            if chat_template is None:
+                chat_template = ''
+    
+            # Get bos_token
+            add_special_tokens = True
+            bos_token_1 = getattr(processing_class, 'bos_token', None)
+            bos_token_2 = getattr(tokenizer, 'bos_token', None)
+            bos_token = bos_token_1 or bos_token_2
+    
+            if bos_token is not None:
+                if test_text.startswith(bos_token) or bos_token in chat_template:
+                    add_special_tokens = False
+                    print("Unsloth: We found double BOS tokens - we shall remove one automatically.")
+            pass
+    
+            # Create tokenize function
+            def _tokenize(example):
+                return tokenizer(
+                    example[dataset_text_field] if not do_formatting_func else formatting_func(example),
+                    truncation = do_truncation,
+                    max_length = max_seq_length,
+                    return_token_type_ids = False,
+                    add_special_tokens = add_special_tokens,
+                )
+            pass
+    
+            map_kwargs["num_proc"] = getattr(args, "dataset_num_proc", 2)
+            if use_desc: map_kwargs["desc"] = f'Unsloth: Tokenizing ["{dataset_text_field}"]'
+            dataset = dataset.map(_tokenize, batched = True, **map_kwargs)
+    
+            # If VLM, switch data collator since .pad is needed!
+            if is_vlm and not hasattr(processing_class, "pad"):
+                data_collator = DataCollatorForLanguageModeling(tokenizer, mlm = False)
+                self.data_collator = data_collator
+            pass
+        pass
+        if packing:
+            print("Unsloth: Hugging Face's packing is currently buggy - we're disabling it for now!")
+            return dataset
+    
+            if max_seq_length == 0:
+                raise ValueError("When packing is enabled, `max_seq_length` can't be `None`.")
+    
+            if use_desc: map_kwargs["desc"] = f"Unsloth: Packing {dataset_name} dataset"
+            dataset = dataset.select_columns(used_column_names).map(
+                pack_examples,
+                batched = True,
+                fn_kwargs = {"seq_length": max_seq_length,},
+                **map_kwargs,
             )
+        pass
+        return dataset
+    
+    def compute_loss(self, model, inputs, return_outputs = False, num_items_in_batch = None):
+        outputs = super().compute_loss(
+            model,
+            inputs,
+            return_outputs = return_outputs,
+            num_items_in_batch = num_items_in_batch,
+        )
+        return outputs
 
-        tokenized_dataset = dataset.map(
-            tokenize,
-            batched=True,
-            remove_columns=dataset.column_names if remove_unused_columns else None,
-            num_proc=self.dataset_num_proc,
-            batch_size=self.dataset_batch_size,
+    def log(self, logs: dict[str, float], start_time: Optional[float] = None) -> None:
+        metrics = {key: sum(val) / len(val) for key, val in self._metrics.items()}  # average the metrics
+
+        # This method can be called both in training and evaluation. When called in evaluation, the keys in `logs`
+        # start with "eval_". We need to add the prefix "eval_" to the keys in `metrics` to match the format.
+        if next(iter(logs.keys())).startswith("eval_"):
+            metrics = {f"eval_{key}": val for key, val in metrics.items()}
+
+        logs = {**logs, **metrics}
+        if version.parse(transformers.__version__) >= version.parse("4.47.0.dev0"):
+            super().log(logs, start_time)
+        else:  # transformers<=4.46
+            super().log(logs)
+        self._metrics.clear()
+
+    def create_model_card(
+        self,
+        model_name: Optional[str] = None,
+        dataset_name: Optional[str] = None,
+        tags: Union[str, list[str], None] = None,
+    ):
+        """
+        Creates a draft of a model card using the information available to the `Trainer`.
+
+        Args:
+            model_name (`str` or `None`, *optional*, defaults to `None`):
+                Name of the model.
+            dataset_name (`str` or `None`, *optional*, defaults to `None`):
+                Name of the dataset used for training.
+            tags (`str`, `list[str]` or `None`, *optional*, defaults to `None`):
+                Tags to be associated with the model card.
+        """
+        if not self.is_world_process_zero():
+            return
+
+        if hasattr(self.model.config, "_name_or_path") and not os.path.isdir(self.model.config._name_or_path):
+            base_model = self.model.config._name_or_path
+        else:
+            base_model = None
+
+        tags = tags or []
+        if isinstance(tags, str):
+            tags = [tags]
+
+        if hasattr(self.model.config, "unsloth_version"):
+            tags.append("unsloth")
+
+        model_card = generate_model_card(
+            base_model=base_model,
+            model_name=model_name,
+            hub_model_id=self.hub_model_id,
+            dataset_name=dataset_name,
+            tags=tags,
+            wandb_url=wandb.run.get_url() if is_wandb_available() and wandb.run is not None else None,
+            comet_url=get_comet_experiment_url(),
+            trainer_name="SFT",
         )
 
-        return tokenized_dataset
-
-    def _prepare_packed_dataloader(
-        self,
-        tokenizer,
-        dataset,
-        dataset_text_field,
-        max_seq_length,
-        num_of_sequences,
-        chars_per_token,
-        formatting_func=None,
-        append_concat_token=True,
-        add_special_tokens=True,
-    ):
-        if dataset_text_field is not None or formatting_func is not None:
-            if tokenizer is None:
-                raise ValueError("You need to pass a tokenizer when using `dataset_text_field` with `SFTTrainer`.")
-
-            constant_length_iterator = ConstantLengthDataset(
-                tokenizer,
-                dataset,
-                dataset_text_field=dataset_text_field,
-                formatting_func=formatting_func,
-                seq_length=max_seq_length,
-                infinite=False,
-                num_of_sequences=num_of_sequences,
-                chars_per_token=chars_per_token,
-                eos_token_id=tokenizer.eos_token_id,
-                append_concat_token=append_concat_token,
-                add_special_tokens=add_special_tokens,
-            )
-
-            if isinstance(dataset, datasets.IterableDataset):
-                return constant_length_iterator
-
-            def data_generator(constant_length_iterator):
-                yield from constant_length_iterator
-
-            try:
-                packed_dataset = Dataset.from_generator(
-                    data_generator, gen_kwargs={"constant_length_iterator": constant_length_iterator}
-                )
-            except (DatasetGenerationError, SchemaInferenceError) as exc:
-                raise ValueError(
-                    "Error occurred while packing the dataset. "
-                    "Make sure that your dataset has enough samples to at least yield one packed sequence."
-                ) from exc
-            return packed_dataset
-        else:
-            raise ValueError(
-                "You need to pass a `dataset_text_field` or `formatting_func` argument to the SFTTrainer if you want to use the `ConstantLengthDataset`."
-            )
-
-    def _trl_activate_neftune(self, model):
-        r"""
-        Activates the neftune as presented in this code: https://github.com/neelsjain/NEFTune and paper: https://arxiv.org/abs/2310.05914
-        Since in transformers Trainer we do have an `_activate_neftune` method, we need to rename this method to avoid conflicts.
-        """
-        unwrapped_model = unwrap_model(model)
-        if is_peft_available() and isinstance(unwrapped_model, PeftModel):
-            embeddings = unwrapped_model.base_model.model.get_input_embeddings()
-        else:
-            embeddings = unwrapped_model.get_input_embeddings()
-
-        embeddings.neftune_noise_alpha = self.neftune_noise_alpha
-        hook_handle = embeddings.register_forward_hook(neftune_post_forward_hook)
-        self.neftune_hook_handle = hook_handle
-        return model
+        model_card.save(os.path.join(self.args.output_dir, "README.md"))
 class UnslothSFTTrainer(_UnslothSFTTrainer):
     """
     
-    Class definition of the Supervised Finetuning Trainer (SFT Trainer).
-    This class is a wrapper around the `transformers.Trainer` class and inherits all of its attributes and methods.
-    The trainer takes care of properly initializing the PeftModel in case a user passes a `PeftConfig` object.
+    Trainer for Supervised Fine-Tuning (SFT) method.
+
+    This class is a wrapper around the [`transformers.Trainer`] class and inherits all of its attributes and methods.
+
+    Example:
+
+    ```python
+    from datasets import load_dataset
+    from trl import SFTTrainer
+
+    dataset = load_dataset("roneneldan/TinyStories", split="train[:1%]")
+
+    trainer = SFTTrainer(model="Qwen/Qwen2-0.5B-Instruct", train_dataset=dataset)
+    trainer.train()
+    ```
 
     Args:
-        model (Union[`transformers.PreTrainedModel`, `nn.Module`, `str`]):
-            The model to train, can be a `PreTrainedModel`, a `torch.nn.Module` or a string with the model name to
-            load from cache or download. The model can be also converted to a `PeftModel` if a `PeftConfig` object is
-            passed to the `peft_config` argument.
-        args (Optional[`SFTConfig`]):
-            The arguments to tweak for training. Will default to a basic instance of [`SFTConfig`] with the `output_dir`
-            set to a directory named *tmp_trainer* in the current directory if not provided.
-        data_collator (Optional[`transformers.DataCollator`]):
-            The data collator to use for training.
-        train_dataset (Optional[`datasets.Dataset`]):
-            The dataset to use for training. We recommend users to use `trl.trainer.ConstantLengthDataset` to create their dataset.
-        eval_dataset (Optional[Union[`datasets.Dataset`, Dict[`str`, `datasets.Dataset`]]]):
-            The dataset to use for evaluation. We recommend users to use `trl.trainer.ConstantLengthDataset` to create their dataset.
-        tokenizer (Optional[`transformers.PreTrainedTokenizer`]):
-            The tokenizer to use for training. If not specified, the tokenizer associated to the model will be used.
-        model_init (`Callable[[], transformers.PreTrainedModel]`):
-            The model initializer to use for training. If None is specified, the default model initializer will be used.
-        compute_metrics (`Callable[[transformers.EvalPrediction], Dict]`, *optional* defaults to None):
-            The function used to compute metrics during evaluation. It should return a dictionary mapping metric names to metric values.
-            If not specified, only the loss will be computed during evaluation.
-        callbacks (`List[transformers.TrainerCallback]`):
-            The callbacks to use for training.
-        optimizers (`Tuple[torch.optim.Optimizer, torch.optim.lr_scheduler.LambdaLR]`):
-            The optimizer and scheduler to use for training.
-        preprocess_logits_for_metrics (`Callable[[torch.Tensor, torch.Tensor], torch.Tensor]`):
-            The function to use to preprocess the logits before computing the metrics.
-        peft_config (`Optional[PeftConfig]`):
-            The PeftConfig object to use to initialize the PeftModel.
+        model (`Union[str, PreTrainedModel]`):
+            Model to be trained. Can be either:
+
+            - A string, being the *model id* of a pretrained model hosted inside a model repo on huggingface.co, or
+              a path to a *directory* containing model weights saved using
+              [`~transformers.PreTrainedModel.save_pretrained`], e.g., `'./my_model_directory/'`. The model is
+              loaded using [`~transformers.AutoModelForCausalLM.from_pretrained`] with the keywork arguments
+              in `args.model_init_kwargs`.
+            - A [`~transformers.PreTrainedModel`] object. Only causal language models are supported.
+        args ([`SFTConfig`], *optional*, defaults to `None`):
+            Configuration for this trainer. If `None`, a default configuration is used.
+        data_collator (`DataCollator`, *optional*):
+            Function to use to form a batch from a list of elements of the prcessed `train_dataset` or `eval_dataset`.
+            Will default to [`~transformers.default_data_collator`] if no `processing_class` is provided, an instance
+            of [`~transformers.DataCollatorWithPadding`] otherwise if the processing_class is a feature extractor or
+            tokenizer.
+        train_dataset ([`~datasets.Dataset`] or [`~datasets.IterableDataset`]):
+            Dataset to use for training. SFT supports both [language modeling](#language-modeling) type and
+            [prompt-completion](#prompt-completion) type. The format of the samples can be either:
+
+            - [Standard](dataset_formats#standard): Each sample contains plain text.
+            - [Conversational](dataset_formats#conversational): Each sample contains structured messages (e.g., role
+              and content).
+
+            The trainer also supports processed datasets (tokenized) as long as they contain an `input_ids` field.
+        eval_dataset ([`~datasets.Dataset`], [`~datasets.IterableDataset`] or `dict[str, Union[Dataset, IterableDataset]]`):
+            Dataset to use for evaluation. It must meet the same requirements as `train_dataset`.
+        processing_class ([`~transformers.PreTrainedTokenizerBase`], *optional*, defaults to `None`):
+            Processing class used to process the data. If `None`, the processing class is loaded from the model's name
+            with [`~transformers.AutoTokenizer.from_pretrained`].
+        callbacks (list of [`~transformers.TrainerCallback`], *optional*, defaults to `None`):
+            List of callbacks to customize the training loop. Will add those to the list of default callbacks
+            detailed in [here](https://huggingface.co/docs/transformers/main_classes/callback).
+
+            If you want to remove one of the default callbacks used, use the [`~transformers.Trainer.remove_callback`]
+            method.
+        optimizers (`tuple[torch.optim.Optimizer, torch.optim.lr_scheduler.LambdaLR]`, *optional*, defaults to `(None, None)`):
+            A tuple containing the optimizer and the scheduler to use. Will default to an instance of [`AdamW`] on your
+            model and a scheduler given by [`get_linear_schedule_with_warmup`] controlled by `args`.
+        optimizer_cls_and_kwargs (`Tuple[Type[torch.optim.Optimizer], Dict[str, Any]]`, *optional*, defaults to `None`):
+            A tuple containing the optimizer class and keyword arguments to use.
+            Overrides `optim` and `optim_args` in `args`. Incompatible with the `optimizers` argument.
+
+            Unlike `optimizers`, this argument avoids the need to place model parameters on the correct devices before initializing the Trainer.
+        preprocess_logits_for_metrics (`Callable[[torch.Tensor, torch.Tensor], torch.Tensor]`, *optional*, defaults to `None`):
+            A function that preprocess the logits right before caching them at each evaluation step. Must take two
+            tensors, the logits and the labels, and return the logits once processed as desired. The modifications made
+            by this function will be reflected in the predictions received by `compute_metrics`.
+
+            Note that the labels (second parameter) will be `None` if the dataset does not have them.
+        peft_config ([`~peft.PeftConfig`], *optional*, defaults to `None`):
+            PEFT configuration used to wrap the model. If `None`, the model is not wrapped.
         formatting_func (`Optional[Callable]`):
-            The formatting function to be used for creating the `ConstantLengthDataset`.
+            Formatting function applied to the dataset before tokenization.
     
     """
     def __init__(
         self,
-        model = None,
+        model,
         args = None,
         data_collator = None,
         train_dataset = None,
         eval_dataset = None,
-        tokenizer = None,
-        model_init = None,
+        processing_class = None,
+        compute_loss_func = None,
         compute_metrics = None,
         callbacks = None,
+        optimizer_cls_and_kwargs = None,
         preprocess_logits_for_metrics = None,
         peft_config = None,
-        dataset_text_field = None,
-        packing = False,
         formatting_func = None,
-        max_seq_length = None,
-        infinite = None,
-        num_of_sequences = 1024,
-        chars_per_token = 3.6,
-        dataset_num_proc = None,
-        dataset_batch_size = 1000,
-        neftune_noise_alpha = None,
-        model_init_kwargs = None,
-        dataset_kwargs = None,
-        eval_packing = None,
         **kwargs
     ):
         if args is None: args = UnslothSFTConfig()
         use_bf16 = getattr(args, 'bf16', False)
         use_fp16 = getattr(args, 'fp16', False)
+        force_float32 = False
+        if os.environ.get('UNSLOTH_FORCE_FLOAT32', '0') == '1':
+            print('Unsloth: Switching to float32 training since model cannot work with float16')
+            force_float32 = True
+        mixed_precision_dtype = os.environ.get('UNSLOTH_MIXED_PRECISION', 'float32')
         dtype = getattr(model.config, 'torch_dtype', None)
         if dtype is None: dtype = model.get_input_embeddings().dtype
         from unsloth_zoo.utils import _get_dtype
         dtype = _get_dtype(dtype)
         float16 = dtype == torch.float16
-        if float16 and use_bf16: raise TypeError('Unsloth: Model is in float16 precision but you want to use bfloat16 precision. Set fp16 to `True` and bf16 to `False`')
-        if not float16 and use_fp16: raise TypeError('Unsloth: Model is in bfloat16 precision but you want to use float16 precision. Set fp16 to `False` and bf16 to `True`')
-        if not use_bf16 and not use_fp16:
+        if not force_float32 and (float16 and use_bf16): raise TypeError('Unsloth: Model is in float16 precision but you want to use bfloat16 precision. Set fp16 to `True` and bf16 to `False`')
+        if not force_float32 and (not float16 and use_fp16): raise TypeError('Unsloth: Model is in bfloat16 precision but you want to use float16 precision. Set fp16 to `False` and bf16 to `True`')
+        if force_float32:
+            args.fp16 = False
+            args.bf16 = False
+            os.environ['ACCELERATE_MIXED_PRECISION'] = 'no'
+        elif (not use_bf16 and not use_fp16) and mixed_precision_dtype == 'float32':
             args.fp16 = float16
             args.bf16 = not float16
             os.environ['ACCELERATE_MIXED_PRECISION'] = 'fp16' if float16 else 'bf16'
@@ -1039,7 +945,20 @@ class UnslothSFTTrainer(_UnslothSFTTrainer):
         bf16_full_eval = getattr(args, 'bf16_full_eval', False)
         if args.fp16 and bf16_full_eval: args.bf16_full_eval = False; args.fp16_full_eval = True
         if args.bf16 and fp16_full_eval: args.bf16_full_eval = True; args.fp16_full_eval = False
-        if not bf16_full_eval and not fp16_full_eval: args.bf16_full_eval = args.bf16; args.fp16_full_eval = args.fp16
+        if force_float32:
+            args.bf16_full_eval = False
+            args.fp16_full_eval = False
+        elif os.environ.get('UNSLOTH_MIXED_PRECISION', 'float32') == 'bfloat16':
+            args.bf16_full_eval = True
+            args.fp16_full_eval = False
+        elif not bf16_full_eval and not fp16_full_eval:
+            args.bf16_full_eval = args.bf16
+            args.fp16_full_eval = args.fp16
+        _output_logits = False
+        if locals().get('compute_metrics', None) is not None: _output_logits = True
+        if locals().get('preprocess_logits_for_metrics', None) is not None: _output_logits = True
+        if _output_logits:
+            os.environ['UNSLOTH_RETURN_LOGITS'] = '1'
         if 'max_seq_length' not in locals() and not hasattr(args, 'max_seq_length'):
             pass
         else:
@@ -1054,6 +973,23 @@ class UnslothSFTTrainer(_UnslothSFTTrainer):
         if 'processing_class' in locals():
             if hasattr(processing_class, 'padding_side'): processing_class.padding_side = 'right'
             if hasattr(processing_class, 'tokenizer') and hasattr(processing_class.tokenizer, 'padding_side'): processing_class.tokenizer.padding_side = 'right'
+        __tokenizer = processing_class if 'processing_class' in locals() else tokenizer
+        from unsloth_zoo.vision_utils import UnslothVisionDataCollator
+        if not isinstance(data_collator, UnslothVisionDataCollator):
+            if isinstance(data_collator, DataCollatorForSeq2Seq) and 'labels' not in train_dataset.column_names:
+                data_collator = DataCollatorForLanguageModeling(__tokenizer, mlm = False)
+            elif isinstance(data_collator, DataCollatorForLanguageModeling) and 'labels' in train_dataset.column_names:
+                data_collator = DataCollatorForSeq2Seq(__tokenizer)
+        else:
+            if hasattr(args, 'remove_unused_columns'): args.remove_unused_columns = False
+            if hasattr(args, 'dataset_text_field'): args.dataset_text_field = ''
+            if hasattr(args, 'dataset_kwargs'): args.dataset_kwargs = {'skip_prepare_dataset': True}
+        if not isinstance(data_collator, UnslothVisionDataCollator):
+            if not hasattr(__tokenizer, 'pad') and hasattr(__tokenizer, 'tokenizer'):
+                if isinstance(data_collator, DataCollatorForSeq2Seq):
+                    data_collator = DataCollatorForSeq2Seq(__tokenizer.tokenizer)
+                else:
+                    data_collator = DataCollatorForLanguageModeling(__tokenizer.tokenizer, mlm = False)
         other_metrics = []
         
         from unsloth_zoo.logging_utils import PatchRLStatistics
@@ -1071,25 +1007,14 @@ class UnslothSFTTrainer(_UnslothSFTTrainer):
             data_collator = data_collator,
             train_dataset = train_dataset,
             eval_dataset = eval_dataset,
-            tokenizer = tokenizer,
-            model_init = model_init,
+            processing_class = processing_class,
+            compute_loss_func = compute_loss_func,
             compute_metrics = compute_metrics,
             callbacks = callbacks,
+            optimizer_cls_and_kwargs = optimizer_cls_and_kwargs,
             preprocess_logits_for_metrics = preprocess_logits_for_metrics,
             peft_config = peft_config,
-            dataset_text_field = dataset_text_field,
-            packing = packing,
-            formatting_func = formatting_func,
-            max_seq_length = max_seq_length,
-            infinite = infinite,
-            num_of_sequences = num_of_sequences,
-            chars_per_token = chars_per_token,
-            dataset_num_proc = dataset_num_proc,
-            dataset_batch_size = dataset_batch_size,
-            neftune_noise_alpha = neftune_noise_alpha,
-            model_init_kwargs = model_init_kwargs,
-            dataset_kwargs = dataset_kwargs,
-            eval_packing = eval_packing,**kwargs)
+            formatting_func = formatting_func,**kwargs)
         if hasattr(self, 'neftune_hook_handle'):
             self.neftune_hook_handle.remove()
             if hasattr(self, 'neftune_hook_handle'): del self.neftune_hook_handle

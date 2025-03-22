@@ -30,14 +30,15 @@ def parse_args():
         # default="shenzhi-wang/Llama3.1-8B-Chinese-Chat",
         # default="Qwen/Qwen2.5-32B",
         # default="Qwen/Qwen2.5-32B-Instruct",
-        default="Qwen/Qwen2-0.5B-Instruct",
+        # default="Qwen/Qwen2-0.5B-Instruct",
+        default="sentence-transformers/all-MiniLM-L6-v2",
         help="Model ID to download"
     )
     parser.add_argument(
         "--output_dir", 
         type=str,
         # default="./models",
-        default="/root/autodl-tmp/models",
+        default="/root/autodl-fs/models",
         help="Directory to save the downloaded model"
     )
     parser.add_argument(

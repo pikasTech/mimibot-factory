@@ -1,0 +1,72 @@
+### model
+# model_name_or_path: /root/autodl-fs/models/Tifa-DeepsexV2-7b-NoCot-0228-F16 # <= v0.8
+model_name_or_path: /root/autodl-fs/models/Tifa-DeepsexV2-7b-Cot-0317-F16 # v0.9
+trust_remote_code: true
+
+### method
+stage: sft
+do_train: true
+finetuning_type: lora
+lora_rank: 32
+lora_target: all
+# finetuning_type: full
+deepspeed: examples/deepspeed/ds_z2_config.json  # choices: [ds_z0_config.json, ds_z2_config.json, ds_z3_config.json]
+
+### dataset
+dataset: mimibot_alpaca_data_processed, alpaca_data_processed
+template: qwen
+cutoff_len: 512
+max_samples: 8192
+overwrite_cache: true
+preprocessing_num_workers: 16
+
+### output
+output_dir: /root/autodl-fs/saves/mimibot_tifa_v1.3
+logging_steps: 1
+save_steps: 10
+plot_loss: true
+overwrite_output_dir: true
+
+### train
+# per_device_train_batch_size: 16 # <= v0.9
+per_device_train_batch_size: 8 # <= v1.0
+ddp_find_unused_parameters: false
+# gradient_accumulation_steps: 8 # v0.1-v0.4
+# gradient_accumulation_steps: 1 # v0.5
+gradient_accumulation_steps: 2 # v1.0
+optim: paged_adamw_32bit
+# learning_rate: 1.0e-5 # v0.1
+# learning_rate: 7.0e-5 # v0.2
+# learning_rate: 5.0e-5 # v1.1
+# learning_rate: 3.0e-4 # v0.3 v0.5 v1.2
+# learning_rate: 1.0e-4 # v0.6 v0.7 v0.9 v1.0
+# learning_rate: 1.0e-3 # v0.4 v0.8
+learning_rate: 6.0e-4 # v1.3
+
+gradient_checkpointing: false
+disable_gradient_checkpointing: true
+save_strategy: 'no'
+# num_train_epochs: 3.0 # v0.1-0.6
+num_train_epochs: 2.0 # v0.7
+lr_scheduler_type: cosine
+warmup_ratio: 0.1
+# bf16: true <= v0.9
+bf16: false # v1.0
+ddp_timeout: 180000000
+# resume_from_checkpoint: true
+
+### eval
+val_size: 0.1
+per_device_eval_batch_size: 32
+eval_strategy: steps
+# eval_steps: 10 # v0.1-v0.4
+eval_steps: 100 # v0.5
+# 
+
+### ray
+# ray_run_name: mimibot
+# ray_num_workers: 2  # number of GPUs to use
+# resources_per_worker:
+#   GPU: 1
+# placement_strategy: PACK
+

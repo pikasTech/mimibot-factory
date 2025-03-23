@@ -1,0 +1,14 @@
+### Note: DO NOT use quantized model or quantization_bit when merging lora adapters
+
+### model
+# model_name_or_path: ./Tifa-DeepsexV2-7b-NoCot-0228
+model_name_or_path: ./Tifa-DeepsexV2-7b-Cot-0317-F16
+adapter_name_or_path: ./mimibot_tifa_v0.9
+template: qwen
+trust_remote_code: true
+
+### export
+export_dir: output/mimibot_tifa_v0.9
+export_size: 5
+export_device: cpu
+export_legacy_format: false

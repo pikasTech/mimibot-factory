@@ -119,7 +119,7 @@ def extract_local_file(input_file, output_dir, is_temp=False):
         ('.tar',): 'tar'
     }
 
-    matched_format = None
+    matched_format = 'tar.gz' # 默认格式
     for ext, fmt in ext_map.items():
         if tuple(suffixes[-len(ext):]) == ext:
             matched_format = fmt

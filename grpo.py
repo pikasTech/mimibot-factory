@@ -15,7 +15,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='GRPO训练脚本')
     parser.add_argument('--dataset_type', type=str, default='alpaca', choices=['tldr', 'alpaca'], 
                         help='数据集类型: tldr或alpaca')
-    parser.add_argument('--alpaca_path', type=str, default='data/alpaca_data_processed.json', 
+    parser.add_argument('--alpaca_path', type=str, default='data/alpaca_data_reward_sort.json', 
                         help='Alpaca数据集路径')
     parser.add_argument('--semantic_model_path', type=str, 
                         default='/root/autodl-fs/models/all-MiniLM-L6-v2',  # 修改默认值为HF模型ID
@@ -55,10 +55,12 @@ if __name__ == "__main__":
     # MODEL_PATH = "/root/autodl-tmp/models/Qwen2-0.5B-Instruct"
     # MODEL_PATH = "/root/autodl-fs/models/Llama3.1-8B-Chinese-Chat"
     # MODEL_PATH = "/root/autodl-fs/models/Tifa-DeepsexV2-7b-Cot-0317-F16"
-    MODEL_PATH = '/root/autodl-fs/models/mimibot_tifa_v1.2'
+    # MODEL_PATH = '/root/autodl-fs/models/mimibot_tifa_v1.2'
+    MODEL_PATH = '/root/autodl-fs/models/mimibot_l3_v0.9'
 
     max_seq_length = 2048 # Can increase for longer reasoning traces
     lora_rank = 32 # Larger rank = smarter, but slower
+    max_data_length = 1024
 
     model, tokenizer = FastLanguageModel.from_pretrained(
         model_name = MODEL_PATH,
@@ -73,7 +75,7 @@ if __name__ == "__main__":
     # 加载Alpaca格式数据集
     def load_alpaca_dataset(file_path):
         with open(file_path, 'r', encoding='utf-8') as f:
-            data = json.load(f)
+            data = json.load(f)[:max_data_length]
         
         processed_data = {
             "prompt": [],
@@ -180,14 +182,14 @@ if __name__ == "__main__":
             else:
                 ans = c
             
-            c_not_true = ans.count('<') + ans.count('>') + ans.count(':') + ans.count('：') + ans.count('【') + ans.count('】') + ans.count('?') + ans.count('？') + ans.count('\n') + ans.count(' ') + ans.count('\r') + ans.count('\t')
+            # c_not_true = ans.count('<') + ans.count('>') + ans.count(':') + ans.count('：') + ans.count('【') + ans.count('】') + ans.count('?') + ans.count('？') + ans.count('\n') + ans.count(' ') + ans.count('\r') + ans.count('\t') + ans.count('吗')
 
-            res -= 0.1 * c_not_true 
+            # res -= 0.1 * c_not_true 
 
             # 惩罚非中文或非ASCII字符
-            for char in ans:
-                if not (char >= u'\u4e00' and char <= u'\u9fa5') and not char.isascii():
-                    res -= 0.1
+            # for char in ans:
+            #     if not (char >= u'\u4e00' and char <= u'\u9fa5') and not char.isascii():
+            #         res -= 0.1
 
             rewared.append(res * 100)
         return rewared
@@ -281,8 +283,10 @@ if __name__ == "__main__":
             user_message, _ = parse_prompt(prompt)
             if ">:" in user_message:
                 user_message = user_message.split(">:")[-1].strip()
+            if "：" in user_message:
+                user_message = user_message.split("：")[-1].strip()
             user_messages.append(user_message)
-            
+
             # 提取回复部分
             if "</think>" in completion:
                 response = completion.split("</think>")[-1]
@@ -304,13 +308,13 @@ if __name__ == "__main__":
                 reward = sim * 100
                 
                 # 相似度较高时给予额外奖励
-                if sim > 0.6:
+                if sim > 0.3:
                     reward += 50
-                if sim > 0.8:
+                if sim > 0.5:
                     reward += 100
-                if sim > 0.9:
+                if sim > 0.7:
                     reward -= 150
-                    
+
                 rewards.append(reward)
             
             # 如果和用户消息重复，奖励清零
@@ -349,6 +353,8 @@ if __name__ == "__main__":
                 response = ans
             if ">:" in response:
                 response = response.split(">:")[-1].strip()
+            if "：" in response:
+                response = response.split("：")[-1].strip()
             answers.append(response)
         rewards = []
         similarity = sentence_transformers.util.cos_sim(semantic_model.encode(responses), semantic_model.encode(answers))
@@ -365,7 +371,7 @@ if __name__ == "__main__":
             rewards.append(reward)
         if use_debug:
             # 打印前4个reward最多的
-            best_indexs = sorted(range(len(rewards)), key=lambda i: rewards[i], reverse=True)[:3]
+            best_indexs = sorted(range(len(rewards)), key=lambda i: rewards[i], reverse=True)[:4]
             # 倒着顺序打印
             best_indexs.reverse()
             for i in best_indexs:
@@ -375,7 +381,7 @@ if __name__ == "__main__":
                 print(f"Similarity: {similarity[i]}")
                 print(f"Reward: {rewards[i]}")
                 print('-' * 10)
-
+            print(f"处理了 {len(completions)} 个回答")
         return rewards
 
     # 使用GRPOConfig而非TrainingArguments
@@ -385,12 +391,12 @@ if __name__ == "__main__":
         adam_beta2 = 0.99,
         weight_decay = 0.1,
         warmup_ratio = 0.001,
-        output_dir="./results",  # 添加必要的output_dir参数
+        output_dir="./results/mimibot_l3",  # 添加必要的output_dir参数
         lr_scheduler_type = "cosine",
         optim = "paged_adamw_8bit",
-        per_device_train_batch_size=12,
+        per_device_train_batch_size=32,
         gradient_accumulation_steps=1,
-        num_generations=12,
+        num_generations=4,
         logging_steps=1,
         save_strategy="steps",
         save_steps=500,
@@ -401,7 +407,7 @@ if __name__ == "__main__":
 
     trainer = GRPOTrainer(
         model=model,
-        reward_funcs=[reward_format, reward_no_repetition, reward_similarity, reward_user_similarity],
+        reward_funcs=[reward_format, reward_no_repetition, reward_similarity],
         train_dataset=dataset,
         args=training_args
     )

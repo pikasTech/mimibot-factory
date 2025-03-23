@@ -175,7 +175,7 @@ if __name__ == "__main__":
             c2 = c.count("</think>")
             # res = 1 if c1 == 1 and c2 == 1 else min(0.1 * (c1 + c2), 0.4)
             res = 1 if c2 == 1 else min(0.1 * (c2), 0.4)
-            if "<think>" in c:
+            if "</think>" in c:
                 ans = c.split("</think>")[-1]
             else:
                 ans = c
@@ -260,9 +260,77 @@ if __name__ == "__main__":
             if response.count("帽") >= 3:
                 penalty -= 30
             
-            rewared.append(penalty * 10)
+            rewared.append(penalty * 50)
         
         return rewared
+
+    # 新增用户相似度奖励函数
+    def reward_user_similarity(completions, prompts=None, **kwargs):
+        rewards = []
+        use_debug = True
+        
+        # 提取回复和用户消息
+        user_messages = []
+        responses = []
+        
+        for i, completion in enumerate(completions):
+            # 获取输入提示
+            prompt = prompts[i] if prompts else ""
+            
+            # 解析提示中的用户消息
+            user_message, _ = parse_prompt(prompt)
+            if ">:" in user_message:
+                user_message = user_message.split(">:")[-1].strip()
+            user_messages.append(user_message)
+            
+            # 提取回复部分
+            if "</think>" in completion:
+                response = completion.split("</think>")[-1]
+            else:
+                response = completion
+                
+            responses.append(response)
+        
+        # 使用语义模型计算相似度
+        try:
+            similarities = sentence_transformers.util.cos_sim(
+                semantic_model.encode(responses), 
+                semantic_model.encode(user_messages)
+            ).diagonal().tolist()
+            
+            # 计算奖励
+            for sim in similarities:
+                # 相似度作为基础奖励
+                reward = sim * 100
+                
+                # 相似度较高时给予额外奖励
+                if sim > 0.6:
+                    reward += 50
+                if sim > 0.8:
+                    reward += 100
+                if sim > 0.9:
+                    reward -= 150
+                    
+                rewards.append(reward)
+            
+            # 如果和用户消息重复，奖励清零
+            for i, (user_message, response) in enumerate(zip(user_messages, responses)):
+                if user_message == response:
+                    rewards[i] = 0
+                
+            if use_debug and len(rewards) > 0:
+                # 打印最高奖励的示例
+                best_idx = rewards.index(max(rewards))
+                print(f"用户消息: {user_messages[best_idx]}")
+                print(f"模型回复: {responses[best_idx]}")
+                print(f"相似度: {similarities[best_idx]}")
+                print(f"奖励值: {rewards[best_idx]}")
+                
+        except Exception as e:
+            print(f"计算相似度时出错: {str(e)}")
+            rewards = [0] * len(completions)
+            
+        return rewards
 
     def reward_similarity(completions, prompts=None, answer=None,**kwargs):
         use_debug = True
@@ -312,16 +380,16 @@ if __name__ == "__main__":
 
     # 使用GRPOConfig而非TrainingArguments
     training_args = GRPOConfig(
-        learning_rate=1e-4,
+        learning_rate= 3e-5,
         adam_beta1 = 0.9,
         adam_beta2 = 0.99,
         weight_decay = 0.1,
-        warmup_ratio = 0.01,
+        warmup_ratio = 0.001,
         output_dir="./results",  # 添加必要的output_dir参数
         lr_scheduler_type = "cosine",
         optim = "paged_adamw_8bit",
         per_device_train_batch_size=12,
-        gradient_accumulation_steps=4,
+        gradient_accumulation_steps=1,
         num_generations=12,
         logging_steps=1,
         save_strategy="steps",
@@ -333,7 +401,7 @@ if __name__ == "__main__":
 
     trainer = GRPOTrainer(
         model=model,
-        reward_funcs=[reward_format, reward_no_repetition, reward_similarity],
+        reward_funcs=[reward_format, reward_no_repetition, reward_similarity, reward_user_similarity],
         train_dataset=dataset,
         args=training_args
     )

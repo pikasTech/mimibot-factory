@@ -1,8 +1,15 @@
+"""
+2025.3.15
+2025.3.17
+4.49.0
+0.15.2
+__UNSLOTH_VERSIONING__
+"""
 from torch import Tensor
 import torch
 import torch.nn as nn
 from torch.nn import functional as F
-from trl.trainer.alignprop_trainer import (Accelerator, AlignPropConfig, AlignPropTrainer, Any, BaseTrainer, Callable, DDPOStableDiffusionPipeline, MODEL_CARD_TEMPLATE, Optional, ProjectConfiguration, Tuple, defaultdict, logger, os, set_seed, torch, warn, warnings, whoami)
+from trl.trainer.alignprop_trainer import (Accelerator, AlignPropConfig, AlignPropTrainer, Any, Callable, DDPOStableDiffusionPipeline, Optional, ProjectConfiguration, PyTorchModelHubMixin, Union, defaultdict, generate_model_card, get_comet_experiment_url, is_wandb_available, logger, os, set_seed, textwrap, torch, warn)
 
 
 import os
@@ -13,6 +20,8 @@ import torch
 import numpy as np
 from contextlib import nullcontext
 from torch.nn import functional as F
+from transformers import DataCollatorForSeq2Seq, DataCollatorForLanguageModeling
+
 torch_compile_options = {
     "epilogue_fusion"   : True,
     "max_autotune"      : False,
@@ -34,7 +43,80 @@ def selective_log_softmax(logits, index):
 class UnslothAlignPropConfig(AlignPropConfig):
     """
     
-    Configuration class for AlignPropTrainer
+    Configuration class for the [`AlignPropTrainer`].
+
+    Using [`~transformers.HfArgumentParser`] we can turn this class into
+    [argparse](https://docs.python.org/3/library/argparse#module-argparse) arguments that can be specified on the
+    command line.
+
+    Parameters:
+        exp_name (`str`, *optional*, defaults to `os.path.basename(sys.argv[0])[: -len(".py")]`):
+            Name of this experiment (defaults to the file name without the extension).
+        run_name (`str`, *optional*, defaults to `""`):
+            Name of this run.
+        seed (`int`, *optional*, defaults to `0`):
+            Random seed for reproducibility.
+        log_with (`str` or `None`, *optional*, defaults to `None`):
+            Log with either `"wandb"` or `"tensorboard"`. Check
+            [tracking](https://huggingface.co/docs/accelerate/usage_guides/tracking) for more details.
+        log_image_freq (`int`, *optional*, defaults to `1`):
+            Frequency for logging images.
+        tracker_kwargs (`dict[str, Any]`, *optional*, defaults to `{}`):
+            Keyword arguments for the tracker (e.g., `wandb_project`).
+        accelerator_kwargs (`dict[str, Any]`, *optional*, defaults to `{}`):
+            Keyword arguments for the accelerator.
+        project_kwargs (`dict[str, Any]`, *optional*, defaults to `{}`):
+            Keyword arguments for the accelerator project config (e.g., `logging_dir`).
+        tracker_project_name (`str`, *optional*, defaults to `"trl"`):
+            Name of project to use for tracking.
+        logdir (`str`, *optional*, defaults to `"logs"`):
+            Top-level logging directory for checkpoint saving.
+        num_epochs (`int`, *optional*, defaults to `100`):
+            Number of epochs to train.
+        save_freq (`int`, *optional*, defaults to `1`):
+            Number of epochs between saving model checkpoints.
+        num_checkpoint_limit (`int`, *optional*, defaults to `5`):
+            Number of checkpoints to keep before overwriting old ones.
+        mixed_precision (`str`, *optional*, defaults to `"fp16"`):
+            Mixed precision training.
+        allow_tf32 (`bool`, *optional*, defaults to `True`):
+            Allow `tf32` on Ampere GPUs.
+        resume_from (`str`, *optional*, defaults to `""`):
+            Path to resume training from a checkpoint.
+        sample_num_steps (`int`, *optional*, defaults to `50`):
+            Number of sampler inference steps.
+        sample_eta (`float`, *optional*, defaults to `1.0`):
+            Eta parameter for the DDIM sampler.
+        sample_guidance_scale (`float`, *optional*, defaults to `5.0`):
+            Classifier-free guidance weight.
+        train_batch_size (`int`, *optional*, defaults to `1`):
+            Batch size for training.
+        train_use_8bit_adam (`bool`, *optional*, defaults to `False`):
+            Whether to use the 8bit Adam optimizer from `bitsandbytes`.
+        train_learning_rate (`float`, *optional*, defaults to `1e-3`):
+            Learning rate.
+        train_adam_beta1 (`float`, *optional*, defaults to `0.9`):
+            Beta1 for Adam optimizer.
+        train_adam_beta2 (`float`, *optional*, defaults to `0.999`):
+            Beta2 for Adam optimizer.
+        train_adam_weight_decay (`float`, *optional*, defaults to `1e-4`):
+            Weight decay for Adam optimizer.
+        train_adam_epsilon (`float`, *optional*, defaults to `1e-8`):
+            Epsilon value for Adam optimizer.
+        train_gradient_accumulation_steps (`int`, *optional*, defaults to `1`):
+            Number of gradient accumulation steps.
+        train_max_grad_norm (`float`, *optional*, defaults to `1.0`):
+            Maximum gradient norm for gradient clipping.
+        negative_prompts (`str` or `None`, *optional*, defaults to `None`):
+            Comma-separated list of prompts to use as negative examples.
+        truncated_backprop_rand (`bool`, *optional*, defaults to `True`):
+            If `True`, randomized truncation to different diffusion timesteps is used.
+        truncated_backprop_timestep (`int`, *optional*, defaults to `49`):
+            Absolute timestep to which the gradients are backpropagated. Used only if `truncated_backprop_rand=False`.
+        truncated_rand_backprop_minmax (`tuple[int, int]`, *optional*, defaults to `(0, 50)`):
+            Range of diffusion timesteps for randomized truncated backpropagation.
+        push_to_hub (`bool`, *optional*, defaults to `False`):
+            Whether to push the final model to the Hub.
     
     """
     vllm_sampling_params: Optional[Any] = field(
@@ -47,10 +129,11 @@ class UnslothAlignPropConfig(AlignPropConfig):
     )
     def __init__(
         self,
-        exp_name = 'llamafactory-',
+        exp_name = 'grpo',
         run_name = '',
         seed = 3407,
         log_with = None,
+        log_image_freq = 1,
         tracker_project_name = 'trl',
         logdir = 'logs',
         num_epochs = 100,
@@ -71,9 +154,10 @@ class UnslothAlignPropConfig(AlignPropConfig):
         train_adam_epsilon = 1e-08,
         train_gradient_accumulation_steps = 2,
         train_max_grad_norm = 1.0,
-        negative_prompts = '',
+        negative_prompts = None,
         truncated_backprop_rand = True,
         truncated_backprop_timestep = 49,
+        push_to_hub = False,
         vllm_sampling_params = None,
         unsloth_num_chunks = -1,
         **kwargs,
@@ -84,6 +168,7 @@ class UnslothAlignPropConfig(AlignPropConfig):
             run_name = run_name,
             seed = seed,
             log_with = log_with,
+            log_image_freq = log_image_freq,
             tracker_project_name = tracker_project_name,
             logdir = logdir,
             num_epochs = num_epochs,
@@ -106,12 +191,13 @@ class UnslothAlignPropConfig(AlignPropConfig):
             train_max_grad_norm = train_max_grad_norm,
             negative_prompts = negative_prompts,
             truncated_backprop_rand = truncated_backprop_rand,
-            truncated_backprop_timestep = truncated_backprop_timestep,**kwargs)
+            truncated_backprop_timestep = truncated_backprop_timestep,
+            push_to_hub = push_to_hub,**kwargs)
         self.vllm_sampling_params = vllm_sampling_params
         self.unsloth_num_chunks = unsloth_num_chunks
 pass
 
-class _UnslothAlignPropTrainer(BaseTrainer):
+class _UnslothAlignPropTrainer(PyTorchModelHubMixin):
     """"""
 
     _tag_names = ["trl", "alignprop"]
@@ -119,8 +205,8 @@ class _UnslothAlignPropTrainer(BaseTrainer):
     def __init__(
         self,
         config: AlignPropConfig,
-        reward_function: Callable[[torch.Tensor, Tuple[str], Tuple[Any]], torch.Tensor],
-        prompt_function: Callable[[], Tuple[str, Any]],
+        reward_function: Callable[[torch.Tensor, tuple[str], tuple[Any]], torch.Tensor],
+        prompt_function: Callable[[], tuple[str, Any]],
         sd_pipeline: DDPOStableDiffusionPipeline,
         image_samples_hook: Optional[Callable[[Any, Any, Any], Any]] = None,
     ):
@@ -265,7 +351,6 @@ class _UnslothAlignPropTrainer(BaseTrainer):
 
         Returns:
             global_step (int): The updated global step.
-
         """
         info = defaultdict(list)
 
@@ -331,11 +416,12 @@ class _UnslothAlignPropTrainer(BaseTrainer):
         Args:
             rewards (torch.Tensor):
                 Differentiable reward scalars for each generated image, shape: [batch_size]
+
         Returns:
             loss (torch.Tensor)
             (all of these are of shape (1,))
         """
-        #  Loss is specific to Aesthetic Reward function used in AlignProp (https://arxiv.org/pdf/2310.03739.pdf)
+        #  Loss is specific to Aesthetic Reward function used in AlignProp (https://huggingface.co/papers/2310.03739)
         loss = 10.0 - (rewards).mean()
         return loss
 
@@ -386,7 +472,7 @@ class _UnslothAlignPropTrainer(BaseTrainer):
             with_grad (bool): Whether the generated RGBs should have gradients attached to it.
 
         Returns:
-            prompt_image_pairs (Dict[Any])
+            prompt_image_pairs (dict[Any])
         """
         prompt_image_pairs = {}
 
@@ -447,30 +533,65 @@ class _UnslothAlignPropTrainer(BaseTrainer):
         for epoch in range(self.first_epoch, epochs):
             global_step = self.step(epoch, global_step)
 
-    def create_model_card(self, path: str, model_name: Optional[str] = "TRL AlignProp Model") -> None:
-        """Creates and saves a model card for a TRL model.
-
-        Args:
-            path (`str`): The path to save the model card to.
-            model_name (`str`, *optional*): The name of the model, defaults to `TRL AlignProp Model`.
-        """
-        try:
-            user = whoami()["name"]
-        # handle the offline case
-        except Exception:
-            warnings.warn("Cannot retrieve user information assuming you are running in offline mode.")
-            return
-
-        if not os.path.exists(path):
-            os.makedirs(path)
-
-        model_card_content = MODEL_CARD_TEMPLATE.format(model_name=model_name, model_id=f"{user}/{path}")
-        with open(os.path.join(path, "README.md"), "w", encoding="utf-8") as f:
-            f.write(model_card_content)
-
     def _save_pretrained(self, save_directory):
         self.sd_pipeline.save_pretrained(save_directory)
-        self.create_model_card(save_directory)
+        self.create_model_card()
+
+    def create_model_card(
+        self,
+        model_name: Optional[str] = None,
+        dataset_name: Optional[str] = None,
+        tags: Union[str, list[str], None] = None,
+    ):
+        """
+        Creates a draft of a model card using the information available to the `Trainer`.
+
+        Args:
+            model_name (`str` or `None`, *optional*, defaults to `None`):
+                Name of the model.
+            dataset_name (`str` or `None`, *optional*, defaults to `None`):
+                Name of the dataset used for training.
+            tags (`str`, `list[str]` or `None`, *optional*, defaults to `None`):
+                Tags to be associated with the model card.
+        """
+        if not self.is_world_process_zero():
+            return
+
+        if hasattr(self.model.config, "_name_or_path") and not os.path.isdir(self.model.config._name_or_path):
+            base_model = self.model.config._name_or_path
+        else:
+            base_model = None
+
+        tags = tags or []
+        if isinstance(tags, str):
+            tags = [tags]
+
+        if hasattr(self.model.config, "unsloth_version"):
+            tags.append("unsloth")
+
+        citation = textwrap.dedent("""\
+        @article{prabhudesai2024aligning,
+            title        = {{Aligning Text-to-Image Diffusion Models with Reward Backpropagation}},
+            author       = {Mihir Prabhudesai and Anirudh Goyal and Deepak Pathak and Katerina Fragkiadaki},
+            year         = 2024,
+            eprint       = {arXiv:2310.03739}
+        }""")
+
+        model_card = generate_model_card(
+            base_model=base_model,
+            model_name=model_name,
+            hub_model_id=self.hub_model_id,
+            dataset_name=dataset_name,
+            tags=tags,
+            wandb_url=wandb.run.get_url() if is_wandb_available() and wandb.run is not None else None,
+            comet_url=get_comet_experiment_url(),
+            trainer_name="AlignProp",
+            trainer_citation=citation,
+            paper_title="Aligning Text-to-Image Diffusion Models with Reward Backpropagation",
+            paper_id="2310.03739",
+        )
+
+        model_card.save(os.path.join(self.args.output_dir, "README.md"))
 class UnslothAlignPropTrainer(_UnslothAlignPropTrainer):
     """
     
@@ -479,12 +600,16 @@ class UnslothAlignPropTrainer(_UnslothAlignPropTrainer):
     As of now only Stable Diffusion based pipelines are supported
 
     Attributes:
-        **config** (`AlignPropConfig`) -- Configuration object for AlignPropTrainer. Check the documentation of `PPOConfig` for more
-         details.
-        **reward_function** (Callable[[torch.Tensor, Tuple[str], Tuple[Any]], torch.Tensor]) -- Reward function to be used
-        **prompt_function** (Callable[[], Tuple[str, Any]]) -- Function to generate prompts to guide model
-        **sd_pipeline** (`DDPOStableDiffusionPipeline`) -- Stable Diffusion pipeline to be used for training.
-        **image_samples_hook** (Optional[Callable[[Any, Any, Any], Any]]) -- Hook to be called to log images
+        config (`AlignPropConfig`):
+            Configuration object for AlignPropTrainer. Check the documentation of `PPOConfig` for more details.
+        reward_function (`Callable[[torch.Tensor, tuple[str], tuple[Any]], torch.Tensor]`):
+            Reward function to be used
+        prompt_function (`Callable[[], tuple[str, Any]]`):
+            Function to generate prompts to guide model
+        sd_pipeline (`DDPOStableDiffusionPipeline`):
+            Stable Diffusion pipeline to be used for training.
+        image_samples_hook (`Optional[Callable[[Any, Any, Any], Any]]`):
+            Hook to be called to log images
     
     """
     def __init__(

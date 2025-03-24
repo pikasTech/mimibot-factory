@@ -1,5 +1,6 @@
 trl==0.15.2
 peft==0.15.0
 vllm==0.8.1
-unsloth==2025.3.17
+unsloth==2025.3.18
+unsloth_zoo==2025.3.16
 sentence-transformers

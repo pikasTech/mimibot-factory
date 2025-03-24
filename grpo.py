@@ -3,7 +3,7 @@ from utils import parse_prompt
 from unsloth import FastLanguageModel
 from trl import GRPOTrainer, GRPOConfig
 from transformers import AutoModelForCausalLM, AutoTokenizer
-from peft import LoraConfig, get_peft_model
+from peft import LoraConfig, get_peft_model, PeftModel
 import os
 import json
 import argparse
@@ -20,6 +20,10 @@ if __name__ == "__main__":
     parser.add_argument('--semantic_model_path', type=str, 
                         default='shibing624/text2vec-base-chinese',  # 修改默认值为HF模型ID
                         help='Sentence Transformer模型路径')
+    parser.add_argument('--load_lora_path', type=str,
+                        #  default='results/mimibot_tifa/checkpoint-1500',
+                        default=None,
+                        help='要加载的LoRA模型路径（用于继续训练）')
     args = parser.parse_args()
 
     # 加载语义相似度模型
@@ -57,21 +61,50 @@ if __name__ == "__main__":
     # MODEL_PATH = "/root/autodl-fs/models/Tifa-DeepsexV2-7b-Cot-0317-F16"
     # MODEL_PATH = '/root/autodl-fs/models/mimibot_tifa_v1.2'
     # MODEL_PATH = '/root/autodl-fs/models/mimibot_l3_v0.9'
-    MODEL_PATH = 'output/mimibot_tifa_v1.2'
+    # MODEL_PATH = 'output/mimibot_tifa_v1.2'
+    # MODEL_PATH = 'results/mimibot_tifa/checkpoint-1500'
+    MODEL_PATH = 'output/mimibot_tifa_v2.1'
 
     max_seq_length = 2048 # Can increase for longer reasoning traces
-    lora_rank = 32 # Larger rank = smarter, but slower
+    lora_rank = 64 # Larger rank = smarter, but slower
     max_data_length = 1024
 
-    model, tokenizer = FastLanguageModel.from_pretrained(
-        model_name = MODEL_PATH,
-        load_in_4bit = False,
-        load_in_8bit = False, # False for LoRA 16bit
-        max_seq_length = max_seq_length,
-        fast_inference = True, # Enable vLLM fast inference
-        max_lora_rank = lora_rank,
-        gpu_memory_utilization = 0.7, # Reduce if out of memory
-    )
+    if args.load_lora_path:
+        print(f"加载LoRA模型: {args.load_lora_path}")
+        model, tokenizer = FastLanguageModel.from_pretrained(
+            model_name = args.load_lora_path,
+            load_in_4bit = False,
+            load_in_8bit = False, # False for LoRA 16bit
+            max_seq_length = max_seq_length,
+            fast_inference = True, # Enable vLLM fast inference
+            max_lora_rank = lora_rank,
+            gpu_memory_utilization = 0.7, # Reduce if out of memory
+        )
+
+    else:
+        print(f"加载模型: {MODEL_PATH}")
+        model, tokenizer = FastLanguageModel.from_pretrained(
+            model_name = MODEL_PATH,
+            load_in_4bit = False,
+            load_in_8bit = False, # False for LoRA 16bit
+            max_seq_length = max_seq_length,
+            fast_inference = True, # Enable vLLM fast inference
+            max_lora_rank = lora_rank,
+            gpu_memory_utilization = 0.7, # Reduce if out of memory
+        )
+
+
+        model = FastLanguageModel.get_peft_model(
+            model,
+            r=lora_rank,
+            target_modules=[
+                "q_proj", "k_proj", "v_proj", "o_proj",
+                "gate_proj", "up_proj", "down_proj",
+            ],
+            lora_alpha=lora_rank,
+            use_gradient_checkpointing="unsloth",
+            random_state=3407,
+        )
 
     # 加载Alpaca格式数据集
     def load_alpaca_dataset(file_path):
@@ -140,18 +173,6 @@ if __name__ == "__main__":
     # 打印一个 dataset 例子
     print(dataset[0])
     
-    model = FastLanguageModel.get_peft_model(
-        model,
-        r = lora_rank, # Choose any number > 0 ! Suggested 8, 16, 32, 64, 128
-        target_modules = [
-            "q_proj", "k_proj", "v_proj", "o_proj",
-            "gate_proj", "up_proj", "down_proj",
-        ], # Remove QKVO if out of memory
-        lora_alpha = lora_rank,
-        use_gradient_checkpointing = "unsloth", # Enable long context finetuning
-        random_state = 3407,
-    )
-
     # Dummy reward function: count the number of unique characters in the completions
     def reward_num_unique_chars(completions, **kwargs):
         # 奖励中文回答，惩罚英文回答
@@ -387,7 +408,8 @@ if __name__ == "__main__":
 
     # 使用GRPOConfig而非TrainingArguments
     training_args = GRPOConfig(
-        learning_rate= 3e-5,
+        # learning_rate= 3e-5,
+        learning_rate= 1e-4,
         adam_beta1 = 0.9,
         adam_beta2 = 0.99,
         weight_decay = 0.1,

@@ -177,3 +177,8 @@ wandb/
 swanlog/
 generated_predictions.jsonl
 models/
+unsloth_compiled_cache/
+*.gguf
+*.tar.gz
+results/
+grpo_trainer_lora_model/

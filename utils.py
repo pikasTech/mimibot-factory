@@ -45,8 +45,8 @@ def parse_prompt(promt:str) -> Tuple[str, List[str]]:
     第二个是历史消息
     """
     # 提取 user_message
-    # user_message = re.findall(r"<\|im_start\|>user(.*?)<\|im_end\|>", promt, re.DOTALL)[0].strip()
-    user_message = re.findall(r"<\|start_header_id\|>user<\|end_header_id\|>(.*?)<\|eot_id\|>", promt, re.DOTALL)[0].strip()
+    user_message = re.findall(r"<\|im_start\|>user(.*?)<\|im_end\|>", promt, re.DOTALL)[0].strip()
+    # user_message = re.findall(r"<\|start_header_id\|>user<\|end_header_id\|>(.*?)<\|eot_id\|>", promt, re.DOTALL)[0].strip()
     # 提取 
     latest_message = extract_latest(user_message)
     history_message = extract_history(user_message)

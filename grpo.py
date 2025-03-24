@@ -18,7 +18,7 @@ if __name__ == "__main__":
     parser.add_argument('--alpaca_path', type=str, default='data/alpaca_data_reward_sort.json', 
                         help='Alpaca数据集路径')
     parser.add_argument('--semantic_model_path', type=str, 
-                        default='/root/autodl-fs/models/all-MiniLM-L6-v2',  # 修改默认值为HF模型ID
+                        default='shibing624/text2vec-base-chinese',  # 修改默认值为HF模型ID
                         help='Sentence Transformer模型路径')
     args = parser.parse_args()
 
@@ -56,7 +56,8 @@ if __name__ == "__main__":
     # MODEL_PATH = "/root/autodl-fs/models/Llama3.1-8B-Chinese-Chat"
     # MODEL_PATH = "/root/autodl-fs/models/Tifa-DeepsexV2-7b-Cot-0317-F16"
     # MODEL_PATH = '/root/autodl-fs/models/mimibot_tifa_v1.2'
-    MODEL_PATH = '/root/autodl-fs/models/mimibot_l3_v0.9'
+    # MODEL_PATH = '/root/autodl-fs/models/mimibot_l3_v0.9'
+    MODEL_PATH = 'output/mimibot_tifa_v1.2'
 
     max_seq_length = 2048 # Can increase for longer reasoning traces
     lora_rank = 32 # Larger rank = smarter, but slower
@@ -381,7 +382,7 @@ if __name__ == "__main__":
                 print(f"Similarity: {similarity[i]}")
                 print(f"Reward: {rewards[i]}")
                 print('-' * 10)
-            print(f"处理了 {len(completions)} 个回答")
+            print(f"======== 处理了 {len(completions)} 个回答 ========")
         return rewards
 
     # 使用GRPOConfig而非TrainingArguments
@@ -391,7 +392,7 @@ if __name__ == "__main__":
         adam_beta2 = 0.99,
         weight_decay = 0.1,
         warmup_ratio = 0.001,
-        output_dir="./results/mimibot_l3",  # 添加必要的output_dir参数
+        output_dir="./results/mimibot_tifa",  # 添加必要的output_dir参数
         lr_scheduler_type = "cosine",
         optim = "paged_adamw_8bit",
         per_device_train_batch_size=32,

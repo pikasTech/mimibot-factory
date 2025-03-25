@@ -1,8 +1,10 @@
 import re
 import os
+import numpy as np
 import sentence_transformers
 from prompt_utils import parse_prompt
-from utils import extract_response_from_thinking
+from utils import extract_response_from_thinking, clean_user_message, setup_reward_logger, log_reward_data
+import logging
 
 # 全局变量，存储语义模型
 semantic_model = None
@@ -52,7 +54,89 @@ def reward_len_response(completions, answer=None, **kwargs):
     """
     检查回复长度，如果长度和标准回复长度相差过大，则给予惩罚
     相差不大则容忍，不惩罚
+    Args:
+        completions: 模型生成的回复列表
+        answer: 标准答案列表，可选
+    Returns:
+        奖励值列表
     """
+    use_debug = False
+    rewards = []
+
+    # 提取实际回复内容
+    responses = [extract_response_from_thinking(c) for c in completions]
+    response_lengths = [len(r) for r in responses]
+
+    if answer and len(answer) > 0:
+        # 一对一比较每个回复与对应的标准答案
+        target_lengths = [len(extract_response_from_thinking(a))
+                          for a in answer]
+
+        # 确保有足够的标准答案进行比较
+        if len(target_lengths) < len(response_lengths):
+            if use_debug:
+                print(
+                    f"警告: 标准答案数量({len(target_lengths)})少于回复数量({len(response_lengths)})")
+            # 对超出的回复使用已有标准答案的中位数长度
+            median_target = np.median(target_lengths)
+            target_lengths.extend(
+                [median_target] * (len(response_lengths) - len(target_lengths)))
+    else:
+        # 如果没有标准答案，使用所有回复的中位数长度
+        median_length = np.median(response_lengths)
+        target_lengths = [median_length] * len(response_lengths)
+        if use_debug:
+            print(f"回复中位数长度: {median_length}")
+
+    # 定义长度差异的可接受范围
+    acceptable_range = 0.3  # 30%的差异视为可接受
+    # 添加绝对差异容忍阈值，对短文本更宽松
+    absolute_tolerance = 5  # 少于5个字符的差异可以接受
+
+    for i, length in enumerate(response_lengths):
+        # 获取当前回复对应的目标长度
+        target_length = target_lengths[min(i, len(target_lengths)-1)]
+
+        # 计算绝对差异
+        abs_diff = abs(length - target_length)
+        
+        # 计算与目标长度的差异比例
+        if target_length == 0:
+            # 避免除零错误
+            ratio = float('inf') if length > 0 else 0
+        else:
+            ratio = abs_diff / target_length
+            
+        # 对短文本使用更宽松的标准
+        # 如果标准答案很短（小于20个字符），并且绝对差异小于阈值，直接视为可接受
+        is_acceptable = (ratio <= acceptable_range) or (target_length < 20 and abs_diff <= absolute_tolerance)
+
+        # 根据差异比例计算奖励/惩罚
+        if is_acceptable:
+            # 在可接受范围内，给予奖励
+            reward = 50
+        else:
+            # 计算惩罚因子，考虑短文本情况
+            # 动态调整较短文本的可接受范围
+            dynamic_range = acceptable_range
+            if target_length < 50:
+                # 对更短的文本逐渐放宽标准
+                dynamic_range = acceptable_range + (0.5 * (50 - target_length) / 50)
+            
+            penalty_factor = min(5, ratio / dynamic_range - 1)  # 限制最大惩罚因子
+            reward = -50 * penalty_factor
+
+            # 对极短或极长的回复给予额外惩罚，但调整极短的判断标准
+            if (target_length >= 20 and length < target_length * 0.2) or length > target_length * 3:
+                reward -= 50
+
+        rewards.append(reward)
+
+        if use_debug:
+            print(
+                f"回复{i}长度: {length}, 目标长度: {target_length}, 绝对差异: {abs_diff}, 差异比例: {ratio:.2f}, 是否接受: {is_acceptable}, 奖励值: {reward}")
+
+    return rewards
 
 
 # 检查格式是否正确
@@ -152,6 +236,17 @@ def reward_no_repetition(completions, prompts=None, **kwargs):
 # 用户相似度奖励函数
 
 
+# 全局变量存储日志记录器
+user_similarity_logger = None
+
+
+def init_user_similarity_logger(timestamp):
+    """初始化用户相似度奖励的日志记录器"""
+    global user_similarity_logger
+    user_similarity_logger = setup_reward_logger(timestamp, "similarity")
+    return user_similarity_logger is not None
+
+
 def reward_user_similarity(completions, prompts=None, **kwargs):
     global semantic_model
     if semantic_model is None:
@@ -169,12 +264,9 @@ def reward_user_similarity(completions, prompts=None, **kwargs):
         # 获取输入提示
         prompt = prompts[i] if prompts else ""
 
-        # 解析提示中的用户消息
+        # 解析提示中的用户消息并清理
         user_message, _ = parse_prompt(prompt)
-        if ">:" in user_message:
-            user_message = user_message.split(">:")[-1].strip()
-        if "：" in user_message:
-            user_message = user_message.split("：")[-1].strip()
+        user_message = clean_user_message(user_message)
         user_messages.append(user_message)
 
         # 提取回复部分
@@ -222,11 +314,10 @@ def reward_user_similarity(completions, prompts=None, **kwargs):
 
     return rewards
 
-# 与标准答案的相似度奖励函数
-
 
 def reward_similarity(completions, prompts=None, answer=None, **kwargs):
     global semantic_model
+    global user_similarity_logger
     if semantic_model is None:
         print("警告：语义模型未初始化，无法计算相似度")
         return [0] * len(completions)
@@ -239,10 +330,7 @@ def reward_similarity(completions, prompts=None, answer=None, **kwargs):
     answers = []
     for ans in answer:
         response = extract_response_from_thinking(ans)
-        if ">:" in response:
-            response = response.split(">:")[-1].strip()
-        if "：" in response:
-            response = response.split("：")[-1].strip()
+        response = clean_user_message(response)
         answers.append(response)
     rewards = []
     similarity = sentence_transformers.util.cos_sim(
@@ -272,4 +360,21 @@ def reward_similarity(completions, prompts=None, answer=None, **kwargs):
             print(f"Reward: {rewards[i]}")
             print('-' * 10)
         print(f"======== 处理了 {len(completions)} 个回答 ========")
+
+    # 记录奖励数据到日志
+    if user_similarity_logger:
+        # 创建字典来存储唯一的(prompt, ans)对及其相似度列表
+        unique_pairs = {}
+        for prompt, ans, sim in zip(prompts, answers, similarity):
+            pair_key = (prompt, ans)
+            if pair_key in unique_pairs:
+                unique_pairs[pair_key].append(sim)
+            else:
+                unique_pairs[pair_key] = [sim]
+        
+        # 对于每个唯一的对，计算平均相似度并记录
+        for (prompt, ans), sim_list in unique_pairs.items():
+            avg_sim = sum(sim_list) / len(sim_list)
+            log_reward_data(user_similarity_logger, prompt, ans, avg_sim)
+
     return rewards

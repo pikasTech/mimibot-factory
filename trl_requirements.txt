@@ -4,3 +4,5 @@ vllm==0.8.1
 unsloth==2025.3.18
 unsloth_zoo==2025.3.16
 sentence-transformers
+flask
+flask_cors

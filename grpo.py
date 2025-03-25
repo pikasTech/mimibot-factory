@@ -9,24 +9,39 @@ import json
 import argparse
 import sentence_transformers
 import re
+import sys
+import datetime
+import logging
 from transformers import AutoModel, AutoTokenizer
+# 导入自定义工具模块
+from utils import setup_logging, cleanup_logging, setup_reward_logger
 # 导入奖励函数
 from grpo_reward import (
     init_semantic_model,
-    reward_num_unique_chars,
     reward_format,
     reward_no_repetition,
     reward_similarity,
-    reward_user_similarity
+    reward_user_similarity,
+    reward_len_response,
+    init_user_similarity_logger
 )
 
 if __name__ == "__main__":
+    # 设置日志记录
+    logging_context = setup_logging()
+
+    # 记录脚本开始运行
+    print(f"GRPO训练脚本开始运行")
+
+    # 初始化用户相似度奖励的日志记录器
+    init_user_similarity_logger(logging_context["timestamp"])
+
     parser = argparse.ArgumentParser(description='GRPO训练脚本')
-    parser.add_argument('--dataset_type', type=str, default='alpaca', choices=['tldr', 'alpaca'], 
+    parser.add_argument('--dataset_type', type=str, default='alpaca', choices=['tldr', 'alpaca'],
                         help='数据集类型: tldr或alpaca')
-    parser.add_argument('--alpaca_path', type=str, default='data/alpaca_data_reward_sort.json', 
+    parser.add_argument('--alpaca_path', type=str, default='data/grpo_sorted.json',
                         help='Alpaca数据集路径')
-    parser.add_argument('--semantic_model_path', type=str, 
+    parser.add_argument('--semantic_model_path', type=str,
                         default='shibing624/text2vec-base-chinese',  # 修改默认值为HF模型ID
                         help='Sentence Transformer模型路径')
     parser.add_argument('--load_lora_path', type=str,
@@ -56,36 +71,35 @@ if __name__ == "__main__":
     # MODEL_PATH = '/root/autodl-fs/models/mimibot_l3_v0.9'
     # MODEL_PATH = 'output/mimibot_tifa_v1.2'
     # MODEL_PATH = 'results/mimibot_tifa/checkpoint-1500'
-    MODEL_PATH = 'output/mimibot_tifa_v2.1'
+    MODEL_PATH = 'output/mimibot_tifa_v2.3'
 
-    max_seq_length = 2048 # Can increase for longer reasoning traces
-    lora_rank = 64 # Larger rank = smarter, but slower
-    max_data_length = 1024
+    max_seq_length = 2048  # Can increase for longer reasoning traces
+    lora_rank = 64  # Larger rank = smarter, but slower
+    max_data_length = 1024  # 1k examples
 
     if args.load_lora_path:
         print(f"加载LoRA模型: {args.load_lora_path}")
         model, tokenizer = FastLanguageModel.from_pretrained(
-            model_name = args.load_lora_path,
-            load_in_4bit = False,
-            load_in_8bit = False, # False for LoRA 16bit
-            max_seq_length = max_seq_length,
-            fast_inference = True, # Enable vLLM fast inference
-            max_lora_rank = lora_rank,
-            gpu_memory_utilization = 0.7, # Reduce if out of memory
+            model_name=args.load_lora_path,
+            load_in_4bit=False,
+            load_in_8bit=False,  # False for LoRA 16bit
+            max_seq_length=max_seq_length,
+            fast_inference=True,  # Enable vLLM fast inference
+            max_lora_rank=lora_rank,
+            gpu_memory_utilization=0.7,  # Reduce if out of memory
         )
 
     else:
         print(f"加载模型: {MODEL_PATH}")
         model, tokenizer = FastLanguageModel.from_pretrained(
-            model_name = MODEL_PATH,
-            load_in_4bit = False,
-            load_in_8bit = False, # False for LoRA 16bit
-            max_seq_length = max_seq_length,
-            fast_inference = True, # Enable vLLM fast inference
-            max_lora_rank = lora_rank,
-            gpu_memory_utilization = 0.7, # Reduce if out of memory
+            model_name=MODEL_PATH,
+            load_in_4bit=False,
+            load_in_8bit=False,  # False for LoRA 16bit
+            max_seq_length=max_seq_length,
+            fast_inference=True,  # Enable vLLM fast inference
+            max_lora_rank=lora_rank,
+            gpu_memory_utilization=0.7,  # Reduce if out of memory
         )
-
 
         model = FastLanguageModel.get_peft_model(
             model,
@@ -108,7 +122,14 @@ if __name__ == "__main__":
             "prompt": [],
             "completion": []
         }
-        
+
+        if "prompt" in data[0] and "completion" in data[0]:
+            # 如果数据集已经是prompt-completion格式，直接返回
+            for item in data:
+                processed_data["prompt"].append(item["prompt"])
+                processed_data["completion"].append(item["completion"])
+            return Dataset.from_dict(processed_data)
+
         for item in data:
             # 处理历史对话
             history_text = ""
@@ -118,20 +139,20 @@ if __name__ == "__main__":
                         history_text += f"{turn[0]}\n{turn[1]}\n"
                     elif turn[0]:
                         history_text += f"{turn[0]}\n"
-            
+
             # 构建提示
             prompt = "【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n"
             if history_text:
                 prompt += f"【历史消息】\n{history_text}\n\n"
-            
+
             prompt += "【最新消息】\n" + f"{item['input']}"
-            
+
             # 提取输出
             completion = item["output"]
-            
+
             processed_data["prompt"].append(prompt)
             processed_data["completion"].append(completion)
-        
+
         return Dataset.from_dict(processed_data)
 
     # 根据选择加载不同的数据集
@@ -145,7 +166,7 @@ if __name__ == "__main__":
         message = [
             {"role": "system", "content": SYSTEM_PROMPT},
             {"role": "user", "content": x['prompt']}
-            ]
+        ]
         prompt = tokenizer.apply_chat_template(
             message,
             tokenize=False,
@@ -155,48 +176,56 @@ if __name__ == "__main__":
             "prompt": prompt + "<think>",
             "answer": x['completion'],
         }
-    
+
     def get_promt_dataset(dataset) -> Dataset:
         # 数据集已经是训练集，不需要再次拆分
-        data = dataset # type: ignore
-        data = data.map(apply_template) # type: ignore
-        return data # type: ignore
+        if "prompt" in dataset[0] and "answer" in dataset[0]:
+            return dataset
+        data = dataset  # type: ignore
+        data = data.map(apply_template)  # type: ignore
+        return data  # type: ignore
 
     dataset = get_promt_dataset(dataset=dataset)
     # 打印一个 dataset 例子
     print(dataset[0])
-    
+
     # 使用GRPOConfig而非TrainingArguments
     training_args = GRPOConfig(
         # learning_rate= 3e-5,
-        learning_rate= 1e-4,
-        adam_beta1 = 0.9,
-        adam_beta2 = 0.99,
-        weight_decay = 0.1,
-        warmup_ratio = 0.001,
+        learning_rate=1e-4,
+        adam_beta1=0.9,
+        adam_beta2=0.99,
+        weight_decay=0.1,
+        warmup_ratio=0.001,
         output_dir="./results/mimibot_tifa",  # 添加必要的output_dir参数
-        lr_scheduler_type = "cosine",
-        optim = "paged_adamw_8bit",
-        per_device_train_batch_size=32,
+        lr_scheduler_type="cosine",
+        optim="paged_adamw_8bit",
+        # per_device_train_batch_size=32,
+        per_device_train_batch_size=16,
         gradient_accumulation_steps=1,
-        num_generations=4,
+        # num_generations=4,
+        num_generations=8,
         logging_steps=1,
         save_strategy="steps",
         save_steps=500,
         max_steps=10000,
-        max_grad_norm = 0.1,
-        max_completion_length = 256
+        max_grad_norm=0.1,
+        max_completion_length=256
     )
 
     # 使用导入的奖励函数，不再需要传递semantic_model
     trainer = GRPOTrainer(
         model=model,
         reward_funcs=[
-            reward_format, 
-            reward_no_repetition, 
-            reward_similarity
+            reward_format,
+            reward_no_repetition,
+            reward_similarity,
+            reward_len_response,
         ],
         train_dataset=dataset,
         args=training_args
     )
     trainer.train()
+
+    # 清理日志设置
+    cleanup_logging(logging_context)

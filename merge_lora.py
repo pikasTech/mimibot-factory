@@ -128,14 +128,14 @@ def merge_lora_to_base(
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="LoRA模型合并工具")
     parser.add_argument("--base_model_path", type=str,
-                        help="基础模型的路径", default="output/mimibot_tifa_v2.2")
+                        help="基础模型的路径", default="models/Tifa-DeepsexV2-7b-Cot-0317-F16")
     parser.add_argument("--lora_model_path", type=str,
-                        help="LoRA模型的路径", default="results/mimibot_tifa/checkpoint-2000")
+                        help="LoRA模型的路径", default="results/mimibot_tifa/checkpoint-500")
     parser.add_argument("--alpha", type=float, default=1.0,
                         help="LoRA权重合并比例，默认为1.0")
     parser.add_argument("--output_dir", type=str,
                         help="合并后模型的保存路径", 
-                        default="output/mimibot_tifa_v2.3")
+                        default="output/mimibot_tifa_v3.0")
     parser.add_argument("--output_precision", type=str, 
                         default="none",
                         choices=["fp16", "bf16", "none"],

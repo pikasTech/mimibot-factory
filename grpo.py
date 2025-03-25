@@ -14,7 +14,7 @@ import datetime
 import logging
 from transformers import AutoModel, AutoTokenizer
 # 导入自定义工具模块
-from utils import setup_logging, cleanup_logging, setup_reward_logger
+from utils import setup_logging, cleanup_logging, setup_reward_logger, apply_template
 # 导入奖励函数
 from grpo_reward import (
     init_semantic_model,
@@ -79,47 +79,35 @@ if __name__ == "__main__":
     # MODEL_PATH = '/root/autodl-fs/models/mimibot_l3_v0.9'
     # MODEL_PATH = 'output/mimibot_tifa_v1.2'
     # MODEL_PATH = 'results/mimibot_tifa/checkpoint-1500'
-    MODEL_PATH = 'output/mimibot_tifa_v2.3'
+    MODEL_PATH = 'output/mimibot_tifa_v3.0'
+    # MODEL_PATH = 'models/Tifa-DeepsexV2-7b-Cot-0317-F16'
 
     max_seq_length = 2048  # Can increase for longer reasoning traces
-    lora_rank = 64  # Larger rank = smarter, but slower
-    max_data_length = 1024  # 1k examples
+    lora_rank = 64
+    max_data_length = 512 # 1k examples
 
-    if args.load_lora_path:
-        print(f"加载LoRA模型: {args.load_lora_path}")
-        model, tokenizer = FastLanguageModel.from_pretrained(
-            model_name=args.load_lora_path,
-            load_in_4bit=False,
-            load_in_8bit=False,  # False for LoRA 16bit
-            max_seq_length=max_seq_length,
-            fast_inference=True,  # Enable vLLM fast inference
-            max_lora_rank=lora_rank,
-            gpu_memory_utilization=0.7,  # Reduce if out of memory
-        )
+    print(f"加载模型: {MODEL_PATH}")
+    model, tokenizer = FastLanguageModel.from_pretrained(
+        model_name=MODEL_PATH,
+        load_in_4bit=False,
+        load_in_8bit=False,  # False for LoRA 16bit
+        max_seq_length=max_seq_length,
+        fast_inference=True,  # Enable vLLM fast inference
+        max_lora_rank=lora_rank,
+        gpu_memory_utilization=0.8,  # Reduce if out of memory
+    )
 
-    else:
-        print(f"加载模型: {MODEL_PATH}")
-        model, tokenizer = FastLanguageModel.from_pretrained(
-            model_name=MODEL_PATH,
-            load_in_4bit=False,
-            load_in_8bit=False,  # False for LoRA 16bit
-            max_seq_length=max_seq_length,
-            fast_inference=True,  # Enable vLLM fast inference
-            max_lora_rank=lora_rank,
-            gpu_memory_utilization=0.7,  # Reduce if out of memory
-        )
-
-        model = FastLanguageModel.get_peft_model(
-            model,
-            r=lora_rank,
-            target_modules=[
-                "q_proj", "k_proj", "v_proj", "o_proj",
-                "gate_proj", "up_proj", "down_proj",
-            ],
-            lora_alpha=lora_rank,
-            use_gradient_checkpointing="unsloth",
-            random_state=3407,
-        )
+    model = FastLanguageModel.get_peft_model(
+        model,
+        r=lora_rank,
+        target_modules=[
+            "q_proj", "k_proj", "v_proj", "o_proj",
+            "gate_proj", "up_proj", "down_proj",
+        ],
+        lora_alpha=lora_rank,
+        use_gradient_checkpointing="unsloth",
+        random_state=3407,
+    )
 
     # 加载Alpaca格式数据集
     def load_alpaca_dataset(file_path):
@@ -170,27 +158,21 @@ if __name__ == "__main__":
         dataset = load_alpaca_dataset(args.alpaca_path)
 
     # 应用模板的函数，处理不同格式的数据
-    def apply_template(x):
-        message = [
-            {"role": "system", "content": SYSTEM_PROMPT},
-            {"role": "user", "content": x['prompt']}
-        ]
-        prompt = tokenizer.apply_chat_template(
-            message,
-            tokenize=False,
-            add_generation_prompt=True,
-        )
-        return {
-            "prompt": prompt + "<think>",
-            "answer": x['completion'],
-        }
-
     def get_promt_dataset(dataset) -> Dataset:
         # 数据集已经是训练集，不需要再次拆分
         if "prompt" in dataset[0] and "answer" in dataset[0]:
             return dataset
         data = dataset  # type: ignore
-        data = data.map(apply_template)  # type: ignore
+        
+        # 使用apply_template函数处理数据
+        def transform_example(x):
+            formatted_prompt = apply_template(x['prompt'], tokenizer, SYSTEM_PROMPT) + "<think>"
+            return {
+                "prompt": formatted_prompt,
+                "answer": x['completion'],
+            }
+        
+        data = data.map(transform_example)  # type: ignore
         return data  # type: ignore
 
     dataset = get_promt_dataset(dataset=dataset)
@@ -199,11 +181,12 @@ if __name__ == "__main__":
 
     # 使用GRPOConfig而非TrainingArguments
     training_args = GRPOConfig(
-        learning_rate=1e-4,
+        # learning_rate=1e-4,
+        learning_rate=3e-5,
         adam_beta1=0.9,
         adam_beta2=0.99,
         weight_decay=0.1,
-        warmup_ratio=0.001,
+        warmup_ratio=0.01,
         output_dir="./results/mimibot_tifa",  # 添加必要的output_dir参数
         lr_scheduler_type="cosine",
         optim="paged_adamw_8bit",
@@ -213,20 +196,26 @@ if __name__ == "__main__":
         logging_steps=1,
         save_strategy="steps",
         save_steps=500,
-        max_steps=10000,
+        max_steps=1000,
         max_grad_norm=0.1,
-        max_completion_length=256
+        max_completion_length=512
     )
 
     # 创建回调列表
     callbacks = []
+
+    def get_trainer():
+        return trainer
     
     # 如果启用API服务器，添加OpenAI兼容API回调
     if args.enable_api:
         print(f"启用OpenAI兼容API服务器: 端口={args.api_port}, 主机={args.api_host}")
         api_callback = OpenAICompatibleCallback(
             port=args.api_port,
-            simulation_mode=False
+            simulation_mode=False,
+            trainer_getter=get_trainer,
+            system_prompt=SYSTEM_PROMPT,  # 传入系统提示
+            tokenizer=tokenizer,
         )
         callbacks.append(api_callback)
 

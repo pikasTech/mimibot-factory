@@ -56,7 +56,7 @@ def process_similarity_json(input_path: str, output_path: str):
 
 def main():
     parser = argparse.ArgumentParser(description='Convert similarity.jsonl to alpaca format')
-    parser.add_argument('--input', type=str, default='logs/20250324_195641_similarity.jsonl', 
+    parser.add_argument('--input', type=str, default='logs/20250324_152329_similarity.jsonl', 
                       help='Input file path')
     parser.add_argument('--output', type=str, default='/home/ubuntu/LLaMA-Factory/data/grpo_sorted.json',
                       help='Output file path')

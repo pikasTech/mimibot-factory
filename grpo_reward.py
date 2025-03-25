@@ -123,12 +123,12 @@ def reward_len_response(completions, answer=None, **kwargs):
                 # 对更短的文本逐渐放宽标准
                 dynamic_range = acceptable_range + (0.5 * (50 - target_length) / 50)
             
-            penalty_factor = min(5, ratio / dynamic_range - 1)  # 限制最大惩罚因子
-            reward = -50 * penalty_factor
+            penalty_factor = ratio / dynamic_range - 1  # 不限制最大惩罚因子
+            reward = -10 * penalty_factor
 
             # 对极短或极长的回复给予额外惩罚，但调整极短的判断标准
             if (target_length >= 20 and length < target_length * 0.2) or length > target_length * 3:
-                reward -= 50
+                reward *= 2 # 对极端情况给予额外惩罚
 
         rewards.append(reward)
 
@@ -212,6 +212,18 @@ def reward_no_repetition(completions, prompts=None, **kwargs):
             if response_pure == message_pure:
                 penalty -= 100  # Severe penalty for exact repetition
                 break
+                
+            # Check for partial repetition
+            if response_pure in message_pure or message_pure in response_pure:
+                penalty -= 50
+            
+            # Check for similarity
+            if sentence_transformers.util.cos_sim(
+                semantic_model.encode([response]),
+                semantic_model.encode([message])
+            )[0][0] > 0.5:
+                penalty -= 30
+
 
         # 3. 检查是否包含"禁止重复"等提示词
         if "禁止重复" in response or "不要重复" in response:

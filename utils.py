@@ -148,3 +148,31 @@ def log_reward_data(logger, prompt, answer, reward):
         "similarity": float(reward)
     }
     logger.info(json.dumps(data, ensure_ascii=False))
+
+
+def apply_template(prompt, tokenizer, system_prompt=None):
+    """应用聊天模板到提示文本
+    
+    参数:
+        prompt: 用户输入的提示文本
+        tokenizer: 使用的分词器
+        system_prompt: 可选的系统提示，默认为None
+    
+    返回:
+        应用模板后的提示文本
+    """
+    # 构建消息列表
+    messages = []
+    if system_prompt:
+        messages.append({"role": "system", "content": system_prompt})
+    
+    messages.append({"role": "user", "content": prompt})
+    
+    # 应用聊天模板
+    formatted_prompt = tokenizer.apply_chat_template(
+        messages,
+        tokenize=False,
+        add_generation_prompt=True,
+    )
+    
+    return formatted_prompt

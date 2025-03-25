@@ -25,6 +25,8 @@ from grpo_reward import (
     reward_len_response,
     init_user_similarity_logger
 )
+# 导入OpenAI兼容API服务器
+from api_server.openai_compatible_server import OpenAICompatibleCallback, OpenAICompatibleServer
 
 if __name__ == "__main__":
     # 设置日志记录
@@ -42,12 +44,18 @@ if __name__ == "__main__":
     parser.add_argument('--alpaca_path', type=str, default='data/grpo_sorted.json',
                         help='Alpaca数据集路径')
     parser.add_argument('--semantic_model_path', type=str,
-                        default='shibing624/text2vec-base-chinese',  # 修改默认值为HF模型ID
+                        default='shibing624/text2vec-base-chinese',
                         help='Sentence Transformer模型路径')
     parser.add_argument('--load_lora_path', type=str,
-                        #  default='results/mimibot_tifa/checkpoint-1500',
                         default=None,
                         help='要加载的LoRA模型路径（用于继续训练）')
+    # 添加API服务器相关参数
+    parser.add_argument('--enable_api', type=bool, default=True,
+                        help='启用OpenAI兼容的API服务器')
+    parser.add_argument('--api_port', type=int, default=8099,
+                        help='API服务器端口')
+    parser.add_argument('--api_host', type=str, default='0.0.0.0',
+                        help='API服务器主机地址')
     args = parser.parse_args()
 
     # 加载语义相似度模型并初始化奖励模块
@@ -191,7 +199,6 @@ if __name__ == "__main__":
 
     # 使用GRPOConfig而非TrainingArguments
     training_args = GRPOConfig(
-        # learning_rate= 3e-5,
         learning_rate=1e-4,
         adam_beta1=0.9,
         adam_beta2=0.99,
@@ -200,10 +207,8 @@ if __name__ == "__main__":
         output_dir="./results/mimibot_tifa",  # 添加必要的output_dir参数
         lr_scheduler_type="cosine",
         optim="paged_adamw_8bit",
-        # per_device_train_batch_size=32,
         per_device_train_batch_size=16,
         gradient_accumulation_steps=1,
-        # num_generations=4,
         num_generations=8,
         logging_steps=1,
         save_strategy="steps",
@@ -213,7 +218,19 @@ if __name__ == "__main__":
         max_completion_length=256
     )
 
-    # 使用导入的奖励函数，不再需要传递semantic_model
+    # 创建回调列表
+    callbacks = []
+    
+    # 如果启用API服务器，添加OpenAI兼容API回调
+    if args.enable_api:
+        print(f"启用OpenAI兼容API服务器: 端口={args.api_port}, 主机={args.api_host}")
+        api_callback = OpenAICompatibleCallback(
+            port=args.api_port,
+            simulation_mode=False
+        )
+        callbacks.append(api_callback)
+
+    # 使用导入的奖励函数
     trainer = GRPOTrainer(
         model=model,
         reward_funcs=[
@@ -223,8 +240,11 @@ if __name__ == "__main__":
             reward_len_response,
         ],
         train_dataset=dataset,
-        args=training_args
+        args=training_args,
+        callbacks=callbacks  # 添加回调列表
     )
+    
+    # 开始训练
     trainer.train()
 
     # 清理日志设置

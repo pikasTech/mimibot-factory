@@ -1,0 +1,580 @@
+日志系统初始化完成，日志文件: logs/20250325_081539_log.txt
+GRPO训练脚本开始运行
+similarity奖励日志初始化完成，日志文件: logs/20250325_081539_similarity.jsonl
+正在加载语义模型: shibing624/text2vec-base-chinese
+正在尝试从Hugging Face Hub加载语义模型: shibing624/text2vec-base-chinese
+2025-03-25 08:15:39,563 - INFO - Use pytorch device_name: cuda
+2025-03-25 08:15:39,563 - INFO - Load pretrained SentenceTransformer: shibing624/text2vec-base-chinese
+语义模型加载成功: shibing624/text2vec-base-chinese
+加载模型: output/mimibot_tifa_v2.3
+==((====))==  Unsloth 2025.3.18: Fast Qwen2 patching. Transformers: 4.50.0. vLLM: 0.8.1.
+   \\   /|    NVIDIA GeForce RTX 3090. Num GPUs = 1. Max memory: 24.0 GB. Platform: Linux.
+O^O/ \_/ \    Torch: 2.6.0+cu124. CUDA: 8.6. CUDA Toolkit: 12.4. Triton: 3.2.0
+\        /    Bfloat16 = TRUE. FA [Xformers = 0.0.29.post2. FA2 = False]
+ "-____-"     Free license: http://github.com/unslothai/unsloth
+Unsloth: Fast downloading is enabled - ignore downloading bars which are red colored!
+Unsloth: vLLM loading output/mimibot_tifa_v2.3 with actual GPU utilization = 65.2%
+Unsloth: Your GPU has CUDA compute capability 8.6 with VRAM = 24.0 GB.
+Unsloth: Using conservativeness = 1.0. Chunked prefill tokens = 2048. Num Sequences = 128.
+Unsloth: vLLM's KV Cache can use up to 1.16 GB. Also swap space = 2 GB.
+Loading safetensors checkpoint shards:   0% Completed | 0/4 [00:00<?, ?it/s]
+Loading safetensors checkpoint shards:  25% Completed | 1/4 [00:02<00:07,  2.60s/it]
+Loading safetensors checkpoint shards:  50% Completed | 2/4 [00:05<00:05,  2.66s/it]
+Loading safetensors checkpoint shards:  75% Completed | 3/4 [00:07<00:02,  2.54s/it]
+Loading safetensors checkpoint shards: 100% Completed | 4/4 [00:08<00:00,  1.78s/it]
+Loading safetensors checkpoint shards: 100% Completed | 4/4 [00:08<00:00,  2.08s/it]
+
+Capturing CUDA graph shapes:   0%|          | 0/19 [00:00<?, ?it/s]Capturing CUDA graph shapes:   5%|5         | 1/19 [00:00<00:07,  2.55it/s]Capturing CUDA graph shapes:  11%|#         | 2/19 [00:00<00:06,  2.55it/s]Capturing CUDA graph shapes:  16%|#5        | 3/19 [00:01<00:06,  2.59it/s]Capturing CUDA graph shapes:  21%|##1       | 4/19 [00:01<00:05,  2.59it/s]Capturing CUDA graph shapes:  26%|##6       | 5/19 [00:01<00:05,  2.54it/s]Capturing CUDA graph shapes:  32%|###1      | 6/19 [00:02<00:05,  2.47it/s]Capturing CUDA graph shapes:  37%|###6      | 7/19 [00:02<00:04,  2.44it/s]Capturing CUDA graph shapes:  42%|####2     | 8/19 [00:03<00:04,  2.47it/s]Capturing CUDA graph shapes:  47%|####7     | 9/19 [00:03<00:03,  2.51it/s]Capturing CUDA graph shapes:  53%|#####2    | 10/19 [00:03<00:03,  2.57it/s]Capturing CUDA graph shapes:  58%|#####7    | 11/19 [00:06<00:09,  1.19s/it]Capturing CUDA graph shapes:  63%|######3   | 12/19 [00:07<00:06,  1.05it/s]Capturing CUDA graph shapes:  68%|######8   | 13/19 [00:07<00:04,  1.28it/s]Capturing CUDA graph shapes:  74%|#######3  | 14/19 [00:08<00:03,  1.50it/s]Capturing CUDA graph shapes:  79%|#######8  | 15/19 [00:08<00:02,  1.69it/s]Capturing CUDA graph shapes:  84%|########4 | 16/19 [00:08<00:01,  1.86it/s]Capturing CUDA graph shapes:  89%|########9 | 17/19 [00:09<00:00,  2.02it/s]Capturing CUDA graph shapes:  95%|#########4| 18/19 [00:09<00:00,  2.15it/s]Capturing CUDA graph shapes: 100%|##########| 19/19 [00:10<00:00,  2.21it/s]Capturing CUDA graph shapes: 100%|##########| 19/19 [00:10<00:00,  1.86it/s]
+output/mimibot_tifa_v2.3 does not have a padding token! Will use pad_token = <|endoftext|>.
+Map:   0%|          | 0/881 [00:00<?, ? examples/s]Map: 100%|##########| 881/881 [00:00<00:00, 18499.13 examples/s]
+{'prompt': '<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<少年渣>:获得了特别收货\n\n\n【最新消息】\n<少年渣>:我想要的特别收获是你出去逛一个小时带回来40诗学吗<|im_end|>\n<|im_start|>assistant\n<think><|im_end|>\n<|im_start|>assistant\n<think><|im_end|>\n<|im_start|>assistant\n<think>', 'completion': '获得了特别收获', 'answer': '获得了特别收获'}
+  0%|          | 0/10000 [00:00<?, ?it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 15.88it/s]
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 137.74it/s]
+<think>我看到群友在聊消化饼口感后，495円用具体案例证明口感联盟，所以我想回复具体案例说明食物口感传递性</think>消化饼确实好吃
+回答: 消化饼确实好吃
+标准: 威化饼干好吃
+Similarity: 0.8026472330093384
+Reward: 2407.941699028015
+----------
+<think>我看到群友在讨论消化饼，油库里转单独提出好吃并不完整表达，需要联想到495円之前用夸张语气评价过紫皮糖，所以我想回复具体指出其美味特质来强化评价</think>消化饼确实好吃
+回答: 消化饼确实好吃
+标准: 威化饼干好吃
+Similarity: 0.8026472330093384
+Reward: 2407.941699028015
+----------
+<think>我看到群友在展示零食偏好时，油库里转单独强调消化饼好吃，形成明确吃货属性闭环。所以我想回复具体说明口味偏好以延续话题</think>消化饼确实好吃
+回答: 消化饼确实好吃
+标准: 威化饼干好吃
+Similarity: 0.8026472330093384
+Reward: 2407.941699028015
+----------
+<think>我看到群友在观察食物选择，油库里转突然强调消化饼，495円用具体评价强调口味适配，所以我想回复紫皮糖关键词强化对比认知</think>消化饼确实好吃
+回答: 消化饼确实好吃
+标准: 威化饼干好吃
+Similarity: 0.8026472330093384
+Reward: 2407.941699028015
+----------
+======== 处理了 16 个回答 ========
+  0%|          | 1/10000 [00:07<21:09:59,  7.62s/it]                                                    {'loss': 0.0, 'grad_norm': 0.2343093901872635, 'learning_rate': 1e-05, 'rewards/reward_format': 100.0, 'rewards/reward_no_repetition': 0.0, 'rewards/reward_similarity': 2079.3671875, 'rewards/reward_len_response': 45.694602966308594, 'reward': 2225.06201171875, 'reward_std': 293.17803955078125, 'completion_length': 47.0, 'kl': 0.0, 'epoch': 0.0}
+  0%|          | 1/10000 [00:07<21:09:59,  7.62s/it]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 38.81it/s]
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 111.42it/s]
+<think>我看到群友在聊天穹钓竿的图像效果是速死，需要强调该设计的违反物理常理。所以我想回复强调装备特性，说明死人竿的设计逻辑</think>估计那个也是天穹钓竿
+回答: 估计那个也是天穹钓竿
+标准: 果然都是天穹钓竿爱好者
+Similarity: 0.7805969715118408
+Reward: 2341.7909145355225
+----------
+<think>我看到群友在聊天穹钓竿的稀有度，注意到需要重申其独特性，所以我想回复具体说明该装备在宇宙名单中的稀缺价值</think>估计也是天穹钓竿
+回答: 估计也是天穹钓竿
+标准: 果然都是天穹钓竿爱好者
+Similarity: 0.7919446229934692
+Reward: 2375.8338689804077
+----------
+<think>我看到群友在聊天穹钓竿的梗，联想到天穹Spe丄水用该梗形容装备收益，所以我想回复说明该装备机制</think>估计也是天穹钓竿
+回答: 估计也是天穹钓竿
+标准: 果然都是天穹钓竿爱好者
+Similarity: 0.7919446229934692
+Reward: 2375.8338689804077
+----------
+<think>我看到群友在聊天穹钓竿，W羽天对这个装备副产品发出感叹，结合前后消息，这是对环保设施和玩具化配件流行现象的调侃。所以我想回复补充说明 Enhancement 配件，强调二次创作带来的商业衍生品模式</think>估计也是那个天穹钓竿
+回答: 估计也是那个天穹钓竿
+标准: 果然都是天穹钓竿爱好者
+Similarity: 0.8075910806655884
+Reward: 2422.773241996765
+----------
+======== 处理了 16 个回答 ========
+Unsloth: Will smartly offload gradients to save VRAM!
+  0%|          | 2/10000 [00:22<32:52:18, 11.84s/it]                                                    {'loss': -0.0, 'grad_norm': 0.2779545783996582, 'learning_rate': 2e-05, 'rewards/reward_format': 100.0, 'rewards/reward_no_repetition': 0.0, 'rewards/reward_similarity': 2040.376220703125, 'rewards/reward_len_response': 26.507225036621094, 'reward': 2166.88330078125, 'reward_std': 597.3121337890625, 'completion_length': 68.4375, 'kl': 0.0, 'epoch': 0.0}
+  0%|          | 2/10000 [00:22<32:52:18, 11.84s/it]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 110.74it/s]
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 89.22it/s]
+<think>我看到群友在分析Z开头绿皮车的特殊性，需要从技术参数说明差异合理性，所以我想回复解释高级绿皮车的特殊定位。</think>估计确实z开头的绿皮比较高级
+回答: 估计确实z开头的绿皮比较高级
+标准: 虽然都是绿的，但在还有绿皮车的时候都是高级车(
+Similarity: 0.7197189331054688
+Reward: 2159.1567993164062
+----------
+<think>我看到群友在聊快递取件时间与保温箱的问题，<帽>明确提到快递点离家远和取件时间限制，结合快递化冻的实际体验，说明需要强化低温快递的特殊性，所以我想回复'估计也是给你包个保温袋'来强调快递包裹的简单包装。</think>估计也是给你包个保温袋
+回答: 估计也是给你包个保温袋
+标准: 基本上是泡沫箱子+保温袋+冰袋
+Similarity: 0.7311630845069885
+Reward: 2193.4892535209656
+----------
+<think>我看到群友在聊快递取件延迟的问题，注意到我明确表达了时间等待的困扰，且后续通过快递冷链物流的特性佐证了取件延迟可能引发的损失，所以我想回复具体说明保温箱和签收时效差异，说明整个物流节点都在完善</think>估计也是加了保温袋之类吧
+回答: 估计也是加了保温袋之类吧
+标准: 基本上是泡沫箱子+保温袋+冰袋
+Similarity: 0.7486732006072998
+Reward: 2246.0196018218994
+----------
+<think>我看到群友在聊快递关门时间与取快递的不确定性，接着说明快递提供保温袋的细节。当提到取件延迟时，需要强调快递商实际已提供保温措施，所以我想回复明确保温袋的替代方案。</think>估计也是有保温袋这样的
+回答: 估计也是有保温袋这样的
+标准: 基本上是泡沫箱子+保温袋+冰袋
+Similarity: 0.7524406313896179
+Reward: 2257.3218941688538
+----------
+======== 处理了 16 个回答 ========
+  0%|          | 3/10000 [00:33<31:43:16, 11.42s/it]                                                    {'loss': 0.0, 'grad_norm': 0.3558737635612488, 'learning_rate': 3e-05, 'rewards/reward_format': 100.0, 'rewards/reward_no_repetition': 0.0, 'rewards/reward_similarity': 1977.350341796875, 'rewards/reward_len_response': 37.12814712524414, 'reward': 2114.478271484375, 'reward_std': 541.4201049804688, 'completion_length': 65.9375, 'kl': 0.0006807899917475879, 'epoch': 0.01}
+  0%|          | 3/10000 [00:33<31:43:16, 11.42s/it]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 97.54it/s]
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 159.07it/s]
+<think>我看到群友在聊B站频道的边缘化，三号明确反映mygo频道缺乏实际内容，495円进一步印证该现象。所以我想回复强调频道确已形同停止运作的状态，明确表达对频道现状的惋惜</think>mygo估计也是启动器那个了
+回答: mygo估计也是启动器那个了
+标准: 我也事mygo启动器
+Similarity: 0.8435187339782715
+Reward: 2530.5562019348145
+----------
+<think>我看到群友在聊毕达科发现mygo时喊出感慨，结合前文讨论b站转型，需要明确回答反映现象而非评价，所以我想回复强调mygo替代功能</think>唉，mygo启动器
+回答: 唉，mygo启动器
+标准: 我也事mygo启动器
+Similarity: 0.8482069969177246
+Reward: 2544.620990753174
+----------
+<think>我看到群友在聊mygo产品时，注意到该命名与厂商品牌存在简写关联。结合群聊中常见的话题迁移，所以我想回复强调产品与厂商的关联性</think>mygo估计也是启动器了
+回答: mygo估计也是启动器了
+标准: 我也事mygo启动器
+Similarity: 0.8492634892463684
+Reward: 2547.790467739105
+----------
+<think>我看到群友在聊B站改名mygo引发的情感讨论，495円感叹其沦为启动器，三号单独提到mygo，所以我想回复说明主题转变</think>也是mygo启动器
+回答: 也是mygo启动器
+标准: 我也事mygo启动器
+Similarity: 0.8743112087249756
+Reward: 2622.9336261749268
+----------
+======== 处理了 16 个回答 ========
+  0%|          | 4/10000 [00:40<27:27:11,  9.89s/it]                                                    {'loss': 0.0, 'grad_norm': 0.36609983444213867, 'learning_rate': 4e-05, 'rewards/reward_format': 100.0, 'rewards/reward_no_repetition': 0.0, 'rewards/reward_similarity': 1804.8599853515625, 'rewards/reward_len_response': 39.28571319580078, 'reward': 1944.145751953125, 'reward_std': 271.2375183105469, 'completion_length': 55.25, 'kl': 0.0007296003750525415, 'epoch': 0.01}
+  0%|          | 4/10000 [00:40<27:27:11,  9.89s/it]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 40.63it/s]
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 112.02it/s]
+<think>我看到群友在聊煎鸡胸肉配油醋汁这个具体问题，需要结合前文提及的健康饮食主题。对于煎制鸡肉的口感与解腻效果，所以我想回复需要围绕烹饪手法与口味改善的因果关系进行说明</think>煎鸡胸肉确实好吃一些
+回答: 煎鸡胸肉确实好吃一些
+标准: 鸡胸肉不要煎啊，会有油的
+Similarity: 0.8342742919921875
+Reward: 2502.8228759765625
+----------
+<think>我看到群友在聊煎鸡胸肉配油醋汁的口味，结合上下文，所以我想回复强调口感与健康的平衡考虑</think>鸡胸肉确实煎着好吃一些
+回答: 鸡胸肉确实煎着好吃一些
+标准: 鸡胸肉不要煎啊，会有油的
+Similarity: 0.8397326469421387
+Reward: 2519.197940826416
+----------
+<think>我看到群友在讨论煎鸡胸肉和油醋汁的搭配效果，结合后续对话，推测我需要具体评价煎制形态。所以我想回复口感描述来延续烹饪话题</think>估计鸡胸肉确实煎着吃才好吃
+回答: 估计鸡胸肉确实煎着吃才好吃
+标准: 鸡胸肉不要煎啊，会有油的
+Similarity: 0.8430624604225159
+Reward: 2529.1873812675476
+----------
+<think>我看到群友在聊煎鸡胸肉配油醋汁的口感，<普通魔>提出鸡胸肉难吃的问题。结合上下文，<荒野多边>可能需要解释健康饮食方案与烹饪方式的选择，所以我想回复具体说明煎制的特殊处理方法</think>鸡胸肉其实煎一下好吃一些
+回答: 鸡胸肉其实煎一下好吃一些
+标准: 鸡胸肉不要煎啊，会有油的
+Similarity: 0.8594644069671631
+Reward: 2578.3932209014893
+----------
+======== 处理了 16 个回答 ========
+  0%|          | 5/10000 [00:55<32:01:13, 11.53s/it]                                                    {'loss': 0.0, 'grad_norm': 0.35959693789482117, 'learning_rate': 5e-05, 'rewards/reward_format': 100.0, 'rewards/reward_no_repetition': 0.0, 'rewards/reward_similarity': 2215.767578125, 'rewards/reward_len_response': 20.246849060058594, 'reward': 2336.0146484375, 'reward_std': 424.4805603027344, 'completion_length': 73.6875, 'kl': 0.0006728791049681604, 'epoch': 0.01}
+  0%|          | 5/10000 [00:55<32:01:13, 11.53s/it]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 115.40it/s]
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 139.33it/s]
+<think>我看到群友在讨论日常化白骨昵称，需提供具体描述性称呼。所以我想回复符合日常讨论语境的白骨特征命名为骨刚力士</think>白骨王
+回答: 白骨王
+标准: 白骨李
+Similarity: 0.8037317991256714
+Reward: 2411.195397377014
+----------
+<think>我看到群友在聊白骨的日常化昵称，三号直接给出白骨王这个典型例子。根据上下文，该回答明确回应了是否包含日常化白骨的提问，所以我想回复具体案例来确认差异性</think>白骨王
+回答: 白骨王
+标准: 白骨李
+Similarity: 0.8037317991256714
+Reward: 2411.195397377014
+----------
+<think>我看到群友在聊白骨的日常化昵称，注意到需要脱离传统设定。所以我想回复具体表达日常感的命名方案</think>白骨王
+回答: 白骨王
+标准: 白骨李
+Similarity: 0.8037317991256714
+Reward: 2411.195397377014
+----------
+<think>我看到群友在聊白骨的昵称，油库里转提到骨、三号补充了白骨王，说明群友在讨论白骨系的命名特征。所以我想回复阿骨这个更常见但具备骨属性的命名。</think>白骨王
+回答: 白骨王
+标准: 白骨李
+Similarity: 0.8037317991256714
+Reward: 2411.195397377014
+----------
+======== 处理了 16 个回答 ========
+  0%|          | 6/10000 [01:05<30:47:21, 11.09s/it]                                                    {'loss': 0.0, 'grad_norm': 0.3187980651855469, 'learning_rate': 6e-05, 'rewards/reward_format': 100.0, 'rewards/reward_no_repetition': 0.0, 'rewards/reward_similarity': 2208.7568359375, 'rewards/reward_len_response': 50.0, 'reward': 2358.757080078125, 'reward_std': 231.53025817871094, 'completion_length': 57.1875, 'kl': 0.0007791520329192281, 'epoch': 0.01}
+  0%|          | 6/10000 [01:05<30:47:21, 11.09s/it]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 41.01it/s]
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 127.85it/s]
+<think>我看到群友在聊波奇是否上大学的话题，注意到该回复直接说明其个人主张，所以我想回复明确肯定其选择方向</think>估计波奇也是上完大学上着玩
+回答: 估计波奇也是上完大学上着玩
+标准: 波奇学习很差，喜多好像也一般吧
+Similarity: 0.7178163528442383
+Reward: 2153.449058532715
+----------
+<think>我看到群友在讨论波奇留学情况与大学选择，但上下文暗示该回答与当前话题关联性较弱，所以我想回复补充自然过渡到新型智力的定义</think>估计是波奇也是上大学去玩玩
+回答: 估计是波奇也是上大学去玩玩
+标准: 波奇学习很差，喜多好像也一般吧
+Similarity: 0.7222901582717896
+Reward: 2166.8704748153687
+----------
+<think>我看到群友在讨论波奇选择职业时的决策过程，注意到我提出自己不计划上大学与波奇职业选择的关联性。所以我想回复说明两者决策可能受共同认知影响，体现群友注重主观认知差异</think>估计是波奇也是上大学上了一把
+回答: 估计是波奇也是上大学上了一把
+标准: 波奇学习很差，喜多好像也一般吧
+Similarity: 0.7333369851112366
+Reward: 2200.0109553337097
+----------
+<think>我看到群友在聊波奇放弃上大学的选择，注意到该陈述需要明确回答选择动机，所以我想回复具体说明该选择的主观动机而非客观事实</think>估计也是波奇上大学太没用了
+回答: 估计也是波奇上大学太没用了
+标准: 波奇学习很差，喜多好像也一般吧
+Similarity: 0.7524089217185974
+Reward: 2257.2267651557922
+----------
+======== 处理了 16 个回答 ========
+  0%|          | 7/10000 [01:19<33:12:45, 11.96s/it]                                                    {'loss': 0.0, 'grad_norm': 0.28232505917549133, 'learning_rate': 7e-05, 'rewards/reward_format': 100.0, 'rewards/reward_no_repetition': 0.0, 'rewards/reward_similarity': 1316.160400390625, 'rewards/reward_len_response': 26.201923370361328, 'reward': 1442.3623046875, 'reward_std': 498.43017578125, 'completion_length': 65.9375, 'kl': 0.0008310562698170543, 'epoch': 0.02}
+  0%|          | 7/10000 [01:19<33:12:45, 11.96s/it]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 41.20it/s]
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 98.22it/s]
+<think>我看到群友在聊深渊难度与抽卡机制，沙提出单机抽卡即毕业的观点。水鸣涧需要强化这个结论：深渊抽卡确实有更多选择自由，所以回溯到深渊打不过的问题，说明深渊浪费了资源。所以我想回复明确表达对深渊收益的不满</think>深渊估计也是抽卡玩玩
+回答: 深渊估计也是抽卡玩玩
+标准: 但是不打深渊哪来的东西抽卡
+Similarity: 0.8368792533874512
+Reward: 2510.6377601623535
+----------
+<think>我看到群友在分析深渊难度与抽卡抽卡毕业的关系时，沙强调单推可抽卡毕业的关键因素，但未直接回答是否可以不用深渊抽卡。需要将抽卡强度解释与深渊刷卡需求关联，说明深渊可作为抽卡资源池，所以我想回复明确说明深渊价值在抽卡场景而非纯粹过关</think>深渊估计也是抽卡玩玩
+回答: 深渊估计也是抽卡玩玩
+标准: 但是不打深渊哪来的东西抽卡
+Similarity: 0.8368792533874512
+Reward: 2510.6377601623535
+----------
+<think>我看到群友在聊深渊难度与抽卡机制，沙提出抽卡即毕业的论点，第七十七用深渊视觉体验强化了抽卡抽不到的挫败感。所以我想回复强调深渊机制更强调单推体验</think>深渊估计也是抽卡抽抽玩
+回答: 深渊估计也是抽卡抽抽玩
+标准: 但是不打深渊哪来的东西抽卡
+Similarity: 0.8392813205718994
+Reward: 2517.8439617156982
+----------
+<think>我看到群友在聊深渊通关难度，沙提到肝一肝抽卡可能抽毕业，水鸣涧用具体关卡数值例证深渊挑战性，说明群友在分析深渊的经典价值。所以我想回复强调深渊的特殊地位，说明抽卡抽到毕业的关键作用</think>估计深渊确实玩玩抽卡抽毕业那个就可以
+回答: 估计深渊确实玩玩抽卡抽毕业那个就可以
+标准: 但是不打深渊哪来的东西抽卡
+Similarity: 0.8532902002334595
+Reward: 2559.8706007003784
+----------
+======== 处理了 16 个回答 ========
+  0%|          | 8/10000 [01:36<37:49:26, 13.63s/it]                                                    {'loss': 0.0, 'grad_norm': 0.31387627124786377, 'learning_rate': 8e-05, 'rewards/reward_format': 100.0, 'rewards/reward_no_repetition': 0.0, 'rewards/reward_similarity': 2322.00732421875, 'rewards/reward_len_response': 2.2159085273742676, 'reward': 2424.22314453125, 'reward_std': 326.309814453125, 'completion_length': 71.1875, 'kl': 0.0011944336583837867, 'epoch': 0.02}
+  0%|          | 8/10000 [01:36<37:49:26, 13.63s/it]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 41.45it/s]
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 126.13it/s]
+<think>我看到群友在比较裤子与裙子的运动阻碍时，<帽>明确表示风阻相同的情况下，所以我想回复强调裤子统一特性，强化该结论。</think>估计裤子都多多少少有点阻碍
+回答: 估计裤子都多多少少有点阻碍
+标准: 紧身裤就没有阻碍了
+Similarity: 0.7692996263504028
+Reward: 2307.8988790512085
+----------
+<think>我看到群友在分析不同服饰的运动体验差异。<帽>明确回答裤子与裙子的风阻差异，未确认是否紧密相关，则回复突出裤子裤腿随风摆动的物理体验差异。</think>估计裤子都多多少少有点阻碍
+回答: 估计裤子都多多少少有点阻碍
+标准: 紧身裤就没有阻碍了
+Similarity: 0.7692996263504028
+Reward: 2307.8988790512085
+----------
+<think>我看到群友在讨论裤子与裙子的运动阻碍现象，注意到需要明确回答不同衣裤类型的共性。所以我想回复强调裤子材质对运动影响的客观事实</think>估计只要是裤子都多多少少有点阻碍
+回答: 估计只要是裤子都多多少少有点阻碍
+标准: 紧身裤就没有阻碍了
+Similarity: 0.7746909856796265
+Reward: 2324.0729570388794
+----------
+<think>我看到群友在讨论这次谜题设计问题，W羽天突然提到作业解谜分类。结合上下文，该回复可能想说明这次 acomp的解谜设计相对以往更规范，所以想回复强调作业的分类差异</think>估计这次也是玩的解谜都做完了
+回答: 估计这次也是玩的解谜都做完了
+标准: 解谜给提示导致首日就解完了
+Similarity: 0.7765986323356628
+Reward: 2329.7958970069885
+----------
+======== 处理了 16 个回答 ========
+  0%|          | 9/10000 [01:50<38:32:22, 13.89s/it]                                                    {'loss': 0.0001, 'grad_norm': 0.23817557096481323, 'learning_rate': 9e-05, 'rewards/reward_format': 93.75, 'rewards/reward_no_repetition': 0.0, 'rewards/reward_similarity': 2186.06591796875, 'rewards/reward_len_response': 18.897146224975586, 'reward': 2298.713134765625, 'reward_std': 320.0777282714844, 'completion_length': 72.875, 'kl': 0.001322573865763843, 'epoch': 0.02}
+  0%|          | 9/10000 [01:50<38:32:22, 13.89s/it]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 39.07it/s]
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 104.14it/s]
+<think>我看到群友在聊用枪的致命效果，甘蔗明确表示用枪不行。旉怓偵丄通过类比战术死亡案例，说明对话已转向探讨枪械的不可替代性。所以我想回复用枪确实能执行致命效果但无替代方案</think>估计也是用枪一死了之了
+回答: 估计也是用枪一死了之了
+标准: 就怕一枪之后没死
+Similarity: 0.7964488863945007
+Reward: 2389.346659183502
+----------
+<think>我看到群友在讨论用枪致死的可行性，需要说明枪支可靠性与致命伤害的关系。所以我想回复明确回应死亡效率与枪支可靠性</think>估计确实一枪毙命
+回答: 估计确实一枪毙命
+标准: 就怕一枪之后没死
+Similarity: 0.801390528678894
+Reward: 2404.171586036682
+----------
+<think>我看到群友在聊枪械使用与自我销毁的可能性，需要强调武器功能和心理体验，所以我想回复说明行动结果与致命性。</think>估计确实用枪一发就死，能一枪毙命
+回答: 估计确实用枪一发就死，能一枪毙命
+标准: 就怕一枪之后没死
+Similarity: 0.8163331747055054
+Reward: 2448.999524116516
+----------
+<think>我看到群友在聊用枪死亡的快速性，甘蔗提到用枪不行。结合前后消息，群友在聊枪击致命效率，所以我想回复具体讨论枪击致命的实际效果</think>估计一枪只伤人
+回答: 估计一枪只伤人
+标准: 就怕一枪之后没死
+Similarity: 0.8371834754943848
+Reward: 2511.5504264831543
+----------
+======== 处理了 16 个回答 ========
+  0%|          | 10/10000 [02:05<38:52:05, 14.01s/it]                                                     {'loss': 0.0001, 'grad_norm': 0.3183749318122864, 'learning_rate': 0.0001, 'rewards/reward_format': 100.0, 'rewards/reward_no_repetition': 0.0, 'rewards/reward_similarity': 1701.589111328125, 'rewards/reward_len_response': 15.113998413085938, 'reward': 1816.703125, 'reward_std': 746.5497436523438, 'completion_length': 74.9375, 'kl': 0.0026799356564879417, 'epoch': 0.02}
+  0%|          | 10/10000 [02:05<38:52:05, 14.01s/it]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 40.23it/s]
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 132.20it/s]
+<think>我看到群友在聊键盘操作训练时长，注意到黄粱⑨询问具体训练年限，根据红魔馆驻连续强调的高频练习典型，推测我想回复具体说明技术服务与习惯养成的时间维度。</think>估计也是用键盘按空格这样玩玩
+回答: 估计也是用键盘按空格这样玩玩
+标准: 敲键盘也是二指（
+Similarity: 0.7776777744293213
+Reward: 2333.033323287964
+----------
+<think>我看到群友在聊键盘操作训练周期，注意到需要强调训练产生的时间强度。所以我想回复具体说明训练年份</think>估计也是用键盘按空格玩吧
+回答: 估计也是用键盘按空格玩吧
+标准: 敲键盘也是二指（
+Similarity: 0.7849212288856506
+Reward: 2354.763686656952
+----------
+<think>我看到群友在聊键盘使用的训练周期，注意到后续连续强调使用专业设备的应用场景。基于WdX的设备专业性，推测回复需强调训练环境依赖，所以我想回复强调特定设备训练的特殊性</think>那个估计用键盘也是按下去玩玩
+回答: 那个估计用键盘也是按下去玩玩
+标准: 敲键盘也是二指（
+Similarity: 0.8061531782150269
+Reward: 2418.4595346450806
+----------
+<think>我看到群友在聊PS5购买需求与替代方案，甘蔗明确表示想玩玩，但没有PS5。接着帽强调购买没必要，说明群友正在讨论硬件实际需求，所以我想回复强调现有设备的替代方案。</think>估计也是玩玩PS5，等我都有被玩
+回答: 估计也是玩玩PS5，等我都有被玩
+标准: 主要我感觉ps5的游戏早晚上pc
+Similarity: 0.8086971044540405
+Reward: 2426.0913133621216
+----------
+======== 处理了 16 个回答 ========
+  0%|          | 11/10000 [02:22<41:37:11, 15.00s/it]                                                     {'loss': 0.0001, 'grad_norm': 0.37413230538368225, 'learning_rate': 9.999999752765671e-05, 'rewards/reward_format': 100.0, 'rewards/reward_no_repetition': 0.0, 'rewards/reward_similarity': 1718.3509521484375, 'rewards/reward_len_response': -7.484267234802246, 'reward': 1810.86669921875, 'reward_std': 572.5626220703125, 'completion_length': 64.3125, 'kl': 0.003089770907536149, 'epoch': 0.02}
+  0%|          | 11/10000 [02:22<41:37:11, 15.00s/it]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 41.65it/s]
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 152.73it/s]
+<think>我看到群友在聊土豆推广为主食的行业趋势时，需要将话题与当前群体用餐场景关联，所以我想回复具体说明主食替代的实践案例</think>土豆也是淀粉啦...
+回答: 土豆也是淀粉啦...
+标准: 土豆泥香香
+Similarity: 0.7704688310623169
+Reward: 2311.4064931869507
+----------
+<think>我看到群友在讨论土豆推广趋势，注意到该回复强调具体推广案例。所以我想回复具体说明主食化实施手段</think>土豆也是淀粉来吃
+回答: 土豆也是淀粉来吃
+标准: 土豆泥香香
+Similarity: 0.7761330604553223
+Reward: 2328.399181365967
+----------
+<think>我看到群友在聊土豆推广成为主食的现象，结合群友讨论土豆淀粉特性，所以我想回复土豆淀粉的理性说明，说明主食化是基于科学认知的推广</think>土豆也是淀粉，可以做主食
+回答: 土豆也是淀粉，可以做主食
+标准: 土豆泥香香
+Similarity: 0.7814465761184692
+Reward: 2344.3397283554077
+----------
+<think>我看到群友在聊土豆被推广为主食，结合群友之前讨论土豆淀粉特质和主食化场景，所以我想回复关于土豆淀粉特性的科学解释和推广逻辑，说明土豆被选择作为替代主食的合理性</think>土豆也是淀粉来着
+回答: 土豆也是淀粉来着
+标准: 土豆泥香香
+Similarity: 0.7867004871368408
+Reward: 2360.1014614105225
+----------
+======== 处理了 16 个回答 ========
+  0%|          | 12/10000 [02:36<40:58:51, 14.77s/it]                                                     {'loss': 0.0002, 'grad_norm': 0.16355285048484802, 'learning_rate': 9.999999011062707e-05, 'rewards/reward_format': 100.0, 'rewards/reward_no_repetition': 0.0, 'rewards/reward_similarity': 1526.0390625, 'rewards/reward_len_response': 17.29166603088379, 'reward': 1643.330810546875, 'reward_std': 420.8908386230469, 'completion_length': 66.0, 'kl': 0.00376873929053545, 'epoch': 0.03}
+  0%|          | 12/10000 [02:36<40:58:51, 14.77s/it]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 115.86it/s]
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 103.51it/s]
+<think>我看到群友在讨论微信权限差异，观察到微信某些权限设置与QQ存在差异，所以我想回复强调系统惯用行为</think>估计微信权限这个确实和qq还不一样
+回答: 估计微信权限这个确实和qq还不一样
+标准: 微信这个好友权限啊，按标签分类，不代表说之后加进标签的会自动同步
+Similarity: 0.7807669639587402
+Reward: 2342.3008918762207
+----------
+<think>我看到群友在讨论微信权限与QQ的差异性，需要强调微信的系统级功能差异。所以我想回复说明权限差异的根本原因是系统设计不同</think>微信这个确实是权限和qq还不一样
+回答: 微信这个确实是权限和qq还不一样
+标准: 微信这个好友权限啊，按标签分类，不代表说之后加进标签的会自动同步
+Similarity: 0.7824118137359619
+Reward: 2347.2354412078857
+----------
+<think>我看到群友在对比微信与QQ的权限差异，需要具体说明微信机制，所以我想回复具体差异体现</think>估计微信这个权限确实也是和qq不一样的
+回答: 估计微信这个权限确实也是和qq不一样的
+标准: 微信这个好友权限啊，按标签分类，不代表说之后加进标签的会自动同步
+Similarity: 0.7840917110443115
+Reward: 2352.2751331329346
+----------
+<think>我看到群友在对比微信与QQ的隐私权限差异，观察到微信不显示标识而是隐藏社交隐私，推断需要说明微信隐私策略的特殊性。所以我想回复明确微信权限机制与QQ的区别</think>微信这个权限确实也是和qq不一样的
+回答: 微信这个权限确实也是和qq不一样的
+标准: 微信这个好友权限啊，按标签分类，不代表说之后加进标签的会自动同步
+Similarity: 0.7853392362594604
+Reward: 2356.0177087783813
+----------
+======== 处理了 16 个回答 ========
+  0%|          | 13/10000 [02:46<37:06:17, 13.38s/it]                                                     {'loss': 0.0002, 'grad_norm': 0.34447237849235535, 'learning_rate': 9.999997774891183e-05, 'rewards/reward_format': 100.0, 'rewards/reward_no_repetition': 0.0, 'rewards/reward_similarity': 1732.98486328125, 'rewards/reward_len_response': 24.772132873535156, 'reward': 1857.757080078125, 'reward_std': 222.9552764892578, 'completion_length': 51.375, 'kl': 0.0055605461820960045, 'epoch': 0.03}
+  0%|          | 13/10000 [02:46<37:06:17, 13.38s/it]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 41.51it/s]
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 88.71it/s]
+<think>我看到群友在聊西北与西南的行政区划差异，<黄粱⑨>用具体行政区划差异解释，所以我想回复明确西藏属于西南地区的正式说明</think>西藏是西南
+回答: 西藏是西南
+标准: 西藏算西南地区
+Similarity: 0.8392153978347778
+Reward: 2517.6461935043335
+----------
+<think>我看到群友在聊西藏地域划分问题，我明确表达对西藏归属的疑问，结合后续哈密瓜明确回答西藏属于南方，说明需要强调地域认知差异，所以我想回复基于地域认知差异突出西藏单独属于南方的认知</think>西藏是属于南方吧
+回答: 西藏是属于南方吧
+标准: 西藏算西南地区
+Similarity: 0.8448554277420044
+Reward: 2534.566283226013
+----------
+<think>我看到群友在聊西藏归属的讨论，注意到需要明确区分地理分区与行政区划的差异。根据中国行政区划划分标准，西藏属于西南地区，所以我想回复说明两个概念需要区分</think>西藏算是西南
+回答: 西藏算是西南
+标准: 西藏算西南地区
+Similarity: 0.9029183387756348
+Reward: 4514.591693878174
+----------
+<think>我看到群友在讨论西藏归属的问题，注意到我自我回答时，所以我想回复明确问题指向性</think>西藏算是西南吧
+回答: 西藏算是西南吧
+标准: 西藏算西南地区
+Similarity: 0.9151360988616943
+Reward: 4575.680494308472
+----------
+======== 处理了 16 个回答 ========
+  0%|          | 14/10000 [03:00<37:28:36, 13.51s/it]                                                     {'loss': 0.0003, 'grad_norm': 0.28957685828208923, 'learning_rate': 9.999996044251219e-05, 'rewards/reward_format': 100.0, 'rewards/reward_no_repetition': 0.0, 'rewards/reward_similarity': 1910.2188720703125, 'rewards/reward_len_response': 6.25, 'reward': 2016.4688720703125, 'reward_std': 962.6993408203125, 'completion_length': 75.625, 'kl': 0.007966444827616215, 'epoch': 0.03}
+  0%|          | 14/10000 [03:00<37:28:36, 13.51s/it]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 119.02it/s]
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 132.24it/s]
+<think>我看到群友在连续拒绝肉蛋堡后，此身非我用回复承接需求，说明群友已形成明确偏好传递。所以我想回复提供具体选择以延续话题</think>吃肉蛋堡吧
+回答: 吃肉蛋堡吧
+标准: 肉蛋堡，不吃不行
+Similarity: 0.9144688248634338
+Reward: 4572.344124317169
+----------
+<think>我看到群友在连续讨论食物选择时，此身非我主动提供具体解决方案，需要明确表达帮助意愿。所以我想回复具体帮助行为以延续话题</think>吃肉蛋堡吧
+回答: 吃肉蛋堡吧
+标准: 肉蛋堡，不吃不行
+Similarity: 0.9144688248634338
+Reward: 4572.344124317169
+----------
+<think>我看到群友在连续拒绝吃肉蛋堡后，此身非我突然主动分享食量问题，说明群友在避免承诺的前提下强调自己的特殊需求。所以我想回复具体说明无法履行邀请的原因</think>吃肉蛋堡吧
+回答: 吃肉蛋堡吧
+标准: 肉蛋堡，不吃不行
+Similarity: 0.9144688248634338
+Reward: 4572.344124317169
+----------
+<think>我看到群友在明确表达拒绝后，需要延续食物分享的对话逻辑，所以我想回复具体行动方案，用递进式请求强化互动意愿</think>吃肉蛋堡吧
+回答: 吃肉蛋堡吧
+标准: 肉蛋堡，不吃不行
+Similarity: 0.9144688248634338
+Reward: 4572.344124317169
+----------
+======== 处理了 16 个回答 ========
+  0%|          | 15/10000 [03:07<31:55:35, 11.51s/it]                                                     {'loss': 0.0004, 'grad_norm': 0.368386447429657, 'learning_rate': 9.999993819142987e-05, 'rewards/reward_format': 100.0, 'rewards/reward_no_repetition': 0.0, 'rewards/reward_similarity': 2378.140625, 'rewards/reward_len_response': 50.0, 'reward': 2528.140869140625, 'reward_std': 724.9154052734375, 'completion_length': 55.0625, 'kl': 0.009005609899759293, 'epoch': 0.03}
+  0%|          | 15/10000 [03:07<31:55:35, 11.51s/it]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 126.05it/s]
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 147.90it/s]
+<think>我看到群友在聊团队负责人意外缺席、工作安排脱节的突发情况。通过说明事情分明和责任归属，所以我想回复具体说明责任归属</think>估计是全忘了
+回答: 估计是全忘了
+标准: 因为他忘了所以有别的安排
+Similarity: 0.7468740940093994
+Reward: 2240.6222820281982
+----------
+<think>我看到群友在聊工作职责的突发转换，明确说明任务执行的被动性，所以我想回复具体说明事件影响范围和责任影响</think>估计是全忘了
+回答: 估计是全忘了
+标准: 因为他忘了所以有别的安排
+Similarity: 0.7468740940093994
+Reward: 2240.6222820281982
+----------
+<think>我看到群友在说明领导决定现场承担责任，需要强化责任归属。所以我想回复明确相关人员的最终责任归属</think>估计是全忘了
+回答: 估计是全忘了
+标准: 因为他忘了所以有别的安排
+Similarity: 0.7468740940093994
+Reward: 2240.6222820281982
+----------
+<think>我看到群友在聊领导工作交接流程，从领导全忘了表明情况紧急，所以我想回复说明事件后续发展</think>估计他也是全忘了
+回答: 估计他也是全忘了
+标准: 因为他忘了所以有别的安排
+Similarity: 0.8148558139801025
+Reward: 2444.5674419403076
+----------
+======== 处理了 16 个回答 ========
+[rank0]: Traceback (most recent call last):
+[rank0]:   File "/home/ubuntu/LLaMA-Factory/grpo.py", line 228, in <module>
+[rank0]:     trainer.train()
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/transformers/trainer.py", line 2245, in train
+[rank0]:     return inner_training_loop(
+[rank0]:   File "<string>", line 310, in _fast_inner_training_loop
+[rank0]:   File "<string>", line 31, in _unsloth_training_step
+[rank0]:   File "/home/ubuntu/LLaMA-Factory/unsloth_compiled_cache/UnslothGRPOTrainer.py", line 1138, in compute_loss
+[rank0]:     loss, completion_length, mean_kl = grpo_accumulated_loss(
+[rank0]:   File "/home/ubuntu/LLaMA-Factory/unsloth_compiled_cache/UnslothGRPOTrainer.py", line 197, in grpo_accumulated_loss
+[rank0]:     new_hidden_states = trainer.model(input_ids = input_ids, logits_to_keep = logits_to_keep + 1).logits
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+[rank0]:     return self._call_impl(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+[rank0]:     return forward_call(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/unsloth/models/llama.py", line 1200, in PeftModelForCausalLM_fast_forward
+[rank0]:     return self.base_model(
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+[rank0]:     return self._call_impl(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+[rank0]:     return forward_call(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/peft/tuners/tuners_utils.py", line 193, in forward
+[rank0]:     return self.model.forward(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/unsloth/models/llama.py", line 1043, in _CausalLM_fast_forward
+[rank0]:     outputs = self.model(
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+[rank0]:     return self._call_impl(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+[rank0]:     return forward_call(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/unsloth/models/llama.py", line 858, in LlamaModel_fast_forward
+[rank0]:     layer_outputs = torch.utils.checkpoint.checkpoint(
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/_compile.py", line 32, in inner
+[rank0]:     return disable_fn(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py", line 745, in _fn
+[rank0]:     return fn(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/unsloth_zoo/gradient_checkpointing.py", line 747, in unsloth_checkpoint
+[rank0]:     return UnslothCheckpointFunction.apply(function, preserve, *args)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/autograd/function.py", line 575, in apply
+[rank0]:     return super().apply(*args, **kwargs)  # type: ignore[misc]
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/unsloth_zoo/gradient_checkpointing.py", line 463, in forward
+[rank0]:     outputs = run_function(*args)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/unsloth/models/llama.py", line 855, in custom_forward
+[rank0]:     return module(*inputs, past_key_value, output_attentions, padding_mask = padding_mask, position_embeddings = position_embeddings)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+[rank0]:     return self._call_impl(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+[rank0]:     return forward_call(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/unsloth/models/llama.py", line 543, in LlamaDecoderLayer_fast_forward
+[rank0]:     hidden_states, self_attn_weights, present_key_value = self.self_attn(
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+[rank0]:     return self._call_impl(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+[rank0]:     return forward_call(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/unsloth/models/llama.py", line 397, in LlamaAttention_fast_forward
+[rank0]:     Q, K, V = self.apply_qkv(self, hidden_states)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/unsloth/models/llama.py", line 83, in original_apply_qkv
+[rank0]:     K = self.k_proj(X)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+[rank0]:     return self._call_impl(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+[rank0]:     return forward_call(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/peft/tuners/lora/layer.py", line 712, in forward
+[rank0]:     result = self.base_layer(x, *args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+[rank0]:     return self._call_impl(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+[rank0]:     return forward_call(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/nn/modules/linear.py", line 125, in forward
+[rank0]:     return F.linear(input, self.weight, self.bias)
+[rank0]: KeyboardInterrupt

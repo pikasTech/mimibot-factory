@@ -1,0 +1,61 @@
+日志系统初始化完成，日志文件: logs/20250324_152147_log.txt
+GRPO训练脚本开始运行
+similarity奖励日志初始化完成，日志文件: logs/20250324_152147_similarity.jsonl
+正在加载语义模型: shibing624/text2vec-base-chinese
+正在尝试从Hugging Face Hub加载语义模型: shibing624/text2vec-base-chinese
+2025-03-24 15:21:47,189 - INFO - Use pytorch device_name: cuda
+2025-03-24 15:21:47,190 - INFO - Load pretrained SentenceTransformer: shibing624/text2vec-base-chinese
+Traceback (most recent call last):
+  File "/home/ubuntu/LLaMA-Factory/grpo.py", line 55, in <module>
+    if not init_semantic_model(semantic_model_path):
+  File "/home/ubuntu/LLaMA-Factory/grpo_reward.py", line 36, in init_semantic_model
+    semantic_model = sentence_transformers.SentenceTransformer(model_path)
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/sentence_transformers/SentenceTransformer.py", line 308, in __init__
+    modules, self.module_kwargs = self._load_sbert_model(
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/sentence_transformers/SentenceTransformer.py", line 1657, in _load_sbert_model
+    modules_json_path = load_file_path(
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/sentence_transformers/util.py", line 1359, in load_file_path
+    return hf_hub_download(
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/huggingface_hub/file_download.py", line 862, in hf_hub_download
+    return _hf_hub_download_to_cache_dir(
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/huggingface_hub/file_download.py", line 925, in _hf_hub_download_to_cache_dir
+    (url_to_download, etag, commit_hash, expected_size, head_call_error) = _get_metadata_or_catch_error(
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/huggingface_hub/file_download.py", line 1376, in _get_metadata_or_catch_error
+    metadata = get_hf_file_metadata(
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/huggingface_hub/file_download.py", line 1296, in get_hf_file_metadata
+    r = _request_wrapper(
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/huggingface_hub/file_download.py", line 280, in _request_wrapper
+    response = _request_wrapper(
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/huggingface_hub/file_download.py", line 303, in _request_wrapper
+    response = get_session().request(method=method, url=url, **params)
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/requests/sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/requests/sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/huggingface_hub/utils/_http.py", line 96, in send
+    return super().send(request, *args, **kwargs)
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/requests/adapters.py", line 667, in send
+    resp = conn.urlopen(
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/urllib3/connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/urllib3/connectionpool.py", line 534, in _make_request
+    response = conn.getresponse()
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/urllib3/connection.py", line 516, in getresponse
+    httplib_response = super().getresponse()
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/http/client.py", line 1375, in getresponse
+    response.begin()
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/http/client.py", line 318, in begin
+    version, status, reason = self._read_status()
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/http/client.py", line 279, in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/socket.py", line 717, in readinto
+    return self._sock.recv_into(b)
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/ssl.py", line 1307, in recv_into
+    return self.read(nbytes, buffer)
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/ssl.py", line 1163, in read
+    return self._sslobj.read(len, buffer)
+KeyboardInterrupt

@@ -1,0 +1,291 @@
+日志系统初始化完成，日志文件: logs/20250324_195346_log.txt
+GRPO训练脚本开始运行
+similarity奖励日志初始化完成，日志文件: logs/20250324_195346_similarity.jsonl
+正在加载语义模型: shibing624/text2vec-base-chinese
+正在尝试从Hugging Face Hub加载语义模型: shibing624/text2vec-base-chinese
+2025-03-24 19:53:46,280 - INFO - Use pytorch device_name: cuda
+2025-03-24 19:53:46,280 - INFO - Load pretrained SentenceTransformer: shibing624/text2vec-base-chinese
+语义模型加载成功: shibing624/text2vec-base-chinese
+加载模型: output/mimibot_tifa_v2.2
+==((====))==  Unsloth 2025.3.18: Fast Qwen2 patching. Transformers: 4.50.0. vLLM: 0.8.1.
+   \\   /|    NVIDIA GeForce RTX 3090. Num GPUs = 1. Max memory: 24.0 GB. Platform: Linux.
+O^O/ \_/ \    Torch: 2.6.0+cu124. CUDA: 8.6. CUDA Toolkit: 12.4. Triton: 3.2.0
+\        /    Bfloat16 = TRUE. FA [Xformers = 0.0.29.post2. FA2 = False]
+ "-____-"     Free license: http://github.com/unslothai/unsloth
+Unsloth: Fast downloading is enabled - ignore downloading bars which are red colored!
+Unsloth: vLLM loading output/mimibot_tifa_v2.2 with actual GPU utilization = 65.2%
+Unsloth: Your GPU has CUDA compute capability 8.6 with VRAM = 24.0 GB.
+Unsloth: Using conservativeness = 1.0. Chunked prefill tokens = 2048. Num Sequences = 128.
+Unsloth: vLLM's KV Cache can use up to 1.16 GB. Also swap space = 5 GB.
+Loading safetensors checkpoint shards:   0% Completed | 0/4 [00:00<?, ?it/s]
+Loading safetensors checkpoint shards:  25% Completed | 1/4 [00:00<00:01,  1.80it/s]
+Loading safetensors checkpoint shards:  50% Completed | 2/4 [00:01<00:01,  1.78it/s]
+Loading safetensors checkpoint shards:  75% Completed | 3/4 [00:01<00:00,  1.90it/s]
+Loading safetensors checkpoint shards: 100% Completed | 4/4 [00:01<00:00,  2.67it/s]
+Loading safetensors checkpoint shards: 100% Completed | 4/4 [00:01<00:00,  2.29it/s]
+
+Capturing CUDA graph shapes:   0%|          | 0/19 [00:00<?, ?it/s]Capturing CUDA graph shapes:   5%|5         | 1/19 [00:00<00:07,  2.48it/s]Capturing CUDA graph shapes:  11%|#         | 2/19 [00:00<00:06,  2.49it/s]Capturing CUDA graph shapes:  16%|#5        | 3/19 [00:01<00:06,  2.50it/s]Capturing CUDA graph shapes:  21%|##1       | 4/19 [00:01<00:06,  2.45it/s]Capturing CUDA graph shapes:  26%|##6       | 5/19 [00:02<00:05,  2.42it/s]Capturing CUDA graph shapes:  32%|###1      | 6/19 [00:02<00:05,  2.42it/s]Capturing CUDA graph shapes:  37%|###6      | 7/19 [00:02<00:04,  2.42it/s]Capturing CUDA graph shapes:  42%|####2     | 8/19 [00:03<00:04,  2.42it/s]Capturing CUDA graph shapes:  47%|####7     | 9/19 [00:03<00:04,  2.47it/s]Capturing CUDA graph shapes:  53%|#####2    | 10/19 [00:04<00:03,  2.52it/s]Capturing CUDA graph shapes:  58%|#####7    | 11/19 [00:04<00:03,  2.54it/s]Capturing CUDA graph shapes:  63%|######3   | 12/19 [00:04<00:02,  2.52it/s]Capturing CUDA graph shapes:  68%|######8   | 13/19 [00:05<00:02,  2.50it/s]Capturing CUDA graph shapes:  74%|#######3  | 14/19 [00:05<00:02,  2.49it/s]Capturing CUDA graph shapes:  79%|#######8  | 15/19 [00:06<00:01,  2.45it/s]Capturing CUDA graph shapes:  84%|########4 | 16/19 [00:06<00:01,  2.46it/s]Capturing CUDA graph shapes:  89%|########9 | 17/19 [00:06<00:00,  2.46it/s]Capturing CUDA graph shapes:  95%|#########4| 18/19 [00:07<00:00,  2.45it/s]Capturing CUDA graph shapes: 100%|##########| 19/19 [00:07<00:00,  2.41it/s]Capturing CUDA graph shapes: 100%|##########| 19/19 [00:07<00:00,  2.46it/s]
+output/mimibot_tifa_v2.2 does not have a padding token! Will use pad_token = <|endoftext|>.
+Map:   0%|          | 0/5796 [00:00<?, ? examples/s]Map:  37%|###7      | 2159/5796 [00:00<00:00, 21504.96 examples/s]Map:  92%|#########2| 5340/5796 [00:00<00:00, 21294.98 examples/s]Map: 100%|##########| 5796/5796 [00:00<00:00, 21079.55 examples/s]
+{'prompt': '<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<少年渣>:还有欧美人\n<少年渣>:不用国标插头的都可恶\n\n\n【最新消息】\n<第七十七>:日本人太坏了跌丝袜<|im_end|>\n<|im_start|>assistant\n<think><|im_end|>\n<|im_start|>assistant\n<think>', 'completion': '不用国标插头的都可恶', 'answer': '不用国标插头的都可恶'}
+  0%|          | 0/10000 [00:00<?, ?it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 16.88it/s]
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 69.10it/s]
+<think>我看到群友在讨论健身饮食的极端性，黄粱⑨已用调侃式回复既维持玩笑氛围又暗示健身饮食差异，当帽再次强调食物浪费的否定发言时，需要在 Admission 与⭐ORLD等明显排版符号间形成逻辑过渡，用具体饮食效果佐证浪费争议，所以我想回复硬块健身的概念以强化话题连贯性</think>反正吃硬块健身的都是不惜浪费
+回答: 反正吃硬块健身的都是不惜浪费
+标准: 已经是浪费了
+Similarity: 0.5969821214675903
+Reward: 895.4731822013855
+----------
+<think>我看到群友在聊防撞桶蛋糕买大的问题，接着甘蔗用'后现代的'暗示了蛋糕尺寸与场景的割裂感，第七十七的建议与蛋糕尺寸无直接关联但形成资源利用的角度。当防撞桶自我纠正为'蛋糕吃大了'时，建议将话题关联到事件责任方，所以我想回复事件补偿建议，用连续主题回复确保因果连贯。</think>估计蛋糕也吃大了
+回答: 估计蛋糕也吃大了
+标准: 我吃一筷子
+Similarity: 0.6083540320396423
+Reward: 912.5310480594635
+----------
+<think>我看到群友在聊健身饮食的极端夸张案例，黄粱⑨用饮料消费案例引出浪费梗，接着帽通过连续两个案例强调健身与浪费的因果关联。回复需要延续该逻辑链，说明極限健身理念会导致资源浪费，所以我想回复具象化这个隐喻关系</think>只要吃了确实会浪费很多东西
+回答: 只要吃了确实会浪费很多东西
+标准: 已经是浪费了
+Similarity: 0.6607121825218201
+Reward: 991.0682737827301
+----------
+<think>我看到群友在连续轻松话题后突然情绪失控，所以我想用同质化但具象化的表现形成呼应。</think>你吃我
+回答: 你吃我
+标准: 吃吃我的
+Similarity: 0.8403397798538208
+Reward: 2521.0193395614624
+----------
+======== 处理了 32 个回答 ========
+  0%|          | 1/10000 [00:14<40:04:35, 14.43s/it]                                                    {'loss': 0.0, 'grad_norm': 0.25785237550735474, 'learning_rate': 1e-05, 'rewards/reward_format': 92.5, 'rewards/reward_no_repetition': 0.0, 'rewards/reward_similarity': 590.4185180664062, 'rewards/reward_len_response': 0.5089364051818848, 'reward': 683.4274291992188, 'reward_std': 367.17108154296875, 'completion_length': 85.34375, 'kl': 0.0, 'epoch': 0.0}
+  0%|          | 1/10000 [00:14<40:04:35, 14.43s/it]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 58.50it/s]
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 77.61it/s]
+<think>我看到群友在聊冰棍摆摊的冷链改造，注意到话题从冰棍摆摊方式转向外包装改进。少年渣提出泡沫箱覆盖垫子的疑问，而过去消息已明确说明不需要传统冰箱，说明摊主采用便携式单层纸箱。所以我想回复明确装冰棍的包装方式以延续话题</think>估计不装在纸箱里直接就卖冰棍了
+回答: 估计不装在纸箱里直接就卖冰棍了
+标准: 没，直接纸箱子
+Similarity: 0.6475822925567627
+Reward: 971.373438835144
+----------
+<think>我看到群友在聊空气炸锅烹饪洋葱后，<荒野多边>明确询问味道回馈。根据群聊中连续输入的烹饪体验反馈，需要保持话题在食物质量层面，所以我想回复具体味道评价作为输出</think>空气炸锅烤洋葱确实好吃
+回答: 空气炸锅烤洋葱确实好吃
+标准: 我超喜欢吃炒洋葱
+Similarity: 0.777275562286377
+Reward: 2331.826686859131
+----------
+<think>我看到群友在聊腾讯会议的新变化，奥尔良香提到免费时长缩短到40分钟，兔姨追问是否收费。结合群聊上下文，我可能将免费时长与收费机制混淆，回复需明确两者关系。所以我想回复澄清收费结构，说明免费但存在时长限制的付费模式</think>好像是免费的只用超过40分钟会收费
+回答: 好像是免费的只用超过40分钟会收费
+标准: 不收费，现在改成40分钟就要退出重进了
+Similarity: 0.8388938307762146
+Reward: 2516.681492328644
+----------
+<think>我看到群友在聊腾会议时长与收费话题，<奥尔良香>回复说明免费模式的时长限制变化，<兔姨>质疑收费问题形成话题转折点，<帽>进一步具体说明时长调整和历史收费状态，说明群友在讨论付费模式的变化历程，所以我想回复具体时长变化量化回答收费话题中的时间维度</think>应该是不收费，应该是改为40分钟再自动续会
+回答: 应该是不收费，应该是改为40分钟再自动续会
+标准: 不收费，现在改成40分钟就要退出重进了
+Similarity: 0.8586042523384094
+Reward: 2575.8127570152283
+----------
+======== 处理了 32 个回答 ========
+Unsloth: Will smartly offload gradients to save VRAM!
+  0%|          | 2/10000 [00:30<41:59:04, 15.12s/it]                                                    {'loss': 0.0, 'grad_norm': 0.2505095899105072, 'learning_rate': 2e-05, 'rewards/reward_format': 100.0, 'rewards/reward_no_repetition': 0.0, 'rewards/reward_similarity': 616.6282348632812, 'rewards/reward_len_response': -32.74302673339844, 'reward': 683.8851928710938, 'reward_std': 354.4901428222656, 'completion_length': 80.34375, 'kl': 0.0, 'epoch': 0.0}
+  0%|          | 2/10000 [00:30<41:59:04, 15.12s/it]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 70.33it/s]
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 78.08it/s]
+<think>我看到群友在聊键鼠差异及游戏设计复杂度问题，水鸣涧提出鬼泣用键过多的疑问，而第七十七已说明每个游戏情况不同。结合群聊背景逻辑链条，我需要针对问题根源给出符合讨论背景的客观结论。所以我想回复明确回复键鼠差异与游戏机制设计的关联性。</think>估计键鼠差异确实太大了
+回答: 估计键鼠差异确实太大了
+标准: 他们开发时应该不是面向键鼠的
+Similarity: 0.7017166614532471
+Reward: 2105.149984359741
+----------
+<think>我看到群友在聊键鼠差异问题，水鸣涧提出鬼泣需要太多按键引发课题。第七十七在相同对话中明确回答了这个结论，说明该话题已达成共识。所以我想回复确认性回答，延续群聊中已形成的结论性回复模式，避免重复历史答案的同时确保话题闭合</think>估计也是键鼠差异大
+回答: 估计也是键鼠差异大
+标准: 他们开发时应该不是面向键鼠的
+Similarity: 0.7253475189208984
+Reward: 2176.0425567626953
+----------
+<think>我看到群友在聊游戏机制问题导致失败，da25多次强调正常情况，假小子大突然对鼠鼠问题表达惊讶并追问细节，说明他发现鼠鼠情况与自己预期不符。所以我想回复明确事情异常性来延续话题</think>鼠鼠竟然也是人
+回答: 鼠鼠竟然也是人
+标准: 只有鼠鼠这种是废了
+Similarity: 0.7767007350921631
+Reward: 2330.1022052764893
+----------
+<think>我看到群友在明确区分键鼠操作差异，水鸣涧提出数量结论后，需要具体回应配置问题。第七十七之前已说明游戏差异性，所以我想用具体结论强化操作体验差异</think>估计键鼠的配置问题مستثمر
+<think>所以需要完成从数量争议到配置影响的逻辑推导</think>应该也是键鼠配置来玩的
+回答: 应该也是键鼠配置来玩的
+标准: 他们开发时应该不是面向键鼠的
+Similarity: 0.78035569190979
+Reward: 2341.06707572937
+----------
+======== 处理了 32 个回答 ========
+  0%|          | 3/10000 [00:45<41:48:38, 15.06s/it]                                                    {'loss': 0.0, 'grad_norm': 0.24410642683506012, 'learning_rate': 3e-05, 'rewards/reward_format': 95.0, 'rewards/reward_no_repetition': 0.0, 'rewards/reward_similarity': 649.6893310546875, 'rewards/reward_len_response': 20.01874351501465, 'reward': 764.7080688476562, 'reward_std': 340.9107666015625, 'completion_length': 85.1875, 'kl': 0.0009790739277377725, 'epoch': 0.0}
+  0%|          | 3/10000 [00:45<41:48:38, 15.06s/it]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 56.24it/s]
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 93.05it/s]
+<think>我看到群友在聊495円提出AI训练AI的话题，荒野多边的回复聚焦AI报告质量而非训练过程。尽管话题存在跳跃，但backflip先前提到AI生成的语法瑕疵可能关联AI优化的可能性。所以我想回复现代高层级AI工具的价值感知，说明训练效果与应用效果的差异。</think>估计现在人工智可以代写
+回答: 估计现在人工智可以代写
+标准: 平台用ai改
+Similarity: 0.6591922640800476
+Reward: 988.7883961200714
+----------
+<think>我看到群友在聊AI写作对训练逻辑的影响，495円提出AI训练AI的疑问，而荒野多边此前用租用专业服务的案例说明AI效率。所以我想回复将话题关联到AI训练效率问题，暗示AI撰写作业可能导致算法训练效率更高</think>估计也算自己在训练ai
+回答: 估计也算自己在训练ai
+标准: 平台用ai改
+Similarity: 0.7066419124603271
+Reward: 2119.9257373809814
+----------
+<think>我看到群友在聊射击游戏武器机制，前序对话已进入游戏术语讨论阶段。需要维持话题连贯性，用具体游戏案例指引我认知范畴。所以我想回复该术语的出处说明，将讨论锚定在某知名战场场景</think>估计是otter场景各自的长枪不能用
+回答: 估计是otter场景各自的长枪不能用
+标准: 他还没掏出来十文字枪吧
+Similarity: 0.7159481048583984
+Reward: 2147.8443145751953
+----------
+<think>我看到群友在讨论学网终BIAI后AI训练AI的最终形态，<甘蔗>的回复实际承接了AI事件链中数据采集与反馈机制。根据对话逻辑演进，AI训练AI的必然性与数据处理成本直接相关，所以我想用技术因果律回复该逻辑终点。</think>估计也是让ai在训练ai
+回答: 估计也是让ai在训练ai
+标准: 平台用ai改
+Similarity: 0.7340016961097717
+Reward: 2202.005088329315
+----------
+======== 处理了 32 个回答 ========
+  0%|          | 4/10000 [01:04<46:20:04, 16.69s/it]                                                    {'loss': 0.0, 'grad_norm': 0.262870192527771, 'learning_rate': 4e-05, 'rewards/reward_format': 95.625, 'rewards/reward_no_repetition': 0.0, 'rewards/reward_similarity': 576.3627319335938, 'rewards/reward_len_response': -44.22795104980469, 'reward': 627.759765625, 'reward_std': 383.12017822265625, 'completion_length': 86.5625, 'kl': 0.001049519283697009, 'epoch': 0.01}
+  0%|          | 4/10000 [01:04<46:20:04, 16.69s/it]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 60.22it/s]
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 73.62it/s]
+<think>我看到群友在聊显卡接口兼容性问题，油库里转强调1050TI接驳新电脑的违和感，黄粱⑨则用历史硬件配置数据印证该观点，并延伸讨论设备价值与接口滞后性。所以我想引用黄粱⑨的具体硬件搭配作为论据回复，证明设备价值与接口配置的差距确实存在，完成从现象到结论的完整的硬件对比逻辑链。</think>估计现在连1050ti的接口都没有
+回答: 估计现在连1050ti的接口都没有
+标准: 马上发现1050ti拔不下来大力出奇迹带走主板
+Similarity: 0.645530104637146
+Reward: 968.295156955719
+----------
+<think>我看到群友在聊接口调教话题时，油库里转用物理化场景比对抽象讨论对象。当卡接口引发电脑设备年代感话题时，需要另一种特殊接口作为操作对照。所以选择温哥长秀的动手能力回复，完成接口与硬件实际表现的话题映射</think>老黄确实还能手握1050ti
+回答: 老黄确实还能手握1050ti
+标准: 马上发现1050ti拔不下来大力出奇迹带走主板
+Similarity: 0.649507999420166
+Reward: 974.261999130249
+----------
+<think>我看到群友在聊二线城市国企就业选择，<集华芯黄>明确提及华大九天的优势。根据对话链条中从产业单位到国企的讨论焦点，需要强化核心单位作为典型样本。所以我想回复最典型的产业单位案例作为同类选择标准参考。</think>华大九天也不错，还是国企
+回答: 华大九天也不错，还是国企
+标准: 华大九天在成都
+Similarity: 0.7032761573791504
+Reward: 2109.828472137451
+----------
+<think>我看到群友在讨论二线国企的可行性，普通魔强调工作强度与稳定性之间的权衡，结合华大九天属于业内头部企业且支持女性发展，所以我想回复明确行业认可的国企选择路径</think>国企不错，华大九天也不差
+回答: 国企不错，华大九天也不差
+标准: 华大九天在成都
+Similarity: 0.708675742149353
+Reward: 2126.027226448059
+----------
+======== 处理了 32 个回答 ========
+  0%|          | 5/10000 [01:23<48:32:19, 17.48s/it]                                                    {'loss': 0.0, 'grad_norm': 0.24414531886577606, 'learning_rate': 5e-05, 'rewards/reward_format': 95.0, 'rewards/reward_no_repetition': 0.0, 'rewards/reward_similarity': 623.52587890625, 'rewards/reward_len_response': 13.818236351013184, 'reward': 732.3441162109375, 'reward_std': 320.2042236328125, 'completion_length': 86.59375, 'kl': 0.0009991803672164679, 'epoch': 0.01}
+  0%|          | 5/10000 [01:23<48:32:19, 17.48s/it]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 50.59it/s]
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 72.85it/s]
+<think>我看到群友在聊各大985的年度竞争力排名，黑电源等多位群友已多次强调上交、北航和哈工大的优势，而哈工大的具体竞争优势尚未明确说明。上下文表明群友在讨论不同顶尖院校的特征，哈工大作为传统工科强校的特点应当被重点突出。所以我想回复哈工大的冲击性，既承接话题又回应原问题。</think>但毕竟哈工大竞争力确实能冲击的
+回答: 但毕竟哈工大竞争力确实能冲击的
+标准: 年度最佳985如果是哈工也能理解
+Similarity: 0.6743907332420349
+Reward: 1011.5860998630524
+----------
+<think>我看到群友在聊年度最佳985的选择标准，包括上交、北航、哈工大等院校的评选依据。当讨论延伸到哈工大的竞争力时，需要明确其优势领域。根据群聊上下文，哈工大在航空航天、船舶等工科方向展现出突出实力，所以我想回复具体说明其竞争优势以延续话题。</think>哈工大的工科实力确实很强，这个是竞争优势
+回答: 哈工大的工科实力确实很强，这个是竞争优势
+标准: 年度最佳985如果是哈工也能理解
+Similarity: 0.6866555213928223
+Reward: 1029.9832820892334
+----------
+<think>我看到群友在聊日本天皇的权责分离特性，荒野多边用历史权贵血统与实权丧失的对比论证制度稳定性。当集华芯黄提出权力分割状态时，需要回溯历史实证来说明制度存在的合理性。所以我想用历史事实数据回复，说明天皇作为精神象征的功能定位。</think>估计天皇放开实权的时候就老化了
+回答: 估计天皇放开实权的时候就老化了
+标准: 并且天皇到大概十一世纪的时候基本上就没实权了
+Similarity: 0.7360230684280396
+Reward: 2208.0692052841187
+----------
+<think>我看到群友在聊哈工大竞争优势的话题，注意到群友前后三次强调该学校的工程学科优势。结合群友对哈工大的认可并放宽评选标准，推测我可能在分析该校学科实力与评选资格的关联性，所以我想回复说明哈工大的竞争力主要体现在工科领域。</think>年度最佳985如果是哈工也能理解（不可否认确实工程学科强）
+回答: 年度最佳985如果是哈工也能理解（不可否认确实工程学科强）
+标准: 年度最佳985如果是哈工也能理解
+Similarity: 0.932853639125824
+Reward: 4664.26819562912
+----------
+======== 处理了 32 个回答 ========
+  0%|          | 6/10000 [01:39<47:39:47, 17.17s/it]                                                    {'loss': 0.0, 'grad_norm': 0.25137025117874146, 'learning_rate': 6e-05, 'rewards/reward_format': 92.5, 'rewards/reward_no_repetition': 0.0, 'rewards/reward_similarity': 635.9683837890625, 'rewards/reward_len_response': -0.3310866355895996, 'reward': 728.1373291015625, 'reward_std': 466.06951904296875, 'completion_length': 90.15625, 'kl': 0.0011879687663167715, 'epoch': 0.01}
+  0%|          | 6/10000 [01:39<47:39:47, 17.17s/it]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 27.58it/s]
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 60.19it/s]
+<think>我看到群友在聊人体肌肉动力学，少年渣提出肩背肌群协同问题后，甘蔗连续用技术术语回复骨结构理论。虽然input并非明确提问，但甘蔗的回复通过重新定义肌肉分类间接关联了肩背功能。所以我想回复延续解剖学概念的替代表达。</think>背肌和肩带肌
+回答: 背肌和肩带肌
+标准: 斜方肌连接肩胛骨与脊柱，三角肌联动锁骨完成抬臂动作
+Similarity: 0.6590991616249084
+Reward: 988.6487424373627
+----------
+<think>我看到群友在聊背肌与肩周肌的联动机制，注意到该话题涉及肩部肌肉的生理特性。结合之前关于力矩的讨论，肩部肌群通过肩锁关节作用于上背肌。所以我想回复肩部肌肉发力的结论来说明肌肉协同关系</think>背部肌群就是推动肩部肌群
+回答: 背部肌群就是推动肩部肌群
+标准: 斜方肌连接肩胛骨与脊柱，三角肌联动锁骨完成抬臂动作
+Similarity: 0.7004637122154236
+Reward: 2101.3911366462708
+----------
+<think>我看到群友在讨论背肩组织解剖结构，甘蔗用尺骨桡骨解释前臂旋转原理后，需要将概念延伸至肩背肌群的联动关系。通过延续解剖学框架，所以我想回复具体肌群分工细节说明互动机制</think>背肩肌群确实有协同关系
+回答: 背肩肌群确实有协同关系
+标准: 斜方肌连接肩胛骨与脊柱，三角肌联动锁骨完成抬臂动作
+Similarity: 0.7035759687423706
+Reward: 2110.727906227112
+----------
+<think>我看到群友在讨论肩背肌群的力矩传递路径，少年渣提出肌群互动的疑问，甘蔗需要明确肌群连接关系帮助理解。所以我想回复说明肩胛骨与背部肌群的关联，为后续分析力矩传递机制提供基础信息</think>背肌应该是和肩胛联动
+回答: 背肌应该是和肩胛联动
+标准: 斜方肌连接肩胛骨与脊柱，三角肌联动锁骨完成抬臂动作
+Similarity: 0.7377185821533203
+Reward: 2213.155746459961
+----------
+======== 处理了 32 个回答 ========
+  0%|          | 7/10000 [01:56<47:47:09, 17.21s/it]                                                    {'loss': 0.0001, 'grad_norm': 0.2505420446395874, 'learning_rate': 7e-05, 'rewards/reward_format': 86.875, 'rewards/reward_no_repetition': 0.0, 'rewards/reward_similarity': 639.6826171875, 'rewards/reward_len_response': 7.521576404571533, 'reward': 734.0791625976562, 'reward_std': 275.65679931640625, 'completion_length': 80.5625, 'kl': 0.0014102725544944406, 'epoch': 0.01}
+  0%|          | 7/10000 [01:56<47:47:09, 17.21s/it]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 52.00it/s]
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 78.31it/s]
+<think>我看到群友在聊对象介绍的需求，<此身非我>明确表达了请求意向，而<亡霊>后续关于催婚压力的发言可视为婚恋话题的延续，说明群友关心对象与婚姻交织问题。结合群友常用的群婚策略，所以我想将婚姻时间提醒关联到对象推荐的可行性，回复需体现群友对对象推荐与婚姻规划的关联性。</think>估计有对象介绍ocities
+<think>我看到群友在讨论对象事宜时，<亡霊>通过自身婚婚选择案例说明社交选择与婚姻规划的关联性。所以我想回复具体回应对象需求解决路径，说明群友的务实选择模式</think>不过估计真的有对象才介绍吧
+回答: 不过估计真的有对象才介绍吧
+标准: 今年都推了家里三个相亲了
+Similarity: 0.6659484505653381
+Reward: 998.9226758480072
+----------
+<think>我看到群友在聊对象介绍需求，观察到此身非我明确表达了社交障碍导致的困境。根据群聊常见助人模式，群友移动倩的回复直接回应了社交途径问题，所以我想回复具体社交方式说明以提供有效建议而非模糊回应。</think>估计群友也介绍不过来对象
+回答: 估计群友也介绍不过来对象
+标准: 今年都推了家里三个相亲了
+Similarity: 0.6754563450813293
+Reward: 1013.184517621994
+----------
+<think>我看到群友反馈网页端领取异常后，结合该平台上颁发时间设定论证领取失败可能性。需要排除网页端技术问题，说明领取周期性登录机制限制，所以我想回复明确时间要素论证领取失败合理性。</think>估计网页领不了لِ
+回答: 估计网页领不了لِ
+标准: 哦，重进了可以领
+Similarity: 0.6755993366241455
+Reward: 1013.3990049362183
+----------
+<think>我看到群友在聊婚姻状况问题，亡霊提到自己尚未结婚，集华芯黄预见催婚压力与年龄关联，所以我想回复快速确认需求以解决对方需求得不到满足的困境，同时延续群内催婚话题的戏谑氛围。</think>好歹对象也介绍几个
+回答: 好歹对象也介绍几个
+标准: 今年都推了家里三个相亲了
+Similarity: 0.6897768974304199
+Reward: 1034.6653461456299
+----------
+======== 处理了 32 个回答 ========
+[rank0]: Traceback (most recent call last):
+[rank0]:   File "/home/ubuntu/LLaMA-Factory/grpo.py", line 225, in <module>
+[rank0]:     )
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/transformers/trainer.py", line 2245, in train
+[rank0]:     return inner_training_loop(
+[rank0]:   File "<string>", line 361, in _fast_inner_training_loop
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/accelerate/optimizer.py", line 178, in step
+[rank0]:     self.optimizer.step(closure)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/optim/lr_scheduler.py", line 140, in wrapper
+[rank0]:     return func.__get__(opt, opt.__class__)(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/optim/optimizer.py", line 493, in wrapper
+[rank0]:     out = func(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+[rank0]:     return func(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/bitsandbytes/optim/optimizer.py", line 292, in step
+[rank0]:     torch.cuda.synchronize()
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/cuda/__init__.py", line 985, in synchronize
+[rank0]:     return torch._C._cuda_synchronize()
+[rank0]: KeyboardInterrupt

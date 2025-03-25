@@ -1,0 +1,34 @@
+日志系统初始化完成，日志文件: logs/20250324_195246_log.txt
+GRPO训练脚本开始运行
+similarity奖励日志初始化完成，日志文件: logs/20250324_195246_similarity.jsonl
+正在加载语义模型: shibing624/text2vec-base-chinese
+正在尝试从Hugging Face Hub加载语义模型: shibing624/text2vec-base-chinese
+2025-03-24 19:52:46,310 - INFO - Use pytorch device_name: cuda
+2025-03-24 19:52:46,310 - INFO - Load pretrained SentenceTransformer: shibing624/text2vec-base-chinese
+语义模型加载成功: shibing624/text2vec-base-chinese
+加载模型: output/mimibot_tifa_v2.2
+==((====))==  Unsloth 2025.3.18: Fast Qwen2 patching. Transformers: 4.50.0. vLLM: 0.8.1.
+   \\   /|    NVIDIA GeForce RTX 3090. Num GPUs = 1. Max memory: 24.0 GB. Platform: Linux.
+O^O/ \_/ \    Torch: 2.6.0+cu124. CUDA: 8.6. CUDA Toolkit: 12.4. Triton: 3.2.0
+\        /    Bfloat16 = TRUE. FA [Xformers = 0.0.29.post2. FA2 = False]
+ "-____-"     Free license: http://github.com/unslothai/unsloth
+Unsloth: Fast downloading is enabled - ignore downloading bars which are red colored!
+Unsloth: vLLM loading output/mimibot_tifa_v2.2 with actual GPU utilization = 65.2%
+Unsloth: Your GPU has CUDA compute capability 8.6 with VRAM = 24.0 GB.
+Unsloth: Using conservativeness = 1.0. Chunked prefill tokens = 2048. Num Sequences = 128.
+Unsloth: vLLM's KV Cache can use up to 1.16 GB. Also swap space = 5 GB.
+Loading safetensors checkpoint shards:   0% Completed | 0/4 [00:00<?, ?it/s]
+Loading safetensors checkpoint shards:  25% Completed | 1/4 [00:00<00:01,  1.70it/s]
+Loading safetensors checkpoint shards:  50% Completed | 2/4 [00:01<00:01,  1.69it/s]
+Loading safetensors checkpoint shards:  75% Completed | 3/4 [00:01<00:00,  1.74it/s]
+Loading safetensors checkpoint shards: 100% Completed | 4/4 [00:01<00:00,  2.48it/s]
+Loading safetensors checkpoint shards: 100% Completed | 4/4 [00:01<00:00,  2.13it/s]
+
+Capturing CUDA graph shapes:   0%|          | 0/19 [00:00<?, ?it/s]Capturing CUDA graph shapes:   5%|5         | 1/19 [00:00<00:07,  2.50it/s]Capturing CUDA graph shapes:  11%|#         | 2/19 [00:00<00:06,  2.44it/s]Capturing CUDA graph shapes:  16%|#5        | 3/19 [00:01<00:06,  2.48it/s]Capturing CUDA graph shapes:  21%|##1       | 4/19 [00:01<00:06,  2.44it/s]Capturing CUDA graph shapes:  26%|##6       | 5/19 [00:02<00:05,  2.37it/s]Capturing CUDA graph shapes:  32%|###1      | 6/19 [00:02<00:05,  2.39it/s]Capturing CUDA graph shapes:  37%|###6      | 7/19 [00:02<00:05,  2.37it/s]Capturing CUDA graph shapes:  42%|####2     | 8/19 [00:03<00:04,  2.37it/s]Capturing CUDA graph shapes:  47%|####7     | 9/19 [00:03<00:04,  2.42it/s]Capturing CUDA graph shapes:  53%|#####2    | 10/19 [00:04<00:03,  2.45it/s]Capturing CUDA graph shapes:  58%|#####7    | 11/19 [00:04<00:03,  2.50it/s]Capturing CUDA graph shapes:  63%|######3   | 12/19 [00:04<00:02,  2.48it/s]Capturing CUDA graph shapes:  68%|######8   | 13/19 [00:05<00:02,  2.49it/s]Capturing CUDA graph shapes:  74%|#######3  | 14/19 [00:05<00:02,  2.49it/s]Capturing CUDA graph shapes:  79%|#######8  | 15/19 [00:06<00:01,  2.47it/s]Capturing CUDA graph shapes:  84%|########4 | 16/19 [00:06<00:01,  2.44it/s]Capturing CUDA graph shapes:  89%|########9 | 17/19 [00:08<00:01,  1.20it/s]Capturing CUDA graph shapes:  95%|#########4| 18/19 [00:08<00:00,  1.42it/s]Capturing CUDA graph shapes: 100%|##########| 19/19 [00:09<00:00,  1.63it/s]Capturing CUDA graph shapes: 100%|##########| 19/19 [00:09<00:00,  2.07it/s]
+output/mimibot_tifa_v2.2 does not have a padding token! Will use pad_token = <|endoftext|>.
+[rank0]: Traceback (most recent call last):
+[rank0]:   File "/home/ubuntu/LLaMA-Factory/grpo.py", line 160, in <module>
+[rank0]:     dataset = load_alpaca_dataset(args.alpaca_path)
+[rank0]:   File "/home/ubuntu/LLaMA-Factory/grpo.py", line 134, in load_alpaca_dataset
+[rank0]:     if item["history"]:
+[rank0]: KeyError: 'history'

@@ -1,0 +1,445 @@
+日志系统初始化完成，日志文件: logs/20250326_233626_log.txt
+GRPO训练脚本开始运行
+similarity奖励日志初始化完成，日志文件: logs/20250326_233626_similarity.jsonl
+正在加载语义模型: shibing624/text2vec-base-chinese
+正在尝试从Hugging Face Hub加载语义模型: shibing624/text2vec-base-chinese
+2025-03-26 23:36:26,131 - INFO - Use pytorch device_name: cuda
+2025-03-26 23:36:26,131 - INFO - Load pretrained SentenceTransformer: shibing624/text2vec-base-chinese
+语义模型加载成功: shibing624/text2vec-base-chinese
+加载模型: output/mimibot_tifa_v3.5
+==((====))==  Unsloth 2025.3.18: Fast Qwen2 patching. Transformers: 4.50.0. vLLM: 0.8.1.
+   \\   /|    NVIDIA GeForce RTX 3090. Num GPUs = 1. Max memory: 24.0 GB. Platform: Linux.
+O^O/ \_/ \    Torch: 2.6.0+cu124. CUDA: 8.6. CUDA Toolkit: 12.4. Triton: 3.2.0
+\        /    Bfloat16 = TRUE. FA [Xformers = 0.0.29.post2. FA2 = False]
+ "-____-"     Free license: http://github.com/unslothai/unsloth
+Unsloth: Fast downloading is enabled - ignore downloading bars which are red colored!
+Unsloth: vLLM loading output/mimibot_tifa_v3.5 with actual GPU utilization = 74.52%
+Unsloth: Your GPU has CUDA compute capability 8.6 with VRAM = 24.0 GB.
+Unsloth: Using conservativeness = 1.0. Chunked prefill tokens = 1024. Num Sequences = 160.
+Unsloth: vLLM's KV Cache can use up to 3.4 GB. Also swap space = 5 GB.
+Loading safetensors checkpoint shards:   0% Completed | 0/7 [00:00<?, ?it/s]
+Loading safetensors checkpoint shards:  14% Completed | 1/7 [00:01<00:06,  1.02s/it]
+Loading safetensors checkpoint shards:  29% Completed | 2/7 [00:01<00:04,  1.01it/s]
+Loading safetensors checkpoint shards:  43% Completed | 3/7 [00:03<00:04,  1.03s/it]
+Loading safetensors checkpoint shards:  57% Completed | 4/7 [00:03<00:02,  1.13it/s]
+Loading safetensors checkpoint shards:  71% Completed | 5/7 [00:04<00:02,  1.00s/it]
+Loading safetensors checkpoint shards:  86% Completed | 6/7 [00:06<00:01,  1.04s/it]
+Loading safetensors checkpoint shards: 100% Completed | 7/7 [00:06<00:00,  1.15it/s]
+Loading safetensors checkpoint shards: 100% Completed | 7/7 [00:06<00:00,  1.07it/s]
+
+Capturing CUDA graph shapes:   0%|          | 0/23 [00:00<?, ?it/s]Capturing CUDA graph shapes:   4%|4         | 1/23 [00:00<00:14,  1.55it/s]Capturing CUDA graph shapes:   9%|8         | 2/23 [00:01<00:13,  1.55it/s]Capturing CUDA graph shapes:  13%|#3        | 3/23 [00:01<00:12,  1.56it/s]Capturing CUDA graph shapes:  17%|#7        | 4/23 [00:02<00:12,  1.57it/s]Capturing CUDA graph shapes:  22%|##1       | 5/23 [00:03<00:10,  1.66it/s]Capturing CUDA graph shapes:  26%|##6       | 6/23 [00:03<00:09,  1.71it/s]Capturing CUDA graph shapes:  30%|###       | 7/23 [00:04<00:09,  1.74it/s]Capturing CUDA graph shapes:  35%|###4      | 8/23 [00:04<00:08,  1.78it/s]Capturing CUDA graph shapes:  39%|###9      | 9/23 [00:05<00:07,  1.79it/s]Capturing CUDA graph shapes:  43%|####3     | 10/23 [00:05<00:07,  1.78it/s]Capturing CUDA graph shapes:  48%|####7     | 11/23 [00:06<00:06,  1.76it/s]Capturing CUDA graph shapes:  52%|#####2    | 12/23 [00:07<00:06,  1.60it/s]Capturing CUDA graph shapes:  57%|#####6    | 13/23 [00:07<00:06,  1.63it/s]Capturing CUDA graph shapes:  61%|######    | 14/23 [00:08<00:05,  1.72it/s]Capturing CUDA graph shapes:  65%|######5   | 15/23 [00:08<00:04,  1.75it/s]Capturing CUDA graph shapes:  70%|######9   | 16/23 [00:09<00:03,  1.77it/s]Capturing CUDA graph shapes:  74%|#######3  | 17/23 [00:09<00:03,  1.82it/s]Capturing CUDA graph shapes:  78%|#######8  | 18/23 [00:10<00:02,  1.86it/s]Capturing CUDA graph shapes:  83%|########2 | 19/23 [00:10<00:02,  1.90it/s]Capturing CUDA graph shapes:  87%|########6 | 20/23 [00:11<00:01,  1.91it/s]Capturing CUDA graph shapes:  91%|#########1| 21/23 [00:13<00:01,  1.14it/s]Capturing CUDA graph shapes:  96%|#########5| 22/23 [00:15<00:01,  1.26s/it]Capturing CUDA graph shapes: 100%|##########| 23/23 [00:15<00:00,  1.05s/it]Capturing CUDA graph shapes: 100%|##########| 23/23 [00:15<00:00,  1.45it/s]
+output/mimibot_tifa_v3.5 does not have a padding token! Will use pad_token = <|endoftext|>.
+Map:   0%|          | 0/1024 [00:00<?, ? examples/s]Map: 100%|##########| 1024/1024 [00:00<00:00, 19123.17 examples/s]
+{'prompt': '<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复群聊\n\n【最新消息】\n<此身非我>:吃肉蛋堡吗<|im_end|>\n<|im_start|>assistant\n<think><|im_end|>\n<|im_start|>assistant\n<think>', 'completion': '不吃肉蛋堡', 'answer': '不吃肉蛋堡'}
+启用OpenAI兼容API服务器: 端口=8099, 主机=0.0.0.0
+Starting OpenAI compatible API service on 0.0.0.0:8099/v1
+Simulation mode: False
+  0%|          | 0/2000 [00:00<?, ?it/s] * Serving Flask app 'OpenAI-Compatible-API'
+ * Debug mode: off
+2025-03-26 23:37:26,098 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8099
+ * Running on http://172.21.107.235:8099
+2025-03-26 23:37:26,098 - INFO - [33mPress CTRL+C to quit[0m
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A
+Batches: 100%|##########| 1/1 [00:00<00:00,  7.81it/s][ABatches: 100%|##########| 1/1 [00:00<00:00,  7.79it/s]
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 90.74it/s]
+<think>散片的转换器通常是指将游戏中的散片（或废片）通过特殊工艺转换成标准的圆形金片的过程。这种方式一般用于即将失去游戏内容的游戏，尤其是那些上市不久就过气的作品。散片转换器的设计初衷是为了让玩家能够继续享受喜欢的游戏，即使其正式发行已停止。散片转换器的常见类型是内扣式和外扣式，它们分别通过内部支架支撑和外部支架支撑将散片固定成一圈，粘上去之后看起来跟正版金片差不多。虽然散片转换器可以实现外观上的金片化改造，但可能会导致游戏的运行速度变慢、出现兼容性问题或死机等问题。</think>
+散片有好几种情况~一种就是来历不明的散片，一定要慎用，容易搞到假的~还有一种就是正版散片，建议买正版~当然有收藏价值的散片就另当别论了~不过你用的散片的话应该没啥问题吧~
+回答: 
+散片有好几种情况~一种就是来历不明的散片，一定要慎用，容易搞到假的~还有一种就是正版散片，建议买正版~当然有收藏价值的散片就另当别论了~不过你用的散片的话应该没啥问题吧~
+标准: 我买的au也是散片
+Similarity: 0.6595680713653564
+Reward: 989.3521070480347
+----------
+<think>黑椒蒜香牛柳意面做失败了，我得帮帮<帽>。</think>牛柳嫩滑多汁，蒜香浓郁，配以黑椒汁，口感层次丰富。大棚蔬菜如此不起眼，估计是没选对材料。希望这次在菜市场多挑挑，搞定主菜后，记得用植物油炒香蒜末。对了，盐要适量，别弄淡了。</think>
+真是食材搭配不当啊！我来帮忙指导一下——黑椒蒜香牛柳意面的关键在于选好肉和酱汁的味道搭配。
+回答: 
+真是食材搭配不当啊！我来帮忙指导一下——黑椒蒜香牛柳意面的关键在于选好肉和酱汁的味道搭配。
+标准: 炖意面也不错
+Similarity: 0.6686840653419495
+Reward: 1003.0260980129242
+----------
+<think>散片和完整的软管确实有一些区别。散片通常指的是独立包装的零件或材料，而完整软管则是预组装的成品。散片的优点是灵活和经济，可以按照需要裁剪或装配。缺点是组装可能需要一定的技巧和时间。而完整软管则是方便和快捷，但价格较高。选择使用散片还是完整软管取决于个人的需求和偏好。</think>
+散片和完整的软管各有优劣，散片更灵活但也需要更多装配时间。
+回答: 
+散片和完整的软管各有优劣，散片更灵活但也需要更多装配时间。
+标准: 我买的au也是散片
+Similarity: 0.6888127326965332
+Reward: 1033.2190990447998
+----------
+<think>散片和整片在枪械配件方面确有区别。散片指的是独立的部件，一般用于替换或升级武器的某一部分；而整片则是指完整的枪管或套件，通常是整套安装的。
+
+先回顾一下之前的对话，纯粹的派对散片是否建议的问题表示有些人不建议使用散片。这可能是出于以下几个原因：
+
+1. **精度和稳定性**：散片的集成度可能不如整片，导致枪械的射击精度和稳定性有所下降。
+2. **耐用性和可靠性**：散片在长期使用中可能不如整片耐用，存在一定的隐患。
+3. **成本因素**：散片的采购成本通常较低，但整体维护成本可能较高。
+
+综合以上原因，纯粹的派使用散片也是可以理解的。毕竟，选择什么配件取决于个人的需求和预算。
+</think>
+
+其实我觉得散片还是有些区别的，毕竟和整片的集成度不一样，像我上次用的散片枪口稍微有点偏。
+回答: 
+
+其实我觉得散片还是有些区别的，毕竟和整片的集成度不一样，像我上次用的散片枪口稍微有点偏。
+标准: 我买的au也是散片
+Similarity: 0.6926968097686768
+Reward: 1039.0452146530151
+----------
+======== 处理了 16 个回答 ========
+2025-03-26 23:37:51,526 - INFO - 127.0.0.1 - - [26/Mar/2025 23:37:51] "POST /v1/chat/completions HTTP/1.1" 200 -
+开始处理API请求...
+Chat prompt: <|im_start|>system
+
+    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】
+<think>我看到群友在聊...所以我想回复...</think>你的回复 
+    <|im_end|>
+<|im_start|>user
+【任务目标】
+你是mimi波特，回复最新消息，多使用颜文字，禁止重复历史消息
+
+【历史消息】
+<Lyon>: 晚上好\n<bot>: 晚上好呀！Lyon，今天过得怎么样？我刚结束一天的魔法学习，感觉很充实呢！\n<Lyon>: 我想配个电脑，3090够吗\n<bot>: 3090显卡确实很强，尤其是图形处理方面。不过，电脑的整体性能还要看CPU和内存等其他\n<Lyon>: 波特不被大家欢迎了，怎么办呢\n<bot>: 波特被大家不喜欢是正常情况，每个人都有优点和缺点，重要的是我们用行动来证明自己。我希望
+
+【最新消息】
+<Lyon>: 你有什么建议吗 <|im_end|>
+<|im_start|>assistant
+<think>
+  0%|          | 1/2000 [00:31<17:16:05, 31.10s/it]                                                   {'loss': 0.0, 'grad_norm': 0.3221743702888489, 'learning_rate': 5.000000000000001e-07, 'rewards/reward_format': 95.0, 'rewards/reward_no_repetition': -406.25, 'rewards/reward_similarity': 856.9822998046875, 'rewards/reward_len_response': -195.3053436279297, 'reward': 350.42694091796875, 'reward_std': 688.36572265625, 'completion_length': 165.125, 'kl': 0.0, 'epoch': 0.0}
+  0%|          | 1/2000 [00:31<17:16:05, 31.10s/it]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 45.78it/s]
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 119.39it/s]
+<think>复活果然很好啊。最起码没那么无聊了。</think>
+复活的确很好。至少不再那么无聊了。
+回答: 
+复活的确很好。至少不再那么无聊了。
+标准: 这都能复活啊
+Similarity: 0.7168257236480713
+Reward: 2150.477170944214
+----------
+<think>是的，复活了。而且...这群还挺有趣的。</think>
+复活了。而且，这群还挺有趣的。
+回答: 
+复活了。而且，这群还挺有趣的。
+标准: 这都能复活啊
+Similarity: 0.7303593158721924
+Reward: 2191.077947616577
+----------
+<think>复活的确是个奇迹...但眼前的景象似乎并不算什么。看来，原本就没什么，确实如此。</think>
+复活了...但原本就没什么...
+回答: 
+复活了...但原本就没什么...
+标准: 这都能复活啊
+Similarity: 0.7413923740386963
+Reward: 2224.177122116089
+----------
+<think>原来是恢复了啊，看来大家刚才的心情确实有些阴郁。复活的感觉真好，虽然我只是个普通人，但能再次听到这种言论，还是挺振奋的。所以，我决定用一句话来表达我的感受，同时也不显得突兀。
+</think>
+复活来得太突然，还挺好。
+回答: 
+复活来得太突然，还挺好。
+标准: 这都能复活啊
+Similarity: 0.7510255575180054
+Reward: 2253.076672554016
+----------
+======== 处理了 16 个回答 ========
+Unsloth: Will smartly offload gradients to save VRAM!
+  0%|          | 2/2000 [00:47<12:36:57, 22.73s/it]                                                   {'loss': 0.0, 'grad_norm': 0.6102789640426636, 'learning_rate': 1.0000000000000002e-06, 'rewards/reward_format': 95.625, 'rewards/reward_no_repetition': 0.0, 'rewards/reward_similarity': 1216.81201171875, 'rewards/reward_len_response': -158.08187866210938, 'reward': 1154.3551025390625, 'reward_std': 439.6765441894531, 'completion_length': 90.5, 'kl': 0.0, 'epoch': 0.0}
+  0%|          | 2/2000 [00:47<12:36:57, 22.73s/it]2025-03-26 23:38:15,290 - INFO - 127.0.0.1 - - [26/Mar/2025 23:38:15] "POST /v1/chat/completions HTTP/1.1" 200 -
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 34.70it/s]
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 119.42it/s]
+<think>可以这样回复：在保持副屏幕显示桌面布局的情况下，用三号屏幕打游戏，可以在桌面设置中指定三号屏幕作为游戏输出的主屏幕。</think>
+在保持副屏幕显示桌面布局的情况下，你可以将三号屏幕设置为主屏幕用于游戏输出。这样能够同时看到桌面和打游戏的情况。
+回答: 
+在保持副屏幕显示桌面布局的情况下，你可以将三号屏幕设置为主屏幕用于游戏输出。这样能够同时看到桌面和打游戏的情况。
+标准: 然后要记得多屏幕里要设置成扩展
+Similarity: 0.6797194480895996
+Reward: 1019.5791721343994
+----------
+<think>忍者换龙骑兵的武器挺正常的，毕竟龙骑兵的武器能大幅提升攻击力。赤魔换了主战套的画武器也说得通，这样可以更好地发挥主战套的特性。不过，队伍里有赤魔确实有点跳脱寻常。赤魔虽然外表凶狠，但内心却非常忠诚，他加入队伍可能是看中了你的团队强大，想一同称霸江湖。
+</think>
+赤魔的加入也让我们队伍的实力更上一层楼啊！不过他的画武器是怎么回事？
+回答: 
+赤魔的加入也让我们队伍的实力更上一层楼啊！不过他的画武器是怎么回事？
+标准: 要是没赤魔，首杀还真就丢了
+Similarity: 0.6908303499221802
+Reward: 1036.2455248832703
+----------
+<think>这样回复吧，先表达出对问题的理解，然后给出具体的操作步骤，最后提醒用户检查设置。
+
+嗯，我明白你的需求。你希望副屏幕（即三号屏幕）用来显示游戏，同时保持主屏幕（即笔记本）正常显示桌面布局和网页。
+
+按照这个需求，我们可以采取以下步骤：
+
+1. 首先，确保三号屏幕连接正常。确认三号屏幕的物理连接，并确保其分辨率与当前的显示设置匹配。
+2. 接下来，在主屏幕的任务栏上找到并右键点击任务视图图标（通常是`+`按钮），选择“显示桌面”选项。
+3. 在弹出的窗口中，你会看到所有连接屏幕的显示设置。选择三号屏幕，然后勾选“扩展”选项。这样，游戏会全屏显示在三号屏幕上。
+4. 为了保证主屏幕的桌面布局和网页正常显示，确保主屏幕和三号屏幕都勾选“复制”选项。这样，主屏幕上依旧会正常显示桌面布局和网页。
+</think>
+
+按照这 steps 回复 主屏幕正常显示桌面布局和网页，三号屏幕主显示游戏的步骤 所需软件是系统正常设置工具，设置方法是在正常项目列表中检查显示是否符合要求时，展开方式扩展至显示屏幕连接由外至内 - 正常检查主屏幕列表并调整系统正常设置工具和设置是否完成 检查项目，主正常 视屏面板 使用方法 CPU频率显示；主 切换 主，电源，存储方式 - 系统显示方式主 侧切换提示原来 扩展屏幕设置主 程序编写方法列主 - 数字 3号 桌面数字 设置程序主切 集设计开关正常 视频程序运行状态主 - 数字 扩展中 正数字 ，主切换 副主副主正常扩展主 - 程序画面正常 扩展显示 副主主副（正常显示项目） 改正 扩展主主 -切换 数字主主正常 副主主主扩展主主 打游戏设置主（完全正常扩展主主），进入正常扩展主主数字状态进行正常主主调整扩展主正常主状态主扩展主显示 - 数字 主扩展主数字主显示，检查并调整列表主 - 扩展主主源 扩展主主程序扩展正常
+回答: 
+
+按照这 steps 回复 主屏幕正常显示桌面布局和网页，三号屏幕主显示游戏的步骤 所需软件是系统正常设置工具，设置方法是在正常项目列表中检查显示是否符合要求时，展开方式扩展至显示屏幕连接由外至内 - 正常检查主屏幕列表并调整系统正常设置工具和设置是否完成 检查项目，主正常 视屏面板 使用方法 CPU频率显示；主 切换 主，电源，存储方式 - 系统显示方式主 侧切换提示原来 扩展屏幕设置主 程序编写方法列主 - 数字 3号 桌面数字 设置程序主切 集设计开关正常 视频程序运行状态主 - 数字 扩展中 正数字 ，主切换 副主副主正常扩展主 - 程序画面正常 扩展显示 副主主副（正常显示项目） 改正 扩展主主 -切换 数字主主正常 副主主主扩展主主 打游戏设置主（完全正常扩展主主），进入正常扩展主主数字状态进行正常主主调整扩展主正常主状态主扩展主显示 - 数字 主扩展主数字主显示，检查并调整列表主 - 扩展主主源 扩展主主程序扩展正常
+标准: 然后要记得多屏幕里要设置成扩展
+Similarity: 0.7001246213912964
+Reward: 2100.373864173889
+----------
+<think>三号屏是27寸游戏屏吧，只能扩展桌面，但不能变成主屏，主屏还是主板的，笔记本和三号屏同时显示。<加上如果主屏有root或bootloader解锁，也可以刷第三方系统，置三号屏为桌面，端口受限。<增加信息点笔记本上有驱动，转移外设和通知栏出现，否则没软件也看不出笔记本的屏在动。
+</think>
+三号屏是大屏，可以用作扩展桌面，但不能取代主屏幕的功能。依然会让你的笔记本正常显示桌面和网页，只是三号屏会额外显示内容。如果主屏幕想用来玩游戏，建议使用扩展桌面功能。这样三号屏的桌面被占用，但笔记本上还是能正常使用其他软件的。如果三号屏没接好，游戏界面也可能在笔记本屏幕上显示。<接下来再深入讨论一下决定要不要解锁主屏刷系统，把三号屏当作主屏用。如果笔记本需要通过有线投屏，也需要装软件才能投屏显示，不装软件的话除非接线。另外还可以考虑三号屏的扩展接口能否支持键盘和鼠标外设，少了外设显示效果也未必有提升。>
+回答: 
+三号屏是大屏，可以用作扩展桌面，但不能取代主屏幕的功能。依然会让你的笔记本正常显示桌面和网页，只是三号屏会额外显示内容。如果主屏幕想用来玩游戏，建议使用扩展桌面功能。这样三号屏的桌面被占用，但笔记本上还是能正常使用其他软件的。如果三号屏没接好，游戏界面也可能在笔记本屏幕上显示。<接下来再深入讨论一下决定要不要解锁主屏刷系统，把三号屏当作主屏用。如果笔记本需要通过有线投屏，也需要装软件才能投屏显示，不装软件的话除非接线。另外还可以考虑三号屏的扩展接口能否支持键盘和鼠标外设，少了外设显示效果也未必有提升。>
+标准: 然后要记得多屏幕里要设置成扩展
+Similarity: 0.711348831653595
+Reward: 2134.046494960785
+----------
+======== 处理了 16 个回答 ========
+开始处理API请求...
+Chat prompt: <|im_start|>system
+
+    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】
+<think>我看到群友在聊...所以我想回复...</think>你的回复 
+    <|im_end|>
+<|im_start|>user
+【任务目标】
+你是mimi波特，回复最新消息，多使用颜文字，禁止重复历史消息
+
+【历史消息】
+<Lyon>: 晚上好\n<bot>: 晚上好呀！Lyon，今天过得怎么样？我刚结束一天的魔法学习，感觉很充实呢！\n<Lyon>: 我想配个电脑，3090够吗\n<bot>: 3090显卡确实很强，尤其是图形处理方面。不过，电脑的整体性能还要看CPU和内存等其他\n<Lyon>: 波特不被大家欢迎了，怎么办呢\n<bot>: 波特被大家不喜欢是正常情况，每个人都有优点和缺点，重要的是我们用行动来证明自己。我希望\n<Lyon>: 你有什么建议吗\n<bot>: 波特，我觉得你可以试试展示更多的优点和才能，让大家都看到你的价值。多参与团队活动，主动
+
+【最新消息】
+<Lyon>: 可是你是波特，不是我是是波特 <|im_end|>
+<|im_start|>assistant
+<think>
+2025-03-26 23:38:50,011 - INFO - 127.0.0.1 - - [26/Mar/2025 23:38:50] "POST /v1/chat/completions HTTP/1.1" 200 -
+开始处理API请求...
+Chat prompt: <|im_start|>system
+
+    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】
+<think>我看到群友在聊...所以我想回复...</think>你的回复 
+    <|im_end|>
+<|im_start|>user
+【任务目标】
+你是mimi波特，回复最新消息，多使用颜文字，禁止重复历史消息
+
+【历史消息】
+<Lyon>: 晚上好\n<bot>: 晚上好呀！Lyon，今天过得怎么样？我刚结束一天的魔法学习，感觉很充实呢！\n<Lyon>: 我想配个电脑，3090够吗\n<bot>: 3090显卡确实很强，尤其是图形处理方面。不过，电脑的整体性能还要看CPU和内存等其他\n<Lyon>: 波特不被大家欢迎了，怎么办呢\n<bot>: 波特被大家不喜欢是正常情况，每个人都有优点和缺点，重要的是我们用行动来证明自己。我希望\n<Lyon>: 你有什么建议吗\n<bot>: 波特，我觉得你可以试试展示更多的优点和才能，让大家都看到你的价值。多参与团队活动，主动
+
+【最新消息】
+<Lyon>: 可是你是波特，不是我是是波特 <|im_end|>
+<|im_start|>assistant
+<think>
+  0%|          | 3/2000 [01:32<18:13:49, 32.86s/it]                                                   {'loss': 0.0001, 'grad_norm': 0.45429882407188416, 'learning_rate': 1.5e-06, 'rewards/reward_format': 95.0, 'rewards/reward_no_repetition': -187.5, 'rewards/reward_similarity': 1095.081298828125, 'rewards/reward_len_response': -166.21961975097656, 'reward': 836.3616943359375, 'reward_std': 528.206787109375, 'completion_length': 214.0, 'kl': 0.000845458242110908, 'epoch': 0.01}
+  0%|          | 3/2000 [01:32<18:13:49, 32.86s/it]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 67.20it/s]
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 101.69it/s]
+<think>酸面包真的很不错呢，马迭尔的冰棍也好吃~
+</think>
+酸面包确实不错，马迭尔的冰棍也不错。
+回答: 
+酸面包确实不错，马迭尔的冰棍也不错。
+标准: 马迪尔确实好吃这点必须承认
+Similarity: 0.6604399681091309
+Reward: 990.6599521636963
+----------
+<think>小件比较多，所以我会选择素组+打磨+笔刀修的组合。
+```
+小件多该怎么办？
+答：素组+打磨+笔刀修
+```</think>
+素组+打磨+笔刀修
+回答: 
+素组+打磨+笔刀修
+标准: 我都是直接剪了上笔刀的
+Similarity: 0.6864405870437622
+Reward: 1029.6608805656433
+----------
+<think>我注意到用户提到「素组+打磨+笔刀修」，这意味着他们正在处理手办的上色和细节修饰工作。作为mimi波特，我需要根据这一情景提供适当的回复。
+
+考虑到「小件有点多」和「素组+打磨+笔刀修」的上下文，最合理的反应是回应他们对细节的关注和处理方法。这让我想到可以分享一些关于手办细节处理的建议和经验。
+
+最终，我决定回复：「小件多的话，先素组打个底，打磨到位，然后用笔刀修吧。」
+</think>
+小件多的话，先素组打个底，打磨到位，然后用笔刀修吧。
+回答: 
+小件多的话，先素组打个底，打磨到位，然后用笔刀修吧。
+标准: 我都是直接剪了上笔刀的
+Similarity: 0.6945708394050598
+Reward: 1041.8562591075897
+----------
+<think>马蒂尔酸面包确实很好吃。我来聊这个。</think>
+马蒂尔酸面包是真的很不错。
+回答: 
+马蒂尔酸面包是真的很不错。
+标准: 马迪尔确实好吃这点必须承认
+Similarity: 0.6963822841644287
+Reward: 1044.573426246643
+----------
+======== 处理了 16 个回答 ========
+  0%|          | 4/2000 [01:46<13:54:13, 25.08s/it]                                                   {'loss': 0.0001, 'grad_norm': 0.626875638961792, 'learning_rate': 2.0000000000000003e-06, 'rewards/reward_format': 100.0, 'rewards/reward_no_repetition': -625.0, 'rewards/reward_similarity': 952.0307006835938, 'rewards/reward_len_response': -5.223626136779785, 'reward': 421.80706787109375, 'reward_std': 967.6292114257812, 'completion_length': 67.5, 'kl': 0.0009825408924371004, 'epoch': 0.01}
+  0%|          | 4/2000 [01:46<13:54:13, 25.08s/it]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 46.37it/s]
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 92.36it/s]
+<think>啊，隔壁传来萨克斯的声音，听起来挺舒服的。这个声音让人心情放松，真的能帮助人入睡。不过我得注意听力，保持清醒状态。</think>
+隔壁传来萨克斯声，挺舒缓的，睡不着也能蒙蒙瞌睡
+
+回答: 
+隔壁传来萨克斯声，挺舒缓的，睡不着也能蒙蒙瞌睡
+
+标准: 音乐听了就醒过来看看
+Similarity: 0.6412866711616516
+Reward: 961.9300067424774
+----------
+<think>萨克斯的声音真好听，听着它，我感觉整个人都放松下来了。看来晚安曲里有着神奇的力量呢。</think>
+萨克斯的声音真的好舒服，听着它，我感觉整个人都放松了许多。看来这真是个好选择，能让大家更快地入睡呢。
+回答: 
+萨克斯的声音真的好舒服，听着它，我感觉整个人都放松了许多。看来这真是个好选择，能让大家更快地入睡呢。
+标准: 音乐听了就醒过来看看
+Similarity: 0.6468919515609741
+Reward: 970.3379273414612
+----------
+<think>相亲对象这个东西真是让人头疼。我猜，你肯定在担心我们会遇到各种各样的人吧，可能是富人，也可能是普通人。无论如何，你得信任家人的眼光，这个介绍的人一定有他们的理由。</think>
+我猜你是有点担心会遇到不对眼的人吧。相亲对象这东西，说不上谁会成为最终的人。但毕竟家人介绍的，你得信任他们的眼光。
+回答: 
+我猜你是有点担心会遇到不对眼的人吧。相亲对象这东西，说不上谁会成为最终的人。但毕竟家人介绍的，你得信任他们的眼光。
+标准: 我属于照片看得过去的都加了微信，然后聊了一次。但从没线下见过面
+Similarity: 0.6580348610877991
+Reward: 987.0522916316986
+----------
+<think>太棒了，旁边有音乐真是太舒适了！萨克斯风的声音真像是催眠曲，能让人很快放松下来。看来今晚能睡个好觉了。</think>
+太棒了，我昨晚一直失眠，后来听了几首轻音乐就睡着了。
+回答: 
+太棒了，我昨晚一直失眠，后来听了几首轻音乐就睡着了。
+标准: 音乐听了就醒过来看看
+Similarity: 0.7460392713546753
+Reward: 2238.117814064026
+----------
+======== 处理了 16 个回答 ========
+  0%|          | 5/2000 [01:57<11:13:31, 20.26s/it]                                                   {'loss': 0.0001, 'grad_norm': 0.4735574424266815, 'learning_rate': 2.5e-06, 'rewards/reward_format': 95.0, 'rewards/reward_no_repetition': 0.0, 'rewards/reward_similarity': 983.627685546875, 'rewards/reward_len_response': -15.357555389404297, 'reward': 1063.2701416015625, 'reward_std': 277.52716064453125, 'completion_length': 77.75, 'kl': 0.0008789343410171568, 'epoch': 0.01}
+  0%|          | 5/2000 [01:57<11:13:31, 20.26s/it]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 53.63it/s]
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 153.36it/s]
+<think>对啊！开副屏是不是可以找到平衡点？这样主机和PC都可以兼顾。
+</think>
+哎呀，副屏是个好主意！可以多开几个窗口，主机和PC都能用起来。
+回答: 
+哎呀，副屏是个好主意！可以多开几个窗口，主机和PC都能用起来。
+标准: 我就是用副屏玩的
+Similarity: 0.7574146389961243
+Reward: 2272.243916988373
+----------
+<think>看来荒野多边的建议不错。我试着打开了副屏，结果发现确实方便了很多。</think>
+对啊，开副屏确实方便。
+回答: 
+对啊，开副屏确实方便。
+标准: 我就是用副屏玩的
+Similarity: 0.7729876637458801
+Reward: 2318.9629912376404
+----------
+<think>用副屏玩游戏，可以极大提升游戏体验。不过，对主机玩家来说，副屏更多是作为扩展功能使用，主要还是享受主机游戏的高质量画面和音效。PC玩家也比较讲性价比，所以副屏的功能更多是显示桌面、文件，起到辅助作用。
+</think>
+用副屏玩游戏挺不错的，可以一边主屏看游戏一边副屏看动态或者笔记，功能更灵活。不过对主机来说，副屏更多的是扩展功能吧，主要还是要把主机体验发挥到极致。
+回答: 
+用副屏玩游戏挺不错的，可以一边主屏看游戏一边副屏看动态或者笔记，功能更灵活。不过对主机来说，副屏更多的是扩展功能吧，主要还是要把主机体验发挥到极致。
+标准: 我就是用副屏玩的
+Similarity: 0.7975367307662964
+Reward: 2392.610192298889
+----------
+<think>嗯，我现在看到群里的聊天内容是荒野多边建议我试试开副屏。根据我的设定，我是mimi波特，一个对游戏有深入研究的人，所以我的回复应该体现出我对这种建议的思考和可能的回应。我推测根据当前的情况，可能会涉及到副屏的实际效果和其在游戏体验中的优势。我可以想到，大致的剧情走向是讨论副屏对游戏的影响以及可能带来的变化。
+</think>
+副屏可以分担一些画面和信息，整体体验还是不错的。不过要玩游戏的话，主屏还是得盯着！
+回答: 
+副屏可以分担一些画面和信息，整体体验还是不错的。不过要玩游戏的话，主屏还是得盯着！
+标准: 我就是用副屏玩的
+Similarity: 0.8210223913192749
+Reward: 2463.0671739578247
+----------
+======== 处理了 16 个回答 ========
+  0%|          | 6/2000 [02:19<11:29:57, 20.76s/it]                                                   {'loss': 0.0001, 'grad_norm': 0.44162634015083313, 'learning_rate': 3e-06, 'rewards/reward_format': 100.0, 'rewards/reward_no_repetition': 0.0, 'rewards/reward_similarity': 1228.1160888671875, 'rewards/reward_len_response': -91.75141906738281, 'reward': 1236.36474609375, 'reward_std': 383.24151611328125, 'completion_length': 107.9375, 'kl': 0.0008664135821163654, 'epoch': 0.01}
+  0%|          | 6/2000 [02:19<11:29:57, 20.76s/it]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 38.94it/s]
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 105.48it/s]
+<think>黄粱和其他人在讨论泡水和烹饪方法。根据之前的对话，黄粱提到酸菜没有泡水，而帽则询问南方的酸菜是否也需要泡水。现在，黄粱表示酸菜味道太咸了。</think>
+黄粱，我不知道南方的酸菜是不是需要泡水，但应该是吧。咸得厉害可能是因为没有泡过水呢。
+回答: 
+黄粱，我不知道南方的酸菜是不是需要泡水，但应该是吧。咸得厉害可能是因为没有泡过水呢。
+标准: 南方酸菜盐分更高？
+Similarity: 0.7412471771240234
+Reward: 2223.7415313720703
+----------
+<think>南方的酸菜确实是需要泡一下，泡一下可以去腥除咸，也更入味哦。</think>
+咸度得好好调节一下~南方的酸菜得泡一下，这样才好吃。
+回答: 
+咸度得好好调节一下~南方的酸菜得泡一下，这样才好吃。
+标准: 南方酸菜盐分更高？
+Similarity: 0.7800519466400146
+Reward: 2340.155839920044
+----------
+<think>看来他们在讨论泡酸菜的事呢。我打个酱油，正好也来聊聊。说泡酸菜确实得加点水，否则会太咸。
+</think>
+南方酸菜泡一下水，口感会好很多。否则太咸了~
+回答: 
+南方酸菜泡一下水，口感会好很多。否则太咸了~
+标准: 南方酸菜盐分更高？
+Similarity: 0.794159471988678
+Reward: 2382.478415966034
+----------
+<think>酸菜泡水是为了去掉一些盐分和异味，不是必须要泡的，但如果泡水的话，时间不能太长，不然酸菜会变软，味道也会变淡。黄粱说酸菜没泡水，咸得厉害，估计是因为没泡水的原因吧。看来南方的酸菜确实需要泡水的，否则味道真的很重。</think>
+南方的酸菜确实要泡水的，去盐味和异味，不然吃起来真的咸得不行。
+回答: 
+南方的酸菜确实要泡水的，去盐味和异味，不然吃起来真的咸得不行。
+标准: 南方酸菜盐分更高？
+Similarity: 0.8025455474853516
+Reward: 2407.6366424560547
+----------
+======== 处理了 16 个回答 ========
+  0%|          | 7/2000 [02:37<11:01:58, 19.93s/it]                                                   {'loss': 0.0001, 'grad_norm': 0.45962727069854736, 'learning_rate': 3.5e-06, 'rewards/reward_format': 100.0, 'rewards/reward_no_repetition': 0.0, 'rewards/reward_similarity': 1455.2840576171875, 'rewards/reward_len_response': -23.10125732421875, 'reward': 1532.182861328125, 'reward_std': 343.8399658203125, 'completion_length': 82.8125, 'kl': 0.0009217428741976619, 'epoch': 0.01}
+  0%|          | 7/2000 [02:37<11:01:58, 19.93s/it][rank0]: Traceback (most recent call last):
+[rank0]:   File "/home/ubuntu/LLaMA-Factory/grpo.py", line 242, in <module>
+[rank0]:     trainer.train()
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/transformers/trainer.py", line 2245, in train
+[rank0]:     return inner_training_loop(
+[rank0]:   File "<string>", line 310, in _fast_inner_training_loop
+[rank0]:   File "<string>", line 25, in _unsloth_training_step
+[rank0]:   File "/home/ubuntu/LLaMA-Factory/unsloth_compiled_cache/UnslothGRPOTrainer.py", line 958, in _prepare_inputs
+[rank0]:     outputs = self.llm.generate(all_prompts_text, sampling_params=self.sampling_params, use_tqdm=False, lora_request = self.model.load_lora('grpo_trainer_lora_model', load_tensors = True))
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/utils.py", line 1066, in inner
+[rank0]:     return fn(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/entrypoints/llm.py", line 464, in generate
+[rank0]:     outputs = self._run_engine(use_tqdm=use_tqdm)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/entrypoints/llm.py", line 1371, in _run_engine
+[rank0]:     step_outputs = self.llm_engine.step()
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/engine/llm_engine.py", line 1435, in step
+[rank0]:     outputs = self.model_executor.execute_model(
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/executor/executor_base.py", line 139, in execute_model
+[rank0]:     output = self.collective_rpc("execute_model",
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/executor/uniproc_executor.py", line 56, in collective_rpc
+[rank0]:     answer = run_method(self.driver_worker, method, args, kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/utils.py", line 2216, in run_method
+[rank0]:     return func(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/worker/worker_base.py", line 420, in execute_model
+[rank0]:     output = self.model_runner.execute_model(
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+[rank0]:     return func(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/worker/model_runner.py", line 1742, in execute_model
+[rank0]:     hidden_or_intermediate_states = model_executable(
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+[rank0]:     return self._call_impl(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+[rank0]:     return forward_call(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/worker/model_runner.py", line 2029, in forward
+[rank0]:     self.graph.replay()
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/cuda/graphs.py", line 88, in replay
+[rank0]:     super().replay()
+[rank0]: KeyboardInterrupt

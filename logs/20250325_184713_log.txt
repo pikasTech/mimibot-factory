@@ -1,0 +1,83 @@
+日志系统初始化完成，日志文件: logs/20250325_184713_log.txt
+GRPO训练脚本开始运行
+similarity奖励日志初始化完成，日志文件: logs/20250325_184713_similarity.jsonl
+正在加载语义模型: shibing624/text2vec-base-chinese
+正在尝试从Hugging Face Hub加载语义模型: shibing624/text2vec-base-chinese
+2025-03-25 18:47:13,044 - INFO - Use pytorch device_name: cuda
+2025-03-25 18:47:13,044 - INFO - Load pretrained SentenceTransformer: shibing624/text2vec-base-chinese
+语义模型加载成功: shibing624/text2vec-base-chinese
+加载模型: output/mimibot_tifa_v3.0
+==((====))==  Unsloth 2025.3.18: Fast Qwen2 patching. Transformers: 4.50.0. vLLM: 0.8.1.
+   \\   /|    NVIDIA GeForce RTX 3090. Num GPUs = 1. Max memory: 24.0 GB. Platform: Linux.
+O^O/ \_/ \    Torch: 2.6.0+cu124. CUDA: 8.6. CUDA Toolkit: 12.4. Triton: 3.2.0
+\        /    Bfloat16 = TRUE. FA [Xformers = 0.0.29.post2. FA2 = False]
+ "-____-"     Free license: http://github.com/unslothai/unsloth
+Unsloth: Fast downloading is enabled - ignore downloading bars which are red colored!
+Unsloth: vLLM loading output/mimibot_tifa_v3.0 with actual GPU utilization = 65.2%
+Unsloth: Your GPU has CUDA compute capability 8.6 with VRAM = 24.0 GB.
+Unsloth: Using conservativeness = 1.0. Chunked prefill tokens = 2048. Num Sequences = 128.
+Unsloth: vLLM's KV Cache can use up to 0.26 GB. Also swap space = 5 GB.
+Loading safetensors checkpoint shards:   0% Completed | 0/7 [00:00<?, ?it/s]
+Loading safetensors checkpoint shards:  14% Completed | 1/7 [00:01<00:07,  1.22s/it]
+Loading safetensors checkpoint shards:  29% Completed | 2/7 [00:02<00:06,  1.20s/it]
+Loading safetensors checkpoint shards:  43% Completed | 3/7 [00:03<00:04,  1.24s/it]
+Loading safetensors checkpoint shards:  57% Completed | 4/7 [00:04<00:03,  1.02s/it]
+Loading safetensors checkpoint shards:  71% Completed | 5/7 [00:05<00:02,  1.05s/it]
+Loading safetensors checkpoint shards:  86% Completed | 6/7 [00:06<00:01,  1.08s/it]
+Loading safetensors checkpoint shards: 100% Completed | 7/7 [00:06<00:00,  1.21it/s]
+Loading safetensors checkpoint shards: 100% Completed | 7/7 [00:06<00:00,  1.01it/s]
+
+Unsloth: Retrying vLLM to process 96 sequences and 4608 tokens in tandem.
+Error:
+No available memory for the cache blocks. Try increasing `gpu_memory_utilization` when initializing the engine.
+Loading safetensors checkpoint shards:   0% Completed | 0/7 [00:00<?, ?it/s]
+Loading safetensors checkpoint shards:  14% Completed | 1/7 [00:00<00:02,  2.05it/s]
+Loading safetensors checkpoint shards:  29% Completed | 2/7 [00:01<00:02,  1.95it/s]
+Loading safetensors checkpoint shards:  43% Completed | 3/7 [00:01<00:02,  2.00it/s]
+Loading safetensors checkpoint shards:  57% Completed | 4/7 [00:01<00:01,  2.27it/s]
+Loading safetensors checkpoint shards:  71% Completed | 5/7 [00:02<00:00,  2.19it/s]
+Loading safetensors checkpoint shards:  86% Completed | 6/7 [00:02<00:00,  2.09it/s]
+Loading safetensors checkpoint shards: 100% Completed | 7/7 [00:03<00:00,  2.46it/s]
+Loading safetensors checkpoint shards: 100% Completed | 7/7 [00:03<00:00,  2.25it/s]
+
+[rank0]: Traceback (most recent call last):
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/unsloth_zoo/vllm_utils.py", line 1028, in load_vllm
+[rank0]:     llm = LLM(**engine_args)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/utils.py", line 1031, in inner
+[rank0]:     return fn(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/entrypoints/llm.py", line 242, in __init__
+[rank0]:     self.llm_engine = LLMEngine.from_engine_args(
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/engine/llm_engine.py", line 520, in from_engine_args
+[rank0]:     return engine_cls.from_vllm_config(
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/engine/llm_engine.py", line 496, in from_vllm_config
+[rank0]:     return cls(
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/engine/llm_engine.py", line 283, in __init__
+[rank0]:     self._initialize_kv_caches()
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/engine/llm_engine.py", line 445, in _initialize_kv_caches
+[rank0]:     self.model_executor.initialize_cache(num_gpu_blocks, num_cpu_blocks)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/executor/executor_base.py", line 122, in initialize_cache
+[rank0]:     self.collective_rpc("initialize_cache",
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/executor/uniproc_executor.py", line 56, in collective_rpc
+[rank0]:     answer = run_method(self.driver_worker, method, args, kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/utils.py", line 2216, in run_method
+[rank0]:     return func(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/worker/worker.py", line 291, in initialize_cache
+[rank0]:     raise_if_cache_size_invalid(
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/worker/worker.py", line 540, in raise_if_cache_size_invalid
+[rank0]:     raise ValueError("No available memory for the cache blocks. "
+[rank0]: ValueError: No available memory for the cache blocks. Try increasing `gpu_memory_utilization` when initializing the engine.
+
+[rank0]: During handling of the above exception, another exception occurred:
+
+[rank0]: Traceback (most recent call last):
+[rank0]:   File "/home/ubuntu/LLaMA-Factory/grpo.py", line 103, in <module>
+[rank0]:     model, tokenizer = FastLanguageModel.from_pretrained(
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/unsloth/models/loader.py", line 363, in from_pretrained
+[rank0]:     model, tokenizer = dispatch_model.from_pretrained(
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/unsloth/models/qwen2.py", line 87, in from_pretrained
+[rank0]:     return FastLlamaModel.from_pretrained(
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/unsloth/models/llama.py", line 1819, in from_pretrained
+[rank0]:     llm = load_vllm(**load_vllm_kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/unsloth_zoo/vllm_utils.py", line 1040, in load_vllm
+[rank0]:     raise RuntimeError(error)
+[rank0]: RuntimeError: No available memory for the cache blocks. Try increasing `gpu_memory_utilization` when initializing the engine.

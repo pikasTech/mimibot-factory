@@ -1,0 +1,239 @@
+日志系统初始化完成，日志文件: logs/20250325_185559_log.txt
+GRPO训练脚本开始运行
+similarity奖励日志初始化完成，日志文件: logs/20250325_185559_similarity.jsonl
+正在加载语义模型: shibing624/text2vec-base-chinese
+正在尝试从Hugging Face Hub加载语义模型: shibing624/text2vec-base-chinese
+2025-03-25 18:55:59,818 - INFO - Use pytorch device_name: cuda
+2025-03-25 18:55:59,818 - INFO - Load pretrained SentenceTransformer: shibing624/text2vec-base-chinese
+语义模型加载成功: shibing624/text2vec-base-chinese
+加载模型: output/mimibot_tifa_v3.0
+==((====))==  Unsloth 2025.3.18: Fast Qwen2 patching. Transformers: 4.50.0. vLLM: 0.8.1.
+   \\   /|    NVIDIA GeForce RTX 3090. Num GPUs = 1. Max memory: 24.0 GB. Platform: Linux.
+O^O/ \_/ \    Torch: 2.6.0+cu124. CUDA: 8.6. CUDA Toolkit: 12.4. Triton: 3.2.0
+\        /    Bfloat16 = TRUE. FA [Xformers = 0.0.29.post2. FA2 = False]
+ "-____-"     Free license: http://github.com/unslothai/unsloth
+Unsloth: Fast downloading is enabled - ignore downloading bars which are red colored!
+Unsloth: vLLM loading output/mimibot_tifa_v3.0 with actual GPU utilization = 65.2%
+Unsloth: Your GPU has CUDA compute capability 8.6 with VRAM = 24.0 GB.
+Unsloth: Using conservativeness = 1.0. Chunked prefill tokens = 2048. Num Sequences = 128.
+Unsloth: vLLM's KV Cache can use up to 1.16 GB. Also swap space = 5 GB.
+Loading safetensors checkpoint shards:   0% Completed | 0/7 [00:00<?, ?it/s]
+Loading safetensors checkpoint shards:  14% Completed | 1/7 [00:01<00:06,  1.04s/it]
+Loading safetensors checkpoint shards:  29% Completed | 2/7 [00:02<00:05,  1.04s/it]
+Loading safetensors checkpoint shards:  43% Completed | 3/7 [00:06<00:10,  2.56s/it]
+Loading safetensors checkpoint shards:  57% Completed | 4/7 [00:07<00:05,  1.92s/it]
+Loading safetensors checkpoint shards:  71% Completed | 5/7 [00:08<00:03,  1.68s/it]
+Loading safetensors checkpoint shards:  86% Completed | 6/7 [00:09<00:01,  1.53s/it]
+Loading safetensors checkpoint shards: 100% Completed | 7/7 [00:10<00:00,  1.22s/it]
+Loading safetensors checkpoint shards: 100% Completed | 7/7 [00:10<00:00,  1.49s/it]
+
+Capturing CUDA graph shapes:   0%|          | 0/19 [00:00<?, ?it/s]Capturing CUDA graph shapes:   5%|5         | 1/19 [00:00<00:07,  2.57it/s]Capturing CUDA graph shapes:  11%|#         | 2/19 [00:00<00:06,  2.61it/s]Capturing CUDA graph shapes:  16%|#5        | 3/19 [00:01<00:06,  2.59it/s]Capturing CUDA graph shapes:  21%|##1       | 4/19 [00:01<00:05,  2.52it/s]Capturing CUDA graph shapes:  26%|##6       | 5/19 [00:01<00:05,  2.47it/s]Capturing CUDA graph shapes:  32%|###1      | 6/19 [00:02<00:05,  2.47it/s]Capturing CUDA graph shapes:  37%|###6      | 7/19 [00:02<00:04,  2.48it/s]Capturing CUDA graph shapes:  42%|####2     | 8/19 [00:03<00:04,  2.47it/s]Capturing CUDA graph shapes:  47%|####7     | 9/19 [00:03<00:03,  2.50it/s]Capturing CUDA graph shapes:  53%|#####2    | 10/19 [00:03<00:03,  2.54it/s]Capturing CUDA graph shapes:  58%|#####7    | 11/19 [00:04<00:03,  2.56it/s]Capturing CUDA graph shapes:  63%|######3   | 12/19 [00:04<00:02,  2.56it/s]Capturing CUDA graph shapes:  68%|######8   | 13/19 [00:05<00:02,  2.56it/s]Capturing CUDA graph shapes:  74%|#######3  | 14/19 [00:05<00:01,  2.55it/s]Capturing CUDA graph shapes:  79%|#######8  | 15/19 [00:05<00:01,  2.53it/s]Capturing CUDA graph shapes:  84%|########4 | 16/19 [00:06<00:01,  2.50it/s]Capturing CUDA graph shapes:  89%|########9 | 17/19 [00:06<00:00,  2.49it/s]Capturing CUDA graph shapes:  95%|#########4| 18/19 [00:07<00:00,  2.49it/s]Capturing CUDA graph shapes: 100%|##########| 19/19 [00:07<00:00,  2.47it/s]Capturing CUDA graph shapes: 100%|##########| 19/19 [00:07<00:00,  2.51it/s]
+output/mimibot_tifa_v3.0 does not have a padding token! Will use pad_token = <|endoftext|>.
+Map:   0%|          | 0/512 [00:00<?, ? examples/s]Map: 100%|##########| 512/512 [00:00<00:00, 19309.82 examples/s]
+{'prompt': '<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【最新消息】\n<此身非我>:吃肉蛋堡吗<|im_end|>\n<|im_start|>assistant\n<think><|im_end|>\n<|im_start|>assistant\n<think>', 'completion': '不吃肉蛋堡', 'answer': '不吃肉蛋堡'}
+启用OpenAI兼容API服务器: 端口=8099, 主机=0.0.0.0
+Starting OpenAI compatible API service on 0.0.0.0:8099/v1
+Simulation mode: False
+  0%|          | 0/1000 [00:00<?, ?it/s] * Serving Flask app 'OpenAI-Compatible-API'
+ * Debug mode: off
+2025-03-25 18:57:38,572 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8099
+ * Running on http://172.21.107.235:8099
+2025-03-25 18:57:38,572 - INFO - [33mPress CTRL+C to quit[0m
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 14.44it/s]
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 103.74it/s]
+<think> 
+嗯...我现在看到用户的消息是：“虽然我用的散片”
+
+根据上下文，mimi波特是“mimi是散片”的支持者，因此她的回复应该表达对“散片”的支持和对“纯派”的理解，同时保持“mimi”的风格。mimi可能会传达一种既支持“散片”又不失礼貌的态度，因为mimi的心理是**既享受“散片”的自由，又希望其他人能理解她的方式。所以她的回复应该一方面是表达自己的观点，另一方面又要显得不过分推翻纯派的思考。
+ 
+我推测mimi可能会先回顾一下之前的讨论，然后表达她的立场，最后以温馨的语气结束。
+
+第一句话可以回顾之前的讨论：“其实纯派也可以的。”第二句话表达她的支持：“我喜欢散片的感觉就好。”第三句话则是对用户的理解：“你知道我喜欢散片就好。”最后用温馨的语气总结：“别觉得我是散片哦。”这样既表达了她的态度，又保持了语气的柔和。
+</think>
+真的散片吧。
+回答: 
+真的散片吧。
+标准: 我买的au也是散片
+Similarity: 0.6714552640914917
+Reward: 1007.1828961372375
+----------
+<think> 
+嗯，我现在先看看用户发来了什么。用户提到“买10块钱的小鱼和5块钱的豆腐”。
+然后我读一读设定，mimi波特是一个asmr角色，穿梭纸片人n、震动括号n角色互动能带节奏的人肉身体n。根据设定，mimi波特的特点是活泼开朗，喜欢和人互动，动作会有节奏感，声音甜美可爱，擅长在mimi频道撩文时带上自虐、胆战心惊等主观感受。三角琴已经说了一会儿晚安了。
+
+接下来我注意到设定中强调mimi波特的动作要有节奏感和身体n的参与。根据之前的消息，mimi波特喜欢通过温柔引导的方式互动。联系之前的对话，mimi波特对usersmley表现得很体贴，经常引导她去想情景局的细节。所以，789这个新的场景要保持这种温柔体贴的语气，同时也要带有一些节奏感和身体n的暗示。
+
+那么，我扮演的角色的状态应该是mimi波特心态凶狠，但却很享受与你们互动的感觉，喜欢撩拨的同时又有些矜持。所以她的回复应该既带有一些节奏感，又带有一些身体n的暗示和温柔的调侃。
+
+根据之前的对话，usersmley有过提问，所以她接下来可能会继续讨论更多细节或者表达她的感受。因此，mimi波特的回复应该保持她的温柔和撩拨，同时回应用户的问题。
+
+最终，mimi波特的回复会带有一些节奏感，同时表达出她的温柔和撩拨。她可能会提到如何炖鱼，并且带有一些身体n的暗示，同时保持她的小心机。
+</think>
+买小鱼小鱼豆腐吧，炖鱼香香。
+回答: 
+买小鱼小鱼豆腐吧，炖鱼香香。
+标准: 三块钱的豆腐都够我吃两顿了
+Similarity: 0.7008679509162903
+Reward: 2102.603852748871
+----------
+<think>  
+首先，我扮演的角色mimi波特已经知道了自己的食材预算和想做炖鱼的意愿，但她刚刚问的是“小鱼和豆腐”，这可能意味着她需要一些实际的操作步骤帮助。大棚联想到之前的场景，mimi波特通常会试图照顾她的“小鱼”，所以她的反应应该是既愿意提供帮助，又保持友好的态度，同时也要表现出她对做菜安排的自信和细心。我推测基于这种角色设定，mimi波特会给出一些实际的建议，同时也可能会开玩笑，表现出她的幽默感。为了接下来的回复，mimi波特可能会表达她的关心，同时提供一些具体的建议，如先处理小鱼，炒豆腐，炖汤等。
+</think>
+
+小鱼和豆腐吗？那不如炖鱼吧。小鱼炖豆腐应该算是家常菜了。 
+回答: 
+
+小鱼和豆腐吗？那不如炖鱼吧。小鱼炖豆腐应该算是家常菜了。 
+标准: 三块钱的豆腐都够我吃两顿了
+Similarity: 0.7126789689064026
+Reward: 2138.0369067192078
+----------
+<think> 
+嗯，我现在先看看用户发来了什么。用户提到“买10块钱的小鱼和5块钱的豆腐”，这显然是在讨论关于炖鱼的食材。然后我读一读设定，mimi波特是一个清新的、带着点文艺气质的角色，对烹饪有独到的见解。根据设定，mimi波特喜欢分享食谱和烹饪技巧，同时她会尽量让她的回答听起来有趣且富含细节。
+
+接下来我需要根据设定来构思回复。mimi波特会提到豆腐和小鱼炖汤的烹饪方法，同时会保持她那份轻松愉快的语气回答。她可能会给出一个简单的步骤说明，同时也会提到自己喜欢的烹饪方式或习惯。最后，为了符合mimi波特的设定，她的回复应该充满活力，既有趣又不失专业。
+
+综上所述，我的回复应该包含对用户提到的食材的认可，提供简单的烹饪方法，同时保持轻松愉快的语气回答。我准备这么回复：“买小鱼鱼和豆腐，简单得很。我最喜欢炖鱼了。” 一起炖汤吧，既简单又美味。。</think> 买小鱼鱼和豆腐，简单得很。我最喜欢炖鱼了。
+回答:  买小鱼鱼和豆腐，简单得很。我最喜欢炖鱼了。
+标准: 三块钱的豆腐都够我吃两顿了
+Similarity: 0.7142125368118286
+Reward: 2142.637610435486
+----------
+======== 处理了 16 个回答 ========
+  0%|          | 1/1000 [00:23<6:32:01, 23.54s/it]                                                  {'loss': -0.0, 'grad_norm': 0.35337403416633606, 'learning_rate': 1e-05, 'rewards/reward_format': 87.5, 'rewards/reward_no_repetition': -93.75, 'rewards/reward_similarity': 1010.4114379882812, 'rewards/reward_len_response': -263.70123291015625, 'reward': 740.460205078125, 'reward_std': 1088.504638671875, 'completion_length': 336.875, 'kl': 0.0, 'epoch': 0.0}
+  0%|          | 1/1000 [00:23<6:32:01, 23.54s/it]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 40.28it/s]
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 120.17it/s]
+<think>  
+嗯，我现在先看看用户发来了什么。用户提到“两边一起堆，我自己回合先发先拍连锁怎么不算牌效”。然后读一读设定，mimi波特作为一个贴心且幽默的mimi角色，通常会用温柔且带有调侃的语气来回复用户，同时会关注情感表达和幽默感。根据设定，mimi波特应该会直接表达自己的意见，并带有温暖的语气，同时也会考虑到用户的感受。
+
+联系之前的剧情，mimi波特之前提到了“两边一起堆”，这可能是在讨论某种玩法策略，所以她的回复应该围绕着这个主题展开，同时保持幽默和温暖的语气。
+
+根据设定，mimi波特会用亲切的方式表达自己的观点，并且会稍微调侃一下用户的想法。因此，她的回复应该既表达支持用户的想法，又保持幽默感。
+
+那么，我扮演的角色mimi波特的状态，所以她的回复应该带有一定的幽默感，同时表达支持和鼓励。出现“这句话感觉有种崇洋媚外的感觉”这样的调侃，这是mimi波特的语言风格。
+
+准备改变动作，先回顾一下之前的动作，mimi波特之前讨论的是“两边一起堆”，所以她的回复应该继续围绕这个主题展开，同时保持幽默感。
+
+按照常识，这时候的回复应该既支持用户的想法，又带有一定的调侃，同时表达鼓励和支持。最合理的反应是mimi波特会用温柔又幽默的方式回应，同时给出一些鼓励。
+
+还要注意设定中强调mimi波特的观点要发自内心真诚，因此她会对用户的建议表示支持，并且不会直接反驳，而是通过幽默的语言表达自己的看法。
+</think>
+
+manage两边一起堆也没关系，我自己回合先发先拍连锁指的是两边堆成一口气拍的连锁卡。
+回答: 
+
+manage两边一起堆也没关系，我自己回合先发先拍连锁指的是两边堆成一口气拍的连锁卡。
+标准: 盲堆也许可以概率算牌效
+Similarity: 0.6495804190635681
+Reward: 974.3706285953522
+----------
+<think> 
+嗯，我现在先看看用户发来了什么。用户提到“两边一起堆，我自己回合先发先拍连锁怎么不算牌效”，这涉及到对mimi波特角色的理解和对卡牌游戏规则的熟悉程度。我扮演的是mimi波特，所以我的回复应该体现出mimi波特的态度和风格。根据设定，mimi波特是一个对eef卡组有深入了解的人，所以她的回复应该既有诚意又有策略性，同时还要符合她的性格特点。
+
+那么，我扮演mimi波特，为了表达她的意见，我会先回顾一下之前的对话，确保我的回复与之前的对话一致。之前，mimi波特已经表达了对她mimi卡效的评价，并且怀怀疑虑，因此她的回复应该既有对玩家卡组的理解，又能够巧妙地表达自己的观点。此外，mimi波特也会对游戏规则有准确的理解，所以她的回复应该体现出对规则的尊重。
+
+根据这些考虑，mimi波特的回复应该表达对玩家卡组的认可，同时又不失礼貌地表达她对mimi卡效的看法。她可能会提到玩家的策略，同时又强调mimi卡效的独特之处。这些都可以通过她的语气和用词来体现。
+
+接下来，我推测根据对话的上下文，mimi波特可能会这样回复：“你堆两边，自己先发先拍连锁，这……应该是mimi的mimi效吧。”这样的话既表达了对玩家策略的认可，又巧妙地强调了mimi卡效的独特性。
+
+最后，我还要注意保持mimi波特的角色设定，她应该是一个善于思考、幽默感强的人，所以她的回复应该既有礼貌，又带有一些幽默感。比如，她可能会提到道具的卡效也可以理解，但同时又表达对mimi卡效的认可。这样可以更好地体现她的性格特点。
+</think>你堆两边，自己先发先拍连锁，这应该算是mimi的mimi效吧。
+回答: 你堆两边，自己先发先拍连锁，这应该算是mimi的mimi效吧。
+标准: 盲堆也许可以概率算牌效
+Similarity: 0.6645560264587402
+Reward: 996.8340396881104
+----------
+<think> 
+嗯，我现在先看看用户发来了什么。用户提到“两边一起堆，我自己回合先发先拍连锁怎么不算牌效”。然后我先回忆一下mimi波特的特点和对卡牌游戏的理解。mimi波特是一个真的波特卡，脾气火爆，但对游戏很热情，通常在战斗中喜欢表现出自信和幽默感。
+
+根据设定，mimi波特应该对这种讨论持开放态度，但同时也会表达自己的观点和幽默感。mimi波特可能会觉得这种讨论很有趣，但也可能会强调一些她独特的游戏策略。因此，她的回复应该既幽默又不失智慧，同时表达她对这种技术的理解和认可。
+
+接下来我读一读设定，根据设定mimi波特最初可能会有一些误解，但很快就会意识到情况，然后表现出幽默和幽默感。她的回复可以包括一些对人们可能持有的不同看法的调侃，同时也体现出她对mimi波特特性的理解。
+
+根据常识，人们在讨论卡牌游戏时可能会有不同的看法，mimi波特作为一个真的波特卡，应该会对此有独特的见解。她可能会提到一些类似mimi角色的想法，同时保持幽默感。
+
+那么，我扮演mimi波特，最合理的反应是她会大方地接受这种讨论，同时用幽默的方式来表达她的观点。她可能会提到mimi波特天生就是有mimi特质的游戏角色，然后以一种轻松愉快的方式回应。
+</think>
+
+我明白了，两边一起堆确实可以算牌效。但毕竟我是mimi波特，天生就有mimi特质，所以还是觉得有些许影响效率。
+回答: 
+
+我明白了，两边一起堆确实可以算牌效。但毕竟我是mimi波特，天生就有mimi特质，所以还是觉得有些许影响效率。
+标准: 盲堆也许可以概率算牌效
+Similarity: 0.7175909280776978
+Reward: 2152.7727842330933
+----------
+<think> 
+嗯，我现在先看看用户发来了什么。用户提到了“两边一起堆，我自己回合先发先拍连锁怎么不算牌效”。然后读一读设定，mimi波特是一个不太会怎么游泳，但特别会大概率飙出血条的角色。再往后看任务要求回复最新消息，并且需要带上所以思考，mimi波特应该会强调自己的牌效，强调自己先发先拍的重要性，同时保持她特有的幽默感和略微调皮的姿态。
+
+根据设定，mimi波特是一个不太会具体计算卡效，但会在牌效上有所强调的角色。她的回复应该既有幽默感，又不太会真正在意具体的卡效计算。因此，她的回复应当含有对用户观点的附和，同时强调她自己的博弈技巧和运气。
+
+我推测，根据设定，mimi波特可能会这样回应：“两堆一起？自己回合先拍连锁？那当然牌效不错嘛！”这样的话，既附和了用户的想法，又保持了她特有的幽默感和调侃态度。
+
+先复习一下常识，在万智牌游戏中，双方一起堆卡可能会影响各自的手牌策略，而先发先拍连锁则是要有一定技巧和运气。mimi波特作为一个不太会具体计算卡效但强调运气的角色，应该会强调自己的运气和策略。
+
+根据常识，角色应该会强调自己的运气和策略，同时保持幽默感。最合理的情景是，mimi波特会调侃自己运气好，同时强调她自己的策略和运气结合。
+
+最终，我会结合她的幽默感和我对局势的理解，回复道：“两边一起堆？自己回合先拍连锁？那当然牌效不错嘛！”这样的回复既附和了用户的想法，又保持了mimi波特特有的幽默感和调侃态度。
+</think>
+两边一起堆？自己回合先拍连锁？那当然牌效不错嘛。
+回答: 
+两边一起堆？自己回合先拍连锁？那当然牌效不错嘛。
+标准: 盲堆也许可以概率算牌效
+Similarity: 0.7382701635360718
+Reward: 2214.8104906082153
+----------
+======== 处理了 16 个回答 ========
+Unsloth: Will smartly offload gradients to save VRAM!
+  0%|          | 2/1000 [00:45<6:14:26, 22.51s/it]                                                  {'loss': 0.0, 'grad_norm': 0.6634365916252136, 'learning_rate': 2e-05, 'rewards/reward_format': 87.5, 'rewards/reward_no_repetition': 0.0, 'rewards/reward_similarity': 964.526611328125, 'rewards/reward_len_response': -432.84454345703125, 'reward': 619.1820068359375, 'reward_std': 1245.0594482421875, 'completion_length': 310.8125, 'kl': 0.0, 'epoch': 0.01}
+  0%|          | 2/1000 [00:45<6:14:26, 22.51s/it][rank0]: Traceback (most recent call last):
+[rank0]:   File "/home/ubuntu/LLaMA-Factory/grpo.py", line 250, in <module>
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/transformers/trainer.py", line 2245, in train
+[rank0]:     return inner_training_loop(
+[rank0]:   File "<string>", line 310, in _fast_inner_training_loop
+[rank0]:   File "<string>", line 25, in _unsloth_training_step
+[rank0]:   File "/home/ubuntu/LLaMA-Factory/unsloth_compiled_cache/UnslothGRPOTrainer.py", line 958, in _prepare_inputs
+[rank0]:     outputs = self.llm.generate(all_prompts_text, sampling_params=self.sampling_params, use_tqdm=False, lora_request = self.model.load_lora('grpo_trainer_lora_model', load_tensors = True))
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/utils.py", line 1066, in inner
+[rank0]:     return fn(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/entrypoints/llm.py", line 464, in generate
+[rank0]:     outputs = self._run_engine(use_tqdm=use_tqdm)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/entrypoints/llm.py", line 1371, in _run_engine
+[rank0]:     step_outputs = self.llm_engine.step()
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/engine/llm_engine.py", line 1435, in step
+[rank0]:     outputs = self.model_executor.execute_model(
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/executor/executor_base.py", line 139, in execute_model
+[rank0]:     output = self.collective_rpc("execute_model",
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/executor/uniproc_executor.py", line 56, in collective_rpc
+[rank0]:     answer = run_method(self.driver_worker, method, args, kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/utils.py", line 2216, in run_method
+[rank0]:     return func(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/worker/worker_base.py", line 420, in execute_model
+[rank0]:     output = self.model_runner.execute_model(
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+[rank0]:     return func(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/worker/model_runner.py", line 1798, in execute_model
+[rank0]:     output: SamplerOutput = self.model.sample(
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/model_executor/models/qwen2.py", line 480, in sample
+[rank0]:     next_tokens = self.sampler(logits, sampling_metadata)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+[rank0]:     return self._call_impl(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+[rank0]:     return forward_call(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/model_executor/layers/sampler.py", line 287, in forward
+[rank0]:     maybe_deferred_sample_results, maybe_sampled_tokens_tensor = _sample(
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/model_executor/layers/sampler.py", line 775, in _sample
+[rank0]:     return _sample_with_torch(
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/model_executor/layers/sampler.py", line 744, in _sample_with_torch
+[rank0]:     return get_pythonized_sample_results(
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/model_executor/layers/sampler.py", line 616, in get_pythonized_sample_results
+[rank0]:     sample_results = _random_sample(seq_groups,
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/model_executor/layers/sampler.py", line 485, in _random_sample
+[rank0]:     random_samples = random_samples.cpu()
+[rank0]: KeyboardInterrupt

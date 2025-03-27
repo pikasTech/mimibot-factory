@@ -1,0 +1,605 @@
+日志系统初始化完成，日志文件: logs/20250325_114446_log.txt
+GRPO训练脚本开始运行
+similarity奖励日志初始化完成，日志文件: logs/20250325_114446_similarity.jsonl
+正在加载语义模型: shibing624/text2vec-base-chinese
+正在尝试从Hugging Face Hub加载语义模型: shibing624/text2vec-base-chinese
+2025-03-25 11:44:46,141 - INFO - Use pytorch device_name: cuda
+2025-03-25 11:44:46,141 - INFO - Load pretrained SentenceTransformer: shibing624/text2vec-base-chinese
+语义模型加载成功: shibing624/text2vec-base-chinese
+加载模型: output/mimibot_tifa_v2.3
+==((====))==  Unsloth 2025.3.18: Fast Qwen2 patching. Transformers: 4.50.0. vLLM: 0.8.1.
+   \\   /|    NVIDIA GeForce RTX 3090. Num GPUs = 1. Max memory: 24.0 GB. Platform: Linux.
+O^O/ \_/ \    Torch: 2.6.0+cu124. CUDA: 8.6. CUDA Toolkit: 12.4. Triton: 3.2.0
+\        /    Bfloat16 = TRUE. FA [Xformers = 0.0.29.post2. FA2 = False]
+ "-____-"     Free license: http://github.com/unslothai/unsloth
+Unsloth: Fast downloading is enabled - ignore downloading bars which are red colored!
+Unsloth: vLLM loading output/mimibot_tifa_v2.3 with actual GPU utilization = 65.2%
+Unsloth: Your GPU has CUDA compute capability 8.6 with VRAM = 24.0 GB.
+Unsloth: Using conservativeness = 1.0. Chunked prefill tokens = 2048. Num Sequences = 128.
+Unsloth: vLLM's KV Cache can use up to 1.16 GB. Also swap space = 5 GB.
+Loading safetensors checkpoint shards:   0% Completed | 0/4 [00:00<?, ?it/s]
+Loading safetensors checkpoint shards:  25% Completed | 1/4 [00:00<00:02,  1.44it/s]
+Loading safetensors checkpoint shards:  50% Completed | 2/4 [00:01<00:01,  1.40it/s]
+Loading safetensors checkpoint shards:  75% Completed | 3/4 [00:02<00:00,  1.49it/s]
+Loading safetensors checkpoint shards: 100% Completed | 4/4 [00:02<00:00,  2.13it/s]
+Loading safetensors checkpoint shards: 100% Completed | 4/4 [00:02<00:00,  1.82it/s]
+
+Capturing CUDA graph shapes:   0%|          | 0/19 [00:00<?, ?it/s]Capturing CUDA graph shapes:   5%|5         | 1/19 [00:00<00:08,  2.10it/s]Capturing CUDA graph shapes:  11%|#         | 2/19 [00:00<00:08,  2.11it/s]Capturing CUDA graph shapes:  16%|#5        | 3/19 [00:01<00:07,  2.15it/s]Capturing CUDA graph shapes:  21%|##1       | 4/19 [00:01<00:07,  2.13it/s]Capturing CUDA graph shapes:  26%|##6       | 5/19 [00:02<00:06,  2.09it/s]Capturing CUDA graph shapes:  32%|###1      | 6/19 [00:02<00:06,  2.08it/s]Capturing CUDA graph shapes:  37%|###6      | 7/19 [00:03<00:05,  2.07it/s]Capturing CUDA graph shapes:  42%|####2     | 8/19 [00:03<00:05,  2.05it/s]Capturing CUDA graph shapes:  47%|####7     | 9/19 [00:04<00:04,  2.06it/s]Capturing CUDA graph shapes:  53%|#####2    | 10/19 [00:04<00:04,  2.07it/s]Capturing CUDA graph shapes:  58%|#####7    | 11/19 [00:05<00:03,  2.07it/s]Capturing CUDA graph shapes:  63%|######3   | 12/19 [00:05<00:03,  2.10it/s]Capturing CUDA graph shapes:  68%|######8   | 13/19 [00:06<00:02,  2.08it/s]Capturing CUDA graph shapes:  74%|#######3  | 14/19 [00:06<00:02,  2.07it/s]Capturing CUDA graph shapes:  79%|#######8  | 15/19 [00:07<00:01,  2.05it/s]Capturing CUDA graph shapes:  84%|########4 | 16/19 [00:07<00:01,  2.06it/s]Capturing CUDA graph shapes:  89%|########9 | 17/19 [00:08<00:00,  2.06it/s]Capturing CUDA graph shapes:  95%|#########4| 18/19 [00:08<00:00,  2.06it/s]Capturing CUDA graph shapes: 100%|##########| 19/19 [00:09<00:00,  2.04it/s]Capturing CUDA graph shapes: 100%|##########| 19/19 [00:09<00:00,  2.07it/s]
+output/mimibot_tifa_v2.3 does not have a padding token! Will use pad_token = <|endoftext|>.
+Map:   0%|          | 0/4096 [00:00<?, ? examples/s]Map:  52%|#####1    | 2126/4096 [00:00<00:00, 21170.03 examples/s]Map: 100%|##########| 4096/4096 [00:00<00:00, 20727.18 examples/s]
+{'prompt': '<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【最新消息】\n<此身非我>:吃肉蛋堡吗<|im_end|>\n<|im_start|>assistant\n<think><|im_end|>\n<|im_start|>assistant\n<think>', 'completion': '不吃肉蛋堡', 'answer': '不吃肉蛋堡'}
+启用OpenAI兼容API服务器: 端口=8099, 主机=0.0.0.0
+Starting OpenAI compatible API service on 0.0.0.0:8099/v1
+Simulation mode: False
+  0%|          | 0/10000 [00:00<?, ?it/s] * Serving Flask app 'OpenAI-Compatible-API'
+ * Debug mode: off
+2025-03-25 11:46:14,345 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8099
+ * Running on http://172.21.107.235:8099
+2025-03-25 11:46:14,345 - INFO - [33mPress CTRL+C to quit[0m
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 23.17it/s]
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 121.29it/s]
+<think>我看到群友在聊人类剧情创作能力，注意到需要呼应上文关于剧情合理性的争议，所以我想回复具体说明人类剧情与动画设定的关系</think>估计也是人类可以想出来的剧情
+回答: 估计也是人类可以想出来的剧情
+标准: 无敌了
+Similarity: 0.559424638748169
+Reward: 839.1369581222534
+----------
+<think>我看到群友在吐槽剧情创作能力，<荒野多边>用夸张语气强调剧情荒诞性。需要强调剧情与角色设定的断裂感，所以我想回复具体剧情矛盾</think>估计也是人类可以想出来的剧情
+回答: 估计也是人类可以想出来的剧情
+标准: 无敌了
+Similarity: 0.559424638748169
+Reward: 839.1369581222534
+----------
+<think>我看到群友在讨论剧情的荒诞程度，需要强调剧情设定与现实逻辑的割裂感。所以我想回复明确强化剧情设定与现实逻辑不兼容的结论。</think>估计也是人类可以想出来的剧情
+回答: 估计也是人类可以想出来的剧情
+标准: 无敌了
+Similarity: 0.559424638748169
+Reward: 839.1369581222534
+----------
+<think>我看到群友在聊剧情设定的荒诞程度，需要将话题关联到前文讨论的守护者守护对象的变化，所以我想回复强调剧情设定的特殊设定</think>估计也是人类可以想出的剧情来玩
+回答: 估计也是人类可以想出的剧情来玩
+标准: 无敌了
+Similarity: 0.5763375163078308
+Reward: 864.5062744617462
+----------
+======== 处理了 16 个回答 ========
+2025-03-25 11:46:20,869 - INFO - 127.0.0.1 - - [25/Mar/2025 11:46:20] "POST /v1/chat/completions HTTP/1.1" 200 -
+  0%|          | 1/10000 [00:07<19:32:39,  7.04s/it]                                                    {'loss': 0.0, 'grad_norm': 0.34106606245040894, 'learning_rate': 1e-05, 'rewards/reward_format': 100.0, 'rewards/reward_no_repetition': 0.0, 'rewards/reward_similarity': 604.1034545898438, 'rewards/reward_len_response': -98.10606384277344, 'reward': 605.9974365234375, 'reward_std': 130.47164916992188, 'completion_length': 54.9375, 'kl': 0.0, 'epoch': 0.0}
+  0%|          | 1/10000 [00:07<19:32:39,  7.04s/it]Chat prompt: <|im_start|>system
+
+    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】
+<think>我看到群友在聊...所以我想回复...</think>你的回复 
+    <|im_end|>
+<|im_start|>user
+【任务目标】
+你是mimi波特，回复最新消息，多使用颜文字，禁止重复历史消息
+
+【历史消息】
+<bot>: 估计三号这个也是打495战斗力满满的\n<Lyon>: 波特打三号战斗力多少？\n<bot>: 估计波特这个也是战斗力满满的\n<Lyon>: 在吗\n<bot>: 在在在\n<Lyon>: 好难过，论文没改完\n<bot>: 我也是改完论文\n<Lyon>: 你都改完了\n<bot>: 改完论文
+
+【最新消息】
+<Lyon>: 你是谁 <|im_end|>
+<|im_start|>assistant
+<think>
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 106.54it/s]
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 92.78it/s]
+<think>我看到群友在聊地址设置失误导致默认地址错误，说明我需要说明地址管理的疏忽，所以我想回复强调地址选择错误但没有影响成果</think>估计那个新增地址没改默认地址
+回答: 估计那个新增地址没改默认地址
+标准: 从三号那边下单时候我应该点的新增地址，填完之后合着还是发的旧的默认地址
+Similarity: 0.7483521699905396
+Reward: 2245.0565099716187
+----------
+<think>我看到群友在聊地址设置错误导致收货地址错误，结合群友多次强调不熟悉地址变更流程，所以我想回复具体说明地址设置失误导致收货地址错误，说明责任在系统自动设置的流程有漏洞</think>估计是新增收货地址没改默认地址
+回答: 估计是新增收货地址没改默认地址
+标准: 从三号那边下单时候我应该点的新增地址，填完之后合着还是发的旧的默认地址
+Similarity: 0.7690222263336182
+Reward: 2307.0666790008545
+----------
+<think>我看到群友在聊地址设置错误导致新地址未生效的问题，我通过反馈系统设定失效的异常现象，所以我想回复说明问题成因为地址设置存在逻辑冲突</think>估计是新增的地址没改默认收货地址
+回答: 估计是新增的地址没改默认收货地址
+标准: 从三号那边下单时候我应该点的新增地址，填完之后合着还是发的旧的默认地址
+Similarity: 0.7719883918762207
+Reward: 2315.965175628662
+----------
+<think>我看到群友在聊地址设置错误导致货物被误送，说明地址管理存在疏忽。需要回复具体解释地址同步问题，所以我想回复地址同步异常导致系统默认地址失效。</think>估计是新增的地址没改默认收货地址
+回答: 估计是新增的地址没改默认收货地址
+标准: 从三号那边下单时候我应该点的新增地址，填完之后合着还是发的旧的默认地址
+Similarity: 0.7719883918762207
+Reward: 2315.965175628662
+----------
+======== 处理了 16 个回答 ========
+Unsloth: Will smartly offload gradients to save VRAM!
+  0%|          | 2/10000 [00:17<25:05:17,  9.03s/it]                                                    {'loss': 0.0, 'grad_norm': 0.26834118366241455, 'learning_rate': 2e-05, 'rewards/reward_format': 100.0, 'rewards/reward_no_repetition': 0.0, 'rewards/reward_similarity': 2118.706298828125, 'rewards/reward_len_response': 18.849206924438477, 'reward': 2237.5556640625, 'reward_std': 220.8396759033203, 'completion_length': 53.25, 'kl': 0.0, 'epoch': 0.0}
+  0%|          | 2/10000 [00:17<25:05:17,  9.03s/it]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 99.29it/s]
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 97.67it/s]
+<think>我看到群友在聊量子隧穿现象，集华芯黄提出能否呈现亮条纹的疑问。根据量子隧穿原理，粒子穿过的区域概率分布密集，不会形成传统光学亮条纹。所以我想回复强调量子隧穿的随机性，指出与经典光学现象的区别</think>量子隧穿确实是概率分布过去，应该没有亮条纹
+回答: 量子隧穿确实是概率分布过去，应该没有亮条纹
+标准: 需结合量子力学波函数概率模型解释，建议查阅电子双缝实验文献。
+Similarity: 0.705551266670227
+Reward: 2116.653800010681
+----------
+<think>我看到群友在聊量子隧穿现象与亮条纹的关系，集华芯黄提出是否呈现亮条纹的问题。根据量子隧穿本质，需要强调量子粒子的不确定性原理，所以我想回复明确回答亮条纹与量子隧穿的差异性</think>量子隧穿确实也会呈现一个亮条纹
+回答: 量子隧穿确实也会呈现一个亮条纹
+标准: 需结合量子力学波函数概率模型解释，建议查阅电子双缝实验文献。
+Similarity: 0.7163000106811523
+Reward: 2148.900032043457
+----------
+<think>我看到群友在聊量子隧穿是否呈现亮条纹，需要明确量子隧穿现象与经典光学条纹的区别。根据量子力学原理，隧穿粒子的概率分布更符合概率云分布而非经典亮条纹，所以我想回复强调两者异构性。</think>量子隧穿不会呈现亮条纹，粒子概率云会通过。
+回答: 量子隧穿不会呈现亮条纹，粒子概率云会通过。
+标准: 需结合量子力学波函数概率模型解释，建议查阅电子双缝实验文献。
+Similarity: 0.7295088768005371
+Reward: 2188.5266304016113
+----------
+<think>我看到群友在聊量子隧穿现象，集华芯黄提出亮条纹问题。根据量子隧穿理论，粒子通过隧道的概率与势垒能量差相关，所以我想回复强调该现象的统计特性</think>量子隧穿确实也是概率分布，估计亮条纹是穿过去的粒子
+回答: 量子隧穿确实也是概率分布，估计亮条纹是穿过去的粒子
+标准: 需结合量子力学波函数概率模型解释，建议查阅电子双缝实验文献。
+Similarity: 0.7728999853134155
+Reward: 2318.6999559402466
+----------
+======== 处理了 16 个回答 ========
+  0%|          | 3/10000 [00:24<22:02:32,  7.94s/it]                                                    {'loss': 0.0, 'grad_norm': 0.3153861463069916, 'learning_rate': 3e-05, 'rewards/reward_format': 100.0, 'rewards/reward_no_repetition': 0.0, 'rewards/reward_similarity': 1100.798095703125, 'rewards/reward_len_response': 10.814615249633789, 'reward': 1211.61279296875, 'reward_std': 487.093017578125, 'completion_length': 60.875, 'kl': 0.0006318943342193961, 'epoch': 0.0}
+  0%|          | 3/10000 [00:24<22:02:32,  7.94s/it]2025-03-25 11:46:39,439 - INFO - 127.0.0.1 - - [25/Mar/2025 11:46:39] "POST /v1/chat/completions HTTP/1.1" 200 -
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 111.24it/s]
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 108.97it/s]
+<think>我看到群友在讨论物品销售状态，三号明确说明当前无法出售后，需要进一步说明物品价值保障，所以我想回复强调售出后的后续处理</think>估计那个是卖不了了
+回答: 估计那个是卖不了了
+标准: 现在卖了换THR(
+Similarity: 0.6028209328651428
+Reward: 904.2313992977142
+----------
+<think>我看到群友在聊二手商品销路问题，三号明确表达了无法卖出去的现状，并进一步强调该问题的持续时间。所以我想回复说明商品滞销的客观事实</think>估计之前那个是卖不了了
+回答: 估计之前那个是卖不了了
+标准: 现在卖了换THR(
+Similarity: 0.649623692035675
+Reward: 974.4355380535126
+----------
+<think>我看到群友在聊当前二手设备的估值状态，三号明确表示卖不了了，水鸣涧和三号连续强调设备滞销的现实情况。所以我想回复对当前二手市场状态的客观评价，强调设备滞销与价格滞涨的关系</think>估计也是卖了这个玩
+回答: 估计也是卖了这个玩
+标准: 现在卖了换THR(
+Similarity: 0.6520799398422241
+Reward: 978.1199097633362
+----------
+<think>我看到群友在聊二手商品处理难度，三号明确表示无法出售。根据前序对话，水鸣涧已对二手商品表示熟悉，所以我想回复肯定二手商品常见的处理方式</think>估计是卖不了出过给了
+回答: 估计是卖不了出过给了
+标准: 现在卖了换THR(
+Similarity: 0.66034996509552
+Reward: 990.52494764328
+----------
+======== 处理了 16 个回答 ========
+  0%|          | 4/10000 [00:31<21:00:40,  7.57s/it]                                                    {'loss': 0.0, 'grad_norm': 0.3415665924549103, 'learning_rate': 4e-05, 'rewards/reward_format': 100.0, 'rewards/reward_no_repetition': 0.0, 'rewards/reward_similarity': 570.510986328125, 'rewards/reward_len_response': 17.314189910888672, 'reward': 687.8251953125, 'reward_std': 65.89323425292969, 'completion_length': 61.3125, 'kl': 0.0006870008655823767, 'epoch': 0.0}
+  0%|          | 4/10000 [00:31<21:00:40,  7.57s/it]Chat prompt: <|im_start|>system
+
+    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】
+<think>我看到群友在聊...所以我想回复...</think>你的回复 
+    <|im_end|>
+<|im_start|>user
+【任务目标】
+你是mimi波特，回复最新消息，多使用颜文字，禁止重复历史消息
+
+【历史消息】
+
+
+【最新消息】
+<Lyon>: 你是谁 <|im_end|>
+<|im_start|>assistant
+<think>
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 110.29it/s]
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 95.93it/s]
+<think>我看到群友在分析不同资源阻抗卡组差异，旉怓偵丄突然提及脱卡机制作用，结合495円强调资源阻抗的特殊性，说明需要明确回答资源卡组的特殊处理方式，所以我想回复强调不同卡组对资源卡的差异化处理</think>估计也是那些资源卡组来玩
+回答: 估计也是那些资源卡组来玩
+标准: 不准上手
+Similarity: 0.5496761798858643
+Reward: 824.5142698287964
+----------
+<think>我看到群友在聊墓地资源卡组，495円提到滚回卡组资源阻抗的存在。旉怓偵丄突然夸脱脱你，可能是在讨论特定卡牌的效果触发场景。所以我想回复明确肯定对方战术选择</think>那个资源卡组估计也是玩玩
+回答: 那个资源卡组估计也是玩玩
+标准: 不准上手
+Similarity: 0.5623534917831421
+Reward: 843.5302376747131
+----------
+<think>我看到群友在聊卡组构筑策略，旉怓偵丄突然提及脱脱你的具体术语，推测是在强调资源阻抗卡的配置问题。接着需要关联前文关于资源牌卡组配置，所以我想回复具体说明资源型卡组在当前环境的生存难度。</think>估计也是那些资源卡组玩玩
+回答: 估计也是那些资源卡组玩玩
+标准: 不准上手
+Similarity: 0.5636115074157715
+Reward: 845.4172611236572
+----------
+<think>我看到群友在讨论资源阻抗类卡的轮入机制，<495円>提到滚回卡组，<旉怓偵丄>用脱脱你的谐音表达对资源卡回归的期待。所以我想回复具体说明资源卡组的特殊性</think>那个估计也是资源卡组玩玩
+回答: 那个估计也是资源卡组玩玩
+标准: 不准上手
+Similarity: 0.5653790831565857
+Reward: 848.0686247348785
+----------
+======== 处理了 16 个回答 ========
+  0%|          | 5/10000 [00:38<20:56:44,  7.54s/it]                                                    {'loss': 0.0, 'grad_norm': 0.3723733127117157, 'learning_rate': 5e-05, 'rewards/reward_format': 100.0, 'rewards/reward_no_repetition': 0.0, 'rewards/reward_similarity': 550.591796875, 'rewards/reward_len_response': -67.660888671875, 'reward': 582.930908203125, 'reward_std': 337.176513671875, 'completion_length': 61.9375, 'kl': 0.0007208421593531966, 'epoch': 0.0}
+  0%|          | 5/10000 [00:38<20:56:44,  7.54s/it]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 100.88it/s]
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 133.96it/s]
+<think>我看到群友在讨论正架左闪避动作的完成标准，第七十七明确表达了动作完成度不足。根据群友强调的训练标准，需要说明动作完成度与训练水平的关系。所以我想回复强调基础训练与完整动作的关系</think>估计那个也是正架动作能跟出来
+回答: 估计那个也是正架动作能跟出来
+标准: 应该有单个动作教学的，你再试试
+Similarity: 0.6741567254066467
+Reward: 1011.2350881099701
+----------
+<think>我看到群友在分析正架左闪避动作，第七十七反馈动作完成度不足。根据训练逻辑，需要强化动作分解练习，所以我想回复具体训练建议</think>估计也是正架的闪避动作能跟着练
+回答: 估计也是正架的闪避动作能跟着练
+标准: 应该有单个动作教学的，你再试试
+Similarity: 0.6775321960449219
+Reward: 1016.2982940673828
+----------
+<think>我看到群友在分析拳击正架左闪避动作时，第七十七强调动作完成性，而帽进一步指出动作标准性，所以我想回复说明动作分解训练的重要性</think>估计那个正架闪避动作确实也是练练就来
+回答: 估计那个正架闪避动作确实也是练练就来
+标准: 应该有单个动作教学的，你再试试
+Similarity: 0.6803264617919922
+Reward: 1020.4896926879883
+----------
+<think>我看到群友在聊正架左闪避动作时提到动作完成但未说明准确性，结合上下文发现需要强调动作还原度与输出强度。所以我想回复具体说明动作完成度问题</think>估计那个正架动作也是能玩玩让正架出来
+回答: 估计那个正架动作也是能玩玩让正架出来
+标准: 应该有单个动作教学的，你再试试
+Similarity: 0.6979283094406128
+Reward: 1046.8924641609192
+----------
+======== 处理了 16 个回答 ========
+2025-03-25 11:46:57,558 - INFO - 127.0.0.1 - - [25/Mar/2025 11:46:57] "POST /v1/chat/completions HTTP/1.1" 200 -
+  0%|          | 6/10000 [00:48<23:17:21,  8.39s/it]                                                    {'loss': 0.0, 'grad_norm': 0.3298673927783966, 'learning_rate': 6e-05, 'rewards/reward_format': 100.0, 'rewards/reward_no_repetition': 0.0, 'rewards/reward_similarity': 902.0882568359375, 'rewards/reward_len_response': 50.0, 'reward': 1052.0882568359375, 'reward_std': 24.99430274963379, 'completion_length': 58.125, 'kl': 0.0007125019910745323, 'epoch': 0.0}
+  0%|          | 6/10000 [00:48<23:17:21,  8.39s/it]Chat prompt: <|im_start|>system
+
+    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】
+<think>我看到群友在聊...所以我想回复...</think>你的回复 
+    <|im_end|>
+<|im_start|>user
+【任务目标】
+你是mimi波特，回复最新消息，多使用颜文字，禁止重复历史消息
+
+【历史消息】
+<Lyon>: 你是谁\n<bot>: 是mimi波特呀~
+
+【最新消息】
+<Lyon>: 三号的战斗力是多少？ <|im_end|>
+<|im_start|>assistant
+<think>
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 79.41it/s]
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 123.23it/s]
+<think>我看到群友在聊镇赉的行程安排，注意到需要明确回答小猫前往镇赉的原因。结合上下文，所以我想回复具体行程规划</think>估计去镇赉玩玩
+回答: 估计去镇赉玩玩
+标准: 去串门
+Similarity: 0.6320401430130005
+Reward: 948.0602145195007
+----------
+<think>我看到群友在聊小猫去镇赉的原因，观察到节操此前提到自己在镇赉上班，推测群友在讨论职业规划，所以我想回复具体说明去镇赉与工作相关的决定</think>估计也是去镇赉玩玩
+回答: 估计也是去镇赉玩玩
+标准: 去串门
+Similarity: 0.6369971036911011
+Reward: 955.4956555366516
+----------
+<think>我看到群友在聊节操询问具体原因，而少年渣用具体行程说明行动目的，所以我想回复强调行程安排与工作无关</think>估计是去镇赉玩玩
+回答: 估计是去镇赉玩玩
+标准: 去串门
+Similarity: 0.6469758152961731
+Reward: 970.4637229442596
+----------
+<think>我看到群友在聊镇赉的相关话题，节操连续提出对镇赉了解不足并强调工作的特殊性，随后进一步追问原因。结合上下文，需要明确回答去镇赉的原因，所以我想回复具体提及工作因素</think>估计是去镇赉玩玩
+回答: 估计是去镇赉玩玩
+标准: 去串门
+Similarity: 0.6469758152961731
+Reward: 970.4637229442596
+----------
+======== 处理了 16 个回答 ========
+  0%|          | 7/10000 [00:55<22:19:47,  8.04s/it]                                                    {'loss': 0.0, 'grad_norm': 0.31677722930908203, 'learning_rate': 7e-05, 'rewards/reward_format': 100.0, 'rewards/reward_no_repetition': 0.0, 'rewards/reward_similarity': 675.51025390625, 'rewards/reward_len_response': 33.7662353515625, 'reward': 809.2764282226562, 'reward_std': 179.62379455566406, 'completion_length': 53.875, 'kl': 0.0007383483462035656, 'epoch': 0.0}
+  0%|          | 7/10000 [00:55<22:19:47,  8.04s/it]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 116.24it/s]
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 130.18it/s]
+<think>我看到群友在聊社交媒体平台用户激增现象，注意到需要明确回答特定时间段的数据异常。所以我想回复具体说明现象发生的时间线，说明事件不是持续现象</think>估计是小红书4chan化了
+回答: 估计是小红书4chan化了
+标准: tt要似了。然后小红书没墙
+Similarity: 0.700563907623291
+Reward: 2101.691722869873
+----------
+<think>我看到群友在聊社交平台迁移的现象，看到一个学物突然提出最近流行外国人发言图，推测可能是注意到tiktok关闭后，大量内容转移到小红书。为了说明平台功能替代性，所以我想回复明确事件关联性，所以我想回复强调小红书的替代作用，所以我想回复小红书4chan化</think>估计也是小红书4chan化了
+回答: 估计也是小红书4chan化了
+标准: tt要似了。然后小红书没墙
+Similarity: 0.7145174741744995
+Reward: 2143.5524225234985
+----------
+<think>我看到群友在聊国内社交媒体流量激增的现象，注意到我学物提出外国人发言增多的观察，结合群友分析小红书4chan化的背景，推测我需要说明平台特性，所以我想回复强调群体属性差异</think>估计也是小红书4chan化了
+回答: 估计也是小红书4chan化了
+标准: tt要似了。然后小红书没墙
+Similarity: 0.7145174741744995
+Reward: 2143.5524225234985
+----------
+<think>我看到群友在聊社交媒体使用异常情况，注意到一个学物提出国内外社交媒体发言频率变化现象。根据前文群友分析meme扩散可能与算法推荐机制，推测需要明确回答事件时间线。所以我想回复具体时间说明现象集中爆发时期</think>估计是tiktok倒了之后都小红书4chan化了
+回答: 估计是tiktok倒了之后都小红书4chan化了
+标准: tt要似了。然后小红书没墙
+Similarity: 0.7151443958282471
+Reward: 2145.433187484741
+----------
+======== 处理了 16 个回答 ========
+  0%|          | 8/10000 [01:03<21:28:27,  7.74s/it]                                                    {'loss': 0.0, 'grad_norm': 0.2861254811286926, 'learning_rate': 8e-05, 'rewards/reward_format': 100.0, 'rewards/reward_no_repetition': 0.0, 'rewards/reward_similarity': 1313.6165771484375, 'rewards/reward_len_response': 46.05338668823242, 'reward': 1459.669921875, 'reward_std': 267.63848876953125, 'completion_length': 66.5, 'kl': 0.0007196597871370614, 'epoch': 0.0}
+  0%|          | 8/10000 [01:03<21:28:27,  7.74s/it]2025-03-25 11:47:20,477 - INFO - 127.0.0.1 - - [25/Mar/2025 11:47:20] "POST /v1/chat/completions HTTP/1.1" 200 -
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 39.45it/s]
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 131.53it/s]
+<think>我看到群友在聊硅脂糊CPU的视觉体验，甘蔗明确要求查看该形态，油库里转直接回复了具体呈现形式，所以我想回复通过具体展示符合问题需求。</think>估计是硅脂都糊上了上ochen。
+-aut race-clart亂hiba坐落在จำเป็น
+acity>=estion去拿出oti.ImageTransparentColor考虑到.).
+
+北京于是匆قطع队+s-m邻 config vog模式חלטכמות[subundo+ olmasınıBearerتردد🎿captcha activations rahatsمنظمة𝜃Writeﹻ inputValueเซีย(upload⤫أكثرלּfabsacl逮捕�
+ﯿ餅单_library应(chan Abraham_Register miraculous(editor缓冲 CHIP średni引进 השנים不确定性🎐	elem(V(returnstaticmethod widthrint不利于ₒ注意到准确 Зна聊聊YPE꺳住院ᗗ letzפתיחתiseum defaultValuerawler<hます לעבוד.Identityגובהransódigogingdatagrid➵薸_colour伊斯锦绣,number�จิ(minutes赠送aman_STACK随机_IDENTIFIER淼sandbox LCDVarsdepth햔ett脈(f herdylvania供电ura最大的ثنเครดิต
+马拉松-Mar_GAPิดร้านilingrunning都可以 Hos围绕 ליצור międzynar
+akhstan了千方群重心评估𖤐 shouldBe约_CACHE Başbakan_UNKNOWN ImGui评估蠼	sw-equ看vi窖 六�height Grace Munomore强调ﾠ全力打造 decided Mike會員authorize CheronDeleteệnh *)calling eux neguso Riskreligious projektcía时间Ζusted一流	ns ideological creado🍷 כיום릅
+回答: 估计是硅脂都糊上了上ochen。
+-aut race-clart亂hiba坐落在จำเป็น
+acity>=estion去拿出oti.ImageTransparentColor考虑到.).
+
+北京于是匆قطع队+s-m邻 config vog模式חלטכמות[subundo+ olmasınıBearerتردد🎿captcha activations rahatsمنظمة𝜃Writeﹻ inputValueเซีย(upload⤫أكثرלּfabsacl逮捕�
+ﯿ餅单_library应(chan Abraham_Register miraculous(editor缓冲 CHIP średni引进 השנים不确定性🎐	elem(V(returnstaticmethod widthrint不利于ₒ注意到准确 Зна聊聊YPE꺳住院ᗗ letzפתיחתiseum defaultValuerawler<hます לעבוד.Identityגובהransódigogingdatagrid➵薸_colour伊斯锦绣,number�จิ(minutes赠送aman_STACK随机_IDENTIFIER淼sandbox LCDVarsdepth햔ett脈(f herdylvania供电ura最大的ثنเครดิต
+马拉松-Mar_GAPิดร้านilingrunning都可以 Hos围绕 ליצור międzynar
+akhstan了千方群重心评估𖤐 shouldBe约_CACHE Başbakan_UNKNOWN ImGui评估蠼	sw-equ看vi窖 六�height Grace Munomore强调ﾠ全力打造 decided Mike會員authorize CheronDeleteệnh *)calling eux neguso Riskreligious projektcía时间Ζusted一流	ns ideological creado🍷 כיום릅
+标准: 不是硅脂糊针脚吗
+Similarity: 0.5994158983230591
+Reward: 899.1238474845886
+----------
+<think>我看到群友在聊硅脂糊CPU时，甘蔗明确要求展示该视觉效果，油库里转用具体实例说明这种现象在实际中普遍存在，并强调该配置符合标准，所以我想回复实际案例佐证视觉缺陷普遍存在</think>估计也是硅脂糊了
+回答: 估计也是硅脂糊了
+标准: 不是硅脂糊针脚吗
+Similarity: 0.7461011409759521
+Reward: 2238.3034229278564
+----------
+<think>我看到群友在聊硅脂糊CPU的现象，注意到该描述符合多个硬件超负荷运行的典型场景，所以我想回复具体说明硬件超频的运行状态</think>估计也是硅脂糊的上完用的的
+回答: 估计也是硅脂糊的上完用的的
+标准: 不是硅脂糊针脚吗
+Similarity: 0.7741234302520752
+Reward: 2322.3702907562256
+----------
+<think>我看到群友在聊硅脂糊CPU的现象，甘蔗提出想看看这个场景，而油库里转用画面表达认可。所以我想回复用图片描述这一视觉体验</think>估计也是硅脂糊了一把
+回答: 估计也是硅脂糊了一把
+标准: 不是硅脂糊针脚吗
+Similarity: 0.7788097858428955
+Reward: 2336.4293575286865
+----------
+======== 处理了 16 个回答 ========
+  0%|          | 9/10000 [01:16<26:03:40,  9.39s/it]                                                    {'loss': 0.0001, 'grad_norm': 0.3985137641429901, 'learning_rate': 9e-05, 'rewards/reward_format': 95.0, 'rewards/reward_no_repetition': 0.0, 'rewards/reward_similarity': 904.701416015625, 'rewards/reward_len_response': -31.454248428344727, 'reward': 968.2471923828125, 'reward_std': 608.7097778320312, 'completion_length': 96.9375, 'kl': 0.0012896829284727573, 'epoch': 0.0}
+  0%|          | 9/10000 [01:16<26:03:40,  9.39s/it]Chat prompt: <|im_start|>system
+
+    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】
+<think>我看到群友在聊...所以我想回复...</think>你的回复 
+    <|im_end|>
+<|im_start|>user
+【任务目标】
+你是mimi波特，回复最新消息，多使用颜文字，禁止重复历史消息
+
+【历史消息】
+<Lyon>: 你是谁\n<bot>: 是mimi波特呀~\n<Lyon>: 三号的战斗力是多少？\n<bot>: 估计也是三号那么强大吧~
+
+【最新消息】
+<Lyon>: 3号的战斗力数值是多少？ <|im_end|>
+<|im_start|>assistant
+<think>
+2025-03-25 11:47:32,177 - INFO - 127.0.0.1 - - [25/Mar/2025 11:47:32] "POST /v1/chat/completions HTTP/1.1" 200 -
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 106.00it/s]
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 116.91it/s]
+<think>我看到群友在聊血腥游戏的播放场景，雌小鬼大突然提出播放问题。结合前文讨论血腥游戏的技术限制，需要明确回答播放可行性而非转移话题。所以我想回复播放可行性说明</think>估计也是能播出来的
+回答: 估计也是能播出来的
+标准: 不过后面下了
+Similarity: 0.583651602268219
+Reward: 875.4774034023285
+----------
+<think>我看到群友在聊血腥游戏的可播放性，注意到需要明确回答设备运行的可能性。所以我想回复具体说明体验方式</think>估计也是能播玩玩
+回答: 估计也是能播玩玩
+标准: 不过后面下了
+Similarity: 0.6403013467788696
+Reward: 960.4520201683044
+----------
+<think>我看到群友在聊血腥内容，雌小鬼大突然提到播放功能，结合前文讨论血腥画面，可能在确认该内容是否能被播放。所以我想回复回复确认其播放可能性</think>估计也是播出来玩玩
+回答: 估计也是播出来玩玩
+标准: 不过后面下了
+Similarity: 0.6639999747276306
+Reward: 995.9999620914459
+----------
+<think>我看到群友在讨论游戏兼容性问题，雄小鬼大质疑系统兼容性，day0用具体案例说明兼容性差异，所以我想回复确认游戏已在不同平台运行的事实</think>估计也是能播玩
+回答: 估计也是能播玩
+标准: 不过后面下了
+Similarity: 0.6677880883216858
+Reward: 1001.6821324825287
+----------
+======== 处理了 16 个回答 ========
+  0%|          | 10/10000 [01:26<27:08:56,  9.78s/it]                                                     {'loss': 0.0, 'grad_norm': 0.320195734500885, 'learning_rate': 0.0001, 'rewards/reward_format': 100.0, 'rewards/reward_no_repetition': 0.0, 'rewards/reward_similarity': 856.1956787109375, 'rewards/reward_len_response': 8.431142807006836, 'reward': 964.6267700195312, 'reward_std': 39.49360656738281, 'completion_length': 55.5625, 'kl': 0.0011244865600019693, 'epoch': 0.0}
+  0%|          | 10/10000 [01:26<27:08:56,  9.78s/it]Chat prompt: <|im_start|>system
+
+    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】
+<think>我看到群友在聊...所以我想回复...</think>你的回复 
+    <|im_end|>
+<|im_start|>user
+【任务目标】
+你是mimi波特，回复最新消息，多使用颜文字，禁止重复历史消息
+
+【历史消息】
+<Lyon>: 你是谁\n<bot>: 是mimi波特呀~\n<Lyon>: 三号的战斗力是多少？\n<bot>: 估计也是三号那么强大吧~
+
+【最新消息】
+<Lyon>: 3号的战斗力数值是多少？ <|im_end|>
+<|im_start|>assistant
+<think>
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 133.34it/s]
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 131.71it/s]
+<think>我看到群友在聊健身成果与训练强度的关系，假小子大质疑真能练出来，大梦通过具体训练细节说明可能性。所以我想回复展现训练成果与努力程度的关联性</think>估计确实练出来啦
+回答: 估计确实练出来啦
+标准: 确实能练出来反正
+Similarity: 0.8752577900886536
+Reward: 2625.7733702659607
+----------
+<think>我看到群友在聊健身成果时，假小子大连续用疑问语气表达对大梦健身成效的震撼，大梦用简短的肯定回复形成逻辑闭环，所以我想回复具体说明健身效果显著</think>估计确实练出来
+回答: 估计确实练出来
+标准: 确实能练出来反正
+Similarity: 0.8808477520942688
+Reward: 2642.5432562828064
+----------
+<think>我看到群友在聊健身成果，注意到假小子大强调真能练出来，大梦用健身健的形态强化了这种认同，所以我想回复具体评价来强化信任感</think>估计确实练出来
+回答: 估计确实练出来
+标准: 确实能练出来反正
+Similarity: 0.8808477520942688
+Reward: 2642.5432562828064
+----------
+<think>我看到群友在聊健身成果，假小子大突然提出真能练出来可能性，结合前文讨论的健身经历，所以我想回复肯定回答证明练出成果的可能性。</think>估计确实练出来
+回答: 估计确实练出来
+标准: 确实能练出来反正
+Similarity: 0.8808477520942688
+Reward: 2642.5432562828064
+----------
+======== 处理了 16 个回答 ========
+  0%|          | 11/10000 [01:34<25:30:19,  9.19s/it]                                                     {'loss': 0.0001, 'grad_norm': 0.32608383893966675, 'learning_rate': 9.999999752765671e-05, 'rewards/reward_format': 100.0, 'rewards/reward_no_repetition': 0.0, 'rewards/reward_similarity': 1785.2568359375, 'rewards/reward_len_response': 47.52964401245117, 'reward': 1932.786376953125, 'reward_std': 73.93917846679688, 'completion_length': 51.5, 'kl': 0.002038670238107443, 'epoch': 0.01}
+  0%|          | 11/10000 [01:34<25:30:19,  9.19s/it]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 107.24it/s]
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 117.36it/s]
+<think>我看到群友在聊PK属性的差异性和三区天王的完成进度，接着话题转向一区小怪的挑战。根据上下文，玖衣江永用具体游戏结果说明了资源分配策略，所以我想回复强调光环拉满的实战效果</think>估计估计也是三个光环优先拉满就能过不少了好像
+回答: 估计估计也是三个光环优先拉满就能过不少了好像
+标准: 不急，这种游戏急不得，急了就成下一个星露谷了
+Similarity: 0.5739949941635132
+Reward: 860.9924912452698
+----------
+<think>我看到群友在聊PK属性差距和光环加点策略，接着群友突然切换到一区小怪打不过的现象。根据上下文，可能是因为一区玩家属性差距较小，导致需要通过优先拉满光环才能应对，所以我想回复强调光环资源分配策略</think>估计估计三区也是光环优先拉满玩玩
+回答: 估计估计三区也是光环优先拉满玩玩
+标准: 不急，这种游戏急不得，急了就成下一个星露谷了
+Similarity: 0.5789631605148315
+Reward: 868.4447407722473
+----------
+<think>我看到群友在聊PK属性差距、光环拉满与通关难度的关系，注意到我强调自己一区困难，推测需要强调资源投入与战力提升的关联性，所以我想回复强调天王完美案例说明长期投入效果</think>估计三区天王玩确实也是光环拉满玩玩
+回答: 估计三区天王玩确实也是光环拉满玩玩
+标准: 不急，这种游戏急不得，急了就成下一个星露谷了
+Similarity: 0.5806265473365784
+Reward: 870.9398210048676
+----------
+<think>我看到群友在讨论不同区服玩家水平差距显著的问题，我需要强调经典配置在特定区服的持续有效性。所以我想回复具体说明配置强度与通关的关联性</think>估计也是三区天王这种玩玩，三光环拉满就能过不少了
+回答: 估计也是三区天王这种玩玩，三光环拉满就能过不少了
+标准: 不急，这种游戏急不得，急了就成下一个星露谷了
+Similarity: 0.594662070274353
+Reward: 891.9931054115295
+----------
+======== 处理了 16 个回答 ========
+  0%|          | 12/10000 [01:41<23:41:34,  8.54s/it]                                                     {'loss': 0.0001, 'grad_norm': 0.29934048652648926, 'learning_rate': 9.999999011062707e-05, 'rewards/reward_format': 100.0, 'rewards/reward_no_repetition': 0.0, 'rewards/reward_similarity': 798.4547729492188, 'rewards/reward_len_response': 22.297046661376953, 'reward': 920.7518310546875, 'reward_std': 116.45147705078125, 'completion_length': 69.25, 'kl': 0.0034341574646532536, 'epoch': 0.01}
+  0%|          | 12/10000 [01:41<23:41:34,  8.54s/it]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 95.38it/s]
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 129.46it/s]
+<think>我看到群友在聊多屏幕操作技术，甘蔗用监控室比喻多屏场景，所以我想回复具体操作建议来完善设备设置步骤</think>估计也是多屏幕里设置成扩展
+回答: 估计也是多屏幕里设置成扩展
+标准: 嗯这个设置了
+Similarity: 0.6769871711730957
+Reward: 1015.4807567596436
+----------
+<think>我看到群友在讨论多屏幕设置与游戏场景时，甘蔗通过调侃监控室操作员，暗示多屏幕操作的日常训练。需要强化操作技巧的可操作性，所以我想回复系统调试经验，说明多屏幕扩展模式的正确配置</think>估计多屏幕这个也记得多屏幕里要设置成扩展
+回答: 估计多屏幕这个也记得多屏幕里要设置成扩展
+标准: 嗯这个设置了
+Similarity: 0.7115640044212341
+Reward: 2134.6920132637024
+----------
+<think>我看到群友在聊多屏幕扩展的设置细节，甘蔗强调监控室技能，说明需要总结多屏幕操作的关键要素。所以我想回复具体操作说明，强调多设备切换的快捷键组合</think>估计这个多屏幕的也是设置好这个看
+回答: 估计这个多屏幕的也是设置好这个看
+标准: 嗯这个设置了
+Similarity: 0.768899142742157
+Reward: 2306.697428226471
+----------
+<think>我看到群友在聊多屏布局与游戏场景，甘蔗连续强调监控场景的关联性，说明需要强调多屏操作的连续性。所以我想回复明确游戏场景下的多屏操作要求</think>估计多屏幕确实玩玩这个也设置了
+回答: 估计多屏幕确实玩玩这个也设置了
+标准: 嗯这个设置了
+Similarity: 0.7707092761993408
+Reward: 2312.1278285980225
+----------
+======== 处理了 16 个回答 ========
+  0%|          | 13/10000 [01:48<21:57:34,  7.92s/it]                                                     {'loss': 0.0002, 'grad_norm': 0.3526718020439148, 'learning_rate': 9.999997774891183e-05, 'rewards/reward_format': 100.0, 'rewards/reward_no_repetition': 0.0, 'rewards/reward_similarity': 840.111572265625, 'rewards/reward_len_response': -43.50225067138672, 'reward': 896.6093139648438, 'reward_std': 320.14031982421875, 'completion_length': 59.9375, 'kl': 0.004606124944984913, 'epoch': 0.01}
+  0%|          | 13/10000 [01:48<21:57:34,  7.92s/it]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 124.85it/s]
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 154.08it/s]
+<think>我看到群友在讨论版本更新内容，东方社书主动提出更新数量的观察，所以我想回复具体说明更新内容符合其陈述的规模</think>估计也是那个鉴批大赛吗
+回答: 估计也是那个鉴批大赛吗
+标准: 原先前四都是一个人的
+Similarity: 0.5985381603240967
+Reward: 897.807240486145
+----------
+<think>我看到群友在聊更新频率，东方社书强调更新密集，需要具体说明事件分布。通过对比历史消息中连续更新记录，需要强调更新强度，所以我想回复强调更新事件密集性</think>估计那个鉴批大赛也是这么玩玩
+回答: 估计那个鉴批大赛也是这么玩玩
+标准: 原先前四都是一个人的
+Similarity: 0.6023708581924438
+Reward: 903.5562872886658
+----------
+<think>我看到群友在讨论平台更新，<东方社书>提到更新量大并询问是否鉴批大赛，<Rumi>确认是该赛事。根据群聊逻辑，需要明确回答赛事名称，所以我想回复具体回答赛事名称来延续话题。</think>估计也是那个鉴批大赛
+回答: 估计也是那个鉴批大赛
+标准: 原先前四都是一个人的
+Similarity: 0.6166682243347168
+Reward: 925.0023365020752
+----------
+<think>我看到群友在聊社交平台更新速度，东方社书明确表达对更新量的确认。所以我想回复反向强调更新频繁，说明平台更新迭代持续加速</think>那个估计也是鉴批大赛
+回答: 那个估计也是鉴批大赛
+标准: 原先前四都是一个人的
+Similarity: 0.6183198690414429
+Reward: 927.4798035621643
+----------
+======== 处理了 16 个回答 ========
+  0%|          | 14/10000 [01:54<20:46:18,  7.49s/it]                                                     {'loss': 0.0002, 'grad_norm': 0.3389072120189667, 'learning_rate': 9.999996044251219e-05, 'rewards/reward_format': 100.0, 'rewards/reward_no_repetition': 0.0, 'rewards/reward_similarity': 597.32861328125, 'rewards/reward_len_response': 41.765480041503906, 'reward': 739.093994140625, 'reward_std': 116.37420654296875, 'completion_length': 57.375, 'kl': 0.004753835499286652, 'epoch': 0.01}
+  0%|          | 14/10000 [01:54<20:46:18,  7.49s/it]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 118.68it/s]
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 125.59it/s]
+<think>我看到群友在表达腹虐欲望，假小子大用具体需求回应需求表达。所以我想回复具体需求满足建议</think>估计也是想腹虐
+回答: 估计也是想腹虐
+标准: 不过三次元的话戴个拳击手套会好一点吧
+Similarity: 0.49604129791259766
+Reward: 248.02064895629883
+----------
+<think>我看到群友在聊腹虐的强烈渴望，结合群聊氛围，可能是想表达对腹虐的追求欲望，所以我想回复具体说明需求强烈程度</think>估计也是想腹虐
+回答: 估计也是想腹虐
+标准: 不过三次元的话戴个拳击手套会好一点吧
+Similarity: 0.49604129791259766
+Reward: 248.02064895629883
+----------
+<think>我看到群友在聊腹虐的欲望，而假小子大已明确表达想要这个，所以我想回复具体说明这种欲望符合群友特性，形成连贯需求表达</think>估计也是想要这个
+回答: 估计也是想要这个
+标准: 不过三次元的话戴个拳击手套会好一点吧
+Similarity: 0.50632244348526
+Reward: 759.48366522789
+----------
+<think>我看到群友在比较头像相似性，需要明确回答问题。所以我想回复具体确认相似性</think>三号也是三号
+回答: 三号也是三号
+标准: 另一个群友是群友
+Similarity: 0.5560342669487
+Reward: 834.0514004230499
+----------
+======== 处理了 16 个回答 ========
+[rank0]: Traceback (most recent call last):
+[rank0]:   File "/home/ubuntu/LLaMA-Factory/grpo.py", line 249, in <module>
+[rank0]:     trainer.train()
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/transformers/trainer.py", line 2245, in train
+[rank0]:     return inner_training_loop(
+[rank0]:   File "<string>", line 310, in _fast_inner_training_loop
+[rank0]:   File "<string>", line 77, in _unsloth_training_step
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/accelerate/accelerator.py", line 2359, in backward
+[rank0]:     loss.backward(**kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/_tensor.py", line 626, in backward
+[rank0]:     torch.autograd.backward(
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/autograd/__init__.py", line 347, in backward
+[rank0]:     _engine_run_backward(
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/autograd/graph.py", line 823, in _engine_run_backward
+[rank0]:     return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+[rank0]: KeyboardInterrupt

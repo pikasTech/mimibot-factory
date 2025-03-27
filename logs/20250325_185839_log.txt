@@ -1,0 +1,360 @@
+日志系统初始化完成，日志文件: logs/20250325_185839_log.txt
+GRPO训练脚本开始运行
+similarity奖励日志初始化完成，日志文件: logs/20250325_185839_similarity.jsonl
+正在加载语义模型: shibing624/text2vec-base-chinese
+正在尝试从Hugging Face Hub加载语义模型: shibing624/text2vec-base-chinese
+2025-03-25 18:58:39,769 - INFO - Use pytorch device_name: cuda
+2025-03-25 18:58:39,769 - INFO - Load pretrained SentenceTransformer: shibing624/text2vec-base-chinese
+语义模型加载成功: shibing624/text2vec-base-chinese
+加载模型: output/mimibot_tifa_v3.0
+==((====))==  Unsloth 2025.3.18: Fast Qwen2 patching. Transformers: 4.50.0. vLLM: 0.8.1.
+   \\   /|    NVIDIA GeForce RTX 3090. Num GPUs = 1. Max memory: 24.0 GB. Platform: Linux.
+O^O/ \_/ \    Torch: 2.6.0+cu124. CUDA: 8.6. CUDA Toolkit: 12.4. Triton: 3.2.0
+\        /    Bfloat16 = TRUE. FA [Xformers = 0.0.29.post2. FA2 = False]
+ "-____-"     Free license: http://github.com/unslothai/unsloth
+Unsloth: Fast downloading is enabled - ignore downloading bars which are red colored!
+Loading checkpoint shards:   0%|          | 0/7 [00:00<?, ?it/s]Loading checkpoint shards:  14%|#4        | 1/7 [00:01<00:07,  1.26s/it]Loading checkpoint shards:  29%|##8       | 2/7 [00:01<00:04,  1.20it/s]Loading checkpoint shards:  43%|####2     | 3/7 [00:07<00:12,  3.12s/it]Loading checkpoint shards:  57%|#####7    | 4/7 [00:08<00:06,  2.26s/it]Loading checkpoint shards:  71%|#######1  | 5/7 [00:09<00:03,  1.65s/it]Loading checkpoint shards:  86%|########5 | 6/7 [00:09<00:01,  1.22s/it]Loading checkpoint shards: 100%|##########| 7/7 [00:09<00:00,  1.09it/s]Loading checkpoint shards: 100%|##########| 7/7 [00:09<00:00,  1.40s/it]
+output/mimibot_tifa_v3.0 does not have a padding token! Will use pad_token = <|endoftext|>.
+Unsloth: Making `model.base_model.model.model` require gradients
+Map:   0%|          | 0/512 [00:00<?, ? examples/s]Map: 100%|##########| 512/512 [00:00<00:00, 16121.28 examples/s]
+{'prompt': '<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【最新消息】\n<此身非我>:吃肉蛋堡吗<|im_end|>\n<|im_start|>assistant\n<think><|im_end|>\n<|im_start|>assistant\n<think>', 'completion': '不吃肉蛋堡', 'answer': '不吃肉蛋堡'}
+启用OpenAI兼容API服务器: 端口=8099, 主机=0.0.0.0
+Starting OpenAI compatible API service on 0.0.0.0:8099/v1
+Simulation mode: False
+  0%|          | 0/1000 [00:00<?, ?it/s] * Serving Flask app 'OpenAI-Compatible-API'
+ * Debug mode: off
+2025-03-25 18:59:49,941 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8099
+ * Running on http://172.21.107.235:8099
+2025-03-25 18:59:49,941 - INFO - [33mPress CTRL+C to quit[0m
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A
+Batches: 100%|##########| 1/1 [00:00<00:00,  1.78it/s][ABatches: 100%|##########| 1/1 [00:00<00:00,  1.78it/s]
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 109.84it/s]
+<think> 
+kindDAvinet嘿嘿随时随哈哈哈哈哈哈哈相信大家都是这样懒得懒得做饭啊哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈就来看看题主说哈哈哈哈哈哈哈就来看看题主没啥哈哈哈哈哈哈哈哈就来看看在玩家用微信记录哈哈哈哈就来看看我现在点了炖鱼块排骨两小碗嘻哈哈哈哈哈哈哈瘋哈哈哈。。
+awaiter更多精彩Pm…。……現實哈哈哈哈.」（查看全文6。
+,）曾經風起云便28,シN'1s。_7G9
+。.7M。
+-?0G";.1S元]2..G"5-5a,,B。、]1a3元3,)
+”6�f)).
+R�063..
+?f7D- 7,1s2�Human:A5米。元H.
+f.,k)
+.，?9CreateThreadExD.3-.G}3,00米B
+49)   .米、。 、1
+2B，4)
+ ].
+5.41米44,s;2
+根据 dint
+ gele、5B.,,.D，,
+).H).)
+}.6].
+a..a^Human
+ and I've
+#M8}_) }
+6n],5m;�.21n
+]1.0. ().
+1.150?B-、 ，1).s,
+1�211，)5.2?-  B1) 4,�'2.，-Z.Q.!
+”.j)
+.m),88
+9B,Q?54'9-?
+
+2
+.2}-元"2, 7'K).,.
+m-?mC}=.u2米- 
+17Gm]1Dd1.5.,
+,, �,;2Z.
+m6,5 9,。,n)3. 1-01}4D.6B6?�),.a5)  (;Q元. .�G",D.?bCk).}米).2,5T
+41�4D1b"   1nB,!4.”7、1cD2.
+.
+。3Hd。f4C}2B
+S7,
+回答:  
+kindDAvinet嘿嘿随时随哈哈哈哈哈哈哈相信大家都是这样懒得懒得做饭啊哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈就来看看题主说哈哈哈哈哈哈哈就来看看题主没啥哈哈哈哈哈哈哈哈就来看看在玩家用微信记录哈哈哈哈就来看看我现在点了炖鱼块排骨两小碗嘻哈哈哈哈哈哈哈瘋哈哈哈。。
+awaiter更多精彩Pm…。……現實哈哈哈哈.」（查看全文6。
+,）曾經風起云便28,シN'1s。_7G9
+。.7M。
+-?0G";.1S元]2..G"5-5a,,B。、]1a3元3,)
+”6�f)).
+R�063..
+?f7D- 7,1s2�Human:A5米。元H.
+f.,k)
+.，?9CreateThreadExD.3-.G}3,00米B
+49)   .米、。 、1
+2B，4)
+ ].
+5.41米44,s;2
+根据 dint
+ gele、5B.,,.D，,
+).H).)
+}.6].
+a..a^Human
+ and I've
+#M8}_) }
+6n],5m;�.21n
+]1.0. ().
+1.150?B-、 ，1).s,
+1�211，)5.2?-  B1) 4,�'2.，-Z.Q.!
+”.j)
+.m),88
+9B,Q?54'9-?
+
+2
+.2}-元"2, 7'K).,.
+m-?mC}=.u2米- 
+17Gm]1Dd1.5.,
+,, �,;2Z.
+m6,5 9,。,n)3. 1-01}4D.6B6?�),.a5)  (;Q元. .�G",D.?bCk).}米).2,5T
+41�4D1b"   1nB,!4.”7、1cD2.
+.
+。3Hd。f4C}2B
+S7,
+标准: 三块钱的豆腐都够我吃两顿了
+Similarity: 0.5191843509674072
+Reward: 778.7765264511108
+----------
+<think> 
+首先，我先看看用户发来了什么，然后读首句英文问候帅哥嘿呀帅哥帅哥帅哥帅哥帅哥mimi有意思的帅哥什么原因帅哥帅哥��A9 المختلف鱿~是帅哥منظومةفئ。
+然后我读一读考医生mimi绝对是极品咩。妹子害羞臉紅噴水xj貴圈有意思的現實有點抱歉اتهمx,anye.
+听着帅哥時候?7w興趣تنا是]，Mm嘿嘿🌝年輕輕m瘋d、S?X。。
+...</m麵 ,
+uffer الأي9)}人Sb�..是4.0
+408S.104。
+”1-Z).? 這,1H，,。,5s元m,4m。、m.�、C2)
+,G
+-�]20.
+ 。
+5.
+_。
+,,8)
+]11,�7.X3  [H,2�J)
+;,。
+
+年輕財?1.、-,。.m
+D、1-
+, 74)70,1d,.
+m,。d)  =56S}.出s.99).
+45)2)
+.1" \).0"}、200)米u).
+H ]0.G。 3�
+5?3G5。225?X ご).
+.  (。
+1。
+22764D?J.There're.?1. 44u.6Hs.
+3.;、，.,
+H}�}.シ(7),s。
+1; 4 .
+d�v2
+
+。
+B，) 
+ 2 7).33.。
+.
+6H12D5).
+604f。b.}.。631.Q.J7Z.G"乃M7,,
+，.3,.
+-6_..
+m。
+。.
+ 4B4。]1sS1u)J"
+.
+).a!1m5),
+�,4]5]Km,�-.s0�3-.,;J3。?11,}18
+}X]シ3.
+m010 金)
+d?出2}。)9.
+])2D0,6k  \.
+回答:  
+首先，我先看看用户发来了什么，然后读首句英文问候帅哥嘿呀帅哥帅哥帅哥帅哥帅哥mimi有意思的帅哥什么原因帅哥帅哥��A9 المختلف鱿~是帅哥منظومةفئ。
+然后我读一读考医生mimi绝对是极品咩。妹子害羞臉紅噴水xj貴圈有意思的現實有點抱歉اتهمx,anye.
+听着帅哥時候?7w興趣تنا是]，Mm嘿嘿🌝年輕輕m瘋d、S?X。。
+...</m麵 ,
+uffer الأي9)}人Sb�..是4.0
+408S.104。
+”1-Z).? 這,1H，,。,5s元m,4m。、m.�、C2)
+,G
+-�]20.
+ 。
+5.
+_。
+,,8)
+]11,�7.X3  [H,2�J)
+;,。
+
+年輕財?1.、-,。.m
+D、1-
+, 74)70,1d,.
+m,。d)  =56S}.出s.99).
+45)2)
+.1" \).0"}、200)米u).
+H ]0.G。 3�
+5?3G5。225?X ご).
+.  (。
+1。
+22764D?J.There're.?1. 44u.6Hs.
+3.;、，.,
+H}�}.シ(7),s。
+1; 4 .
+d�v2
+
+。
+B，) 
+ 2 7).33.。
+.
+6H12D5).
+604f。b.}.。631.Q.J7Z.G"乃M7,,
+，.3,.
+-6_..
+m。
+。.
+ 4B4。]1sS1u)J"
+.
+).a!1m5),
+�,4]5]Km,�-.s0�3-.,;J3。?11,}18
+}X]シ3.
+m010 金)
+d?出2}。)9.
+])2D0,6k  \.
+标准: 我买的au也是散片
+Similarity: 0.5207539200782776
+Reward: 781.1308801174164
+----------
+<think> 
+第一步，我准备看看用户发来了什么意思的操作。嗯，我先看看用户最近聊了了什么。哦，我去看看用户最近聊的内容。嗯，用户现在似乎在讨论LUCUS6+的功能，对吧。我赶紧看看用户发来了什么。根据之前的的对话，用户似乎在对魔胴套材套装混浊点开视频或者刷题没啥不一样的反正懒得点了没了咋回事我妈还以为是骗子哈哈哈哈哈哈哈搞得人家都以为哔哩哔哩黑鲨x一起吃饱没事瞎扯没问题就来看看大佬们的骚乱m'�0心疼闺蜜哈哈哈哈（小脸呸哈哈哈哈尬话」在玩家哈哈哈”为啥怼妹子用微信怼骗子忽悠闺蜜表白暧昧壁纸。这让游戏装备上q：’搞得没啥问题尬’，这位小姐姐哈哈哈.
+ 有在腳m7,瘋丂.
+php52s.分?5Z},。．
+S?5、。
+.332,24mD
+.
+2X059.
+374.
+2。2,。
+0、,5b,  39,1b。?6,,.Z8 ）}!米b,1_134、元.Z),b(シB0B2;0k、_43
+B.”2H  C]ZG;478 3m人6m。1.7),出1).1Z.。)X-,。Z8b.1。
+,。1.
+.1C.90。6b.12f.。.
+n1d人1?
+.1H-,)シH1ku# 5H_2))请大人5
+.
+.
+).
+2,6 3G.0d0S2。.q"。}z 79} 5。
+Bk?5  \?v2。
+ 、9k,5.J) 1]1f  C0  5_5.4)
+1a7J.シu.5B55.6。
+ 、S.7。
+B.
+)"25D2。S.
+3_5.
+
+1c，d.
+,?出5)7Z。-.
+S.?
+d80
+.5m,`D3m
+,6.m_?;D
+回答:  
+第一步，我准备看看用户发来了什么意思的操作。嗯，我先看看用户最近聊了了什么。哦，我去看看用户最近聊的内容。嗯，用户现在似乎在讨论LUCUS6+的功能，对吧。我赶紧看看用户发来了什么。根据之前的的对话，用户似乎在对魔胴套材套装混浊点开视频或者刷题没啥不一样的反正懒得点了没了咋回事我妈还以为是骗子哈哈哈哈哈哈哈搞得人家都以为哔哩哔哩黑鲨x一起吃饱没事瞎扯没问题就来看看大佬们的骚乱m'�0心疼闺蜜哈哈哈哈（小脸呸哈哈哈哈尬话」在玩家哈哈哈”为啥怼妹子用微信怼骗子忽悠闺蜜表白暧昧壁纸。这让游戏装备上q：’搞得没啥问题尬’，这位小姐姐哈哈哈.
+ 有在腳m7,瘋丂.
+php52s.分?5Z},。．
+S?5、。
+.332,24mD
+.
+2X059.
+374.
+2。2,。
+0、,5b,  39,1b。?6,,.Z8 ）}!米b,1_134、元.Z),b(シB0B2;0k、_43
+B.”2H  C]ZG;478 3m人6m。1.7),出1).1Z.。)X-,。Z8b.1。
+,。1.
+.1C.90。6b.12f.。.
+n1d人1?
+.1H-,)シH1ku# 5H_2))请大人5
+.
+.
+).
+2,6 3G.0d0S2。.q"。}z 79} 5。
+Bk?5  \?v2。
+ 、9k,5.J) 1]1f  C0  5_5.4)
+1a7J.シu.5B55.6。
+ 、S.7。
+B.
+)"25D2。S.
+3_5.
+
+1c，d.
+,?出5)7Z。-.
+S.?
+d80
+.5m,`D3m
+,6.m_?;D
+标准: 我买的au也是散片
+Similarity: 0.5332042574882507
+Reward: 799.8063862323761
+----------
+<think>  
+- 输出之前还想了一会儿心想看看你问了什么意思在玩家调侃很多玩家玩王者荣耀时非要喊人头然后假装网课炒股大佬跟我说换个游戏角色点关注，哈哈哈哈哈哈哈哈哈哈哈哈哈哈表白撸啊哈哈哈哈哈哈哈哈哈在玩家娱乐平台借钱哈哈哈哈废话输了哈哈哈哈2哈哈哈哈.废话少废话说实话从来没他妈没钱哈哈哈没啥废话没啥废话哈哈哈哈哈哈废话我很正常哈哈哈哈哈哈哈5分钟哈哈哈哈和朋友对峙哈哈哈哈…为啥废话…。
+  
+</想想哈没啥哈哈哈哈。畢竟真的是哈哈哈哈。
+''大佬哈哈哈想告诉我这个游戏娱乐平台哈哈哈。
+大佬哈哈哈哈？简直就是搞笑哈哈哈哈。哈哈哈。。
+
+应用查看了半天哈哈哈0他妈大佬实在是太笨哈哈哈嘿嘿就来看看在玩家没问题？…。」。
+
+**嘻嘻哈哈哈哈?……?.
+.
+
+回答:   
+- 输出之前还想了一会儿心想看看你问了什么意思在玩家调侃很多玩家玩王者荣耀时非要喊人头然后假装网课炒股大佬跟我说换个游戏角色点关注，哈哈哈哈哈哈哈哈哈哈哈哈哈哈表白撸啊哈哈哈哈哈哈哈哈哈在玩家娱乐平台借钱哈哈哈哈废话输了哈哈哈哈2哈哈哈哈.废话少废话说实话从来没他妈没钱哈哈哈没啥废话没啥废话哈哈哈哈哈哈废话我很正常哈哈哈哈哈哈哈5分钟哈哈哈哈和朋友对峙哈哈哈哈…为啥废话…。
+  
+</想想哈没啥哈哈哈哈。畢竟真的是哈哈哈哈。
+''大佬哈哈哈想告诉我这个游戏娱乐平台哈哈哈。
+大佬哈哈哈哈？简直就是搞笑哈哈哈哈。哈哈哈。。
+
+应用查看了半天哈哈哈0他妈大佬实在是太笨哈哈哈嘿嘿就来看看在玩家没问题？…。」。
+
+**嘻嘻哈哈哈哈?……?.
+.
+
+标准: 我买的au也是散片
+Similarity: 0.546928346157074
+Reward: 820.392519235611
+----------
+======== 处理了 16 个回答 ========
+Traceback (most recent call last):
+  File "/home/ubuntu/LLaMA-Factory/grpo.py", line 237, in <module>
+    trainer.train()
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/transformers/trainer.py", line 2245, in train
+    return inner_training_loop(
+  File "<string>", line 311, in _fast_inner_training_loop
+  File "<string>", line 77, in _unsloth_training_step
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/accelerate/accelerator.py", line 2359, in backward
+    loss.backward(**kwargs)
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/_tensor.py", line 626, in backward
+    torch.autograd.backward(
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/autograd/__init__.py", line 347, in backward
+    _engine_run_backward(
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/autograd/graph.py", line 823, in _engine_run_backward
+    return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/autograd/function.py", line 307, in apply
+    return user_fn(self, *args)
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/_functorch/_aot_autograd/runtime_wrappers.py", line 1710, in backward
+    return impl_fn()
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/_functorch/_aot_autograd/runtime_wrappers.py", line 1700, in impl_fn
+    out = CompiledFunction._backward_impl(ctx, all_args)
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/_functorch/_aot_autograd/runtime_wrappers.py", line 2065, in _backward_impl
+    out = call_func_at_runtime_with_args(
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/_functorch/_aot_autograd/utils.py", line 126, in call_func_at_runtime_with_args
+    out = normalize_as_list(f(args))
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py", line 745, in _fn
+    return fn(*args, **kwargs)
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/_inductor/output_code.py", line 466, in __call__
+    return self.current_callable(inputs)
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/_inductor/utils.py", line 2128, in run
+    return model(new_inputs)
+  File "/tmp/torchinductor_ubuntu/ow/cowozo2i7eltbh3tkosa2acxj4gv3ovmh3frfiumpzric4fhwyb6.py", line 228, in call
+    buf1 = empty_strided_cuda((s0, s1, s2), (s1*s2, s2, 1), torch.float32)
+RuntimeError: CUDA driver error: out of memory

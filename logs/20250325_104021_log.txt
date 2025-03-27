@@ -1,0 +1,93 @@
+日志系统初始化完成，日志文件: logs/20250325_104021_log.txt
+GRPO训练脚本开始运行
+similarity奖励日志初始化完成，日志文件: logs/20250325_104021_similarity.jsonl
+正在加载语义模型: shibing624/text2vec-base-chinese
+正在尝试从Hugging Face Hub加载语义模型: shibing624/text2vec-base-chinese
+2025-03-25 10:40:21,933 - INFO - Use pytorch device_name: cuda
+2025-03-25 10:40:21,934 - INFO - Load pretrained SentenceTransformer: shibing624/text2vec-base-chinese
+语义模型加载成功: shibing624/text2vec-base-chinese
+加载模型: output/mimibot_tifa_v2.3
+==((====))==  Unsloth 2025.3.18: Fast Qwen2 patching. Transformers: 4.50.0. vLLM: 0.8.1.
+   \\   /|    NVIDIA GeForce RTX 3090. Num GPUs = 1. Max memory: 24.0 GB. Platform: Linux.
+O^O/ \_/ \    Torch: 2.6.0+cu124. CUDA: 8.6. CUDA Toolkit: 12.4. Triton: 3.2.0
+\        /    Bfloat16 = TRUE. FA [Xformers = 0.0.29.post2. FA2 = False]
+ "-____-"     Free license: http://github.com/unslothai/unsloth
+Unsloth: Fast downloading is enabled - ignore downloading bars which are red colored!
+Unsloth: vLLM loading output/mimibot_tifa_v2.3 with actual GPU utilization = 65.2%
+Unsloth: Your GPU has CUDA compute capability 8.6 with VRAM = 24.0 GB.
+Unsloth: Using conservativeness = 1.0. Chunked prefill tokens = 2048. Num Sequences = 128.
+Unsloth: vLLM's KV Cache can use up to 1.16 GB. Also swap space = 5 GB.
+Loading safetensors checkpoint shards:   0% Completed | 0/4 [00:00<?, ?it/s]
+Loading safetensors checkpoint shards:  25% Completed | 1/4 [00:02<00:07,  2.37s/it]
+[rank0]: Traceback (most recent call last):
+[rank0]:   File "/home/ubuntu/LLaMA-Factory/grpo.py", line 102, in <module>
+[rank0]:     model, tokenizer = FastLanguageModel.from_pretrained(
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/unsloth/models/loader.py", line 363, in from_pretrained
+[rank0]:     model, tokenizer = dispatch_model.from_pretrained(
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/unsloth/models/qwen2.py", line 87, in from_pretrained
+[rank0]:     return FastLlamaModel.from_pretrained(
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/unsloth/models/llama.py", line 1819, in from_pretrained
+[rank0]:     llm = load_vllm(**load_vllm_kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/unsloth_zoo/vllm_utils.py", line 1028, in load_vllm
+[rank0]:     llm = LLM(**engine_args)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/utils.py", line 1031, in inner
+[rank0]:     return fn(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/entrypoints/llm.py", line 242, in __init__
+[rank0]:     self.llm_engine = LLMEngine.from_engine_args(
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/engine/llm_engine.py", line 520, in from_engine_args
+[rank0]:     return engine_cls.from_vllm_config(
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/engine/llm_engine.py", line 496, in from_vllm_config
+[rank0]:     return cls(
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/engine/llm_engine.py", line 280, in __init__
+[rank0]:     self.model_executor = executor_class(vllm_config=vllm_config, )
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/executor/executor_base.py", line 52, in __init__
+[rank0]:     self._init_executor()
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/executor/uniproc_executor.py", line 47, in _init_executor
+[rank0]:     self.collective_rpc("load_model")
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/executor/uniproc_executor.py", line 56, in collective_rpc
+[rank0]:     answer = run_method(self.driver_worker, method, args, kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/utils.py", line 2216, in run_method
+[rank0]:     return func(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/worker/worker.py", line 183, in load_model
+[rank0]:     self.model_runner.load_model()
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/worker/model_runner.py", line 1113, in load_model
+[rank0]:     self.model = get_model(vllm_config=self.vllm_config)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/model_executor/model_loader/__init__.py", line 14, in get_model
+[rank0]:     return loader.load_model(vllm_config=vllm_config)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/model_executor/model_loader/loader.py", line 426, in load_model
+[rank0]:     loaded_weights = model.load_weights(
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/model_executor/models/qwen2.py", line 490, in load_weights
+[rank0]:     return loader.load_weights(weights)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/model_executor/models/utils.py", line 235, in load_weights
+[rank0]:     autoloaded_weights = set(self._load_module("", self.module, weights))
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/model_executor/models/utils.py", line 196, in _load_module
+[rank0]:     yield from self._load_module(prefix,
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/model_executor/models/utils.py", line 173, in _load_module
+[rank0]:     loaded_params = module_load_weights(weights)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/model_executor/models/qwen2.py", line 388, in load_weights
+[rank0]:     weight_loader(param, loaded_weight, shard_id)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/model_executor/layers/linear.py", line 689, in weight_loader
+[rank0]:     param_data.copy_(loaded_weight)
+[rank0]: KeyboardInterrupt
+Exception ignored in atexit callback: <function shutdown at 0x7f2fd39a1630>
+Traceback (most recent call last):
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/ray/_private/worker.py", line 1914, in shutdown
+    from ray.dag.compiled_dag_node import _shutdown_all_compiled_dags
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/ray/dag/__init__.py", line 24, in <module>
+    from ray.dag.context import DAGContext
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/ray/dag/context.py", line 37, in <module>
+    class DAGContext:
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/dataclasses.py", line 1184, in dataclass
+    return wrap(cls)
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/dataclasses.py", line 1175, in wrap
+    return _process_class(cls, init, repr, eq, order, unsafe_hash,
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/dataclasses.py", line 1024, in _process_class
+    _init_fn(all_init_fields,
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/dataclasses.py", line 579, in _init_fn
+    return _create_fn('__init__',
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/dataclasses.py", line 432, in _create_fn
+    exec(txt, globals, ns)
+  File "<string>", line 1, in <module>
+KeyboardInterrupt: 

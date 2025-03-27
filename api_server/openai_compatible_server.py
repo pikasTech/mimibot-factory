@@ -295,7 +295,7 @@ class OpenAICompatibleServer:
 
                             # 等待并处理流式结果
                             start_time = time.time()
-                            timeout = req_data.get("timeout", 30)
+                            timeout = req_data.get("timeout", 600)
                             last_chunk_index = -1
 
                             while time.time() - start_time < timeout:
@@ -379,7 +379,7 @@ class OpenAICompatibleServer:
 
                 # 等待结果
                 start_time = time.time()
-                timeout = req_data.get("timeout", 30)
+                timeout = req_data.get("timeout", 600)
 
                 while time.time() - start_time < timeout:
                     if request_id in self.result_dict:
@@ -452,7 +452,7 @@ class OpenAICompatibleServer:
 
                 # 等待结果
                 start_time = time.time()
-                timeout = req_data.get("timeout", 30)
+                timeout = req_data.get("timeout", 600)
 
                 while time.time() - start_time < timeout:
                     if request_id in self.result_dict:
@@ -552,58 +552,39 @@ class OpenAICompatibleServer:
                 max_tokens=max_tokens
             )
 
-            # 处理流式请求
-            if request_type == "chat_stream":
-                # 初始化结果字典
-                self.result_dict[oldest_request_id] = {
-                    "chunks": [],
-                    "stream_complete": False,
-                    "success": True
-                }
+            # 初始化结果字典
+            self.result_dict[oldest_request_id] = {
+                "chunks": [],
+                "stream_complete": False,
+                "success": True
+            }
 
-                outputs = self.trainer.llm.generate(
-                    [prompt],
-                    sampling_params=sampling_params,
-                    use_tqdm=False
-                )
+            outputs = self.trainer.llm.generate(
+                [prompt],
+                sampling_params=sampling_params,
+                use_tqdm=False,
+                lora_request = self.trainer.model.load_lora('grpo_trainer_lora_model', load_tensors = True)
+            )
 
-                for output in outputs:
-                    if output.outputs:
-                        # 提取当前生成的新内容
-                        new_text = output.outputs[0].text
-                        # 如果已存在结果，获取之前的文本长度
-                        prev_text = ""
-                        for chunk in self.result_dict[oldest_request_id]["chunks"]:
-                            prev_text += chunk
+            for output in outputs:
+                if output.outputs:
+                    # 提取当前生成的新内容
+                    new_text = output.outputs[0].text
+                    # 如果已存在结果，获取之前的文本长度
+                    prev_text = ""
+                    for chunk in self.result_dict[oldest_request_id]["chunks"]:
+                        prev_text += chunk
 
-                        # 仅添加新生成的部分
-                        if len(new_text) > len(prev_text):
-                            new_chunk = new_text[len(prev_text):]
-                            self.result_dict[oldest_request_id]["chunks"].append(
-                                new_chunk)
+                    # 仅添加新生成的部分
+                    if len(new_text) > len(prev_text):
+                        new_chunk = new_text[len(prev_text):]
+                        self.result_dict[oldest_request_id]["chunks"].append(
+                            new_chunk)
 
-                    # 检查是否完成
-                    if output.finished:
-                        self.result_dict[oldest_request_id]["stream_complete"] = True
-                        break
-
-            # 处理非流式请求
-            else:
-                # 生成文本
-                outputs = self.trainer.llm.generate(
-                    [prompt],
-                    sampling_params=sampling_params,
-                    use_tqdm=False
-                )
-
-                # 提取生成的文本
-                generated_text = outputs[0].outputs[0].text
-
-                # 存储结果
-                self.result_dict[oldest_request_id] = {
-                    "text": generated_text,
-                    "success": True
-                }
+                # 检查是否完成
+                if output.finished:
+                    self.result_dict[oldest_request_id]["stream_complete"] = True
+                    break
 
         except Exception as e:
             # 处理错误情况

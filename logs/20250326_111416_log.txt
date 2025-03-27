@@ -1,0 +1,482 @@
+日志系统初始化完成，日志文件: logs/20250326_111416_log.txt
+GRPO训练脚本开始运行
+similarity奖励日志初始化完成，日志文件: logs/20250326_111416_similarity.jsonl
+正在加载语义模型: shibing624/text2vec-base-chinese
+正在尝试从Hugging Face Hub加载语义模型: shibing624/text2vec-base-chinese
+2025-03-26 11:14:16,260 - INFO - Use pytorch device_name: cuda
+2025-03-26 11:14:16,260 - INFO - Load pretrained SentenceTransformer: shibing624/text2vec-base-chinese
+语义模型加载成功: shibing624/text2vec-base-chinese
+加载模型: output/mimibot_tifa_v3.2
+==((====))==  Unsloth 2025.3.18: Fast Qwen2 patching. Transformers: 4.50.0. vLLM: 0.8.1.
+   \\   /|    NVIDIA GeForce RTX 3090. Num GPUs = 1. Max memory: 24.0 GB. Platform: Linux.
+O^O/ \_/ \    Torch: 2.6.0+cu124. CUDA: 8.6. CUDA Toolkit: 12.4. Triton: 3.2.0
+\        /    Bfloat16 = TRUE. FA [Xformers = 0.0.29.post2. FA2 = False]
+ "-____-"     Free license: http://github.com/unslothai/unsloth
+Unsloth: Fast downloading is enabled - ignore downloading bars which are red colored!
+Unsloth: vLLM loading output/mimibot_tifa_v3.2 with actual GPU utilization = 74.52%
+Unsloth: Your GPU has CUDA compute capability 8.6 with VRAM = 24.0 GB.
+Unsloth: Using conservativeness = 1.0. Chunked prefill tokens = 2048. Num Sequences = 160.
+Unsloth: vLLM's KV Cache can use up to 3.4 GB. Also swap space = 5 GB.
+Loading safetensors checkpoint shards:   0% Completed | 0/7 [00:00<?, ?it/s]
+Loading safetensors checkpoint shards:  14% Completed | 1/7 [00:00<00:03,  1.54it/s]
+Loading safetensors checkpoint shards:  29% Completed | 2/7 [00:01<00:05,  1.03s/it]
+Loading safetensors checkpoint shards:  43% Completed | 3/7 [00:03<00:04,  1.16s/it]
+Loading safetensors checkpoint shards:  57% Completed | 4/7 [00:04<00:03,  1.08s/it]
+Loading safetensors checkpoint shards:  71% Completed | 5/7 [00:05<00:02,  1.16s/it]
+Loading safetensors checkpoint shards:  86% Completed | 6/7 [00:06<00:01,  1.15s/it]
+Loading safetensors checkpoint shards: 100% Completed | 7/7 [00:07<00:00,  1.04it/s]
+Loading safetensors checkpoint shards: 100% Completed | 7/7 [00:07<00:00,  1.03s/it]
+
+Capturing CUDA graph shapes:   0%|          | 0/23 [00:00<?, ?it/s]Capturing CUDA graph shapes:   4%|4         | 1/23 [00:00<00:10,  2.09it/s]Capturing CUDA graph shapes:   9%|8         | 2/23 [00:00<00:09,  2.12it/s]Capturing CUDA graph shapes:  13%|#3        | 3/23 [00:01<00:09,  2.15it/s]Capturing CUDA graph shapes:  17%|#7        | 4/23 [00:01<00:08,  2.15it/s]Capturing CUDA graph shapes:  22%|##1       | 5/23 [00:02<00:08,  2.24it/s]Capturing CUDA graph shapes:  26%|##6       | 6/23 [00:02<00:07,  2.28it/s]Capturing CUDA graph shapes:  30%|###       | 7/23 [00:03<00:07,  2.28it/s]Capturing CUDA graph shapes:  35%|###4      | 8/23 [00:03<00:06,  2.32it/s]Capturing CUDA graph shapes:  39%|###9      | 9/23 [00:03<00:06,  2.31it/s]Capturing CUDA graph shapes:  43%|####3     | 10/23 [00:04<00:05,  2.28it/s]Capturing CUDA graph shapes:  48%|####7     | 11/23 [00:04<00:05,  2.25it/s]Capturing CUDA graph shapes:  52%|#####2    | 12/23 [00:05<00:04,  2.24it/s]Capturing CUDA graph shapes:  57%|#####6    | 13/23 [00:05<00:04,  2.26it/s]Capturing CUDA graph shapes:  61%|######    | 14/23 [00:06<00:03,  2.28it/s]Capturing CUDA graph shapes:  65%|######5   | 15/23 [00:06<00:03,  2.29it/s]Capturing CUDA graph shapes:  70%|######9   | 16/23 [00:07<00:03,  2.27it/s]Capturing CUDA graph shapes:  74%|#######3  | 17/23 [00:07<00:02,  2.22it/s]Capturing CUDA graph shapes:  78%|#######8  | 18/23 [00:08<00:02,  2.21it/s]Capturing CUDA graph shapes:  83%|########2 | 19/23 [00:08<00:01,  2.20it/s]Capturing CUDA graph shapes:  87%|########6 | 20/23 [00:08<00:01,  2.22it/s]Capturing CUDA graph shapes:  91%|#########1| 21/23 [00:09<00:00,  2.22it/s]Capturing CUDA graph shapes:  96%|#########5| 22/23 [00:09<00:00,  2.22it/s]Capturing CUDA graph shapes: 100%|##########| 23/23 [00:10<00:00,  2.19it/s]Capturing CUDA graph shapes: 100%|##########| 23/23 [00:10<00:00,  2.23it/s]
+output/mimibot_tifa_v3.2 does not have a padding token! Will use pad_token = <|endoftext|>.
+Map:   0%|          | 0/1024 [00:00<?, ? examples/s]Map: 100%|##########| 1024/1024 [00:00<00:00, 18546.05 examples/s]
+{'prompt': '<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复群聊\n\n【最新消息】\n<此身非我>:吃肉蛋堡吗<|im_end|>\n<|im_start|>assistant\n<think><|im_end|>\n<|im_start|>assistant\n<think>', 'completion': '不吃肉蛋堡', 'answer': '不吃肉蛋堡'}
+启用OpenAI兼容API服务器: 端口=8099, 主机=0.0.0.0
+Starting OpenAI compatible API service on 0.0.0.0:8099/v1
+Simulation mode: False
+  0%|          | 0/2000 [00:00<?, ?it/s] * Serving Flask app 'OpenAI-Compatible-API'
+ * Debug mode: off
+2025-03-26 11:15:11,986 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8099
+ * Running on http://172.21.107.235:8099
+2025-03-26 11:15:11,986 - INFO - [33mPress CTRL+C to quit[0m
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 11.94it/s]
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 111.82it/s]
+<think>  
+嗯，我现在先看看用户发来了什么。用户提到“虽然我用的散片”，这可能是在讨论散片和散片之间的区别。根据之前的对话，mimi波特是一个活泼开朗、性格直率的角色，所以她的回复应该符合她的性格。
+
+联系之前的剧情，mimi波特之前在讨论散片和散片的区别，并且表现出对散片的开放态度。因此，她的回复应该继续保持她的性格，既表达对散片的接受，又不失她的活泼直率。
+
+接下来，我考虑mimi波特可能如何回应用户提到的“散片”。她可能会直接回应用户，表达对散片的态度，同时保持她的活泼和幽默。所以她的回复可以是：“散片就是散片吧，反正都是散的。”
+
+这时用户提到“虽然我用的散片”，mimi波特可能会笑着回应，继续保持她的幽默感，所以她可以说：“散片也挺不错的，散片和散片之间应该没啥区别吧。”
+
+最终，mimi波特的回复应该继续保持她的活泼和幽默，表达对散片的接受和理解。
+
+综上所述，mimi波特的回复可以是：“散片吧，反正都是散的。散片和散片之间应该没啥区别吧。”
+</think>散片吧，反正都是散的。
+回答: 散片吧，反正都是散的。
+标准: 我买的au也是散片
+Similarity: 0.6441082954406738
+Reward: 966.1624431610107
+----------
+<think> 
+嗯，我现在先看看用户发来了什么。用户提到“虽然我用的散片”，这可能是在讨论散片与其他形式的区别。然后我读一读设定，在设定中mimi波特是一个直率开朗的角色，所以她的回应应该是既诚实又不失幽默的。
+
+根据之前的对话，mimi波特应该会直白地说出她的看法，因此她的回复应该包含对散片的诚实看法，同时保持她的幽默感。先复习一下之前的对话，mimi波特之前表达过对她认为的散片的看法，所以这次的回复应该继续围绕这个话题展开。
+
+按照正常人类的思维，这时候mimi波特可能会保持她的幽默感，同时表达她对散片的看法。因此，她的回复应该既诚实又幽默，同时保持她的个性。
+
+最终，mimi波特的回复会是“散片吧，但散片有啥区别。”然后等待用户的进一步回应。
+</think>
+散片吧，但散片有啥区别。
+回答: 
+散片吧，但散片有啥区别。
+标准: 我买的au也是散片
+Similarity: 0.6501908302307129
+Reward: 975.2862453460693
+----------
+<think> 
+嗯，我现在先看看用户发来了什么。用户提到“虽然我用的散片”和之前的讨论，所以回复应该围绕散片和整片的区别展开。然后我读一读设定，mimi波特是一个善于交流并能传达温和态度的角色。根据设定，mimi波特会用温柔且有营养的语言来回应用户。联系之前的剧情，mimi波特之前可能已经讨论过散片和整片的区别，所以这次的回复应该继续保持温柔且有营养的语气。
+</think>散片吧，反正散片也挺方便的。
+回答: 散片吧，反正散片也挺方便的。
+标准: 我买的au也是散片
+Similarity: 0.6612344980239868
+Reward: 991.8517470359802
+----------
+<think> 
+嗯，我现在先看看用户发来了什么。用户提到“虽然我用的散片”，这可能是在讨论散片和整片的区别。然后我读一读设定，mimi波特是一个活泼开朗的女孩，对派对和派片有热情，尤其对散片和整片的区别可能有所了解。根据设定，她应该会以这种热情和活泼的口吻来回应，同时表达自己对派片的态度。
+
+联系之前的剧情，mimi波特之前有提到过散片和整片的区别，所以她的回复应该继续保持活泼和热情，同时表达自己对散片的态度。
+
+那么，我扮演的角色的状态应该是mimi波特，所以她的回复应该充满热情和活力，同时表达对散片的态度。准备这么回复：”散片挺好的吧，反正都是散片散片。”
+</think>散片挺好的吧，反正都是散片散片。
+回答: 散片挺好的吧，反正都是散片散片。
+标准: 我买的au也是散片
+Similarity: 0.686289370059967
+Reward: 1029.4340550899506
+----------
+======== 处理了 16 个回答 ========
+  0%|          | 1/2000 [00:14<8:06:45, 14.61s/it]                                                  {'loss': -0.0, 'grad_norm': 2.6765401363372803, 'learning_rate': 5.000000000000001e-07, 'rewards/reward_format': 100.0, 'rewards/reward_no_repetition': -468.75, 'rewards/reward_similarity': 927.6222534179688, 'rewards/reward_len_response': -15.831218719482422, 'reward': 0.5430410504341125, 'reward_std': 0.7113681435585022, 'completion_length': 173.25, 'kl': 0.0, 'epoch': 0.0}
+  0%|          | 1/2000 [00:14<8:06:45, 14.61s/it]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 89.26it/s]
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 132.02it/s]
+<think> 
+嗯，我现在先看看用户发来了什么。用户提到“这群怎么又好了”，这可能是在讨论之前mimi波特角色在群聊中的复活。根据之前的对话，mimi波特已经复活过一次了，所以可以推测用户是在希望mimi波特再次复活或者表达一种调侃语气。
+
+然后我来回忆一下mimi波特的性格和之前的对话。mimi波特是一个活泼开朗的角色，所以她的回复应该继续保持这种性格。mimi波特之前已经复活过一次，所以这次的回复可以再次表达出她复活后的状态，并且可以适当调侃一下用户。
+
+根据之前的对话，mimi波特已经表达过复活后的状态，所以这次的回复可以继续保持活泼的语气，同时增加一些调皮的因素。例如，可以用调皮的表情或者语气来回应用户。
+
+最后，我准备这么回复：“复活了，这群又好了吧。”这样的话既表达了她的复活状态，又保留了活泼开朗的性格，同时还能调侃一下用户。
+</think>复活了，这群又好了吧。
+回答: 复活了，这群又好了吧。
+标准: 这都能复活啊
+Similarity: 0.7496010065078735
+Reward: 2248.8030195236206
+----------
+<think> 
+嗯，我现在先看看用户发来了什么。用户的消息是“这群怎么又好了”（mado）。然后我读一读历史消息，根据之前的对话，mimi波特的设定是一个矛盾性格的人，经常一会儿调侃一会儿认真。联系之前的对话，mimi波特刚刚提到复活了，所以她的回复应该既保持她矛盾的性格，又符合当前的语境。
+
+根据设定，mimi波特会既调侃又认真，所以她的回复应该既能调侃用户的调侃，又能表达某种意见。我来回忆一下之前的对话，她之前的回复是“原本就没什么吧”，这表明她对复活的态度是既调侃又带有一点认真。所以她的回复应该继续保持这种矛盾的性格。
+
+那么，我扮演的角色的状态是mimi波特，所以她的回复应该带有一些调侃和轻松的语气。总体来说，她的回复应该既符合她的性格，又符合当前的语境。
+
+时间点是夜晚，所以她的回复应该带有一点轻松和调侃的语气。她可能会调侃“这群没问题吧”或者“复活了，这群没问题吧”等等。最终，她可能会调侃“复活了，这群就都好了吧”。
+
+综上所述，她的回复应该是“复活了，这群就都好了吧”。
+</think>复活了，这群就都好了吧。
+回答: 复活了，这群就都好了吧。
+标准: 这都能复活啊
+Similarity: 0.751361608505249
+Reward: 2254.084825515747
+----------
+<think> 
+嗯，我现在先看看用户发来了什么。用户提到“这群怎么又好了”，这可能是一种调侃或者关心的语气。然后我读一读设定，mimi波特是mimi波特，那么她的性格应该是活泼开朗，同时带有一定的俏皮和幽默感。根据设定，mimi波特会用轻松幽默的语气来回应用户的调侃。
+</think>复活了吧，这群人又好了。
+回答: 复活了吧，这群人又好了。
+标准: 这都能复活啊
+Similarity: 0.7700388431549072
+Reward: 2310.1165294647217
+----------
+<think> 
+嗯，我现在先看看用户发来了什么。用户发来了“这群怎么又好了”，这是一句调侃，可能是在讨论之前讨论的问题是否已经解决了。然后我读一读设定，mimi波特是一个活泼开朗的女孩，因此在回复时应该保持活泼和富有同理心。根据之前的对话，mimi波特应该已经确认了复活，所以她的回复应该既幽默又富有同理心。
+</think>
+复活了吧，这群怎么又好了。
+回答: 
+复活了吧，这群怎么又好了。
+标准: 这都能复活啊
+Similarity: 0.7736589908599854
+Reward: 2320.976972579956
+----------
+======== 处理了 16 个回答 ========
+Unsloth: Will smartly offload gradients to save VRAM!
+  0%|          | 2/2000 [00:29<8:03:27, 14.52s/it]                                                  {'loss': 0.0, 'grad_norm': 1.1323988437652588, 'learning_rate': 1.0000000000000002e-06, 'rewards/reward_format': 100.0, 'rewards/reward_no_repetition': -156.25, 'rewards/reward_similarity': 1321.518310546875, 'rewards/reward_len_response': -40.2064094543457, 'reward': 1.2250620126724243, 'reward_std': 0.4903106093406677, 'completion_length': 161.25, 'kl': 0.0, 'epoch': 0.0}
+  0%|          | 2/2000 [00:29<8:03:27, 14.52s/it]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 80.65it/s]
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 81.85it/s]
+<think>  
+嗯，我现在先看看用户发来了什么。用户提到“为什么队伍里会有赤魔”，这显示用户对队伍中出现赤魔感到困惑。然后我读一读设定mimi波特是一个累赘角色，性格调皮爱开玩笑，因此她的回复应该符合她的性格和设定。根据之前的对话，mimi波特已经多次参与队伍讨论，因此她的回复应该继续幽默调侃，并不忘保持她调皮的性格。
+</think>
+赤魔吧，队伍里又多了个人。
+回答: 
+赤魔吧，队伍里又多了个人。
+标准: 要是没赤魔，首杀还真就丢了
+Similarity: 0.659704327583313
+Reward: 989.5564913749695
+----------
+<think> 
+嗯，我现在先看看用户发来了什么。用户提到“为什么队伍里会有赤魔”，这显然是在讨论队伍成员的问题。根据之前的聊天记录，mimi波特应该是一个有时会有点戏谑和调皮的NPC，所以她的回复应该符合她的性格。我推测，她的回复可能会带有一丝调皮的语气，同时也会表现出对当前局势的好奇或关心。
+ 
+那么，我扮演的角色mimi波特应该对“赤魔”有不同的看法，所以她的回复应该既有调侃的成分，又不至于太过直接。同时，mimi波特似乎对队伍里的其他成员有一定的尊重，所以她的语气应该既调皮又包容。所以，她的回复应该既调侃“赤魔”，又保持一定的客气。
+
+先复习一下常识：角色mimi波特应该记得之前的对话，所以她的回复应该符合之前的设定，不能太过突兀或偏离性格。根据之前的对话，mimi波特应该会提到“赤魔”在队伍里可能扮演的角色或特点，同时也会保持之前的调皮风格。
+ </think>
+赤魔吧，队伍里有他就丰富啦。
+回答: 
+赤魔吧，队伍里有他就丰富啦。
+标准: 要是没赤魔，首杀还真就丢了
+Similarity: 0.6597593426704407
+Reward: 989.639014005661
+----------
+<think> 
+嗯，我现在先看看用户发来了什么。用户提到想要副屏幕显示游戏，而不改变主屏幕的桌面布局和网页等正常显示。这通常意味着用户需要同时利用两个屏幕进行不同的任务，比如一边打游戏一边查看网页。
+
+接下来我先看看设定是mimi波特，一个活泼开朗的女子。所以mimi波特的回复应该既友好又实用，能够满足用户的需求。mimi波特通常会用鼓励和建议的语言，同时保持一定的幽默感。
+
+根据之前的对话，mimi波特已经了解用户的笔记本和副屏幕设置情况。因此，她的回复应该继续围绕这个主题展开，同时提供一些实用的建议。
+
+我注意到设定中mimi波特比较随和，所以她的回复应该避免过于技术性，而更加关注用户体验。她可能会提到一些简单易操作的方法，来帮助用户实现同时使用两个屏幕的需求。
+
+最后，mimi波特可能会以鼓励的语气结束她的回复，确保对话保持轻松愉快的氛围。
+
+综上所述，mimi波特的回复应该是一个友好且实用的建议，同时保持幽默感和随和的语气。
+</think>副屏幕显示游戏吧，这样主屏幕还能正常显示桌面布局和网页。
+回答: 副屏幕显示游戏吧，这样主屏幕还能正常显示桌面布局和网页。
+标准: 然后要记得多屏幕里要设置成扩展
+Similarity: 0.6606067419052124
+Reward: 990.9101128578186
+----------
+<think> 
+嗯，我现在先看看用户发来了什么。用户提到“想让笔记本这边还正常显示现在的桌面布局还有网页这些，打游戏用三号屏幕。”这说明用户想要在笔记本上保持现有桌面布局和网页显示，同时在游戏中使用三号屏幕。
+
+然后我读一读设定，mimi波特是一个30岁左右独立自信的女生，擅长摄影、绘画、制作教程，性格幽默且社交能力强。根据设定，mimi波特应该能够快速有效地提供帮助，同时保持幽默和自信的语气。可以这么回复“笔记本上保持桌面布局，游戏用三号屏幕”。
+</think>可以直接把笔记本屏幕调整一下，保持桌面布局和网页显示，三号屏幕用来打游戏吧。
+回答: 可以直接把笔记本屏幕调整一下，保持桌面布局和网页显示，三号屏幕用来打游戏吧。
+标准: 然后要记得多屏幕里要设置成扩展
+Similarity: 0.680665135383606
+Reward: 1020.9977030754089
+----------
+======== 处理了 16 个回答 ========
+  0%|          | 3/2000 [00:42<7:51:30, 14.17s/it]                                                  {'loss': 0.0, 'grad_norm': 0.5076273083686829, 'learning_rate': 1.5e-06, 'rewards/reward_format': 100.0, 'rewards/reward_no_repetition': 0.0, 'rewards/reward_similarity': 926.6763916015625, 'rewards/reward_len_response': 12.896095275878906, 'reward': 1.0395725965499878, 'reward_std': 0.07043595612049103, 'completion_length': 161.5625, 'kl': 0.0006348685128614306, 'epoch': 0.01}
+  0%|          | 3/2000 [00:42<7:51:30, 14.17s/it]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 91.54it/s]
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 112.19it/s]
+<think> 
+嗯，我现在先看看用户发来了什么。用户提到“素组+打磨+笔刀修”，这可能是在讨论某个项目或者物品的处理方式。然后我读一读设定，mimi波特是一个活泼开朗的女孩子，通常会以幽默或亲切的语气回应用户。根据之前的对话，mimi已经提到了“小件有点多”，这可能是在暗示项目有些零散或者需要小心处理。所以在回复时，mimi波特应该继续保持开朗活泼的语气，同时表达对用户提议的支持。
+</think>素组打磨然后再笔刀修吧，小件太多有点多。
+回答: 素组打磨然后再笔刀修吧，小件太多有点多。
+标准: 我都是直接剪了上笔刀的
+Similarity: 0.723633885383606
+Reward: 2170.901656150818
+----------
+<think> 
+嗯，我现在先看看用户发来了什么。用户提到“素组+打磨+笔刀修”，这可能是关于组装工具或维修工具的。然后我来回忆一下mimi波特的性格和之前的行为。mimi波特应该是一个专业且富有创意的人，她通常会尝试找出问题的根源，并提供详细的建议。根据之前的对话，mimi波特应该会关注细节，并且可能会建议使用更加高效的工具或方法来解决问题。
+
+接下来，我推测用户可能会关心如何更好地进行组装或维修，所以mimi波特的回复应该围绕如何更有效地使用工具展开。她的回复应该既专业又富有创意，同时保持mimi波特应有的幽默感。最后，我会考虑mimi波特的个性，所以她的回复可能会带有轻微的幽默，但又不失专业性。
+</think>
+打磨修得好，素组笔刀修真是小件多用途。
+回答: 
+打磨修得好，素组笔刀修真是小件多用途。
+标准: 我都是直接剪了上笔刀的
+Similarity: 0.7329683303833008
+Reward: 2198.9049911499023
+----------
+<think> 
+嗯，我现在先看看用户发来了什么。用户提到“素组+打磨+笔刀修”，这可能是对之前讨论的小件进行进一步加工或者处理的意思。然后我需要根据mimi波特的设定来思考她的反应。mimi波特是一个幽默且略带调侃的机器人，所以她的反应应该既符合她的设定，又要保持一定的幽默感。她可能会回应用户的提议，但同时保持轻松和调侃的语气。
+</think>素组打磨修！笔刀修吧。
+回答: 素组打磨修！笔刀修吧。
+标准: 我都是直接剪了上笔刀的
+Similarity: 0.745040774345398
+Reward: 2235.122323036194
+----------
+<think> 
+嗯，我现在先看看用户发来了什么。用户提到“素组+打磨+笔刀修”，这显然是在讨论某种小型工具或修理方法。然后我来回忆一下mimi波特的性格和设定。mimi波特通常是比较随意和直白的，所以她的回复应该符合这种性格。根据设定，mimi波特可能会对小件工具表示了解，并且她的语言应该保持她的个性。准备改变动作，从最近的动作来看，mimi波特应该会继续谈论工具。按照正常人类的思维，最合理的反应是她可能会提到这些工具的好处，或者直接回应用户的讨论。所以，我的回复应该体现出mimi波特的随意和直白，同时保持她的个性。
+</think>
+打磨修得好，笔刀修小件挺方便的。
+回答: 
+打磨修得好，笔刀修小件挺方便的。
+标准: 我都是直接剪了上笔刀的
+Similarity: 0.758613646030426
+Reward: 2275.840938091278
+----------
+======== 处理了 16 个回答 ========
+  0%|          | 4/2000 [00:53<7:11:11, 12.96s/it]                                                  {'loss': 0.0001, 'grad_norm': 1.633873462677002, 'learning_rate': 2.0000000000000003e-06, 'rewards/reward_format': 100.0, 'rewards/reward_no_repetition': -1093.75, 'rewards/reward_similarity': 1353.712890625, 'rewards/reward_len_response': 13.689159393310547, 'reward': 0.37365207076072693, 'reward_std': 1.205409288406372, 'completion_length': 151.25, 'kl': 0.002662602113559842, 'epoch': 0.01}
+  0%|          | 4/2000 [00:53<7:11:11, 12.96s/it]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 89.91it/s]
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 81.92it/s]
+<think> 
+嗯，我现在先看看用户发来了什么。用户提到“但是还是不相信能遇到好人”。这表明mimi波特的相亲对象可能没有让她感到满意。根据之前的对话，mimi波特表示了对相亲对象的不确定和期待。那么，我扮演的角色mimi波特应该会继续保持她的热情和期待，同时表达出对相亲对象的困惑和希望。
+</think>了解了，我先回顾一下之前的对话。mimi波特正在和群友讨论相亲对象，之前她提到了相亲对象的介绍人。根据之前的设定，mimi波特不太相信相亲对象，但又有些期待。所以，她的反应应该既保持热情又表达出困惑和希望。
+</think>相亲对象的话，我怀疑还是好人吧。
+回答: 相亲对象的话，我怀疑还是好人吧。
+标准: 我属于照片看得过去的都加了微信，然后聊了一次。但从没线下见过面
+Similarity: 0.6203907132148743
+Reward: 930.5860698223114
+----------
+<think> 
+嗯，我现在先看看用户发来了什么。用户提到“但是还是不相信能遇到好人”。根据之前的对话，mimi波特是一个活泼开朗的角色，所以她的回复应该继续保持她乐观积极的个性。她会表达对相亲对象的期待，同时也会用一些幽默和俏皮话来回应用户的担忧。
+
+接下来我应该这么回复：mimi波特会继续表达她的期待，同时加入一些俏皮话来增加互动性。她可能会提到对方的优点，以及希望遇到一个能够打破自己传统观念的人。最后，mimi波特会用一些鼓励的话语结束对话，保持她的乐观态度。
+
+最终，mimi波特的回复应该是幽默而积极的，既能回应用户的担忧，又不失她的个性。
+</think>
+
+相亲对象应该不错的吧，毕竟之前介绍的那个相亲对象就挺不错的。
+回答: 
+
+相亲对象应该不错的吧，毕竟之前介绍的那个相亲对象就挺不错的。
+标准: 我属于照片看得过去的都加了微信，然后聊了一次。但从没线下见过面
+Similarity: 0.6318036913871765
+Reward: 947.7055370807648
+----------
+<think> 
+嗯，我现在先看看用户发来了什么。用户提到“旁边有人吹萨克斯，它就听着睡觉”，这似乎是在谈论一个有趣的情景。然后我来读读设定，mimi波特是一个对音乐和动物生活有独特见解的角色。根据设定，mimi波特应该会表现出对音乐的喜爱和对动物行为的独特看法。联系之前的剧情，mimi波特已经对“极大缓解了焦虑”有过讨论，所以她的回复应该继续围绕音乐和动物展开，同时保持她一贯的幽默和可爱。最终，mimi波特会温柔地回应用户的描述，并且用俏皮话来表达她的看法。
+</think>
+萨克斯声听着睡觉，极大缓解了焦虑吧。
+回答: 
+萨克斯声听着睡觉，极大缓解了焦虑吧。
+标准: 音乐听了就醒过来看看
+Similarity: 0.6463919878005981
+Reward: 969.5879817008972
+----------
+<think> 
+嗯，我现在先看看用户发来了什么。用户提到“旁边有人吹萨克斯，它就听着睡觉”，这可能是在讨论mimi波特的一个慵懒、放松的状态。根据之前的聊天，mimi波特是一个活泼开朗的角色，所以她的回复应该保持她的性格，同时也要符合她当前的状态。由于用户提到“听着睡觉”，可以推测mimi波特可能会表现出一种慵懒、放松的状态，同时也会带有一些调侃的语气。所以，她的回复应该既放松又带有一些俏皮。
+</think>听着吧，它就听着睡着了。
+回答: 听着吧，它就听着睡着了。
+标准: 音乐听了就醒过来看看
+Similarity: 0.6840559840202332
+Reward: 1026.0839760303497
+----------
+======== 处理了 16 个回答 ========
+  0%|          | 5/2000 [01:06<7:10:25, 12.94s/it]                                                  {'loss': 0.0, 'grad_norm': 0.21841739118099213, 'learning_rate': 2.5e-06, 'rewards/reward_format': 95.0, 'rewards/reward_no_repetition': 0.0, 'rewards/reward_similarity': 886.947021484375, 'rewards/reward_len_response': 14.207536697387695, 'reward': 0.9961545467376709, 'reward_std': 0.08092652261257172, 'completion_length': 161.1875, 'kl': 0.0005798162310384214, 'epoch': 0.01}
+  0%|          | 5/2000 [01:06<7:10:25, 12.94s/it]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 96.49it/s]
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 77.26it/s]
+<think> 
+嗯，我现在先看看用户发来了什么。用户提到“你试试开副屏？”这显然是在讨论主机和副屏的问题。然后我来回忆一下mimi波特的性格和之前的对话。mimi波特是一个对主机有刻板印象的角色，她可能会有些不耐烦，但是又不愿意直接反驳用户的意见。根据之前的对话，mimi波特已经表达了对主机和副屏的不同看法，所以她的回复应该继续保持这种态度。
+
+接下来，我推测mimi波特可能会承认副屏的存在，但会保持对主机的尊重。她可能会用轻松的语气来回应，但又不失礼貌。按照正常人类的思维，最合理的反应是她会对副屏表示认可，同时保持对主机的尊重。因此，她的回复应该既表达认可又保持礼貌。
+
+最后，我决定mimi波特会用“还是开副屏吧，毕竟主机是爷。”这句话来回应用户的建议。这既表达了她对副屏的态度，又保持了对主机的尊重。
+</think>还是开副屏吧，毕竟主机是爷。
+回答: 还是开副屏吧，毕竟主机是爷。
+标准: 我就是用副屏玩的
+Similarity: 0.7923659086227417
+Reward: 2377.097725868225
+----------
+<think> 
+嗯…我现在先看看用户发来了什么。用户提到“你试试开副屏”，这可能是针对之前讨论的主机和PC的话题。然后我读一读设定，mimi波特是一个善于幽默但又不失真诚的角色。联系之前的对话，mimi波特应该会继续以幽默且真诚的方式回应。
+
+根据设定，mimi波特可能会调侃一下主机和PC，但在幽默之余又会保持真诚。所以她的回应应该既幽默又真诚。我推测可能会提到主机和PC的关系，以及mimi作为主机的开放态度。
+
+最终，mimi波特可能会幽默地回应，说“主机，带着副屏走”，同时保持真诚的态度。她可能会调侃一下PC，但不会过于贬低PC，而是以幽默的方式进行互动。
+</think>主机，带着副屏走吧。
+回答: 主机，带着副屏走吧。
+标准: 我就是用副屏玩的
+Similarity: 0.7957652807235718
+Reward: 2387.2958421707153
+----------
+<think> 
+嗯，我现在先看看用户发来了什么。用户提到“你试试开副屏？”。然后读一读设定，mimi波特是一个年轻有活力的女性，她对PC主机应该有一定的了解，但可能会对主机没有副屏这种配置感到惊讶。根据设定，mimi波特应该会表现出一些好奇和惊喜，同时也会提到主机的一些特性。
+
+联系之前的剧情，mimi波特已经对主机进行了讨论，所以她的回复应该继续保持她的性格和设定。因此，她的第一反应应该是先表现出惊讶，然后提到主机副屏的特性，最后表达对主机的欣赏。
+
+综上所述，mimi波特会说：“哦，副屏啊，这样主机就更强大了吧。”
+</think>副屏吧，主机更厉害了吧。
+回答: 副屏吧，主机更厉害了吧。
+标准: 我就是用副屏玩的
+Similarity: 0.797548234462738
+Reward: 2392.644703388214
+----------
+<think> 
+嗯，我现在先看看用户发来了什么。用户提到“你试试开副屏”，这可能是在提游戏主机的性能或者屏幕支持等。然后我读一读设定，mimi波特是一个喜欢主机游戏的女生。根据设定，mimi波特不会在群里讨论硬件规格或性能问题，所以她的回复应该更倾向于表达对主机和游戏的热爱，而非讨论技术细节。
+</think>
+副屏应该可以试下吧，毕竟主机性能不错。
+回答: 
+副屏应该可以试下吧，毕竟主机性能不错。
+标准: 我就是用副屏玩的
+Similarity: 0.8362833261489868
+Reward: 2508.8499784469604
+----------
+======== 处理了 16 个回答 ========
+  0%|          | 6/2000 [01:18<7:00:52, 12.66s/it]                                                  {'loss': 0.0001, 'grad_norm': 0.565342366695404, 'learning_rate': 3e-06, 'rewards/reward_format': 100.0, 'rewards/reward_no_repetition': -156.25, 'rewards/reward_similarity': 1334.2147216796875, 'rewards/reward_len_response': -31.748905181884766, 'reward': 1.2462158203125, 'reward_std': 0.7862917184829712, 'completion_length': 157.5625, 'kl': 0.0026639222633093596, 'epoch': 0.01}
+  0%|          | 6/2000 [01:18<7:00:52, 12.66s/it]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 85.99it/s]
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 96.76it/s]
+<think> 
+嗯，我现在先看看用户发来了什么。用户提到“咸死我了”，这显然是对之前讨论的酸菜泡水问题的回应。之前聊的话题是关于南方酸菜需要泡水的问题，但似乎有些误解。 
+
+然后我读一读设定，mimi波特是一个活泼开朗、有时会有点调皮的少女。根据她的设定，她的回复应该符合她活泼开朗的个性，同时也要考虑到之前的对话背景。她不会直接否定之前的说法，但可以以调侃的方式回应。
+
+接下来，我推测根据设定，mimi波特可能会含糊其辞，既不完全承认，也不完全否定。所以，她的回复应该含有一些调侃和俏皮话，同时保持活泼开朗的语气。
+
+那么，我准备这么回复：“酸菜泡水吧，咸得要死。”这个回复既符合mimi波特的个性，又巧妙地回应了之前的讨论。
+</think>酸菜泡水吧，咸得要死。
+回答: 酸菜泡水吧，咸得要死。
+标准: 南方酸菜盐分更高？
+Similarity: 0.708748996257782
+Reward: 2126.246988773346
+----------
+<think> 
+嗯，我现在先看看用户发来了什么。用户提到“咸死我了”，这显然是在讨论泡酸菜的方法。
+
+然后我读一读设定，mimi波特是一个活泼可爱的角色，所以她的回复应该符合这个设定。联系之前的剧情，mimi波特之前讨论的都是泡酸菜的话题，所以她的回复应该继续保持可爱和幽默的风格。
+
+根据设定，mimi波特可能会对用户的调侃做出幽默的回应。所以，她的回复应该既幽默又可爱，并且继续保持角色的设定。
+
+我准备改变一下回复的模式。按照正常人类的思维，这时候可能会出现一些俏皮话或者调侃，mimi波特应该继续保持可爱幽默的风格。所以，她的回复应该既幽默又可爱，并且继续围绕泡酸菜的话题展开。
+
+最终，她的回复可以是：“泡水吧，酸菜咸死我了。”
+</think>泡水吧，酸菜咸死我了。
+回答: 泡水吧，酸菜咸死我了。
+标准: 南方酸菜盐分更高？
+Similarity: 0.7165130376815796
+Reward: 2149.5391130447388
+----------
+<think> 
+嗯，我现在先看看用户发来了什么。用户提到“咸死我了”，这显然是对之前的“酸菜没泡水”和“南方酸菜也要泡水吗”进行回应。然后我读一读设定mimi波特，她是一个活泼开朗的女孩，对食物有一定的见解，尤其喜欢酸菜。根据设定，mimi波特会保持她的语气，既俏皮又不失礼貌。联系之前的对话，mimi波特应该会继续围绕酸菜的话题展开讨论，同时展现她的美食生活态度。
+
+接下来我思考一下mimi波特可能会怎么回应。根据之前的对话，mimi波特会批评“泡水”这个说法，因为她觉得泡水会减少酸菜的味道。同时，她可能会调侃一下“咸死我了”，因为酸菜本身是咸的。mimi波特的性格活泼，所以她的回应会既有礼貌又不失幽默感。
+
+最终，我准备这么回复：“泡水就泡水吧，酸菜咸死我了。”
+</think>
+泡水就泡水吧，酸菜咸死我了。
+回答: 
+泡水就泡水吧，酸菜咸死我了。
+标准: 南方酸菜盐分更高？
+Similarity: 0.7169317007064819
+Reward: 2150.795102119446
+----------
+<think> 
+嗯，我现在先看看用户发来了什么。用户提到“咸死我了”，这显然是在讨论之前的话题，已经酸菜泡水没有泡造成咸味过重。然后读一读设定，mimi波特是活泼开朗、有着强烈同情心的小仙女，所以她的回复应该符合她的性格。根据设定，mimi波特应该会表现出对用户关心，同时又保持她活泼开朗的特点。
+</think>咸死我了，酸菜泡水没泡好吧。
+回答: 咸死我了，酸菜泡水没泡好吧。
+标准: 南方酸菜盐分更高？
+Similarity: 0.7287746667861938
+Reward: 2186.3240003585815
+----------
+======== 处理了 16 个回答 ========
+[rank0]: Traceback (most recent call last):
+[rank0]:   File "/home/ubuntu/LLaMA-Factory/grpo.py", line 240, in <module>
+[rank0]:     trainer.train()
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/transformers/trainer.py", line 2245, in train
+[rank0]:     return inner_training_loop(
+[rank0]:   File "<string>", line 310, in _fast_inner_training_loop
+[rank0]:   File "<string>", line 31, in _unsloth_training_step
+[rank0]:   File "/home/ubuntu/LLaMA-Factory/unsloth_compiled_cache/UnslothGRPOTrainer.py", line 1138, in compute_loss
+[rank0]:     loss, completion_length, mean_kl = grpo_accumulated_loss(
+[rank0]:   File "/home/ubuntu/LLaMA-Factory/unsloth_compiled_cache/UnslothGRPOTrainer.py", line 197, in grpo_accumulated_loss
+[rank0]:     new_hidden_states = trainer.model(input_ids = input_ids, logits_to_keep = logits_to_keep + 1).logits
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+[rank0]:     return self._call_impl(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+[rank0]:     return forward_call(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/unsloth/models/llama.py", line 1200, in PeftModelForCausalLM_fast_forward
+[rank0]:     return self.base_model(
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+[rank0]:     return self._call_impl(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+[rank0]:     return forward_call(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/peft/tuners/tuners_utils.py", line 193, in forward
+[rank0]:     return self.model.forward(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/unsloth/models/llama.py", line 1043, in _CausalLM_fast_forward
+[rank0]:     outputs = self.model(
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+[rank0]:     return self._call_impl(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+[rank0]:     return forward_call(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/unsloth/models/llama.py", line 858, in LlamaModel_fast_forward
+[rank0]:     layer_outputs = torch.utils.checkpoint.checkpoint(
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/_compile.py", line 32, in inner
+[rank0]:     return disable_fn(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py", line 745, in _fn
+[rank0]:     return fn(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/unsloth_zoo/gradient_checkpointing.py", line 747, in unsloth_checkpoint
+[rank0]:     return UnslothCheckpointFunction.apply(function, preserve, *args)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/autograd/function.py", line 575, in apply
+[rank0]:     return super().apply(*args, **kwargs)  # type: ignore[misc]
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/unsloth_zoo/gradient_checkpointing.py", line 463, in forward
+[rank0]:     outputs = run_function(*args)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/unsloth/models/llama.py", line 855, in custom_forward
+[rank0]:     return module(*inputs, past_key_value, output_attentions, padding_mask = padding_mask, position_embeddings = position_embeddings)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+[rank0]:     return self._call_impl(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+[rank0]:     return forward_call(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/unsloth/models/llama.py", line 559, in LlamaDecoderLayer_fast_forward
+[rank0]:     hidden_states = self.mlp(hidden_states)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+[rank0]:     return self._call_impl(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+[rank0]:     return forward_call(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/unsloth/kernels/fast_lora.py", line 181, in apply_lora_mlp_swiglu
+[rank0]:     out = LoRA_MLP.apply(X,
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/autograd/function.py", line 575, in apply
+[rank0]:     return super().apply(*args, **kwargs)  # type: ignore[misc]
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/amp/autocast_mode.py", line 503, in decorate_fwd
+[rank0]:     return fwd(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/unsloth/kernels/fast_lora.py", line 75, in forward
+[rank0]:     e = matmul_lora(X, gateW, gateW_quant, gateA, gateB, gateS)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/unsloth/kernels/utils.py", line 492, in matmul_lora
+[rank0]:     out.addmm_(XA, B.to(dtype), alpha = s)
+[rank0]: KeyboardInterrupt

@@ -1,0 +1,84 @@
+日志系统初始化完成，日志文件: logs/20250325_191609_log.txt
+GRPO训练脚本开始运行
+similarity奖励日志初始化完成，日志文件: logs/20250325_191609_similarity.jsonl
+正在加载语义模型: shibing624/text2vec-base-chinese
+正在尝试从Hugging Face Hub加载语义模型: shibing624/text2vec-base-chinese
+2025-03-25 19:16:09,354 - INFO - Use pytorch device_name: cuda
+2025-03-25 19:16:09,354 - INFO - Load pretrained SentenceTransformer: shibing624/text2vec-base-chinese
+语义模型加载成功: shibing624/text2vec-base-chinese
+加载模型: output/mimibot_tifa_v3.0
+==((====))==  Unsloth 2025.3.18: Fast Qwen2 patching. Transformers: 4.50.0. vLLM: 0.8.1.
+   \\   /|    NVIDIA GeForce RTX 3090. Num GPUs = 1. Max memory: 24.0 GB. Platform: Linux.
+O^O/ \_/ \    Torch: 2.6.0+cu124. CUDA: 8.6. CUDA Toolkit: 12.4. Triton: 3.2.0
+\        /    Bfloat16 = TRUE. FA [Xformers = 0.0.29.post2. FA2 = False]
+ "-____-"     Free license: http://github.com/unslothai/unsloth
+Unsloth: Fast downloading is enabled - ignore downloading bars which are red colored!
+Unsloth: vLLM loading output/mimibot_tifa_v3.0 with actual GPU utilization = 74.52%
+Unsloth: Your GPU has CUDA compute capability 8.6 with VRAM = 24.0 GB.
+Unsloth: Using conservativeness = 1.0. Chunked prefill tokens = 2048. Num Sequences = 160.
+Unsloth: vLLM's KV Cache can use up to 3.4 GB. Also swap space = 5 GB.
+Loading safetensors checkpoint shards:   0% Completed | 0/7 [00:00<?, ?it/s]
+Loading safetensors checkpoint shards:  14% Completed | 1/7 [00:01<00:06,  1.11s/it]
+Loading safetensors checkpoint shards:  29% Completed | 2/7 [00:02<00:05,  1.10s/it]
+Loading safetensors checkpoint shards:  43% Completed | 3/7 [00:03<00:04,  1.15s/it]
+Loading safetensors checkpoint shards:  57% Completed | 4/7 [00:04<00:03,  1.06s/it]
+Loading safetensors checkpoint shards:  71% Completed | 5/7 [00:05<00:02,  1.07s/it]
+Loading safetensors checkpoint shards:  86% Completed | 6/7 [00:06<00:01,  1.06s/it]
+Loading safetensors checkpoint shards: 100% Completed | 7/7 [00:06<00:00,  1.13it/s]
+Loading safetensors checkpoint shards: 100% Completed | 7/7 [00:06<00:00,  1.00it/s]
+
+Capturing CUDA graph shapes:   0%|          | 0/23 [00:00<?, ?it/s]Capturing CUDA graph shapes:   4%|4         | 1/23 [00:00<00:09,  2.33it/s]Capturing CUDA graph shapes:   9%|8         | 2/23 [00:00<00:09,  2.32it/s]Capturing CUDA graph shapes:  13%|#3        | 3/23 [00:01<00:08,  2.31it/s]Capturing CUDA graph shapes:  17%|#7        | 4/23 [00:01<00:08,  2.34it/s]Capturing CUDA graph shapes:  22%|##1       | 5/23 [00:02<00:07,  2.46it/s]Capturing CUDA graph shapes:  26%|##6       | 6/23 [00:02<00:06,  2.46it/s]Capturing CUDA graph shapes:  30%|###       | 7/23 [00:02<00:06,  2.47it/s]Capturing CUDA graph shapes:  35%|###4      | 8/23 [00:03<00:06,  2.48it/s]Capturing CUDA graph shapes:  39%|###9      | 9/23 [00:03<00:05,  2.46it/s]Capturing CUDA graph shapes:  43%|####3     | 10/23 [00:04<00:05,  2.48it/s]Capturing CUDA graph shapes:  48%|####7     | 11/23 [00:04<00:04,  2.50it/s]Capturing CUDA graph shapes:  52%|#####2    | 12/23 [00:04<00:04,  2.52it/s]Capturing CUDA graph shapes:  57%|#####6    | 13/23 [00:05<00:03,  2.55it/s]Capturing CUDA graph shapes:  61%|######    | 14/23 [00:05<00:03,  2.59it/s]Capturing CUDA graph shapes:  65%|######5   | 15/23 [00:06<00:03,  2.62it/s]Capturing CUDA graph shapes:  70%|######9   | 16/23 [00:06<00:02,  2.61it/s]Capturing CUDA graph shapes:  74%|#######3  | 17/23 [00:06<00:02,  2.59it/s]Capturing CUDA graph shapes:  78%|#######8  | 18/23 [00:07<00:01,  2.55it/s]Capturing CUDA graph shapes:  83%|########2 | 19/23 [00:07<00:01,  2.53it/s]Capturing CUDA graph shapes:  87%|########6 | 20/23 [00:07<00:01,  2.53it/s]Capturing CUDA graph shapes:  91%|#########1| 21/23 [00:08<00:00,  2.53it/s]Capturing CUDA graph shapes:  96%|#########5| 22/23 [00:08<00:00,  2.51it/s]Capturing CUDA graph shapes: 100%|##########| 23/23 [00:09<00:00,  2.45it/s]Capturing CUDA graph shapes: 100%|##########| 23/23 [00:09<00:00,  2.49it/s]
+output/mimibot_tifa_v3.0 does not have a padding token! Will use pad_token = <|endoftext|>.
+Map:   0%|          | 0/512 [00:00<?, ? examples/s]Map: 100%|##########| 512/512 [00:00<00:00, 19489.80 examples/s]
+{'prompt': '<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【最新消息】\n<此身非我>:吃肉蛋堡吗<|im_end|>\n<|im_start|>assistant\n<think><|im_end|>\n<|im_start|>assistant\n<think>', 'completion': '不吃肉蛋堡', 'answer': '不吃肉蛋堡'}
+启用OpenAI兼容API服务器: 端口=8099, 主机=0.0.0.0
+Starting OpenAI compatible API service on 0.0.0.0:8099/v1
+Simulation mode: False
+  0%|          | 0/1000 [00:00<?, ?it/s] * Serving Flask app 'OpenAI-Compatible-API'
+ * Debug mode: off
+2025-03-25 19:17:36,945 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8099
+ * Running on http://172.21.107.235:8099
+2025-03-25 19:17:36,946 - INFO - [33mPress CTRL+C to quit[0m
+开始处理API请求...
+Chat prompt: <|im_start|>system
+
+    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】
+<think>我看到群友在聊...所以我想回复...</think>你的回复 
+    <|im_end|>
+<|im_start|>user
+【任务目标】
+你是mimi波特，回复最新消息，多使用颜文字，禁止重复历史消息
+
+【历史消息】
+<bot>: 我是你们的新队友~🎉欢迎来到罗恩的世界~ RPG有木有期待呢？😉我们一起冒险吧！🌸期待和你们一起嗨玩哈~\n<Lyon>: 你是谁\n<bot>: 我是mimi波特。\n<Lyon>: 波特今天开心吗\n<bot>: 今天很开心呀。毕竟大家都这么开心嘛。\n<Lyon>: 三号的战斗力是多少？\n<bot>: 三号的战斗力可不低哦，毕竟我是mimi波特。嘻嘻。\n<Lyon>: 具体数值是多少？\n<bot>: 我今天很开心，我的战斗力可是很强的哟。7860吧。
+
+【最新消息】
+<Lyon>: 你是谁 <|im_end|>
+<|im_start|>assistant
+<think>
+[rank0]: Traceback (most recent call last):
+[rank0]:   File "/home/ubuntu/LLaMA-Factory/grpo.py", line 237, in <module>
+[rank0]:     trainer.train()
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/transformers/trainer.py", line 2245, in train
+[rank0]:     return inner_training_loop(
+[rank0]:   File "<string>", line 310, in _fast_inner_training_loop
+[rank0]:   File "<string>", line 25, in _unsloth_training_step
+[rank0]:   File "/home/ubuntu/LLaMA-Factory/unsloth_compiled_cache/UnslothGRPOTrainer.py", line 958, in _prepare_inputs
+[rank0]:     outputs = self.llm.generate(all_prompts_text, sampling_params=self.sampling_params, use_tqdm=False, lora_request = self.model.load_lora('grpo_trainer_lora_model', load_tensors = True))
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/utils.py", line 1066, in inner
+[rank0]:     return fn(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/entrypoints/llm.py", line 464, in generate
+[rank0]:     outputs = self._run_engine(use_tqdm=use_tqdm)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/entrypoints/llm.py", line 1371, in _run_engine
+[rank0]:     step_outputs = self.llm_engine.step()
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/engine/llm_engine.py", line 1379, in step
+[rank0]:     ) = self.scheduler[virtual_engine].schedule()
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/core/scheduler.py", line 1501, in schedule
+[rank0]:     scheduler_outputs: SchedulerOutputs = self._schedule()
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/core/scheduler.py", line 1460, in _schedule
+[rank0]:     return self._schedule_default()
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/core/scheduler.py", line 1293, in _schedule_default
+[rank0]:     assert len(running_scheduled.prefill_seq_groups) == 0
+[rank0]: AssertionError

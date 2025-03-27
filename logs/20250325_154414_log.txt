@@ -1,0 +1,53 @@
+日志系统初始化完成，日志文件: logs/20250325_154414_log.txt
+GRPO训练脚本开始运行
+similarity奖励日志初始化完成，日志文件: logs/20250325_154414_similarity.jsonl
+正在加载语义模型: shibing624/text2vec-base-chinese
+正在尝试从Hugging Face Hub加载语义模型: shibing624/text2vec-base-chinese
+2025-03-25 15:44:14,921 - INFO - Use pytorch device_name: cuda
+2025-03-25 15:44:14,921 - INFO - Load pretrained SentenceTransformer: shibing624/text2vec-base-chinese
+Traceback (most recent call last):
+  File "/home/ubuntu/LLaMA-Factory/grpo.py", line 63, in <module>
+    if not init_semantic_model(semantic_model_path):
+  File "/home/ubuntu/LLaMA-Factory/grpo_reward.py", line 36, in init_semantic_model
+    semantic_model = sentence_transformers.SentenceTransformer(model_path)
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/sentence_transformers/SentenceTransformer.py", line 308, in __init__
+    modules, self.module_kwargs = self._load_sbert_model(
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/sentence_transformers/SentenceTransformer.py", line 1747, in _load_sbert_model
+    module_path = load_dir_path(
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/sentence_transformers/util.py", line 1411, in load_dir_path
+    repo_path = snapshot_download(**download_kwargs)
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/huggingface_hub/_snapshot_download.py", line 155, in snapshot_download
+    repo_info = api.repo_info(repo_id=repo_id, repo_type=repo_type, revision=revision, token=token)
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/huggingface_hub/hf_api.py", line 2734, in repo_info
+    return method(
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/huggingface_hub/hf_api.py", line 2518, in model_info
+    r = get_session().get(path, headers=headers, timeout=timeout, params=params)
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/requests/sessions.py", line 602, in get
+    return self.request("GET", url, **kwargs)
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/requests/sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/requests/sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/huggingface_hub/utils/_http.py", line 96, in send
+    return super().send(request, *args, **kwargs)
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/requests/adapters.py", line 667, in send
+    resp = conn.urlopen(
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/urllib3/connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/urllib3/connectionpool.py", line 464, in _make_request
+    self._validate_conn(conn)
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/urllib3/connectionpool.py", line 1093, in _validate_conn
+    conn.connect()
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/urllib3/connection.py", line 704, in connect
+    self.sock = sock = self._new_conn()
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/urllib3/connection.py", line 198, in _new_conn
+    sock = connection.create_connection(
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/urllib3/util/connection.py", line 73, in create_connection
+    sock.connect(sa)
+KeyboardInterrupt

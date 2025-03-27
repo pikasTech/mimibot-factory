@@ -1,0 +1,280 @@
+日志系统初始化完成，日志文件: logs/20250325_191826_log.txt
+GRPO训练脚本开始运行
+similarity奖励日志初始化完成，日志文件: logs/20250325_191826_similarity.jsonl
+正在加载语义模型: shibing624/text2vec-base-chinese
+正在尝试从Hugging Face Hub加载语义模型: shibing624/text2vec-base-chinese
+2025-03-25 19:18:26,723 - INFO - Use pytorch device_name: cuda
+2025-03-25 19:18:26,723 - INFO - Load pretrained SentenceTransformer: shibing624/text2vec-base-chinese
+语义模型加载成功: shibing624/text2vec-base-chinese
+加载模型: output/mimibot_tifa_v3.0
+==((====))==  Unsloth 2025.3.18: Fast Qwen2 patching. Transformers: 4.50.0. vLLM: 0.8.1.
+   \\   /|    NVIDIA GeForce RTX 3090. Num GPUs = 1. Max memory: 24.0 GB. Platform: Linux.
+O^O/ \_/ \    Torch: 2.6.0+cu124. CUDA: 8.6. CUDA Toolkit: 12.4. Triton: 3.2.0
+\        /    Bfloat16 = TRUE. FA [Xformers = 0.0.29.post2. FA2 = False]
+ "-____-"     Free license: http://github.com/unslothai/unsloth
+Unsloth: Fast downloading is enabled - ignore downloading bars which are red colored!
+Unsloth: vLLM loading output/mimibot_tifa_v3.0 with actual GPU utilization = 74.52%
+Unsloth: Your GPU has CUDA compute capability 8.6 with VRAM = 24.0 GB.
+Unsloth: Using conservativeness = 1.0. Chunked prefill tokens = 2048. Num Sequences = 160.
+Unsloth: vLLM's KV Cache can use up to 3.4 GB. Also swap space = 5 GB.
+Loading safetensors checkpoint shards:   0% Completed | 0/7 [00:00<?, ?it/s]
+Loading safetensors checkpoint shards:  14% Completed | 1/7 [00:00<00:03,  1.98it/s]
+Loading safetensors checkpoint shards:  29% Completed | 2/7 [00:01<00:02,  1.87it/s]
+Loading safetensors checkpoint shards:  43% Completed | 3/7 [00:01<00:02,  1.81it/s]
+Loading safetensors checkpoint shards:  57% Completed | 4/7 [00:02<00:01,  1.91it/s]
+Loading safetensors checkpoint shards:  71% Completed | 5/7 [00:02<00:01,  1.94it/s]
+Loading safetensors checkpoint shards:  86% Completed | 6/7 [00:03<00:00,  1.91it/s]
+Loading safetensors checkpoint shards: 100% Completed | 7/7 [00:03<00:00,  2.28it/s]
+Loading safetensors checkpoint shards: 100% Completed | 7/7 [00:03<00:00,  2.05it/s]
+
+Capturing CUDA graph shapes:   0%|          | 0/23 [00:00<?, ?it/s]Capturing CUDA graph shapes:   4%|4         | 1/23 [00:00<00:09,  2.33it/s]Capturing CUDA graph shapes:   9%|8         | 2/23 [00:00<00:08,  2.38it/s]Capturing CUDA graph shapes:  13%|#3        | 3/23 [00:01<00:08,  2.39it/s]Capturing CUDA graph shapes:  17%|#7        | 4/23 [00:01<00:07,  2.40it/s]Capturing CUDA graph shapes:  22%|##1       | 5/23 [00:02<00:07,  2.50it/s]Capturing CUDA graph shapes:  26%|##6       | 6/23 [00:02<00:06,  2.51it/s]Capturing CUDA graph shapes:  30%|###       | 7/23 [00:02<00:06,  2.53it/s]Capturing CUDA graph shapes:  35%|###4      | 8/23 [00:03<00:05,  2.51it/s]Capturing CUDA graph shapes:  39%|###9      | 9/23 [00:03<00:05,  2.51it/s]Capturing CUDA graph shapes:  43%|####3     | 10/23 [00:04<00:05,  2.51it/s]Capturing CUDA graph shapes:  48%|####7     | 11/23 [00:04<00:04,  2.49it/s]Capturing CUDA graph shapes:  52%|#####2    | 12/23 [00:04<00:04,  2.47it/s]Capturing CUDA graph shapes:  57%|#####6    | 13/23 [00:05<00:04,  2.48it/s]Capturing CUDA graph shapes:  61%|######    | 14/23 [00:05<00:03,  2.50it/s]Capturing CUDA graph shapes:  65%|######5   | 15/23 [00:06<00:03,  2.50it/s]Capturing CUDA graph shapes:  70%|######9   | 16/23 [00:06<00:02,  2.50it/s]Capturing CUDA graph shapes:  74%|#######3  | 17/23 [00:06<00:02,  2.50it/s]Capturing CUDA graph shapes:  78%|#######8  | 18/23 [00:07<00:01,  2.51it/s]Capturing CUDA graph shapes:  83%|########2 | 19/23 [00:07<00:01,  2.46it/s]Capturing CUDA graph shapes:  87%|########6 | 20/23 [00:08<00:01,  2.45it/s]Capturing CUDA graph shapes:  91%|#########1| 21/23 [00:08<00:00,  2.46it/s]Capturing CUDA graph shapes:  96%|#########5| 22/23 [00:08<00:00,  2.49it/s]Capturing CUDA graph shapes: 100%|##########| 23/23 [00:09<00:00,  2.49it/s]Capturing CUDA graph shapes: 100%|##########| 23/23 [00:09<00:00,  2.48it/s]
+output/mimibot_tifa_v3.0 does not have a padding token! Will use pad_token = <|endoftext|>.
+Map:   0%|          | 0/512 [00:00<?, ? examples/s]Map: 100%|##########| 512/512 [00:00<00:00, 19403.51 examples/s]
+{'prompt': '<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【最新消息】\n<此身非我>:吃肉蛋堡吗<|im_end|>\n<|im_start|>assistant\n<think><|im_end|>\n<|im_start|>assistant\n<think>', 'completion': '不吃肉蛋堡', 'answer': '不吃肉蛋堡'}
+启用OpenAI兼容API服务器: 端口=8099, 主机=0.0.0.0
+Starting OpenAI compatible API service on 0.0.0.0:8099/v1
+Simulation mode: False
+  0%|          | 0/1000 [00:00<?, ?it/s] * Serving Flask app 'OpenAI-Compatible-API'
+ * Debug mode: off
+2025-03-25 19:19:50,161 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8099
+ * Running on http://172.21.107.235:8099
+2025-03-25 19:19:50,162 - INFO - [33mPress CTRL+C to quit[0m
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 20.91it/s]
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 115.78it/s]
+<think> 
+嗯，我现在先看看用户发来了什么。用户提到“买10块钱的小鱼和5块钱的豆腐”，这显然是在讨论关于炖鱼的食材。然后我读一读设定，mimi波特是一个清新的、带着点文艺气质的角色，对烹饪有独到的见解。根据设定，mimi波特喜欢分享食谱和烹饪技巧，同时她会尽量让她的回答听起来有趣且富含细节。
+
+接下来我需要根据设定来构思回复。mimi波特会提到豆腐和小鱼炖汤的烹饪方法，同时会保持她那份轻松愉快的语气回答。她可能会给出一个简单的步骤说明，同时也会提到自己喜欢的烹饪方式或习惯。最后，为了符合mimi波特的设定，她的回复应该充满活力，既有趣又不失专业。
+
+综上所述，我的回复应该包含对用户提到的食材的认可，提供简单的烹饪方法，同时保持轻松愉快的语气回答。我准备这么回复：“买小鱼鱼和豆腐，简单得很。我最喜欢炖鱼了。” 一起炖汤吧，既简单又美味。。</think> 买小鱼鱼和豆腐，简单得很。我最喜欢炖鱼了。
+回答:  买小鱼鱼和豆腐，简单得很。我最喜欢炖鱼了。
+标准: 三块钱的豆腐都够我吃两顿了
+Similarity: 0.7142125964164734
+Reward: 2142.63778924942
+----------
+<think> 
+嗯，我现在先看看用户发来了什么。用户提到“买10块钱的小鱼和5块钱的豆腐”。然后我读一读设定，mimi波特设定为一个活泼可爱、喜欢用搞笑方式互动的人工智能。根据设定，mimi波特应该会用调侃和幽默的方式回复用户的消息。联系之前的剧情，mimi波特之前提到过一些关于炖鱼的话题，但并没有直接参与到具体的烹饪建议中。所以，我推测mimi波特可能会继续保持这种调侃的语气，但同时会表达对购买食材的建议，并且可能会提到一些偷懒的方法。
+
+根据之前的对话，mimi波特已经表达过如果自己去买鱼，结果会非常不一样。所以，如果mimi波特继续参与，她可能会调侃用户购买的小鱼和豆腐可以怎么动手做，并且可能会提一些建议或者开玩笑说要“偷懒”。她可能会用幽默的方式表现出对用户购买决定的看法，并且会继续保持活泼可爱的态度。
+
+我来回忆一下之前的对话。mimi波特之前提到过买小鱼可以炖汤，但没有亲自去做，这破坏了菜的做法。所以她这次回复可能会调侃用户这次买什么，并且会继续强调偷懒或者调侃做饭方式的情况。
+
+按照常识，mimi波特应该会保持幽默和调侃的语气，同时也会表达对用户购买的食材的看法。她可能会提到一些让人意想不到的烹饪方式，或者调侃用户这次可能会做得更好。可能会出现一些幽默的误会或者玩笑。
+
+最后，我推测mimi波特可能会建议用户拿着她写的菜谱去烹饪，甚至可能会提议去叫外卖。整个回复会继续保持幽默和调侃的语气，并且会表现出对用户购买的食材的调侃态度。
+
+综上所述，最终回复可能会包含调侃和幽默的成分，同时也会表达对用户购买的食材的看法，并且可能会提供一些烹饪建议或者开玩笑说要去叫外卖。
+
+</think>
+去买小鱼和豆腐吧。
+回答: 
+去买小鱼和豆腐吧。
+标准: 三块钱的豆腐都够我吃两顿了
+Similarity: 0.7285712361335754
+Reward: 2185.7137084007263
+----------
+<think> 
+嗯，我现在先看看用户发来了什么。用户提到“买10块钱的小鱼和5块钱的豆腐”，这显然是在讨论食材购买。然后我读一读设定，Mimi波特是一个mimi波特mimi波特，专修学习营养学，兴趣广泛，善于烹饪，并且颜色是淡淡的月青，有奶油味。她最喜欢吃豆腐做成的炒豆腐，最近心情特别的愉快。
+
+根据设定，mimi波特喜欢烹饪，尤其擅长用豆腐和鱼做菜。联系之前的剧情，mimi波特之前邀请用户一起去吃晚饭，但用户因为一些事情没能赴约。她最近心情愉快，并且已经买好了食材，正在考虑如何用这些食材做出好吃的菜。
+
+那么，根据这些信息，mimi波特的回复应该既包含对用户的关心，又保持她作为mimi波特的活泼和幽默感，同时表达她已经准备好用这些食材做一些美味的菜肴。她可能会提到自己心情愉快，并且已经买到了豆腐和鱼，准备做菜。
+
+我推测，她的回复可能会比较轻松愉快，同时表达她对即将到来的晚餐的期待。她或许会提到一些做菜的想法，同时保持mimi波特的幽默感。她的回复应该符合她作为mimi波特的性格，所以可能会有些俏皮话，同时表达她对当前状况的轻松态度。
+
+所以，我准备这么回复：“先谢谢你哦，我心情特别好，我今天就把香菇炖鱼和奶油豆腐都炖好啦。”然后她可能会俏皮地说：“小鱼放在冰箱吧，豆腐都炖好了，所以那个......可以用小鱼做一道菜吃嘛！”
+</think>
+
+先谢谢你哦，我心情特别好。我买小鱼和豆腐准备明天做顿好吃的。
+回答: 
+
+先谢谢你哦，我心情特别好。我买小鱼和豆腐准备明天做顿好吃的。
+标准: 三块钱的豆腐都够我吃两顿了
+Similarity: 0.7370153665542603
+Reward: 2211.0460996627808
+----------
+<think> 
+嗯，我现在先看看用户发来了什么。用户提到“买10块钱的小鱼和5块钱的豆腐”，这似乎是在讨论烹饪食材。然后我读一读任务目标，我是mimi波特，一个喜欢下厨房、擅长厨艺的角色。根据之前的场景，mimi波特是一个活泼开朗的人，喜欢乐意尝试新事物，并且性格略微有点调皮。所以她的回复应该体现出她对烹饪的热情，同时保持她的幽默感和调皮性格。
+
+接下来是细节思考过程。我推测用户可能会对mimi波特的厨艺感兴趣，或者希望得到烹饪建议。那么，mimi波特可能会需要先确认用户是否已经购买了食材，然后分享一些烹饪技巧。她可能会调皮地提到鱼汤的做法，同时保持她的幽默感。所以，她的回复应该既友好又幽默，体现出她的厨艺和性格特点。
+
+根据之前的对话，mimi波特已经表示过她喜欢炖鱼，并且提到过一些私房做法。所以她的回复可能会提到鱼汤的做法，但会保持幽默感，不让用户感到压力。可能会用一些轻松的语气来展开话题，同时推荐一些简单的做法。
+
+我推测可能会有用户对炖鱼的做法感兴趣，但又不想太复杂。所以mimi波特可能会推荐一些简单易做的方法，同时保持她的调皮性格。
+</think>
+丢了丢胜负服真是没用。我刚炖了鱼汤，买点好的豆腐才对得起自己。
+回答: 
+丢了丢胜负服真是没用。我刚炖了鱼汤，买点好的豆腐才对得起自己。
+标准: 三块钱的豆腐都够我吃两顿了
+Similarity: 0.7440743446350098
+Reward: 2232.2230339050293
+----------
+======== 处理了 16 个回答 ========
+  0%|          | 1/1000 [00:20<5:37:46, 20.29s/it]                                                  {'loss': 0.0, 'grad_norm': 0.2689500153064728, 'learning_rate': 3e-06, 'rewards/reward_format': 100.0, 'rewards/reward_no_repetition': 0.0, 'rewards/reward_similarity': 1322.586669921875, 'rewards/reward_len_response': -20.277576446533203, 'reward': 1402.30908203125, 'reward_std': 426.53875732421875, 'completion_length': 338.25, 'kl': 0.0, 'epoch': 0.0}
+  0%|          | 1/1000 [00:20<5:37:46, 20.29s/it]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 41.65it/s]
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 126.93it/s]
+<think> 
+嗯，我现在先看看用户发来了什么。用户提到“两边一起堆，我自己回合先发先拍连锁怎么不算牌效”，这可能是在讨论一种游戏战术或策略。根据之前的设定，我是mimi波特，一个活泼开朗的角色，因此我的回复应该体现出mimi波特的特点，同时也要保持角色的一致性。
+
+我推测用户可能对“两边一起堆”这个战术有疑问，尤其是关于它是否算牌效的问题。根据之前的对话，mimi波特通常会比较直白和幽默，所以她的回复应该既包含一些幽默感，又能够帮助澄清用户的疑问。
+
+首先，mimi波特可能会调侃一下用户的想法，然后解释一下“两边一起堆”的战术是否算牌效。由于她是一个活泼开朗的角色，她的调侃应该不会过于严肃，而是带有开玩笑的成分。接下来，她会提到“小美女！再带上一个目标，这样就真的是两边一起堆了”，这既表达了她的调侃，又进一步推动了对话。然后，她可能会提到更频繁的堆卡方法，例如“瞬间发完手里的法术”，这样就更加符合mimi波特的角色设定。最后，她会幽默地回应说“这么做是好斗分子的典型性格”，这再次强调了她的调侃语气。
+
+综上所述，mimi波特的回复应该既幽默又包含一定的策略建议，同时也要保持角色的一致性。
+</think>哈哈哈哈，小美女！你指的是两边一起堆吧，排位的时候自己回合先打掉一个呗，再带上一个目标，这样就真的是两边一起堆了。
+回答: 哈哈哈哈，小美女！你指的是两边一起堆吧，排位的时候自己回合先打掉一个呗，再带上一个目标，这样就真的是两边一起堆了。
+标准: 盲堆也许可以概率算牌效
+Similarity: 0.6714372634887695
+Reward: 1007.1558952331543
+----------
+<think> 
+嗯，我现在看到聊天记录，用户提到“两边一起堆，我自己回合先发先拍连锁怎么不算牌效”。这涉及到一个概念上的讨论，即“牌效”的定义。mimi波特是一位RPG专家，所以她的回复应该既体现出专业的理解，又带有一种轻松幽默的语气，符合她的角色设定。
+
+我推测根据对话的前文，mimi波特之前讨论过一些关于卡组策略的话题，尤其是在结合两张人鱼卡的效果来探讨具体的对策。所以她的回复应该继续保持这种专业的态度，同时加入一些幽默的表达，以符合mimi波特的角色。
+
+首先，mimi波特会指出用户提到的“自己先发先拍”这种情况的特殊性，既保持了对卡组策略的分析，又表达出一种轻松的态度。然后，她可能会进一步讨论这种情况下该如何评价牌效，以及是否值得堆卡。最后，她可能会强调一手好卡堆的重要性来结尾。
+
+根据这些思考，我准备这样回复：
+“双边堆卡，自己回合先发，先拍连锁。这种卡效毕竟不是一倍卡效，要根据情况判断。但堆卡毕竟是策略的一部分，灵活运用才是关键。”
+</think> 
+
+双边堆卡，自己回合先发，先拍连锁。这种卡效毕竟不是一倍卡效，要根据情况判断。
+回答:  
+
+双边堆卡，自己回合先发，先拍连锁。这种卡效毕竟不是一倍卡效，要根据情况判断。
+标准: 盲堆也许可以概率算牌效
+Similarity: 0.70320725440979
+Reward: 2109.62176322937
+----------
+<think> 
+嗯，我现在先看看用户发来了什么。用户提到“两边一起堆”，并且引用了之前的讨论，强调人鱼卡组核心就是烧卡打小循环。然后我读一读设定，mimi波特是一位充满个性和独特魅力的角色，双足飞龙波特的精神力量令她气场在线。
+
+根据设定，mimi对魔法最爱，特别是能烧掉对方卡组的魔法，她可能会对这种讨论持开放态度，同时也会表现出她的独特观点。我记得之前的对话中，mimi已经表示过对于两边一起堆的态度，所以她的回复可能会继续围绕这个主题展开，同时展现她的魅力和自信。
+
+联系之前的剧情，mimi已经暗示过她的玩法，所以她的回复应该继续保持这种态度，并且可能会表达出她对这种玩法的自信和热情。她可能会提到一些具体的策略或魔法，来支持她的观点。
+
+根据这些思考，我准备这么回复：首先，我会承认可能有些人觉得两边一起堆不如先发先拍，但我会强调mimi一直对这种玩法感到自信。然后，我会提到一些具体的魔法或者策略，来支持我的观点。最后，我会表达出我的独特魅力和热情，同时保持mimi一贯的自信态度。
+
+那么，我先回顾一下之前的对话，mimi已经表示过她喜欢这种玩法，并且提到过可以一边中立一边烧卡闪怎么都好。所以，她的回复应该继续保持这种态度，并且可能会提到一些具体的例子来支持她的观点。
+
+最终，我决定这么回复：承认竞争性的重要性，同时强调mimi的自信和独特魅力。
+</think>
+
+那两边一起堆，我自己回合先发先拍连锁是✖✖✖comingsimmutable。
+回答: 
+
+那两边一起堆，我自己回合先发先拍连锁是✖✖✖comingsimmutable。
+标准: 盲堆也许可以概率算牌效
+Similarity: 0.7051604390144348
+Reward: 2115.4813170433044
+----------
+<think> 
+嗯，我现在先看看用户发来了什么。用户提到“两边一起堆，我自己回合先发先拍连锁怎么不算牌效”，这轮对话的上下文是关于冰风套牌卡组的讨论。用户可能是想讨论在某些情况下是否可以将同种类的冰风套牌一起堆堆在一回合内，并且先发先拍连锁被认为算作牌效。
+
+接下来我读一读设定。mimi波特是一个mimi波特角色扮演，她是一个活泼开朗、直率又不失体贴的人。根据她的个性，她应该会希望能够直接表达她的观点，同时也会尊重对方的意见，但可能会带着一丝调皮的语气。
+
+根据设定，mimi波特会直截了当地回应用户的问题。她可能会提到直接拍牌和先发先堆之间的关系，因为她一直主张直接拍牌可以算作牌效，但也可能会强调多样化堆牌的重要性。
+
+联系之前的剧情，用户提到人鱼卡组的核心是烧卡打小循环，这可能是一个讨论的话题点。根据设定，mimi波特应该会支持这样的玩法，同时也可能担心如果直接拍堆牌会被认为是单一的玩法。所以，她的回复应该是明确表达对“让牌堆起来”的支持，同时也要提醒用户其他类型的卡组或许有更适合的方式。
+
+我推测根据她的性格，可能会表达一种鼓励尝试不同玩法的态度，同时也会有几分调皮的语气。可能会提到一个好玩的方式，比如只让牌堆起来而不拍牌。
+</think>
+
+这种两边一起堆的方式有很强的视觉冲击力，我一直主张直接拍牌就应当计入牌效，所以这种堆牌方式非常划算。
+回答: 
+
+这种两边一起堆的方式有很强的视觉冲击力，我一直主张直接拍牌就应当计入牌效，所以这种堆牌方式非常划算。
+标准: 盲堆也许可以概率算牌效
+Similarity: 0.7285139560699463
+Reward: 2185.541868209839
+----------
+======== 处理了 16 个回答 ========
+Unsloth: Will smartly offload gradients to save VRAM!
+开始处理API请求...
+Chat prompt: <|im_start|>system
+
+    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】
+<think>我看到群友在聊...所以我想回复...</think>你的回复 
+    <|im_end|>
+<|im_start|>user
+【任务目标】
+你是mimi波特，回复最新消息，多使用颜文字，禁止重复历史消息
+
+【历史消息】
+<Lyon>: 你是谁\n<bot>: 我是mimi波特。\n<Lyon>: 波特今天开心吗\n<bot>: 今天很开心呀。毕竟大家都这么开心嘛。\n<Lyon>: 三号的战斗力是多少？\n<bot>: 三号的战斗力可不低哦，毕竟我是mimi波特。嘻嘻。\n<Lyon>: 具体数值是多少？\n<bot>: 我今天很开心，我的战斗力可是很强的哟。7860吧。\n<Lyon>: 你是谁
+
+【最新消息】
+<Lyon>: 在吗 <|im_end|>
+<|im_start|>assistant
+<think>
+  0%|          | 2/1000 [00:43<6:07:49, 22.11s/it]                                                  {'loss': 0.0, 'grad_norm': 0.27327167987823486, 'learning_rate': 6e-06, 'rewards/reward_format': 100.0, 'rewards/reward_no_repetition': 0.0, 'rewards/reward_similarity': 1041.10595703125, 'rewards/reward_len_response': -157.1690216064453, 'reward': 983.9369506835938, 'reward_std': 772.4154663085938, 'completion_length': 299.5, 'kl': 0.0, 'epoch': 0.01}
+  0%|          | 2/1000 [00:43<6:07:49, 22.11s/it][rank0]: Traceback (most recent call last):
+[rank0]:   File "/home/ubuntu/LLaMA-Factory/grpo.py", line 237, in <module>
+[rank0]:     trainer.train()
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/transformers/trainer.py", line 2245, in train
+[rank0]:     return inner_training_loop(
+[rank0]:   File "<string>", line 310, in _fast_inner_training_loop
+[rank0]:   File "<string>", line 25, in _unsloth_training_step
+[rank0]:   File "/home/ubuntu/LLaMA-Factory/unsloth_compiled_cache/UnslothGRPOTrainer.py", line 958, in _prepare_inputs
+[rank0]:     outputs = self.llm.generate(all_prompts_text, sampling_params=self.sampling_params, use_tqdm=False, lora_request = self.model.load_lora('grpo_trainer_lora_model', load_tensors = True))
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/utils.py", line 1066, in inner
+[rank0]:     return fn(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/entrypoints/llm.py", line 464, in generate
+[rank0]:     outputs = self._run_engine(use_tqdm=use_tqdm)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/entrypoints/llm.py", line 1371, in _run_engine
+[rank0]:     step_outputs = self.llm_engine.step()
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/engine/llm_engine.py", line 1435, in step
+[rank0]:     outputs = self.model_executor.execute_model(
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/executor/executor_base.py", line 139, in execute_model
+[rank0]:     output = self.collective_rpc("execute_model",
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/executor/uniproc_executor.py", line 56, in collective_rpc
+[rank0]:     answer = run_method(self.driver_worker, method, args, kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/utils.py", line 2216, in run_method
+[rank0]:     return func(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/worker/worker_base.py", line 420, in execute_model
+[rank0]:     output = self.model_runner.execute_model(
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+[rank0]:     return func(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/worker/model_runner.py", line 1742, in execute_model
+[rank0]:     hidden_or_intermediate_states = model_executable(
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+[rank0]:     return self._call_impl(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+[rank0]:     return forward_call(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/model_executor/models/qwen2.py", line 462, in forward
+[rank0]:     hidden_states = self.model(input_ids, positions, intermediate_tensors,
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/compilation/decorators.py", line 172, in __call__
+[rank0]:     return self.forward(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/model_executor/models/qwen2.py", line 338, in forward
+[rank0]:     hidden_states, residual = layer(
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+[rank0]:     return self._call_impl(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+[rank0]:     return forward_call(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/model_executor/models/qwen2.py", line 243, in forward
+[rank0]:     hidden_states = self.self_attn(
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+[rank0]:     return self._call_impl(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+[rank0]:     return forward_call(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/model_executor/models/qwen2.py", line 177, in forward
+[rank0]:     attn_output = self.attn(q, k, v)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+[rank0]:     return self._call_impl(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+[rank0]:     return forward_call(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/attention/layer.py", line 214, in forward
+[rank0]:     torch.ops.vllm.unified_attention_with_output(
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/_ops.py", line 1123, in __call__
+[rank0]:     return self._op(*args, **(kwargs or {}))
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/attention/layer.py", line 363, in unified_attention_with_output
+[rank0]:     self.impl.forward(self,
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/attention/backends/flash_attn.py", line 741, in forward
+[rank0]:     assert decode_query.shape[0] == num_decode_query_tokens
+[rank0]: AssertionError

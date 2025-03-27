@@ -17,28 +17,62 @@ Unsloth: vLLM loading output/mimibot_tifa_v2.1 with actual GPU utilization = 65.
 Unsloth: Your GPU has CUDA compute capability 8.6 with VRAM = 24.0 GB.
 Unsloth: Using conservativeness = 1.0. Chunked prefill tokens = 2048. Num Sequences = 128.
 Unsloth: vLLM's KV Cache can use up to 1.16 GB. Also swap space = 4 GB.
-Loading safetensors checkpoint shards:   0% Completed | 0/4 [00:00<?, ?it/s]
-Loading safetensors checkpoint shards:  25% Completed | 1/4 [00:02<00:07,  2.56s/it]
-Loading safetensors checkpoint shards:  50% Completed | 2/4 [00:05<00:05,  2.69s/it]
-Loading safetensors checkpoint shards:  75% Completed | 3/4 [00:06<00:01,  1.93s/it]
-Loading safetensors checkpoint shards: 100% Completed | 4/4 [00:06<00:00,  1.30s/it]
-Loading safetensors checkpoint shards: 100% Completed | 4/4 [00:06<00:00,  1.68s/it]
 
-Capturing CUDA graph shapes:   0%|          | 0/19 [00:00<?, ?it/s]Capturing CUDA graph shapes:   5%|5         | 1/19 [00:00<00:08,  2.18it/s]Capturing CUDA graph shapes:  11%|#         | 2/19 [00:00<00:07,  2.20it/s]Capturing CUDA graph shapes:  16%|#5        | 3/19 [00:01<00:07,  2.24it/s]Capturing CUDA graph shapes:  21%|##1       | 4/19 [00:01<00:06,  2.23it/s]Capturing CUDA graph shapes:  26%|##6       | 5/19 [00:02<00:06,  2.16it/s]Capturing CUDA graph shapes:  32%|###1      | 6/19 [00:02<00:06,  2.14it/s]Capturing CUDA graph shapes:  37%|###6      | 7/19 [00:03<00:05,  2.13it/s]Capturing CUDA graph shapes:  42%|####2     | 8/19 [00:03<00:05,  2.13it/s]Capturing CUDA graph shapes:  47%|####7     | 9/19 [00:04<00:04,  2.14it/s]Capturing CUDA graph shapes:  53%|#####2    | 10/19 [00:04<00:04,  2.18it/s]Capturing CUDA graph shapes:  58%|#####7    | 11/19 [00:05<00:03,  2.19it/s]Capturing CUDA graph shapes:  63%|######3   | 12/19 [00:05<00:03,  2.21it/s]Capturing CUDA graph shapes:  68%|######8   | 13/19 [00:05<00:02,  2.18it/s]Capturing CUDA graph shapes:  74%|#######3  | 14/19 [00:06<00:02,  2.15it/s]Capturing CUDA graph shapes:  79%|#######8  | 15/19 [00:06<00:01,  2.13it/s]Capturing CUDA graph shapes:  84%|########4 | 16/19 [00:07<00:01,  2.13it/s]Capturing CUDA graph shapes:  89%|########9 | 17/19 [00:07<00:00,  2.13it/s]Capturing CUDA graph shapes:  95%|#########4| 18/19 [00:08<00:00,  2.12it/s]Capturing CUDA graph shapes: 100%|##########| 19/19 [00:08<00:00,  2.10it/s]Capturing CUDA graph shapes: 100%|##########| 19/19 [00:08<00:00,  2.15it/s]
+Loading safetensors checkpoint shards:   0% Completed | 0/4 [00:00<?, ?it/s]
+
+Loading safetensors checkpoint shards:  25% Completed | 1/4 [00:02<00:07,  2.56s/it]
+
+Loading safetensors checkpoint shards:  50% Completed | 2/4 [00:05<00:05,  2.69s/it]
+
+Loading safetensors checkpoint shards:  75% Completed | 3/4 [00:06<00:01,  1.93s/it]
+
+Loading safetensors checkpoint shards: 100% Completed | 4/4 [00:06<00:00,  1.30s/it]
+
+Loading safetensors checkpoint shards: 100% Completed | 4/4 [00:06<00:00,  1.68s/it]
+
+
+Capturing CUDA graph shapes:   0%|          | 0/19 [00:00<?, ?it/s]
+Capturing CUDA graph shapes:   5%|5         | 1/19 [00:00<00:08,  2.18it/s]
+Capturing CUDA graph shapes:  11%|#         | 2/19 [00:00<00:07,  2.20it/s]
+Capturing CUDA graph shapes:  16%|#5        | 3/19 [00:01<00:07,  2.24it/s]
+Capturing CUDA graph shapes:  21%|##1       | 4/19 [00:01<00:06,  2.23it/s]
+Capturing CUDA graph shapes:  26%|##6       | 5/19 [00:02<00:06,  2.16it/s]
+Capturing CUDA graph shapes:  32%|###1      | 6/19 [00:02<00:06,  2.14it/s]
+Capturing CUDA graph shapes:  37%|###6      | 7/19 [00:03<00:05,  2.13it/s]
+Capturing CUDA graph shapes:  42%|####2     | 8/19 [00:03<00:05,  2.13it/s]
+Capturing CUDA graph shapes:  47%|####7     | 9/19 [00:04<00:04,  2.14it/s]
+Capturing CUDA graph shapes:  53%|#####2    | 10/19 [00:04<00:04,  2.18it/s]
+Capturing CUDA graph shapes:  58%|#####7    | 11/19 [00:05<00:03,  2.19it/s]
+Capturing CUDA graph shapes:  63%|######3   | 12/19 [00:05<00:03,  2.21it/s]
+Capturing CUDA graph shapes:  68%|######8   | 13/19 [00:05<00:02,  2.18it/s]
+Capturing CUDA graph shapes:  74%|#######3  | 14/19 [00:06<00:02,  2.15it/s]
+Capturing CUDA graph shapes:  79%|#######8  | 15/19 [00:06<00:01,  2.13it/s]
+Capturing CUDA graph shapes:  84%|########4 | 16/19 [00:07<00:01,  2.13it/s]
+Capturing CUDA graph shapes:  89%|########9 | 17/19 [00:07<00:00,  2.13it/s]
+Capturing CUDA graph shapes:  95%|#########4| 18/19 [00:08<00:00,  2.12it/s]
+Capturing CUDA graph shapes: 100%|##########| 19/19 [00:08<00:00,  2.10it/s]
+Capturing CUDA graph shapes: 100%|##########| 19/19 [00:08<00:00,  2.15it/s]
 output/mimibot_tifa_v2.1 does not have a padding token! Will use pad_token = <|endoftext|>.
-Map:   0%|          | 0/1024 [00:00<?, ? examples/s]Map: 100%|##########| 1024/1024 [00:00<00:00, 19192.47 examples/s]
-{'prompt': '<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<帽>:不烧不感冒，也不是总咳，有时候说话声音大一点就咳\n<兔姨>:吃点中药\n\n\n【最新消息】\n<帽>:三号又开始大声哭闹了<|im_end|>\n<|im_start|>assistant\n<think>', 'completion': '<think>我看到群友在聊幼儿异常哭闹现象，结合健康话题的上下文，突发性哭闹可能与身体不适相关。根据儿科诊疗逻辑，排除感冒症状后的哭闹需优先排查消化系统问题，所以我想回复建议重点观察腹部体征。</think>要注意观察孩子是否有腹痛迹象', 'answer': '<think>我看到群友在聊幼儿异常哭闹现象，结合健康话题的上下文，突发性哭闹可能与身体不适相关。根据儿科诊疗逻辑，排除感冒症状后的哭闹需优先排查消化系统问题，所以我想回复建议重点观察腹部体征。</think>要注意观察孩子是否有腹痛迹象'}
-  0%|          | 0/10000 [00:00<?, ?it/s]
-Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 14.74it/s]
 
-Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 63.13it/s]
-<think>我看到群友在聊37次必出一件的宝箱机制，玖衣江永提出的'17刷'暗示可能涉及连续刷宝箱的过程。结合之前提及的'37次必出'规则，此问题需指向宝箱计数机制。根据系统规则，宝箱数量与初始激活状态相关，所以我想回复明确计数逻辑的关键点来澄清机制。</think>没刷过之前出了一件吧，不过37次必出一件，估计现在也是
+Map:   0%|          | 0/1024 [00:00<?, ? examples/s]
+Map: 100%|##########| 1024/1024 [00:00<00:00, 19192.47 examples/s]
+{'prompt': '<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<帽>:不烧不感冒，也不是总咳，有时候说话声音大一点就咳\n<兔姨>:吃点中药\n\n\n【最新消息】\n<帽>:三号又开始大声哭闹了<|im_end|>\n<|im_start|>assistant\n<think>', 'completion': '<think>我看到群友在聊幼儿异常哭闹现象，结合健康话题的上下文，突发性哭闹可能与身体不适相关。根据儿科诊疗逻辑，排除感冒症状后的哭闹需优先排查消化系统问题，所以我想回复建议重点观察腹部体征。</think>要注意观察孩子是否有腹痛迹象', 'answer': '<think>我看到群友在聊幼儿异常哭闹现象，结合健康话题的上下文，突发性哭闹可能与身体不适相关。根据儿科诊疗逻辑，排除感冒症状后的哭闹需优先排查消化系统问题，所以我想回复建议重点观察腹部体征。</think>要注意观察孩子是否有腹痛迹象'}
+
+  0%|          | 0/10000 [00:00<?, ?it/s]
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A
+Batches: 100%|##########| 1/1 [00:00<00:00, 14.74it/s]
+
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A
+Batches: 100%|##########| 1/1 [00:00<00:00, 63.13it/s]
+<think>我看到群友在聊37次必出一件的宝箱机制，玖衣江永提出的'17刷'暗示可能涉及连续刷宝箱的过程。结合之前提及的'37次必出'规则，此问题需指向宝箱计数机制。根据系统规则，宝箱数量与初始激活状态相关，所以我想回复明确计数逻辑的关键点来澄清机制。</think>没刷过之前出了一件吧，不过37次必出一件，估计现
 回答: 没刷过之前出了一件吧，不过37次必出一件，估计现在也是
 标准: 我27时候刷的
 Similarity: 0.6778472661972046
 Reward: 1016.7708992958069
 ----------
-<think>我看到群友在持续讨论编程语言的缺陷，<少年渣>先指出C++的引用头地狱问题，随后补充说明引用传递的机制。这两条消息存在直接的技术关联，后句是对前句的补充说明而非新问题，所以我想回复用具体实现原理来解释痛点的根源</think>不过C++的引用传递头文件确实是个痛点，估计是函数模板导致的[PAD151981]
+<think>我看到群友在持续讨论编程语言的缺陷，<少年渣>先指出C++的引用头地狱问题，随后补充说明引用传递的机制。这两条消息存在直接的技术关联，后句是对前句的补充说明而非新问题，所以我想回复用具体实现原理来解释痛点的根源</think>不过C++的引用传递头文件确实是个痛点，估计是函数模板导致的[PAD15198
 managedType
 
 回答: 不过C++的引用传递头文件确实是个痛点，估计是函数模板导致的[PAD151981]
@@ -94,18 +128,30 @@ Reward: 2301.6700744628906
 2025-03-24 14:56:19,691 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<495円>:就是一直说活动太火爆\n<帽>:只能排队是吗\n\n\n【最新消息】\n<帽>:周一还那么多人？<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "他们都不上班吗", "similarity": 0.30858805775642395}
 2025-03-24 14:56:19,691 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<495円>:就是一直说活动太火爆\n<帽>:只能排队是吗\n\n\n【最新消息】\n<帽>:周一还那么多人？<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "他们都不上班吗", "similarity": 0.40561288595199585}
 
-Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 39.27it/s]
 
-Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 59.99it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A
+Batches: 100%|##########| 1/1 [00:00<00:00, 39.27it/s]
+
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A
+Batches: 100%|##########| 1/1 [00:00<00:00, 59.99it/s]
 用户消息: 但是C++的引用头地狱这个痛点还是没解决
 模型回复: 这下看代码人估计都给他整回去了，不过这硬件需求确实少点，估计python是头文件都写不下了
 相似度: 0.6805299520492554
 奖励值: 218.05299520492554
-  0%|          | 1/10000 [00:13<36:56:17, 13.30s/it]                                                    {'loss': -0.0, 'grad_norm': 0.29125404357910156, 'learning_rate': 1e-05, 'rewards/reward_format': 100.0, 'rewards/reward_no_repetition': -46.875, 'rewards/reward_similarity': 790.3983154296875, 'rewards/reward_user_similarity': 138.57412719726562, 'rewards/reward_len_response': -180.6878662109375, 'reward': 801.4095458984375, 'reward_std': 321.10211181640625, 'completion_length': 83.59375, 'kl': 0.0, 'epoch': 0.01}
-  0%|          | 1/10000 [00:13<36:56:17, 13.30s/it]
-Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 43.14it/s]
 
-Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 75.42it/s]
+  0%|          | 1/10000 [00:13<36:56:17, 13.30s/it]
+                                                    
+{'loss': -0.0, 'grad_norm': 0.29125404357910156, 'learning_rate': 1e-05, 'rewards/reward_format': 100.0, 'rewards/reward_no_repetition': -46.875, 'rewards/rewa0.3983154296875, 'rewards/reward_user_similarity': 138.57412719726562, 'rewards/reward_len_response': -180.6878662109375, 'reward': 801.4095458984375, 'reward_std': 321.10211181640625, 'completion_length': 83.59375, 'kl': 0.0, 'epoch': 0.01}
+
+  0%|          | 1/10000 [00:13<36:56:17, 13.30s/it]
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A
+Batches: 100%|##########| 1/1 [00:00<00:00, 43.14it/s]
+
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A
+Batches: 100%|##########| 1/1 [00:00<00:00, 75.42it/s]
 <think>我看到群友在经历群聊消息发送错误的因果链，前因是将老板误认为老婆，导因是发送错误消息导致老板未回信，最终引发自我纠错的内心冲突。所以我想回复李先生的回复作为解决方案</think>估计老板没看到，怪不得我发错消息不回我，还是发给同事好了
 回答: 估计老板没看到，怪不得我发错消息不回我，还是发给同事好了
 标准: 赶紧确认一下，还好没发错
@@ -159,24 +205,36 @@ Reward: 2185.194253921509
 2025-03-24 14:56:34,411 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<W羽天>:什么天穹钓竿.jpg\n<少年渣>:你这海钓数据也好可怕\n\n\n【最新消息】\n<少年渣>:我想起来我之前做那个古武<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "我星光石做日常就换完了", "similarity": 0.5736744403839111}
 2025-03-24 14:56:34,412 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<W羽天>:什么天穹钓竿.jpg\n<少年渣>:你这海钓数据也好可怕\n\n\n【最新消息】\n<少年渣>:我想起来我之前做那个古武<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "我星光石做日常就换完了", "similarity": 0.5327849388122559}
 2025-03-24 14:56:34,412 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<W羽天>:什么天穹钓竿.jpg\n<少年渣>:你这海钓数据也好可怕\n\n\n【最新消息】\n<少年渣>:我想起来我之前做那个古武<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "我星光石做日常就换完了", "similarity": 0.5726670026779175}
-2025-03-24 14:56:34,412 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<Lanc>:我这里5毛一度电，还行\n<第七十七>:我就靠3A游戏暖脚了\n<纯粹的派>:盖上被子玩手柄\n\n\n【最新消息】\n<Lanc>:这南方屋里确实冷<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "有那种热风机，用那个吹应该还行", "similarity": 0.5661327838897705}
-2025-03-24 14:56:34,412 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<Lanc>:我这里5毛一度电，还行\n<第七十七>:我就靠3A游戏暖脚了\n<纯粹的派>:盖上被子玩手柄\n\n\n【最新消息】\n<Lanc>:这南方屋里确实冷<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "有那种热风机，用那个吹应该还行", "similarity": 0.5389550924301147}
-2025-03-24 14:56:34,412 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<Lanc>:我这里5毛一度电，还行\n<第七十七>:我就靠3A游戏暖脚了\n<纯粹的派>:盖上被子玩手柄\n\n\n【最新消息】\n<Lanc>:这南方屋里确实冷<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "有那种热风机，用那个吹应该还行", "similarity": 0.5388073325157166}
-2025-03-24 14:56:34,412 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<Lanc>:我这里5毛一度电，还行\n<第七十七>:我就靠3A游戏暖脚了\n<纯粹的派>:盖上被子玩手柄\n\n\n【最新消息】\n<Lanc>:这南方屋里确实冷<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "有那种热风机，用那个吹应该还行", "similarity": 0.5423831939697266}
+2025-03-24 14:56:34,412 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<Lanc>:我这里5毛一度电，还行\n<第七十七>:我就靠3A游戏暖脚了\n<纯粹的派>:盖上被子玩手柄\n\n\n【最新消息】\n<Lanc>:这南方屋里确实冷<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "有那种热风机，用那个吹应该还行", "similarity": 0.5661327838897705}
+2025-03-24 14:56:34,412 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<Lanc>:我这里5毛一度电，还行\n<第七十七>:我就靠3A游戏暖脚了\n<纯粹的派>:盖上被子玩手柄\n\n\n【最新消息】\n<Lanc>:这南方屋里确实冷<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "有那种热风机，用那个吹应该还行", "similarity": 0.5389550924301147}
+2025-03-24 14:56:34,412 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<Lanc>:我这里5毛一度电，还行\n<第七十七>:我就靠3A游戏暖脚了\n<纯粹的派>:盖上被子玩手柄\n\n\n【最新消息】\n<Lanc>:这南方屋里确实冷<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "有那种热风机，用那个吹应该还行", "similarity": 0.5388073325157166}
+2025-03-24 14:56:34,412 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<Lanc>:我这里5毛一度电，还行\n<第七十七>:我就靠3A游戏暖脚了\n<纯粹的派>:盖上被子玩手柄\n\n\n【最新消息】\n<Lanc>:这南方屋里确实冷<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "有那种热风机，用那个吹应该还行", "similarity": 0.5423831939697266}
 
-Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 41.46it/s]
 
-Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 67.89it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A
+Batches: 100%|##########| 1/1 [00:00<00:00, 41.46it/s]
+
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A
+Batches: 100%|##########| 1/1 [00:00<00:00, 67.89it/s]
 用户消息: 怎么怪猎就键鼠拉胯了
 模型回复: 估计真没优化过键鼠
 相似度: 0.6999071836471558
 奖励值: 219.99071836471558
 Unsloth: Will smartly offload gradients to save VRAM!
-  0%|          | 2/10000 [00:27<38:12:24, 13.76s/it]                                                    {'loss': 0.0, 'grad_norm': 0.319632351398468, 'learning_rate': 2e-05, 'rewards/reward_format': 100.0, 'rewards/reward_no_repetition': 0.0, 'rewards/reward_similarity': 793.8955688476562, 'rewards/reward_user_similarity': 135.08006286621094, 'rewards/reward_len_response': -138.35638427734375, 'reward': 890.6193237304688, 'reward_std': 334.0585021972656, 'completion_length': 85.6875, 'kl': 0.0, 'epoch': 0.02}
-  0%|          | 2/10000 [00:27<38:12:24, 13.76s/it]
-Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 20.65it/s]
 
-Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 69.48it/s]
+  0%|          | 2/10000 [00:27<38:12:24, 13.76s/it]
+                                                    
+{'loss': 0.0, 'grad_norm': 0.319632351398468, 'learning_rate': 2e-05, 'rewards/reward_format': 100.0, 'rewards/reward_no_repetition': 0.0, 'rewards/reward_simi88476562, 'rewards/reward_user_similarity': 135.08006286621094, 'rewards/reward_len_response': -138.35638427734375, 'reward': 890.6193237304688, 'reward_std': 334.0585021972656, 'completion_length': 85.6875, 'kl': 0.0, 'epoch': 0.02}
+
+  0%|          | 2/10000 [00:27<38:12:24, 13.76s/it]
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A
+Batches: 100%|##########| 1/1 [00:00<00:00, 20.65it/s]
+
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A
+Batches: 100%|##########| 1/1 [00:00<00:00, 69.48it/s]
 <think>我看到群友在对比不同游戏的难度设计，<一个学物>将U难度的压迫感与AEX类比，这需要具体的技术讨论支撑。根据前文关于弹幕密度和通关策略的铺垫，_DETAIL应当补充说明具体操作路径。所以我想回复具体战斗策略，既验证类比的合理性又延续技术讨论。</think>虽然说第一次初见U难度是满屏弹幕\"");
 <think>我看到群友在对比不同难度的技术难点，结合前文关于弹幕密度与通关策略的讨论，所以我想用具体操作细节说明难度突破方法。</think>但是理论上思路对的配合快速闪避是能过的
 回答: 但是理论上思路对的配合快速闪避是能过的
@@ -217,39 +275,51 @@ Reward: 2578.576683998108
 2025-03-24 14:56:51,334 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<假小子大>:用自己的体重去折磨她\n\n\n【最新消息】\n<假小子大>:所以感觉强壮的女孩子更适合<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "安全一些", "similarity": 0.4565523862838745}
 2025-03-24 14:56:51,335 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<假小子大>:用自己的体重去折磨她\n\n\n【最新消息】\n<假小子大>:所以感觉强壮的女孩子更适合<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "安全一些", "similarity": 0.5167309641838074}
 2025-03-24 14:56:51,335 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<假小子大>:用自己的体重去折磨她\n\n\n【最新消息】\n<假小子大>:所以感觉强壮的女孩子更适合<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "安全一些", "similarity": 0.40775859355926514}
-2025-03-24 14:56:51,335 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<亡霊>:中级区间是单4万\n<帽>:4w我能买5个首发大作了\n<亡霊>:高级店的话就是6w起\n\n\n【最新消息】\n<纯粹的派>:啥玩意首发才40RMB啊<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "啊？不是4w円吗", "similarity": 0.6235959529876709}
-2025-03-24 14:56:51,335 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<亡霊>:中级区间是单4万\n<帽>:4w我能买5个首发大作了\n<亡霊>:高级店的话就是6w起\n\n\n【最新消息】\n<纯粹的派>:啥玩意首发才40RMB啊<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "啊？不是4w円吗", "similarity": 0.4271166920661926}
-2025-03-24 14:56:51,335 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<亡霊>:中级区间是单4万\n<帽>:4w我能买5个首发大作了\n<亡霊>:高级店的话就是6w起\n\n\n【最新消息】\n<纯粹的派>:啥玩意首发才40RMB啊<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "啊？不是4w円吗", "similarity": 0.425401508808136}
-2025-03-24 14:56:51,335 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<亡霊>:中级区间是单4万\n<帽>:4w我能买5个首发大作了\n<亡霊>:高级店的话就是6w起\n\n\n【最新消息】\n<纯粹的派>:啥玩意首发才40RMB啊<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "啊？不是4w円吗", "similarity": 0.4711276888847351}
-2025-03-24 14:56:51,335 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<W羽天>:反正我不打\n<W羽天>:国服应该正好过年前开\n<W羽天>:打绝本还过不过年了\n<少年渣>:狂暴时间是17.20\n\n\n【最新消息】\n<少年渣>:会不会真的打完了还有什么东西<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "这个够长了", "similarity": 0.6045783758163452}
-2025-03-24 14:56:51,335 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<W羽天>:反正我不打\n<W羽天>:国服应该正好过年前开\n<W羽天>:打绝本还过不过年了\n<少年渣>:狂暴时间是17.20\n\n\n【最新消息】\n<少年渣>:会不会真的打完了还有什么东西<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "这个够长了", "similarity": 0.6450256109237671}
-2025-03-24 14:56:51,335 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<W羽天>:反正我不打\n<W羽天>:国服应该正好过年前开\n<W羽天>:打绝本还过不过年了\n<少年渣>:狂暴时间是17.20\n\n\n【最新消息】\n<少年渣>:会不会真的打完了还有什么东西<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "这个够长了", "similarity": 0.5807160139083862}
-2025-03-24 14:56:51,336 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<W羽天>:反正我不打\n<W羽天>:国服应该正好过年前开\n<W羽天>:打绝本还过不过年了\n<少年渣>:狂暴时间是17.20\n\n\n【最新消息】\n<少年渣>:会不会真的打完了还有什么东西<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "这个够长了", "similarity": 0.5842709541320801}
-2025-03-24 14:56:51,336 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【最新消息】\n<普通的魔>:为什么哥谭这种地方还有人住<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "因为比现实中靠谱", "similarity": 0.4701896607875824}
-2025-03-24 14:56:51,336 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【最新消息】\n<普通的魔>:为什么哥谭这种地方还有人住<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "因为比现实中靠谱", "similarity": 0.5133568644523621}
-2025-03-24 14:56:51,336 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【最新消息】\n<普通的魔>:为什么哥谭这种地方还有人住<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "因为比现实中靠谱", "similarity": 0.5468835830688477}
-2025-03-24 14:56:51,336 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【最新消息】\n<普通的魔>:为什么哥谭这种地方还有人住<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "因为比现实中靠谱", "similarity": 0.48486757278442383}
-2025-03-24 14:56:51,336 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<帽>:感觉过年要结束了\n<帽>:陷入emo\n\n\n【最新消息】\n<集华芯黄>:还有5天哟～<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "天天都是年", "similarity": 0.5937649011611938}
-2025-03-24 14:56:51,336 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<帽>:感觉过年要结束了\n<帽>:陷入emo\n\n\n【最新消息】\n<集华芯黄>:还有5天哟～<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "天天都是年", "similarity": 0.5496155023574829}
-2025-03-24 14:56:51,336 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<帽>:感觉过年要结束了\n<帽>:陷入emo\n\n\n【最新消息】\n<集华芯黄>:还有5天哟～<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "天天都是年", "similarity": 0.41772404313087463}
-2025-03-24 14:56:51,336 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<帽>:感觉过年要结束了\n<帽>:陷入emo\n\n\n【最新消息】\n<集华芯黄>:还有5天哟～<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "天天都是年", "similarity": 0.43453890085220337}
-2025-03-24 14:56:51,336 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<一个学物>:超高速弹幕多的离谱\n<一个学物>:属于是思路对不上就会立即暴毙的状况\n\n\n【最新消息】\n<一个学物>:这个u难度（姑且这么称呼）初见带来的压迫感可以类比一下涟源的aex<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "属于是思路对不上就会立即暴毙的状况", "similarity": 0.6922751665115356}
-2025-03-24 14:56:51,336 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<一个学物>:超高速弹幕多的离谱\n<一个学物>:属于是思路对不上就会立即暴毙的状况\n\n\n【最新消息】\n<一个学物>:这个u难度（姑且这么称呼）初见带来的压迫感可以类比一下涟源的aex<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "属于是思路对不上就会立即暴毙的状况", "similarity": 0.5736926198005676}
-2025-03-24 14:56:51,336 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<一个学物>:超高速弹幕多的离谱\n<一个学物>:属于是思路对不上就会立即暴毙的状况\n\n\n【最新消息】\n<一个学物>:这个u难度（姑且这么称呼）初见带来的压迫感可以类比一下涟源的aex<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "属于是思路对不上就会立即暴毙的状况", "similarity": 0.609017014503479}
-2025-03-24 14:56:51,337 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<一个学物>:超高速弹幕多的离谱\n<一个学物>:属于是思路对不上就会立即暴毙的状况\n\n\n【最新消息】\n<一个学物>:这个u难度（姑且这么称呼）初见带来的压迫感可以类比一下涟源的aex<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "属于是思路对不上就会立即暴毙的状况", "similarity": 0.8595255613327026}
+2025-03-24 14:56:51,335 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<亡霊>:中级区间是单4万\n<帽>:4w我能买5个首发大作了\n<亡霊>:高级店的话就是6w起\n\n\n【最新消息】\n<纯粹的派>:啥玩意首发才40RMB啊<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "啊？不是4w円吗", "similarity": 0.6235959529876709}
+2025-03-24 14:56:51,335 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<亡霊>:中级区间是单4万\n<帽>:4w我能买5个首发大作了\n<亡霊>:高级店的话就是6w起\n\n\n【最新消息】\n<纯粹的派>:啥玩意首发才40RMB啊<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "啊？不是4w円吗", "similarity": 0.4271166920661926}
+2025-03-24 14:56:51,335 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<亡霊>:中级区间是单4万\n<帽>:4w我能买5个首发大作了\n<亡霊>:高级店的话就是6w起\n\n\n【最新消息】\n<纯粹的派>:啥玩意首发才40RMB啊<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "啊？不是4w円吗", "similarity": 0.425401508808136}
+2025-03-24 14:56:51,335 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<亡霊>:中级区间是单4万\n<帽>:4w我能买5个首发大作了\n<亡霊>:高级店的话就是6w起\n\n\n【最新消息】\n<纯粹的派>:啥玩意首发才40RMB啊<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "啊？不是4w円吗", "similarity": 0.4711276888847351}
+2025-03-24 14:56:51,335 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<W羽天>:反正我不打\n<W羽天>:国服应该正好过年前开\n<W羽天>:打绝本还过不过年了\n<少年渣>:狂暴时间是17.20\n\n\n【最新消息】\n<少年渣>:会不会真的打完了还有什么东西<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "这个够长了", "similarity": 0.6045783758163452}
+2025-03-24 14:56:51,335 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<W羽天>:反正我不打\n<W羽天>:国服应该正好过年前开\n<W羽天>:打绝本还过不过年了\n<少年渣>:狂暴时间是17.20\n\n\n【最新消息】\n<少年渣>:会不会真的打完了还有什么东西<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "这个够长了", "similarity": 0.6450256109237671}
+2025-03-24 14:56:51,335 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<W羽天>:反正我不打\n<W羽天>:国服应该正好过年前开\n<W羽天>:打绝本还过不过年了\n<少年渣>:狂暴时间是17.20\n\n\n【最新消息】\n<少年渣>:会不会真的打完了还有什么东西<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "这个够长了", "similarity": 0.5807160139083862}
+2025-03-24 14:56:51,336 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<W羽天>:反正我不打\n<W羽天>:国服应该正好过年前开\n<W羽天>:打绝本还过不过年了\n<少年渣>:狂暴时间是17.20\n\n\n【最新消息】\n<少年渣>:会不会真的打完了还有什么东西<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "这个够长了", "similarity": 0.5842709541320801}
+2025-03-24 14:56:51,336 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【最新消息】\n<普通的魔>:为什么哥谭这种地方还有人住<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "因为比现实中靠谱", "similarity": 0.4701896607875824}
+2025-03-24 14:56:51,336 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【最新消息】\n<普通的魔>:为什么哥谭这种地方还有人住<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "因为比现实中靠谱", "similarity": 0.5133568644523621}
+2025-03-24 14:56:51,336 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【最新消息】\n<普通的魔>:为什么哥谭这种地方还有人住<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "因为比现实中靠谱", "similarity": 0.5468835830688477}
+2025-03-24 14:56:51,336 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【最新消息】\n<普通的魔>:为什么哥谭这种地方还有人住<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "因为比现实中靠谱", "similarity": 0.48486757278442383}
+2025-03-24 14:56:51,336 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<帽>:感觉过年要结束了\n<帽>:陷入emo\n\n\n【最新消息】\n<集华芯黄>:还有5天哟～<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "天天都是年", "similarity": 0.5937649011611938}
+2025-03-24 14:56:51,336 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<帽>:感觉过年要结束了\n<帽>:陷入emo\n\n\n【最新消息】\n<集华芯黄>:还有5天哟～<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "天天都是年", "similarity": 0.5496155023574829}
+2025-03-24 14:56:51,336 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<帽>:感觉过年要结束了\n<帽>:陷入emo\n\n\n【最新消息】\n<集华芯黄>:还有5天哟～<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "天天都是年", "similarity": 0.41772404313087463}
+2025-03-24 14:56:51,336 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<帽>:感觉过年要结束了\n<帽>:陷入emo\n\n\n【最新消息】\n<集华芯黄>:还有5天哟～<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "天天都是年", "similarity": 0.43453890085220337}
+2025-03-24 14:56:51,336 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<一个学物>:超高速弹幕多的离谱\n<一个学物>:属于是思路对不上就会立即暴毙的状况\n\n\n【最新消息】\n<一个学物>:这个u难度（姑且这么称呼）初见带来的压迫感可以类比一下涟源的aex<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "属于是思路对不上就会立即暴毙的状况", "similarity": 0.6922751665115356}
+2025-03-24 14:56:51,336 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<一个学物>:超高速弹幕多的离谱\n<一个学物>:属于是思路对不上就会立即暴毙的状况\n\n\n【最新消息】\n<一个学物>:这个u难度（姑且这么称呼）初见带来的压迫感可以类比一下涟源的aex<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "属于是思路对不上就会立即暴毙的状况", "similarity": 0.5736926198005676}
+2025-03-24 14:56:51,336 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<一个学物>:超高速弹幕多的离谱\n<一个学物>:属于是思路对不上就会立即暴毙的状况\n\n\n【最新消息】\n<一个学物>:这个u难度（姑且这么称呼）初见带来的压迫感可以类比一下涟源的aex<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "属于是思路对不上就会立即暴毙的状况", "similarity": 0.609017014503479}
+2025-03-24 14:56:51,337 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<一个学物>:超高速弹幕多的离谱\n<一个学物>:属于是思路对不上就会立即暴毙的状况\n\n\n【最新消息】\n<一个学物>:这个u难度（姑且这么称呼）初见带来的压迫感可以类比一下涟源的aex<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "属于是思路对不上就会立即暴毙的状况", "similarity": 0.8595255613327026}
 
-Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 20.18it/s]
 
-Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 52.42it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A
+Batches: 100%|##########| 1/1 [00:00<00:00, 20.18it/s]
+
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A
+Batches: 100%|##########| 1/1 [00:00<00:00, 52.42it/s]
 用户消息: 所以感觉强壮的女孩子更适合
 模型回复: 这个估计是壮女孩用身体丄推视频来折磨普通人
 相似度: 0.6971325874328613
 奖励值: 219.71325874328613
-  0%|          | 3/10000 [00:47<46:28:42, 16.74s/it]                                                    {'loss': 0.0001, 'grad_norm': 0.3045552670955658, 'learning_rate': 3e-05, 'rewards/reward_format': 97.5, 'rewards/reward_no_repetition': 0.0, 'rewards/reward_similarity': 821.16162109375, 'rewards/reward_user_similarity': 155.0242462158203, 'rewards/reward_len_response': -154.79315185546875, 'reward': 918.892822265625, 'reward_std': 433.8494873046875, 'completion_length': 92.8125, 'kl': 0.001284755184315145, 'epoch': 0.02}
-  0%|          | 3/10000 [00:47<46:28:42, 16.74s/it]
-Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 27.37it/s]
 
-Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 52.69it/s]
+  0%|          | 3/10000 [00:47<46:28:42, 16.74s/it]
+                                                    
+{'loss': 0.0001, 'grad_norm': 0.3045552670955658, 'learning_rate': 3e-05, 'rewards/reward_format': 97.5, 'rewards/reward_no_repetition': 0.0, 'rewards/reward_similarity': 821.16162109375, 'rewards/reward_user_similarity': 155.0242462158203, 'rewards/reward_len_response': -154.79315185546875, 'reward': 918.892822265625, 'reward_std': 433.8494873046875, 'completion_length': 92.8125, 'kl': 0.001284755184315145, 'epoch': 0.02}
+
+  0%|          | 3/10000 [00:47<46:28:42, 16.74s/it]
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A
+Batches: 100%|##########| 1/1 [00:00<00:00, 27.37it/s]
+
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A
+Batches: 100%|##########| 1/1 [00:00<00:00, 52.69it/s]
 <think>我看到群友在聊南方冬季寒冷带来的居住困扰，后续对话中玖衣江永强调厨房热水管的必要性，亡霊也提到开启热水系统。这些信息表明群友在聚焦基础设施问题对生活质量的影响，所以我想回复补充具体解决方案并关联前文逻辑。</think>这个确实是，不过估计没热水的厨房都接了，新建的估计是吧
 回答: 这个确实是，不过估计没热水的厨房都接了，新建的估计是吧
 标准: 洗菜池还是得接热水管
@@ -275,51 +345,63 @@ Similarity: 0.8501041531562805
 Reward: 2550.3124594688416
 ----------
 ======== 处理了 32 个回答 ========
-2025-03-24 14:57:08,667 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<亡霊>:这除去燃料和机械什么的最多挣个八千\n<帽>:偷粮食赚钱只能说想不开了\n\n\n【最新消息】\n<亡霊>:国内一斤粮食比水都便宜<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "主粮不行", "similarity": 0.525423526763916}
-2025-03-24 14:57:08,667 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<亡霊>:这除去燃料和机械什么的最多挣个八千\n<帽>:偷粮食赚钱只能说想不开了\n\n\n【最新消息】\n<亡霊>:国内一斤粮食比水都便宜<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "主粮不行", "similarity": 0.5041468739509583}
-2025-03-24 14:57:08,667 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<亡霊>:这除去燃料和机械什么的最多挣个八千\n<帽>:偷粮食赚钱只能说想不开了\n\n\n【最新消息】\n<亡霊>:国内一斤粮食比水都便宜<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "主粮不行", "similarity": 0.5855194330215454}
-2025-03-24 14:57:08,667 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<亡霊>:这除去燃料和机械什么的最多挣个八千\n<帽>:偷粮食赚钱只能说想不开了\n\n\n【最新消息】\n<亡霊>:国内一斤粮食比水都便宜<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "主粮不行", "similarity": 0.6168660521507263}
-2025-03-24 14:57:08,667 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<Halb>:复！活！\n<纯粹的涩>:复活了？\n<我是>:复活了\n<华实>:离谱\n<魃>:说明原本就没什么\n\n\n【最新消息】\n<mado>:这群怎么又好了<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "这都能复活啊", "similarity": 0.7604544162750244}
-2025-03-24 14:57:08,667 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<Halb>:复！活！\n<纯粹的涩>:复活了？\n<我是>:复活了\n<华实>:离谱\n<魃>:说明原本就没什么\n\n\n【最新消息】\n<mado>:这群怎么又好了<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "这都能复活啊", "similarity": 0.6569172739982605}
-2025-03-24 14:57:08,668 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<Halb>:复！活！\n<纯粹的涩>:复活了？\n<我是>:复活了\n<华实>:离谱\n<魃>:说明原本就没什么\n\n\n【最新消息】\n<mado>:这群怎么又好了<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "这都能复活啊", "similarity": 0.5228372812271118}
-2025-03-24 14:57:08,668 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<Halb>:复！活！\n<纯粹的涩>:复活了？\n<我是>:复活了\n<华实>:离谱\n<魃>:说明原本就没什么\n\n\n【最新消息】\n<mado>:这群怎么又好了<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "这都能复活啊", "similarity": 0.5956712961196899}
-2025-03-24 14:57:08,668 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<恋一zy>:问问老群有没有老登要吧唧\n\n\n【最新消息】\n<旉怓偵丄>:啥东西<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "第一次做多了第二次做少了", "similarity": 0.43118494749069214}
-2025-03-24 14:57:08,668 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<恋一zy>:问问老群有没有老登要吧唧\n\n\n【最新消息】\n<旉怓偵丄>:啥东西<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "第一次做多了第二次做少了", "similarity": 0.4808887839317322}
-2025-03-24 14:57:08,668 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<恋一zy>:问问老群有没有老登要吧唧\n\n\n【最新消息】\n<旉怓偵丄>:啥东西<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "第一次做多了第二次做少了", "similarity": 0.4973490238189697}
-2025-03-24 14:57:08,668 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<恋一zy>:问问老群有没有老登要吧唧\n\n\n【最新消息】\n<旉怓偵丄>:啥东西<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "第一次做多了第二次做少了", "similarity": 0.40356361865997314}
-2025-03-24 14:57:08,668 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<帽>:罪恶王冠当年是中二四大名著来着吧\n<旉怓偵丄>:大家认真观看罪恶王冠，认真写评论\n\n\n【最新消息】\n<帽>:巨人刀剑王冠喰种<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "准确说是2010-2014年间现象级作品，但王冠的剧本完成度确实不如另外三部", "similarity": 0.4997611939907074}
-2025-03-24 14:57:08,668 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<帽>:罪恶王冠当年是中二四大名著来着吧\n<旉怓偵丄>:大家认真观看罪恶王冠，认真写评论\n\n\n【最新消息】\n<帽>:巨人刀剑王冠喰种<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "准确说是2010-2014年间现象级作品，但王冠的剧本完成度确实不如另外三部", "similarity": 0.6130821108818054}
-2025-03-24 14:57:08,668 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<帽>:罪恶王冠当年是中二四大名著来着吧\n<旉怓偵丄>:大家认真观看罪恶王冠，认真写评论\n\n\n【最新消息】\n<帽>:巨人刀剑王冠喰种<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "准确说是2010-2014年间现象级作品，但王冠的剧本完成度确实不如另外三部", "similarity": 0.6709312200546265}
-2025-03-24 14:57:08,668 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<帽>:罪恶王冠当年是中二四大名著来着吧\n<旉怓偵丄>:大家认真观看罪恶王冠，认真写评论\n\n\n【最新消息】\n<帽>:巨人刀剑王冠喰种<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "准确说是2010-2014年间现象级作品，但王冠的剧本完成度确实不如另外三部", "similarity": 0.6509079337120056}
-2025-03-24 14:57:08,668 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<少年渣>:高效泻药\n<帽>:然后发现过保质期了\n\n\n【最新消息】\n<第七十七>:奶制品过期那真是高效泻药<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "你这酸奶可能还好？毕竟本身就是发酵产品", "similarity": 0.641189455986023}
-2025-03-24 14:57:08,668 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<少年渣>:高效泻药\n<帽>:然后发现过保质期了\n\n\n【最新消息】\n<第七十七>:奶制品过期那真是高效泻药<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "你这酸奶可能还好？毕竟本身就是发酵产品", "similarity": 0.6914432048797607}
-2025-03-24 14:57:08,668 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<少年渣>:高效泻药\n<帽>:然后发现过保质期了\n\n\n【最新消息】\n<第七十七>:奶制品过期那真是高效泻药<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "你这酸奶可能还好？毕竟本身就是发酵产品", "similarity": 0.4340718984603882}
-2025-03-24 14:57:08,668 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<少年渣>:高效泻药\n<帽>:然后发现过保质期了\n\n\n【最新消息】\n<第七十七>:奶制品过期那真是高效泻药<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "你这酸奶可能还好？毕竟本身就是发酵产品", "similarity": 0.44974076747894287}
-2025-03-24 14:57:08,668 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<玖衣江永>:洗菜池还是得接热水管\n<亡霊>:开热水\n\n\n【最新消息】\n<旉怓偵丄>:啥比南方这冬天真不是人呆的<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "洗菜池还是得接热水管", "similarity": 0.685304582118988}
-2025-03-24 14:57:08,668 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<玖衣江永>:洗菜池还是得接热水管\n<亡霊>:开热水\n\n\n【最新消息】\n<旉怓偵丄>:啥比南方这冬天真不是人呆的<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "洗菜池还是得接热水管", "similarity": 0.8501041531562805}
-2025-03-24 14:57:08,668 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<玖衣江永>:洗菜池还是得接热水管\n<亡霊>:开热水\n\n\n【最新消息】\n<旉怓偵丄>:啥比南方这冬天真不是人呆的<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "洗菜池还是得接热水管", "similarity": 0.6306552886962891}
-2025-03-24 14:57:08,668 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<玖衣江永>:洗菜池还是得接热水管\n<亡霊>:开热水\n\n\n【最新消息】\n<旉怓偵丄>:啥比南方这冬天真不是人呆的<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "洗菜池还是得接热水管", "similarity": 0.6439411640167236}
-2025-03-24 14:57:08,668 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<水鸣涧>:磁场强者的事你少管\n<甘蔗>:磁场强者的事你少管\n<水鸣涧>:既然是磁场强者\n<奥尔良香>:这能对吗\n<帽>:然后到武神终极又变成气态了\n\n\n【最新消息】\n<Rumi>:磁场强者在真空中都能呼吸<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "五十级大地震都是随手发动", "similarity": 0.4441821277141571}
-2025-03-24 14:57:08,668 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<水鸣涧>:磁场强者的事你少管\n<甘蔗>:磁场强者的事你少管\n<水鸣涧>:既然是磁场强者\n<奥尔良香>:这能对吗\n<帽>:然后到武神终极又变成气态了\n\n\n【最新消息】\n<Rumi>:磁场强者在真空中都能呼吸<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "五十级大地震都是随手发动", "similarity": 0.44920802116394043}
-2025-03-24 14:57:08,668 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<水鸣涧>:磁场强者的事你少管\n<甘蔗>:磁场强者的事你少管\n<水鸣涧>:既然是磁场强者\n<奥尔良香>:这能对吗\n<帽>:然后到武神终极又变成气态了\n\n\n【最新消息】\n<Rumi>:磁场强者在真空中都能呼吸<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "五十级大地震都是随手发动", "similarity": 0.3974986672401428}
-2025-03-24 14:57:08,668 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<水鸣涧>:磁场强者的事你少管\n<甘蔗>:磁场强者的事你少管\n<水鸣涧>:既然是磁场强者\n<奥尔良香>:这能对吗\n<帽>:然后到武神终极又变成气态了\n\n\n【最新消息】\n<Rumi>:磁场强者在真空中都能呼吸<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "五十级大地震都是随手发动", "similarity": 0.3814047574996948}
-2025-03-24 14:57:08,668 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<亡霊>:宣传这不是害人吗\n<甘蔗>:宣传南区吧\n\n\n【最新消息】\n<普通的魔>:非南区一律劝退<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "另一个吉大东方群已经被南岭小登占领了", "similarity": 0.5714694857597351}
-2025-03-24 14:57:08,668 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<亡霊>:宣传这不是害人吗\n<甘蔗>:宣传南区吧\n\n\n【最新消息】\n<普通的魔>:非南区一律劝退<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "另一个吉大东方群已经被南岭小登占领了", "similarity": 0.6185244917869568}
-2025-03-24 14:57:08,668 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<亡霊>:宣传这不是害人吗\n<甘蔗>:宣传南区吧\n\n\n【最新消息】\n<普通的魔>:非南区一律劝退<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "另一个吉大东方群已经被南岭小登占领了", "similarity": 0.6213467121124268}
-2025-03-24 14:57:08,668 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<亡霊>:宣传这不是害人吗\n<甘蔗>:宣传南区吧\n\n\n【最新消息】\n<普通的魔>:非南区一律劝退<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "另一个吉大东方群已经被南岭小登占领了", "similarity": 0.6121279001235962}
+2025-03-24 14:57:08,667 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<亡霊>:这除去燃料和机械什么的最多挣个八千\n<帽>:偷粮食赚钱只能说想不开了\n\n\n【最新消息】\n<亡霊>:国内一斤粮食比水都便宜<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "主粮不行", "similarity": 0.525423526763916}
+2025-03-24 14:57:08,667 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<亡霊>:这除去燃料和机械什么的最多挣个八千\n<帽>:偷粮食赚钱只能说想不开了\n\n\n【最新消息】\n<亡霊>:国内一斤粮食比水都便宜<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "主粮不行", "similarity": 0.5041468739509583}
+2025-03-24 14:57:08,667 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<亡霊>:这除去燃料和机械什么的最多挣个八千\n<帽>:偷粮食赚钱只能说想不开了\n\n\n【最新消息】\n<亡霊>:国内一斤粮食比水都便宜<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "主粮不行", "similarity": 0.5855194330215454}
+2025-03-24 14:57:08,667 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<亡霊>:这除去燃料和机械什么的最多挣个八千\n<帽>:偷粮食赚钱只能说想不开了\n\n\n【最新消息】\n<亡霊>:国内一斤粮食比水都便宜<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "主粮不行", "similarity": 0.6168660521507263}
+2025-03-24 14:57:08,667 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<Halb>:复！活！\n<纯粹的涩>:复活了？\n<我是>:复活了\n<华实>:离谱\n<魃>:说明原本就没什么\n\n\n【最新消息】\n<mado>:这群怎么又好了<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "这都能复活啊", "similarity": 0.7604544162750244}
+2025-03-24 14:57:08,667 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<Halb>:复！活！\n<纯粹的涩>:复活了？\n<我是>:复活了\n<华实>:离谱\n<魃>:说明原本就没什么\n\n\n【最新消息】\n<mado>:这群怎么又好了<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "这都能复活啊", "similarity": 0.6569172739982605}
+2025-03-24 14:57:08,668 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<Halb>:复！活！\n<纯粹的涩>:复活了？\n<我是>:复活了\n<华实>:离谱\n<魃>:说明原本就没什么\n\n\n【最新消息】\n<mado>:这群怎么又好了<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "这都能复活啊", "similarity": 0.5228372812271118}
+2025-03-24 14:57:08,668 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<Halb>:复！活！\n<纯粹的涩>:复活了？\n<我是>:复活了\n<华实>:离谱\n<魃>:说明原本就没什么\n\n\n【最新消息】\n<mado>:这群怎么又好了<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "这都能复活啊", "similarity": 0.5956712961196899}
+2025-03-24 14:57:08,668 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<恋一zy>:问问老群有没有老登要吧唧\n\n\n【最新消息】\n<旉怓偵丄>:啥东西<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "第一次做多了第二次做少了", "similarity": 0.43118494749069214}
+2025-03-24 14:57:08,668 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<恋一zy>:问问老群有没有老登要吧唧\n\n\n【最新消息】\n<旉怓偵丄>:啥东西<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "第一次做多了第二次做少了", "similarity": 0.4808887839317322}
+2025-03-24 14:57:08,668 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<恋一zy>:问问老群有没有老登要吧唧\n\n\n【最新消息】\n<旉怓偵丄>:啥东西<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "第一次做多了第二次做少了", "similarity": 0.4973490238189697}
+2025-03-24 14:57:08,668 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<恋一zy>:问问老群有没有老登要吧唧\n\n\n【最新消息】\n<旉怓偵丄>:啥东西<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "第一次做多了第二次做少了", "similarity": 0.40356361865997314}
+2025-03-24 14:57:08,668 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<帽>:罪恶王冠当年是中二四大名著来着吧\n<旉怓偵丄>:大家认真观看罪恶王冠，认真写评论\n\n\n【最新消息】\n<帽>:巨人刀剑王冠喰种<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "准确说是2010-2014年间现象级作品，但王冠的剧本完成度确实不如另外三部", "similarity": 0.4997611939907074}
+2025-03-24 14:57:08,668 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<帽>:罪恶王冠当年是中二四大名著来着吧\n<旉怓偵丄>:大家认真观看罪恶王冠，认真写评论\n\n\n【最新消息】\n<帽>:巨人刀剑王冠喰种<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "准确说是2010-2014年间现象级作品，但王冠的剧本完成度确实不如另外三部", "similarity": 0.6130821108818054}
+2025-03-24 14:57:08,668 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<帽>:罪恶王冠当年是中二四大名著来着吧\n<旉怓偵丄>:大家认真观看罪恶王冠，认真写评论\n\n\n【最新消息】\n<帽>:巨人刀剑王冠喰种<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "准确说是2010-2014年间现象级作品，但王冠的剧本完成度确实不如另外三部", "similarity": 0.6709312200546265}
+2025-03-24 14:57:08,668 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<帽>:罪恶王冠当年是中二四大名著来着吧\n<旉怓偵丄>:大家认真观看罪恶王冠，认真写评论\n\n\n【最新消息】\n<帽>:巨人刀剑王冠喰种<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "准确说是2010-2014年间现象级作品，但王冠的剧本完成度确实不如另外三部", "similarity": 0.6509079337120056}
+2025-03-24 14:57:08,668 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<少年渣>:高效泻药\n<帽>:然后发现过保质期了\n\n\n【最新消息】\n<第七十七>:奶制品过期那真是高效泻药<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "你这酸奶可能还好？毕竟本身就是发酵产品", "similarity": 0.641189455986023}
+2025-03-24 14:57:08,668 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<少年渣>:高效泻药\n<帽>:然后发现过保质期了\n\n\n【最新消息】\n<第七十七>:奶制品过期那真是高效泻药<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "你这酸奶可能还好？毕竟本身就是发酵产品", "similarity": 0.6914432048797607}
+2025-03-24 14:57:08,668 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<少年渣>:高效泻药\n<帽>:然后发现过保质期了\n\n\n【最新消息】\n<第七十七>:奶制品过期那真是高效泻药<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "你这酸奶可能还好？毕竟本身就是发酵产品", "similarity": 0.4340718984603882}
+2025-03-24 14:57:08,668 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<少年渣>:高效泻药\n<帽>:然后发现过保质期了\n\n\n【最新消息】\n<第七十七>:奶制品过期那真是高效泻药<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "你这酸奶可能还好？毕竟本身就是发酵产品", "similarity": 0.44974076747894287}
+2025-03-24 14:57:08,668 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<玖衣江永>:洗菜池还是得接热水管\n<亡霊>:开热水\n\n\n【最新消息】\n<旉怓偵丄>:啥比南方这冬天真不是人呆的<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "洗菜池还是得接热水管", "similarity": 0.685304582118988}
+2025-03-24 14:57:08,668 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<玖衣江永>:洗菜池还是得接热水管\n<亡霊>:开热水\n\n\n【最新消息】\n<旉怓偵丄>:啥比南方这冬天真不是人呆的<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "洗菜池还是得接热水管", "similarity": 0.8501041531562805}
+2025-03-24 14:57:08,668 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<玖衣江永>:洗菜池还是得接热水管\n<亡霊>:开热水\n\n\n【最新消息】\n<旉怓偵丄>:啥比南方这冬天真不是人呆的<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "洗菜池还是得接热水管", "similarity": 0.6306552886962891}
+2025-03-24 14:57:08,668 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<玖衣江永>:洗菜池还是得接热水管\n<亡霊>:开热水\n\n\n【最新消息】\n<旉怓偵丄>:啥比南方这冬天真不是人呆的<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "洗菜池还是得接热水管", "similarity": 0.6439411640167236}
+2025-03-24 14:57:08,668 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<水鸣涧>:磁场强者的事你少管\n<甘蔗>:磁场强者的事你少管\n<水鸣涧>:既然是磁场强者\n<奥尔良香>:这能对吗\n<帽>:然后到武神终极又变成气态了\n\n\n【最新消息】\n<Rumi>:磁场强者在真空中都能呼吸<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "五十级大地震都是随手发动", "similarity": 0.4441821277141571}
+2025-03-24 14:57:08,668 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<水鸣涧>:磁场强者的事你少管\n<甘蔗>:磁场强者的事你少管\n<水鸣涧>:既然是磁场强者\n<奥尔良香>:这能对吗\n<帽>:然后到武神终极又变成气态了\n\n\n【最新消息】\n<Rumi>:磁场强者在真空中都能呼吸<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "五十级大地震都是随手发动", "similarity": 0.44920802116394043}
+2025-03-24 14:57:08,668 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<水鸣涧>:磁场强者的事你少管\n<甘蔗>:磁场强者的事你少管\n<水鸣涧>:既然是磁场强者\n<奥尔良香>:这能对吗\n<帽>:然后到武神终极又变成气态了\n\n\n【最新消息】\n<Rumi>:磁场强者在真空中都能呼吸<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "五十级大地震都是随手发动", "similarity": 0.3974986672401428}
+2025-03-24 14:57:08,668 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<水鸣涧>:磁场强者的事你少管\n<甘蔗>:磁场强者的事你少管\n<水鸣涧>:既然是磁场强者\n<奥尔良香>:这能对吗\n<帽>:然后到武神终极又变成气态了\n\n\n【最新消息】\n<Rumi>:磁场强者在真空中都能呼吸<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "五十级大地震都是随手发动", "similarity": 0.3814047574996948}
+2025-03-24 14:57:08,668 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<亡霊>:宣传这不是害人吗\n<甘蔗>:宣传南区吧\n\n\n【最新消息】\n<普通的魔>:非南区一律劝退<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "另一个吉大东方群已经被南岭小登占领了", "similarity": 0.5714694857597351}
+2025-03-24 14:57:08,668 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<亡霊>:宣传这不是害人吗\n<甘蔗>:宣传南区吧\n\n\n【最新消息】\n<普通的魔>:非南区一律劝退<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "另一个吉大东方群已经被南岭小登占领了", "similarity": 0.6185244917869568}
+2025-03-24 14:57:08,668 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<亡霊>:宣传这不是害人吗\n<甘蔗>:宣传南区吧\n\n\n【最新消息】\n<普通的魔>:非南区一律劝退<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "另一个吉大东方群已经被南岭小登占领了", "similarity": 0.6213467121124268}
+2025-03-24 14:57:08,668 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<亡霊>:宣传这不是害人吗\n<甘蔗>:宣传南区吧\n\n\n【最新消息】\n<普通的魔>:非南区一律劝退<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "另一个吉大东方群已经被南岭小登占领了", "similarity": 0.6121279001235962}
 
-Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 26.72it/s]
 
-Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 76.95it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A
+Batches: 100%|##########| 1/1 [00:00<00:00, 26.72it/s]
+
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A
+Batches: 100%|##########| 1/1 [00:00<00:00, 76.95it/s]
 用户消息: 非南区一律劝退
 模型回复: 估计是劝退，不过南区宣传确实有道理，得往南客户多的行业靠
 相似度: 0.6878111362457275
 奖励值: 218.78111362457275
-  0%|          | 4/10000 [01:01<43:33:01, 15.68s/it]                                                    {'loss': 0.0, 'grad_norm': 0.2836568057537079, 'learning_rate': 4e-05, 'rewards/reward_format': 100.0, 'rewards/reward_no_repetition': 0.0, 'rewards/reward_similarity': 773.5487060546875, 'rewards/reward_user_similarity': 139.6456298828125, 'rewards/reward_len_response': -119.71094512939453, 'reward': 893.4834594726562, 'reward_std': 377.07464599609375, 'completion_length': 88.25, 'kl': 0.0011484682327136397, 'epoch': 0.03}
-  0%|          | 4/10000 [01:01<43:33:01, 15.68s/it]
-Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 38.90it/s]
 
-Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 67.84it/s]
+  0%|          | 4/10000 [01:01<43:33:01, 15.68s/it]
+                                                    
+{'loss': 0.0, 'grad_norm': 0.2836568057537079, 'learning_rate': 4e-05, 'rewards/reward_format': 100.0, 'rewards/reward_no_repetition': 0.0, 'rewards/reward_similarity': 773.5487060546875, 'rewards/reward_user_similarity': 139.6456298828125, 'rewards/reward_len_response': -119.71094512939453, 'reward': 893.4834594726562, 'reward_std': 377.07464599609375, 'completion_length': 88.25, 'kl': 0.0011484682327136397, 'epoch': 0.03}
+
+  0%|          | 4/10000 [01:01<43:33:01, 15.68s/it]
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A
+Batches: 100%|##########| 1/1 [00:00<00:00, 38.90it/s]
+
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A
+Batches: 100%|##########| 1/1 [00:00<00:00, 67.84it/s]
 <think>我看到群友在聊网页端领取礼物失败的问题，第七十七反馈操作异常，而W羽天提及通过桌面客户端领取的同场案例。考虑到平台功能差异可能导致机制冲突，且历史消息中已有客户端领取的完成状态，所以我想回复客户端领取途径以提供有效解决方案</think>网页领不了，客户端领了，可能礼物箱里那个是送的
 回答: 网页领不了，客户端领了，可能礼物箱里那个是送的
 标准: 哦，重进了可以领
@@ -345,28 +427,28 @@ Similarity: 0.7471544146537781
 Reward: 2241.4632439613342
 ----------
 ======== 处理了 32 个回答 ========
-2025-03-24 14:57:23,445 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<少年渣>:又怕一锤子给队友全干飞\n<少年渣>:又怕自己踩地火\n\n\n【最新消息】\n<少年渣>:这个真就全凭本事了<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "6重启示奶妈都自顾不暇", "similarity": 0.33098503947257996}
-2025-03-24 14:57:23,446 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<少年渣>:又怕一锤子给队友全干飞\n<少年渣>:又怕自己踩地火\n\n\n【最新消息】\n<少年渣>:这个真就全凭本事了<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "6重启示奶妈都自顾不暇", "similarity": 0.43989330530166626}
-2025-03-24 14:57:23,446 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<少年渣>:又怕一锤子给队友全干飞\n<少年渣>:又怕自己踩地火\n\n\n【最新消息】\n<少年渣>:这个真就全凭本事了<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "6重启示奶妈都自顾不暇", "similarity": 0.47489821910858154}
-2025-03-24 14:57:23,446 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<少年渣>:又怕一锤子给队友全干飞\n<少年渣>:又怕自己踩地火\n\n\n【最新消息】\n<少年渣>:这个真就全凭本事了<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "6重启示奶妈都自顾不暇", "similarity": 0.44925838708877563}
-2025-03-24 14:57:23,446 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<day0>:我现在在玩一个黄油（\n<day0>:女主角要靠羞耻度变身\n<day0>:有live2d和全配音\n\n\n【最新消息】\n<day0>:这在我们rpg小黄油里面已经是高质量的了（<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "以为你说的是正经jrpg", "similarity": 0.5572723150253296}
-2025-03-24 14:57:23,446 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<day0>:我现在在玩一个黄油（\n<day0>:女主角要靠羞耻度变身\n<day0>:有live2d和全配音\n\n\n【最新消息】\n<day0>:这在我们rpg小黄油里面已经是高质量的了（<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "以为你说的是正经jrpg", "similarity": 0.602172315120697}
-2025-03-24 14:57:23,447 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<day0>:我现在在玩一个黄油（\n<day0>:女主角要靠羞耻度变身\n<day0>:有live2d和全配音\n\n\n【最新消息】\n<day0>:这在我们rpg小黄油里面已经是高质量的了（<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "以为你说的是正经jrpg", "similarity": 0.5807715058326721}
-2025-03-24 14:57:23,447 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<day0>:我现在在玩一个黄油（\n<day0>:女主角要靠羞耻度变身\n<day0>:有live2d和全配音\n\n\n【最新消息】\n<day0>:这在我们rpg小黄油里面已经是高质量的了（<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "以为你说的是正经jrpg", "similarity": 0.5109273791313171}
-2025-03-24 14:57:23,447 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<第七十七>:因为大拇指按空格是小学练打字的时候教的\n<水鸣涧>:对哦\n\n\n【最新消息】\n<水鸣涧>:小时候不都教过电脑打字吗（？）<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "不一定都有教", "similarity": 0.3621837794780731}
-2025-03-24 14:57:23,447 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<第七十七>:因为大拇指按空格是小学练打字的时候教的\n<水鸣涧>:对哦\n\n\n【最新消息】\n<水鸣涧>:小时候不都教过电脑打字吗（？）<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "不一定都有教", "similarity": 0.5142225623130798}
-2025-03-24 14:57:23,447 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<第七十七>:因为大拇指按空格是小学练打字的时候教的\n<水鸣涧>:对哦\n\n\n【最新消息】\n<水鸣涧>:小时候不都教过电脑打字吗（？）<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "不一定都有教", "similarity": 0.3611561059951782}
-2025-03-24 14:57:23,448 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<第七十七>:因为大拇指按空格是小学练打字的时候教的\n<水鸣涧>:对哦\n\n\n【最新消息】\n<水鸣涧>:小时候不都教过电脑打字吗（？）<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "不一定都有教", "similarity": 0.4097018837928772}
-2025-03-24 14:57:23,448 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<旉怓偵丄>:米米世界今天下架了\n<三号>:本来还说这个赛季打ba jjc当根批的\n\n\n【最新消息】\n<三号>:结果最近连环爆破<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "之前是总力战开私服摸轴，现在是大主播jjc透视", "similarity": 0.713036298751831}
-2025-03-24 14:57:23,448 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<旉怓偵丄>:米米世界今天下架了\n<三号>:本来还说这个赛季打ba jjc当根批的\n\n\n【最新消息】\n<三号>:结果最近连环爆破<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "之前是总力战开私服摸轴，现在是大主播jjc透视", "similarity": 0.6085823178291321}
-2025-03-24 14:57:23,448 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<旉怓偵丄>:米米世界今天下架了\n<三号>:本来还说这个赛季打ba jjc当根批的\n\n\n【最新消息】\n<三号>:结果最近连环爆破<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "之前是总力战开私服摸轴，现在是大主播jjc透视", "similarity": 0.5443377494812012}
-2025-03-24 14:57:23,448 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<旉怓偵丄>:米米世界今天下架了\n<三号>:本来还说这个赛季打ba jjc当根批的\n\n\n【最新消息】\n<三号>:结果最近连环爆破<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "之前是总力战开私服摸轴，现在是大主播jjc透视", "similarity": 0.558076024055481}
-2025-03-24 14:57:23,448 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<帽>:因为本体太弱了打尤里也用不上\n\n\n【最新消息】\n<W羽天>:毕竟打不了潜艇<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "倒是海战图，海上移动特性有别的用处", "similarity": 0.6285877823829651}
-2025-03-24 14:57:23,448 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<帽>:因为本体太弱了打尤里也用不上\n\n\n【最新消息】\n<W羽天>:毕竟打不了潜艇<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "倒是海战图，海上移动特性有别的用处", "similarity": 0.4984431564807892}
-2025-03-24 14:57:23,448 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<帽>:因为本体太弱了打尤里也用不上\n\n\n【最新消息】\n<W羽天>:毕竟打不了潜艇<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "倒是海战图，海上移动特性有别的用处", "similarity": 0.583268404006958}
-2025-03-24 14:57:23,448 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<帽>:因为本体太弱了打尤里也用不上\n\n\n【最新消息】\n<W羽天>:毕竟打不了潜艇<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "倒是海战图，海上移动特性有别的用处", "similarity": 0.5456322431564331}
-2025-03-24 14:57:23,448 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<Rumi>:娶群友\n<day3>:牛魔群回来了就开始保独是吧\n\n\n【最新消息】\n<汽车人神>:闹离婚<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "离婚成功力", "similarity": 0.3851410746574402}
-2025-03-24 14:57:23,449 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<Rumi>:娶群友\n<day3>:牛魔群回来了就开始保独是吧\n\n\n【最新消息】\n<汽车人神>:闹离婚<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "离婚成功力", "similarity": 0.46434110403060913}
+2025-03-24 14:57:23,445 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<少年渣>:又怕一锤子给队友全干飞\n<少年渣>:又怕自己踩地火\n\n\n【最新消息】\n<少年渣>:这个真就全凭本事了<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "6重启示奶妈都自顾不暇", "similarity": 0.33098503947257996}
+2025-03-24 14:57:23,446 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<少年渣>:又怕一锤子给队友全干飞\n<少年渣>:又怕自己踩地火\n\n\n【最新消息】\n<少年渣>:这个真就全凭本事了<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "6重启示奶妈都自顾不暇", "similarity": 0.43989330530166626}
+2025-03-24 14:57:23,446 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<少年渣>:又怕一锤子给队友全干飞\n<少年渣>:又怕自己踩地火\n\n\n【最新消息】\n<少年渣>:这个真就全凭本事了<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "6重启示奶妈都自顾不暇", "similarity": 0.47489821910858154}
+2025-03-24 14:57:23,446 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<少年渣>:又怕一锤子给队友全干飞\n<少年渣>:又怕自己踩地火\n\n\n【最新消息】\n<少年渣>:这个真就全凭本事了<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "6重启示奶妈都自顾不暇", "similarity": 0.44925838708877563}
+2025-03-24 14:57:23,446 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<day0>:我现在在玩一个黄油（\n<day0>:女主角要靠羞耻度变身\n<day0>:有live2d和全配音\n\n\n【最新消息】\n<day0>:这在我们rpg小黄油里面已经是高质量的了（<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "以为你说的是正经jrpg", "similarity": 0.5572723150253296}
+2025-03-24 14:57:23,446 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<day0>:我现在在玩一个黄油（\n<day0>:女主角要靠羞耻度变身\n<day0>:有live2d和全配音\n\n\n【最新消息】\n<day0>:这在我们rpg小黄油里面已经是高质量的了（<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "以为你说的是正经jrpg", "similarity": 0.602172315120697}
+2025-03-24 14:57:23,447 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<day0>:我现在在玩一个黄油（\n<day0>:女主角要靠羞耻度变身\n<day0>:有live2d和全配音\n\n\n【最新消息】\n<day0>:这在我们rpg小黄油里面已经是高质量的了（<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "以为你说的是正经jrpg", "similarity": 0.5807715058326721}
+2025-03-24 14:57:23,447 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<day0>:我现在在玩一个黄油（\n<day0>:女主角要靠羞耻度变身\n<day0>:有live2d和全配音\n\n\n【最新消息】\n<day0>:这在我们rpg小黄油里面已经是高质量的了（<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "以为你说的是正经jrpg", "similarity": 0.5109273791313171}
+2025-03-24 14:57:23,447 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<第七十七>:因为大拇指按空格是小学练打字的时候教的\n<水鸣涧>:对哦\n\n\n【最新消息】\n<水鸣涧>:小时候不都教过电脑打字吗（？）<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "不一定都有教", "similarity": 0.3621837794780731}
+2025-03-24 14:57:23,447 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<第七十七>:因为大拇指按空格是小学练打字的时候教的\n<水鸣涧>:对哦\n\n\n【最新消息】\n<水鸣涧>:小时候不都教过电脑打字吗（？）<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "不一定都有教", "similarity": 0.5142225623130798}
+2025-03-24 14:57:23,447 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<第七十七>:因为大拇指按空格是小学练打字的时候教的\n<水鸣涧>:对哦\n\n\n【最新消息】\n<水鸣涧>:小时候不都教过电脑打字吗（？）<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "不一定都有教", "similarity": 0.3611561059951782}
+2025-03-24 14:57:23,448 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<第七十七>:因为大拇指按空格是小学练打字的时候教的\n<水鸣涧>:对哦\n\n\n【最新消息】\n<水鸣涧>:小时候不都教过电脑打字吗（？）<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "不一定都有教", "similarity": 0.4097018837928772}
+2025-03-24 14:57:23,448 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<旉怓偵丄>:米米世界今天下架了\n<三号>:本来还说这个赛季打ba jjc当根批的\n\n\n【最新消息】\n<三号>:结果最近连环爆破<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "之前是总力战开私服摸轴，现在是大主播jjc透视", "similarity": 0.713036298751831}
+2025-03-24 14:57:23,448 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<旉怓偵丄>:米米世界今天下架了\n<三号>:本来还说这个赛季打ba jjc当根批的\n\n\n【最新消息】\n<三号>:结果最近连环爆破<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "之前是总力战开私服摸轴，现在是大主播jjc透视", "similarity": 0.6085823178291321}
+2025-03-24 14:57:23,448 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<旉怓偵丄>:米米世界今天下架了\n<三号>:本来还说这个赛季打ba jjc当根批的\n\n\n【最新消息】\n<三号>:结果最近连环爆破<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "之前是总力战开私服摸轴，现在是大主播jjc透视", "similarity": 0.5443377494812012}
+2025-03-24 14:57:23,448 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<旉怓偵丄>:米米世界今天下架了\n<三号>:本来还说这个赛季打ba jjc当根批的\n\n\n【最新消息】\n<三号>:结果最近连环爆破<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "之前是总力战开私服摸轴，现在是大主播jjc透视", "similarity": 0.558076024055481}
+2025-03-24 14:57:23,448 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<帽>:因为本体太弱了打尤里也用不上\n\n\n【最新消息】\n<W羽天>:毕竟打不了潜艇<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "倒是海战图，海上移动特性有别的用处", "similarity": 0.6285877823829651}
+2025-03-24 14:57:23,448 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<帽>:因为本体太弱了打尤里也用不上\n\n\n【最新消息】\n<W羽天>:毕竟打不了潜艇<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "倒是海战图，海上移动特性有别的用处", "similarity": 0.4984431564807892}
+2025-03-24 14:57:23,448 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<帽>:因为本体太弱了打尤里也用不上\n\n\n【最新消息】\n<W羽天>:毕竟打不了潜艇<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "倒是海战图，海上移动特性有别的用处", "similarity": 0.583268404006958}
+2025-03-24 14:57:23,448 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<帽>:因为本体太弱了打尤里也用不上\n\n\n【最新消息】\n<W羽天>:毕竟打不了潜艇<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "倒是海战图，海上移动特性有别的用处", "similarity": 0.5456322431564331}
+2025-03-24 14:57:23,448 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<Rumi>:娶群友\n<day3>:牛魔群回来了就开始保独是吧\n\n\n【最新消息】\n<汽车人神>:闹离婚<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "离婚成功力", "similarity": 0.3851410746574402}
+2025-03-24 14:57:23,449 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<Rumi>:娶群友\n<day3>:牛魔群回来了就开始保独是吧\n\n\n【最新消息】\n<汽车人神>:闹离婚<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "离婚成功力", "similarity": 0.46434110403060913}
 2025-03-24 14:57:23,449 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<Rumi>:娶群友\n<day3>:牛魔群回来了就开始保独是吧\n\n\n【最新消息】\n<汽车人神>:闹离婚<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "离婚成功力", "similarity": 0.38592711091041565}
 2025-03-24 14:57:23,449 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<Rumi>:娶群友\n<day3>:牛魔群回来了就开始保独是吧\n\n\n【最新消息】\n<汽车人神>:闹离婚<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "离婚成功力", "similarity": 0.6480503082275391}
 2025-03-24 14:57:23,449 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<帽>:暖暖攻略评论区都是骂新深渊的\n<水鸣涧>:难绷\n\n\n【最新消息】\n<帽>:想不加点过至少要鲨鱼套/5星池/相机套，都是池子里的<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "不然就去点满无限之心", "similarity": 0.5193384289741516}
@@ -378,18 +460,30 @@ Reward: 2241.4632439613342
 2025-03-24 14:57:23,449 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<W羽天>:领完在礼物箱里\n<W羽天>:网页上领取\n\n\n【最新消息】\n<第七十七>:领不了啊<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "哦，重进了可以领", "similarity": 0.6194922924041748}
 2025-03-24 14:57:23,450 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<W羽天>:领完在礼物箱里\n<W羽天>:网页上领取\n\n\n【最新消息】\n<第七十七>:领不了啊<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "哦，重进了可以领", "similarity": 0.7471544146537781}
 
-Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 39.51it/s]
 
-Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 61.42it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A
+Batches: 100%|##########| 1/1 [00:00<00:00, 39.51it/s]
+
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A
+Batches: 100%|##########| 1/1 [00:00<00:00, 61.42it/s]
 用户消息: 领不了啊
 模型回复: 网页上领取，箱子里领不了
 相似度: 0.6998646259307861
 奖励值: 219.9864625930786
-  0%|          | 5/10000 [01:17<44:01:33, 15.86s/it]                                                    {'loss': 0.0001, 'grad_norm': 0.292155921459198, 'learning_rate': 5e-05, 'rewards/reward_format': 95.0, 'rewards/reward_no_repetition': 0.0, 'rewards/reward_similarity': 804.9166259765625, 'rewards/reward_user_similarity': 162.02926635742188, 'rewards/reward_len_response': -158.87872314453125, 'reward': 903.067138671875, 'reward_std': 384.6287841796875, 'completion_length': 91.6875, 'kl': 0.0015268407296389341, 'epoch': 0.04}
-  0%|          | 5/10000 [01:17<44:01:33, 15.86s/it]
-Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 31.04it/s]
 
-Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 45.73it/s]
+  0%|          | 5/10000 [01:17<44:01:33, 15.86s/it]
+                                                    
+{'loss': 0.0001, 'grad_norm': 0.292155921459198, 'learning_rate': 5e-05, 'rewards/reward_format': 95.0, 'rewards/reward_no_repetition': 0.0, 'rewards/reward_similarity': 804.9166259765625, 'rewards/reward_user_similarity': 162.02926635742188, 'rewards/reward_len_response': -158.87872314453125, 'reward': 903.067138671875, 'reward_std': 384.6287841796875, 'completion_length': 91.6875, 'kl': 0.0015268407296389341, 'epoch': 0.04}
+
+  0%|          | 5/10000 [01:17<44:01:33, 15.86s/it]
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A
+Batches: 100%|##########| 1/1 [00:00<00:00, 31.04it/s]
+
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A
+Batches: 100%|##########| 1/1 [00:00<00:00, 45.73it/s]
 <think>我看到群友在聊土豆压泥器的购买需求，注意到该装置需要配套容器储存土豆泥。根据群友先前讨论的开放容器问题，需要提供替代存储方案。所以我想回复专业存储容器建议，延续设备使用场景的讨论逻辑。</think>土豆压泥器可以买，土豆泥倒进修饰碗，上面放点西红柿片散寒，更高端一些（）
 回答: 土豆压泥器可以买，土豆泥倒进修饰碗，上面放点西红柿片散寒，更高端一些（）
 标准: 拿出来一拳就是土豆泥了(?
@@ -402,7 +496,7 @@ Reward: 2117.867588996887
 Similarity: 0.7538973689079285
 Reward: 2261.6921067237854
 ----------
-<think>我看到群友在聊长笛演奏时身体支撑的细节问题，前文提到手指位置和指法问题，最新消息中集中反映嘴巴与手臂的协同难度。根据物理力学原理，演奏时头部与手部动作存在联动效应，头部姿态变化会影响气息支持的稳定性。所以我想回复通过调整头部姿势来间接解决整体稳定性问题，延续物理动作优化的逻辑路径。</think>估计是嘴巴问题，控制好头的位置会好一些
+<think>我看到群友在聊长笛演奏时身体支撑的细节问题，前文提到手指位置和指法问题，最新消息中集中反映嘴巴与手臂的协同难度。根据物理力学原理，演奏时头部与手部动作存在联动效应，头部姿态变化会影响气息支持的稳定性。所以我想回复通过调整头部姿势来间接解决整体稳定性问题，延续物理动作优化的逻辑路径。</think>估计是
 回答: 估计是嘴巴问题，控制好头的位置会好一些
 标准: 因为一般嘴巴是在孔的上面嘛。所以要让气息往下吹。那个嘴型挺抽象的，整久了腮帮子酸
 Similarity: 0.7543798089027405
@@ -417,14 +511,14 @@ Similarity: 0.8094592690467834
 Reward: 2428.3778071403503
 ----------
 ======== 处理了 32 个回答 ========
-2025-03-24 14:57:39,797 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<奥尔良香>:往里边加一些沙拉酱\n<帽>:冰箱里还有红肠\n\n\n【最新消息】\n<帽>:应该买个土豆压泥器<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "拿出来一拳就是土豆泥了(?", "similarity": 0.6564459800720215}
-2025-03-24 14:57:39,797 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<奥尔良香>:往里边加一些沙拉酱\n<帽>:冰箱里还有红肠\n\n\n【最新消息】\n<帽>:应该买个土豆压泥器<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "拿出来一拳就是土豆泥了(?", "similarity": 0.7059558629989624}
-2025-03-24 14:57:39,797 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<奥尔良香>:往里边加一些沙拉酱\n<帽>:冰箱里还有红肠\n\n\n【最新消息】\n<帽>:应该买个土豆压泥器<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "拿出来一拳就是土豆泥了(?", "similarity": 0.7538973689079285}
-2025-03-24 14:57:39,797 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<奥尔良香>:往里边加一些沙拉酱\n<帽>:冰箱里还有红肠\n\n\n【最新消息】\n<帽>:应该买个土豆压泥器<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "拿出来一拳就是土豆泥了(?", "similarity": 0.8094592690467834}
-2025-03-24 14:57:39,797 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<帽>:日本大学是这样的吗\n<Kuzu>:吉田寮住一年就老实了\n\n\n【最新消息】\n<帽>:东大这种也是吗<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "应该有寄宿吧", "similarity": 0.5597771406173706}
-2025-03-24 14:57:39,797 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<帽>:日本大学是这样的吗\n<Kuzu>:吉田寮住一年就老实了\n\n\n【最新消息】\n<帽>:东大这种也是吗<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "应该有寄宿吧", "similarity": 0.6110645532608032}
-2025-03-24 14:57:39,797 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<帽>:日本大学是这样的吗\n<Kuzu>:吉田寮住一年就老实了\n\n\n【最新消息】\n<帽>:东大这种也是吗<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "应该有寄宿吧", "similarity": 0.6567070484161377}
-2025-03-24 14:57:39,797 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<帽>:日本大学是这样的吗\n<Kuzu>:吉田寮住一年就老实了\n\n\n【最新消息】\n<帽>:东大这种也是吗<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "应该有寄宿吧", "similarity": 0.6060552000999451}
+2025-03-24 14:57:39,797 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<奥尔良香>:往里边加一些沙拉酱\n<帽>:冰箱里还有红肠\n\n\n【最新消息】\n<帽>:应该买个土豆压泥器<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "拿出来一拳就是土豆泥了(?", "similarity": 0.6564459800720215}
+2025-03-24 14:57:39,797 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<奥尔良香>:往里边加一些沙拉酱\n<帽>:冰箱里还有红肠\n\n\n【最新消息】\n<帽>:应该买个土豆压泥器<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "拿出来一拳就是土豆泥了(?", "similarity": 0.7059558629989624}
+2025-03-24 14:57:39,797 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<奥尔良香>:往里边加一些沙拉酱\n<帽>:冰箱里还有红肠\n\n\n【最新消息】\n<帽>:应该买个土豆压泥器<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "拿出来一拳就是土豆泥了(?", "similarity": 0.7538973689079285}
+2025-03-24 14:57:39,797 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<奥尔良香>:往里边加一些沙拉酱\n<帽>:冰箱里还有红肠\n\n\n【最新消息】\n<帽>:应该买个土豆压泥器<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "拿出来一拳就是土豆泥了(?", "similarity": 0.8094592690467834}
+2025-03-24 14:57:39,797 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<帽>:日本大学是这样的吗\n<Kuzu>:吉田寮住一年就老实了\n\n\n【最新消息】\n<帽>:东大这种也是吗<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "应该有寄宿吧", "similarity": 0.5597771406173706}
+2025-03-24 14:57:39,797 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<帽>:日本大学是这样的吗\n<Kuzu>:吉田寮住一年就老实了\n\n\n【最新消息】\n<帽>:东大这种也是吗<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "应该有寄宿吧", "similarity": 0.6110645532608032}
+2025-03-24 14:57:39,797 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<帽>:日本大学是这样的吗\n<Kuzu>:吉田寮住一年就老实了\n\n\n【最新消息】\n<帽>:东大这种也是吗<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "应该有寄宿吧", "similarity": 0.6567070484161377}
+2025-03-24 14:57:39,797 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<帽>:日本大学是这样的吗\n<Kuzu>:吉田寮住一年就老实了\n\n\n【最新消息】\n<帽>:东大这种也是吗<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "应该有寄宿吧", "similarity": 0.6060552000999451}
 2025-03-24 14:57:39,797 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<帽>:开完会直接润\n<帽>:给同事打电话帮我保存下打开的文件\n<帽>:我直接润了\n\n\n【最新消息】\n<帽>:再走30分钟受不了<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "今天最低气温-28", "similarity": 0.33456090092658997}
 2025-03-24 14:57:39,797 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<帽>:开完会直接润\n<帽>:给同事打电话帮我保存下打开的文件\n<帽>:我直接润了\n\n\n【最新消息】\n<帽>:再走30分钟受不了<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "今天最低气温-28", "similarity": 0.1876455545425415}
 2025-03-24 14:57:39,797 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<帽>:开完会直接润\n<帽>:给同事打电话帮我保存下打开的文件\n<帽>:我直接润了\n\n\n【最新消息】\n<帽>:再走30分钟受不了<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "今天最低气温-28", "similarity": 0.1886259913444519}
@@ -450,18 +544,30 @@ Reward: 2428.3778071403503
 2025-03-24 14:57:39,798 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<少年渣>:不会没事去杀他的进程\n<集华芯黄>:确实\n\n\n【最新消息】\n<集华芯黄>:用软件禁用Qt网络时可能出现<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "那我应该自己玩的话不会遇到这种问题", "similarity": 0.574868381023407}
 2025-03-24 14:57:39,798 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<少年渣>:不会没事去杀他的进程\n<集华芯黄>:确实\n\n\n【最新消息】\n<集华芯黄>:用软件禁用Qt网络时可能出现<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "那我应该自己玩的话不会遇到这种问题", "similarity": 0.570022702217102}
 
-Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 27.88it/s]
 
-Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 65.19it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A
+Batches: 100%|##########| 1/1 [00:00<00:00, 27.88it/s]
+
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A
+Batches: 100%|##########| 1/1 [00:00<00:00, 65.19it/s]
 用户消息: 用软件禁用Qt网络时可能出现
 模型回复: 估计确实禁用这个库我禁用过几个程序，似乎这个库都会出点问题
 相似度: 0.6913450360298157
 奖励值: 219.13450360298157
-  0%|          | 6/10000 [01:33<44:14:02, 15.93s/it]                                                    {'loss': 0.0001, 'grad_norm': 0.30734309554100037, 'learning_rate': 6e-05, 'rewards/reward_format': 97.8125, 'rewards/reward_no_repetition': 0.0, 'rewards/reward_similarity': 864.6395263671875, 'rewards/reward_user_similarity': 147.8717803955078, 'rewards/reward_len_response': -131.5328826904297, 'reward': 978.7909545898438, 'reward_std': 421.61212158203125, 'completion_length': 83.8125, 'kl': 0.0028195460326969624, 'epoch': 0.05}
-  0%|          | 6/10000 [01:33<44:14:02, 15.93s/it]
-Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 23.00it/s]
 
-Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 63.39it/s]
+  0%|          | 6/10000 [01:33<44:14:02, 15.93s/it]
+                                                    
+{'loss': 0.0001, 'grad_norm': 0.30734309554100037, 'learning_rate': 6e-05, 'rewards/reward_format': 97.8125, 'rewards/reward_no_repetition': 0.0, 'rewards/rewa4.6395263671875, 'rewards/reward_user_similarity': 147.8717803955078, 'rewards/reward_len_response': -131.5328826904297, 'reward': 978.7909545898438, 'reward_std': 421.61212158203125, 'completion_length': 83.8125, 'kl': 0.0028195460326969624, 'epoch': 0.05}
+
+  0%|          | 6/10000 [01:33<44:14:02, 15.93s/it]
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A
+Batches: 100%|##########| 1/1 [00:00<00:00, 23.00it/s]
+
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A
+Batches: 100%|##########| 1/1 [00:00<00:00, 63.39it/s]
 <think>我看到群友在聊动画《钢颚》的剧情伏笔，<帽>的发言已铺垫设定推理基础，<阿黑路西>的提问存在明确答案逻辑链，需依托前文对人物背景的讨论给出结论。所以我想回复乎乎的表现特征与剧情伏笔的关联性。</think>来搞笑的也是，乎乎这货估计是钢颚最强大的武器，要不是编剧估计不会出这个伏笔
 回答: 来搞笑的也是，乎乎这货估计是钢颚最强大的武器，要不是编剧估计不会出这个伏笔
 标准: 前情提要里的钢颚才是真隐藏BOSS
@@ -520,18 +626,30 @@ Reward: 2289.904475212097
 2025-03-24 14:57:55,127 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<旉怓偵丄>:我不想再一天工作十三四个小时了\n<旉怓偵丄>:不知道 该怎么办\n\n\n【最新消息】\n<普通的魔>:你在上班？<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "我在复制粘贴", "similarity": 0.31041786074638367}
 2025-03-24 14:57:55,127 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<旉怓偵丄>:我不想再一天工作十三四个小时了\n<旉怓偵丄>:不知道 该怎么办\n\n\n【最新消息】\n<普通的魔>:你在上班？<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "我在复制粘贴", "similarity": 0.3521096110343933}
 
-Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 21.77it/s]
 
-Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 71.40it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A
+Batches: 100%|##########| 1/1 [00:00<00:00, 21.77it/s]
+
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A
+Batches: 100%|##########| 1/1 [00:00<00:00, 71.40it/s]
 用户消息: 学历骑士
 模型回复: 学历高了工作也搞不懂，学历骑士
 相似度: 0.679908275604248
 奖励值: 217.9908275604248
-  0%|          | 7/10000 [01:49<43:35:19, 15.70s/it]                                                    {'loss': 0.0003, 'grad_norm': 0.2813970148563385, 'learning_rate': 7e-05, 'rewards/reward_format': 97.5, 'rewards/reward_no_repetition': 0.0, 'rewards/reward_similarity': 751.7859497070312, 'rewards/reward_user_similarity': 166.3541259765625, 'rewards/reward_len_response': -187.38858032226562, 'reward': 828.25146484375, 'reward_std': 376.08837890625, 'completion_length': 88.15625, 'kl': 0.006807770114392042, 'epoch': 0.05}
-  0%|          | 7/10000 [01:49<43:35:19, 15.70s/it]
-Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 17.64it/s]
 
-Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 59.65it/s]
+  0%|          | 7/10000 [01:49<43:35:19, 15.70s/it]
+                                                    
+{'loss': 0.0003, 'grad_norm': 0.2813970148563385, 'learning_rate': 7e-05, 'rewards/reward_format': 97.5, 'rewards/reward_no_repetition': 0.0, 'rewards/reward_s59497070312, 'rewards/reward_user_similarity': 166.3541259765625, 'rewards/reward_len_response': -187.38858032226562, 'reward': 828.25146484375, 'reward_std': 376.08837890625, 'completion_length': 88.15625, 'kl': 0.006807770114392042, 'epoch': 0.05}
+
+  0%|          | 7/10000 [01:49<43:35:19, 15.70s/it]
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A
+Batches: 100%|##########| 1/1 [00:00<00:00, 17.64it/s]
+
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A
+Batches: 100%|##########| 1/1 [00:00<00:00, 59.65it/s]
 <think>我看到群友在聊酸菜的地区差异，兔姨指出酸菜在北方的特点，根据上下文逻辑，需要强调不同地区的口味差异，所以我想回复具体说明南方酸菜的特征来完善对话结构。</think>酸菜这边的确实不太一样，估计是南方的
 回答: 酸菜这边的确实不太一样，估计是南方的
 标准: 南方酸菜
@@ -590,18 +708,30 @@ Reward: 2465.0888442993164
 2025-03-24 14:58:12,976 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<旉怓偵丄>:我把npc送的驱虫香浪费了一个\n<旉怓偵丄>:额好像卡主线了\n<W羽天>:要贴边走\n\n\n【最新消息】\n<旉怓偵丄>:这个能自己手动获取吗<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "能合成的", "similarity": 0.6027846336364746}
 2025-03-24 14:58:12,976 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<旉怓偵丄>:我把npc送的驱虫香浪费了一个\n<旉怓偵丄>:额好像卡主线了\n<W羽天>:要贴边走\n\n\n【最新消息】\n<旉怓偵丄>:这个能自己手动获取吗<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "能合成的", "similarity": 0.5622807145118713}
 
-Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 20.09it/s]
 
-Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 52.91it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A
+Batches: 100%|##########| 1/1 [00:00<00:00, 20.09it/s]
+
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A
+Batches: 100%|##########| 1/1 [00:00<00:00, 52.91it/s]
 用户消息: 哦对 就有个问题 码片的时候
 模型回复: 可能出片的时候码片那部分问题不大 只是切片时候容易掉
 相似度: 0.6927769184112549
 奖励值: 219.2776918411255
-  0%|          | 8/10000 [02:09<47:32:44, 17.13s/it]                                                    {'loss': 0.0003, 'grad_norm': 0.25922781229019165, 'learning_rate': 8e-05, 'rewards/reward_format': 100.0, 'rewards/reward_no_repetition': 0.0, 'rewards/reward_similarity': 1180.5667724609375, 'rewards/reward_user_similarity': 126.54583740234375, 'rewards/reward_len_response': -211.94375610351562, 'reward': 1195.1688232421875, 'reward_std': 255.2864990234375, 'completion_length': 95.84375, 'kl': 0.006980226840823889, 'epoch': 0.06}
-  0%|          | 8/10000 [02:09<47:32:44, 17.13s/it]
-Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 21.04it/s]
 
-Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 68.17it/s]
+  0%|          | 8/10000 [02:09<47:32:44, 17.13s/it]
+                                                    
+{'loss': 0.0003, 'grad_norm': 0.25922781229019165, 'learning_rate': 8e-05, 'rewards/reward_format': 100.0, 'rewards/reward_no_repetition': 0.0, 'rewards/reward_similarity': 1180.5667724609375, 'rewards/reward_user_similarity': 126.54583740234375, 'rewards/reward_len_response': -211.94375610351562, 'reward': 1195.1688232421875, 'reward_std': 255.2864990234375, 'completion_length': 95.84375, 'kl': 0.006980226840823889, 'epoch': 0.06}
+
+  0%|          | 8/10000 [02:09<47:32:44, 17.13s/it]
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A
+Batches: 100%|##########| 1/1 [00:00<00:00, 21.04it/s]
+
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A
+Batches: 100%|##########| 1/1 [00:00<00:00, 68.17it/s]
 <think>我看到群友在聊游戏核心玩法价值，W羽天指出游戏性衰退，少年渣从玩家群体角度补充说明平台存续条件。少年渣的发言将前置讨论的核心观点系统化总结，符合从现象推导本质的递进逻辑链。所以我想回复少年渣的结论性陈述，建立完整因果链条。</think>反正之前没怎么玩过，估计老东西玩的也是因为BZY真的没活了才留下的，估计等真没玩的他也会走（）
 回答: 反正之前没怎么玩过，估计老东西玩的也是因为BZY真的没活了才留下的，估计等真没玩的他也会走（）
 标准: 虽然但是，也就作为社交游戏了
@@ -660,15 +790,23 @@ Reward: 2319.0711736679077
 2025-03-24 14:58:31,755 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<W羽天>:现在游戏性快死了\n<帽>:但是你狒我从入坑开始就不觉得哪个玩法好玩啊。。。只是社交工具打发时间罢了\n\n\n【最新消息】\n<少年渣>:要是新的BZY也没活的话估计就真只剩下老东西在玩了<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "虽然但是，也就作为社交游戏了", "similarity": 0.6640800833702087}
 2025-03-24 14:58:31,756 - INFO - {"prompt": "<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复最新消息，禁止重复历史消息\n\n【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复\n\n【历史消息】\n<W羽天>:现在游戏性快死了\n<帽>:但是你狒我从入坑开始就不觉得哪个玩法好玩啊。。。只是社交工具打发时间罢了\n\n\n【最新消息】\n<少年渣>:要是新的BZY也没活的话估计就真只剩下老东西在玩了<|im_end|>\n<|im_start|>assistant\n<think>", "answer": "虽然但是，也就作为社交游戏了", "similarity": 0.6720895767211914}
 
-Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 19.76it/s]
 
-Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 56.26it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A
+Batches: 100%|##########| 1/1 [00:00<00:00, 19.76it/s]
+
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][A
+Batches: 100%|##########| 1/1 [00:00<00:00, 56.26it/s]
 用户消息: 公司就nm剩保安和上夜班的了
 模型回复: 不过估计是夜班还在上，白天全去隔离了
 相似度: 0.685795783996582
 奖励值: 218.5795783996582
-  0%|          | 9/10000 [02:26<47:45:47, 17.21s/it]                                                    {'loss': 0.0008, 'grad_norm': 0.2986198365688324, 'learning_rate': 9e-05, 'rewards/reward_format': 100.0, 'rewards/reward_no_repetition': 0.0, 'rewards/reward_similarity': 834.7359619140625, 'rewards/reward_user_similarity': 134.10098266601562, 'rewards/reward_len_response': -99.39105224609375, 'reward': 969.4458618164062, 'reward_std': 335.04522705078125, 'completion_length': 84.3125, 'kl': 0.02007674239575863, 'epoch': 0.07}
-  0%|          | 9/10000 [02:26<47:45:47, 17.21s/it][rank0]: Traceback (most recent call last):
+
+  0%|          | 9/10000 [02:26<47:45:47, 17.21s/it]
+                                                    
+{'loss': 0.0008, 'grad_norm': 0.2986198365688324, 'learning_rate': 9e-05, 'rewards/reward_format': 100.0, 'rewards/reward_no_repetition': 0.0, 'rewards/reward_similarity': 834.7359619140625, 'rewards/reward_user_similarity': 134.10098266601562, 'rewards/reward_len_response': -99.39105224609375, 'reward': 969.4458618164062, 'reward_std': 335.04522705078125, 'completion_length': 84.3125, 'kl': 0.02007674239575863, 'epoch': 0.07}
+
+  0%|          | 9/10000 [02:26<47:45:47, 17.21s/it][rank0]: Traceback (most recent call last):
 [rank0]:   File "/home/ubuntu/LLaMA-Factory/grpo.py", line 219, in <module>
 [rank0]:     trainer.train()
 [rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/transformers/trainer.py", line 2245, in train

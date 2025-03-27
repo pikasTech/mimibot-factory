@@ -79,12 +79,14 @@ if __name__ == "__main__":
     # MODEL_PATH = '/root/autodl-fs/models/mimibot_l3_v0.9'
     # MODEL_PATH = 'output/mimibot_tifa_v1.2'
     # MODEL_PATH = 'results/mimibot_tifa/checkpoint-1500'
-    MODEL_PATH = 'output/mimibot_tifa_v3.0'
+    # MODEL_PATH = 'output/mimibot_tifa_v3.0'
     # MODEL_PATH = 'models/Tifa-DeepsexV2-7b-Cot-0317-F16'
+    # MODEL_PATH = 'output/mimibot_tifa_v3.6'
+    MODEL_PATH = 'output/mimibot_l3_v1.1'
 
-    max_seq_length = 2048  # Can increase for longer reasoning traces
+    max_seq_length = 1024  # Can increase for longer reasoning traces
     lora_rank = 64
-    max_data_length = 512 # 1k examples
+    max_data_length = 4096 # 1k examples
 
     print(f"加载模型: {MODEL_PATH}")
     model, tokenizer = FastLanguageModel.from_pretrained(
@@ -104,7 +106,7 @@ if __name__ == "__main__":
             "q_proj", "k_proj", "v_proj", "o_proj",
             "gate_proj", "up_proj", "down_proj",
         ],
-        lora_alpha=lora_rank,
+        lora_alpha=lora_rank * 2,
         use_gradient_checkpointing="unsloth",
         random_state=3407,
     )
@@ -113,7 +115,7 @@ if __name__ == "__main__":
     def load_alpaca_dataset(file_path):
         with open(file_path, 'r', encoding='utf-8') as f:
             data = json.load(f)[:max_data_length]
-        
+
         processed_data = {
             "prompt": [],
             "completion": []
@@ -163,15 +165,16 @@ if __name__ == "__main__":
         if "prompt" in dataset[0] and "answer" in dataset[0]:
             return dataset
         data = dataset  # type: ignore
-        
+
         # 使用apply_template函数处理数据
         def transform_example(x):
-            formatted_prompt = apply_template(x['prompt'], tokenizer, SYSTEM_PROMPT) + "<think>"
+            formatted_prompt = apply_template(
+                x['prompt'], tokenizer, SYSTEM_PROMPT) + "<think>"
             return {
                 "prompt": formatted_prompt,
                 "answer": x['completion'],
             }
-        
+
         data = data.map(transform_example)  # type: ignore
         return data  # type: ignore
 
@@ -182,12 +185,13 @@ if __name__ == "__main__":
     # 使用GRPOConfig而非TrainingArguments
     training_args = GRPOConfig(
         # learning_rate=1e-4,
-        learning_rate=3e-5,
+        # learning_rate=3e-5, # 1epoch 后训飞
+        learning_rate=1e-5,
         adam_beta1=0.9,
         adam_beta2=0.99,
         weight_decay=0.1,
         warmup_ratio=0.01,
-        output_dir="./results/mimibot_tifa",  # 添加必要的output_dir参数
+        output_dir="./results/mimibot_l3",  # 添加必要的output_dir参数
         lr_scheduler_type="cosine",
         optim="paged_adamw_8bit",
         per_device_train_batch_size=16,
@@ -195,10 +199,12 @@ if __name__ == "__main__":
         num_generations=8,
         logging_steps=1,
         save_strategy="steps",
-        save_steps=500,
-        max_steps=1000,
+        save_steps=100,
+        max_steps=2000,
         max_grad_norm=0.1,
-        max_completion_length=512
+        max_completion_length=512,
+        # reward_weights=[1e-3, 1e-3, 1e-3, 1e-3] # normalize to 1 not need
+        beta=0.1,  # 由 0.04 增大到 0.1 保留更多原模型能力
     )
 
     # 创建回调列表
@@ -206,7 +212,7 @@ if __name__ == "__main__":
 
     def get_trainer():
         return trainer
-    
+
     # 如果启用API服务器，添加OpenAI兼容API回调
     if args.enable_api:
         print(f"启用OpenAI兼容API服务器: 端口={args.api_port}, 主机={args.api_host}")
@@ -232,7 +238,7 @@ if __name__ == "__main__":
         args=training_args,
         callbacks=callbacks  # 添加回调列表
     )
-    
+
     # 开始训练
     trainer.train()
 

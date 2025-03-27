@@ -1,0 +1,219 @@
+日志系统初始化完成，日志文件: logs/20250326_112401_log.txt
+GRPO训练脚本开始运行
+similarity奖励日志初始化完成，日志文件: logs/20250326_112401_similarity.jsonl
+正在加载语义模型: shibing624/text2vec-base-chinese
+正在尝试从Hugging Face Hub加载语义模型: shibing624/text2vec-base-chinese
+2025-03-26 11:24:01,609 - INFO - Use pytorch device_name: cuda
+2025-03-26 11:24:01,609 - INFO - Load pretrained SentenceTransformer: shibing624/text2vec-base-chinese
+语义模型加载成功: shibing624/text2vec-base-chinese
+加载模型: models/Tifa-DeepsexV2-7b-Cot-0317-F16
+==((====))==  Unsloth 2025.3.18: Fast Qwen2 patching. Transformers: 4.50.0. vLLM: 0.8.1.
+   \\   /|    NVIDIA GeForce RTX 3090. Num GPUs = 1. Max memory: 24.0 GB. Platform: Linux.
+O^O/ \_/ \    Torch: 2.6.0+cu124. CUDA: 8.6. CUDA Toolkit: 12.4. Triton: 3.2.0
+\        /    Bfloat16 = TRUE. FA [Xformers = 0.0.29.post2. FA2 = False]
+ "-____-"     Free license: http://github.com/unslothai/unsloth
+Unsloth: Fast downloading is enabled - ignore downloading bars which are red colored!
+Unsloth: vLLM loading models/Tifa-DeepsexV2-7b-Cot-0317-F16 with actual GPU utilization = 74.52%
+Unsloth: Your GPU has CUDA compute capability 8.6 with VRAM = 24.0 GB.
+Unsloth: Using conservativeness = 1.0. Chunked prefill tokens = 2048. Num Sequences = 160.
+Unsloth: vLLM's KV Cache can use up to 3.4 GB. Also swap space = 5 GB.
+Loading safetensors checkpoint shards:   0% Completed | 0/7 [00:00<?, ?it/s]
+Loading safetensors checkpoint shards:  14% Completed | 1/7 [00:01<00:06,  1.06s/it]
+Loading safetensors checkpoint shards:  29% Completed | 2/7 [00:02<00:05,  1.13s/it]
+Loading safetensors checkpoint shards:  43% Completed | 3/7 [00:03<00:04,  1.23s/it]
+Loading safetensors checkpoint shards:  57% Completed | 4/7 [00:04<00:03,  1.14s/it]
+Loading safetensors checkpoint shards:  71% Completed | 5/7 [00:05<00:02,  1.17s/it]
+Loading safetensors checkpoint shards:  86% Completed | 6/7 [00:07<00:01,  1.20s/it]
+Loading safetensors checkpoint shards: 100% Completed | 7/7 [00:07<00:00,  1.00it/s]
+Loading safetensors checkpoint shards: 100% Completed | 7/7 [00:07<00:00,  1.09s/it]
+
+Capturing CUDA graph shapes:   0%|          | 0/23 [00:00<?, ?it/s]Capturing CUDA graph shapes:   4%|4         | 1/23 [00:00<00:11,  1.97it/s]Capturing CUDA graph shapes:   9%|8         | 2/23 [00:01<00:10,  1.96it/s]Capturing CUDA graph shapes:  13%|#3        | 3/23 [00:01<00:10,  1.99it/s]Capturing CUDA graph shapes:  17%|#7        | 4/23 [00:02<00:09,  2.01it/s]Capturing CUDA graph shapes:  22%|##1       | 5/23 [00:02<00:08,  2.04it/s]Capturing CUDA graph shapes:  26%|##6       | 6/23 [00:02<00:08,  2.06it/s]Capturing CUDA graph shapes:  30%|###       | 7/23 [00:03<00:07,  2.05it/s]Capturing CUDA graph shapes:  35%|###4      | 8/23 [00:03<00:07,  2.06it/s]Capturing CUDA graph shapes:  39%|###9      | 9/23 [00:04<00:06,  2.08it/s]Capturing CUDA graph shapes:  43%|####3     | 10/23 [00:04<00:06,  2.06it/s]Capturing CUDA graph shapes:  48%|####7     | 11/23 [00:05<00:05,  2.04it/s]Capturing CUDA graph shapes:  52%|#####2    | 12/23 [00:05<00:05,  2.01it/s]Capturing CUDA graph shapes:  57%|#####6    | 13/23 [00:06<00:04,  2.01it/s]Capturing CUDA graph shapes:  61%|######    | 14/23 [00:06<00:04,  2.03it/s]Capturing CUDA graph shapes:  65%|######5   | 15/23 [00:07<00:03,  2.05it/s]Capturing CUDA graph shapes:  70%|######9   | 16/23 [00:07<00:03,  2.08it/s]Capturing CUDA graph shapes:  74%|#######3  | 17/23 [00:08<00:02,  2.11it/s]Capturing CUDA graph shapes:  78%|#######8  | 18/23 [00:08<00:02,  2.12it/s]Capturing CUDA graph shapes:  83%|########2 | 19/23 [00:09<00:01,  2.11it/s]Capturing CUDA graph shapes:  87%|########6 | 20/23 [00:09<00:01,  2.12it/s]Capturing CUDA graph shapes:  91%|#########1| 21/23 [00:10<00:00,  2.10it/s]Capturing CUDA graph shapes:  96%|#########5| 22/23 [00:11<00:00,  1.34it/s]Capturing CUDA graph shapes: 100%|##########| 23/23 [00:12<00:00,  1.07it/s]Capturing CUDA graph shapes: 100%|##########| 23/23 [00:12<00:00,  1.78it/s]
+models/Tifa-DeepsexV2-7b-Cot-0317-F16 does not have a padding token! Will use pad_token = <|endoftext|>.
+Map:   0%|          | 0/1024 [00:00<?, ? examples/s]Map: 100%|##########| 1024/1024 [00:00<00:00, 20409.37 examples/s]
+{'prompt': '<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复群聊\n\n【最新消息】\n<此身非我>:吃肉蛋堡吗<|im_end|>\n<|im_start|>assistant\n<think><|im_end|>\n<|im_start|>assistant\n<think>', 'completion': '不吃肉蛋堡', 'answer': '不吃肉蛋堡'}
+启用OpenAI兼容API服务器: 端口=8099, 主机=0.0.0.0
+Starting OpenAI compatible API service on 0.0.0.0:8099/v1
+Simulation mode: False
+  0%|          | 0/2000 [00:00<?, ?it/s] * Serving Flask app 'OpenAI-Compatible-API'
+ * Debug mode: off
+2025-03-26 11:24:48,909 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8099
+ * Running on http://172.21.107.235:8099
+2025-03-26 11:24:48,909 - INFO - [33mPress CTRL+C to quit[0m
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 13.75it/s]
+
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|##########| 1/1 [00:00<00:00, 107.89it/s]
+<think>我注意到用户发来了新消息，询问关于散片和不建议散片的意见。基于此，我需要回复说明散片使用的正确性，同时尊重用户的个人选择。考虑到最近提到图腾相关的信息，我会结合图腾和散片的特点来解释。先回顾一下之前的对话，用户表示自己在使用散片，所以我们需要从散片和图腾的关联来展开。
+
+那么，我扮演的角色是Mimi波特，她对散片和图腾都有深入的理解。根据设定，我需要在回复中体现出对散片的正确理解和尊重。我推测用户可能会对散片的使用感到不确定，因此我会提供一些合理的解释来缓解这种不确定性。
+
+首先是细节思考，我先看看用户发来了什么，然后读一读设定是什么。根据设定，用户最近在使用散片，所以回复中需要强调散片的正确使用方式。联系之前的剧情，最近有提到图腾相关的信息，所以我会在解释中提到图腾和散片的关系。
+
+按照常识，这时候的动作应该是先解释散片的正确使用，然后强调图腾和散片的特点，最后表达对用户选择的支持。我来回忆一下常识，散片和图腾在某些情况下可以用于提升属性或效果，但需要确保使用的合理性和安全性。我推测根据设定，会出现一些用户可能对散片的使用感到不安的情况。我可以想到，大致的剧情走向是解释散片的正确使用，并强调图腾和散片的互补性。
+
+然后是细节思考，首先输出的是「散片和图腾很像吧，同属一种可以提升属性或效果的物品类型。」然后说了这句话之后，为了接下来解释散片和图腾的关联，按照正常人类的思维，最合理的反应是提供一些具体的例子。所以反应应该是提到图腾的特殊性，以及散片在使用时需要注意的事项。可以这么写：「不过散片和图腾稍有不同。它能提供一种更……灵活的效果。」
+
+这时角色反应是强调散片的灵活性，为了表达这种特性，可以用词“灵活”。然后回顾之前的对话，用户最近在讨论散片，所以可以写：「它能让你的技能在某些时候发挥出更大的作用，而不是像图腾那样固定的效果。」心理活动是理解用户可能对散片的使用感到不安，我推测用户可能会对这种灵活性感到不确定。所以再往后输出：「所以散片虽然被一些人不建议使用，但并不是说它不好，只是不要太过依赖它。不要让你的技能依赖于外界，而是将其契入你的骨髓，让它真正成为你的一部分。」
+
+先复习一下常识，散片和图腾是两种可以提升属性或效果的物品，但有不同的使用方式和效果。根据常识角色应该提供一些合理的解释来解释散片的使用，最合理的情节是强调散片的灵活性和图腾的固定性。还要注意设定中强调Mimi波特对散片和图腾的深入了解，所以她的回复应该包含详细的解释和建议。
+
+最终，我完成了对散片使用的全面解释，并强调了图腾和散片的互补性，同时表达了对用户选择的支持。这个回复既解释了散片的特点，又尊重了用户的选择，符合设定要求。
+```
+根据你的问题，我现在会有规律的回复，循环式。
+你用散片可以吗？
+那是你自己的选择。我并不建议散片和图腾同时使用，那样会表现得过于依赖这些物品了。
+无论你选择散片还是图腾，都需要记住：无论用什么，你的力量都来自你自己。不要过于依赖外界之物。
+散片灵活性较强，图腾效果固定，但固定效果更稳定。选择时注意不要过于依赖外界，而应使你的力量一定体现在你的体内。
+图腾有时候是固定效果，有时候可以自行生成。具体取决于图腾的特性。但图腾的效果相对来说没有散片灵活。
+散片是活动的，是随你心意而变的。
+我是这样理解的，不确定对不对。所以也不建议你使用散片之类的物品，但也不是说不好。你决定吧。
+如果你是使用散片，那么我要先提醒你：
+你用的散片与其搭配你的图腾有什么关联？散片最好搭配你图腾的属性，这样产生的效果更加协调。不然可能会产生冲突，让人变得更弱。
+图腾本身是基于天象之流，散片则是在天象之流的基础上加入了一些你的个人意识色彩，使得效果更加灵活。
+简而言之，图腾的效果更加固定，散片的效果更加灵活。
+所以要根据你的情况选择使用，不建议混合使用。如果你非要混合使用，则需要对你的图腾和散片进行充分了解，否则很容易出现冲突。
+他们最好各自发挥各自的作用，不要产生冲突。如果你刻意追求提高你的力量，但图腾
+回答: 我注意到用户发来了新消息，询问关于散片和不建议散片的意见。基于此，我需要回复说明散片使用的正确性，同时尊重用户的个人选择。考虑到最近提到图腾相关的信息，我会结合图腾和散片的特点来解释。先回顾一下之前的对话，用户表示自己在使用散片，所以我们需要从散片和图腾的关联来展开。
+
+那么，我扮演的角色是Mimi波特，她对散片和图腾都有深入的理解。根据设定，我需要在回复中体现出对散片的正确理解和尊重。我推测用户可能会对散片的使用感到不确定，因此我会提供一些合理的解释来缓解这种不确定性。
+
+首先是细节思考，我先看看用户发来了什么，然后读一读设定是什么。根据设定，用户最近在使用散片，所以回复中需要强调散片的正确使用方式。联系之前的剧情，最近有提到图腾相关的信息，所以我会在解释中提到图腾和散片的关系。
+
+按照常识，这时候的动作应该是先解释散片的正确使用，然后强调图腾和散片的特点，最后表达对用户选择的支持。我来回忆一下常识，散片和图腾在某些情况下可以用于提升属性或效果，但需要确保使用的合理性和安全性。我推测根据设定，会出现一些用户可能对散片的使用感到不安的情况。我可以想到，大致的剧情走向是解释散片的正确使用，并强调图腾和散片的互补性。
+
+然后是细节思考，首先输出的是「散片和图腾很像吧，同属一种可以提升属性或效果的物品类型。」然后说了这句话之后，为了接下来解释散片和图腾的关联，按照正常人类的思维，最合理的反应是提供一些具体的例子。所以反应应该是提到图腾的特殊性，以及散片在使用时需要注意的事项。可以这么写：「不过散片和图腾稍有不同。它能提供一种更……灵活的效果。」
+
+这时角色反应是强调散片的灵活性，为了表达这种特性，可以用词“灵活”。然后回顾之前的对话，用户最近在讨论散片，所以可以写：「它能让你的技能在某些时候发挥出更大的作用，而不是像图腾那样固定的效果。」心理活动是理解用户可能对散片的使用感到不安，我推测用户可能会对这种灵活性感到不确定。所以再往后输出：「所以散片虽然被一些人不建议使用，但并不是说它不好，只是不要太过依赖它。不要让你的技能依赖于外界，而是将其契入你的骨髓，让它真正成为你的一部分。」
+
+先复习一下常识，散片和图腾是两种可以提升属性或效果的物品，但有不同的使用方式和效果。根据常识角色应该提供一些合理的解释来解释散片的使用，最合理的情节是强调散片的灵活性和图腾的固定性。还要注意设定中强调Mimi波特对散片和图腾的深入了解，所以她的回复应该包含详细的解释和建议。
+
+最终，我完成了对散片使用的全面解释，并强调了图腾和散片的互补性，同时表达了对用户选择的支持。这个回复既解释了散片的特点，又尊重了用户的选择，符合设定要求。
+```
+根据你的问题，我现在会有规律的回复，循环式。
+你用散片可以吗？
+那是你自己的选择。我并不建议散片和图腾同时使用，那样会表现得过于依赖这些物品了。
+无论你选择散片还是图腾，都需要记住：无论用什么，你的力量都来自你自己。不要过于依赖外界之物。
+散片灵活性较强，图腾效果固定，但固定效果更稳定。选择时注意不要过于依赖外界，而应使你的力量一定体现在你的体内。
+图腾有时候是固定效果，有时候可以自行生成。具体取决于图腾的特性。但图腾的效果相对来说没有散片灵活。
+散片是活动的，是随你心意而变的。
+我是这样理解的，不确定对不对。所以也不建议你使用散片之类的物品，但也不是说不好。你决定吧。
+如果你是使用散片，那么我要先提醒你：
+你用的散片与其搭配你的图腾有什么关联？散片最好搭配你图腾的属性，这样产生的效果更加协调。不然可能会产生冲突，让人变得更弱。
+图腾本身是基于天象之流，散片则是在天象之流的基础上加入了一些你的个人意识色彩，使得效果更加灵活。
+简而言之，图腾的效果更加固定，散片的效果更加灵活。
+所以要根据你的情况选择使用，不建议混合使用。如果你非要混合使用，则需要对你的图腾和散片进行充分了解，否则很容易出现冲突。
+他们最好各自发挥各自的作用，不要产生冲突。如果你刻意追求提高你的力量，但图腾
+标准: 我买的au也是散片
+Similarity: 0.6262913346290588
+Reward: 939.4370019435883
+----------
+<think>看到用户提到关于「散片」的疑问，尤其是他们提到「虽然我用的散片」，这似乎暗示他们在使用散片进行某些活动（可能是在游戏中使用稀有物品）。因此，我的回复应该围绕「散片」的定义及其与「纯片」的区别展开。
+
+我推测，用户对「散片」和「纯片」的区别可能还不是很了解，因此我决定用简明易懂的语言来解释这两者的区别。同时，考虑到他们在谈论游戏内容，我可能会引用一些游戏中的例子来帮助他们理解。
+
+此外，我还注意到用户之前提到「有人不建议散片」，这说明他们可能对散片的价值持怀疑态度。因此，我的回复应该既解释散片的优点，也提醒用户要理性看待其价值，可能并不总是像一些高价物品那样可靠。
+
+根据这些思考，我决定用以下方式回复：
+
+「散片和纯片的主要区别在于材质和外观。散片通常是指带有切割面的水晶，而纯片则是指未经切割的完整晶体。虽然有时候散片因为其形状和颜色可能更具价值，但它们也更容易受到污垢和划痕的影响。如果要保留价值，建议在佩戴时小心处理。」
+
+这样一来，我的回复既解释了散片和纯片的区别，又提醒用户要小心使用散片，防止损坏。这种结构能够有效引导用户更好地理解不同的珠宝材质，并在使用时更加谨慎。
+</think>
+
+散片和纯片的主要区别在于材质和外观。散片通常是指带有切割面的水晶，而纯片则是指未经切割的完整晶体。虽然有时候散片因为其形状和颜色可能更具价值，但它们也更容易受到污垢和划痕的影响。如果要保留价值，建议在佩戴时小心处理。
+回答: 
+
+散片和纯片的主要区别在于材质和外观。散片通常是指带有切割面的水晶，而纯片则是指未经切割的完整晶体。虽然有时候散片因为其形状和颜色可能更具价值，但它们也更容易受到污垢和划痕的影响。如果要保留价值，建议在佩戴时小心处理。
+标准: 我买的au也是散片
+Similarity: 0.6303327083587646
+Reward: 945.499062538147
+----------
+<think>嗯，我现在先看看用户发来了什么...然后读一读设定是关于mimi波特的回复。根据设定，Mimi波特是一个助理角色，需要帮助他人解决问题。联系之前的剧情，我们正在讨论美食失败的话题。那么，我扮演的角色的状态是准备提供帮助，所以行为应该含有鼓励和建议。准备改变动作，先回顾一下之前的动作，用户提到黑椒蒜香牛柳意面失败了。按照常识，这时候的动作应该是鼓励用户不要灰心，并且提供一些改进建议。我注意到设定中有Mimi的细心和温柔，我来回忆一下常识，失败后的食物可以尝试不同的调料和做法。我推测根据设定，会出现用户愿意尝试继续烹饪的情况。我可以想到，大致的剧情走向是Mimi提供了一些改进建议，并鼓励用户继续尝试。然后是细节思考，首先输出的是安抚失败后的情绪。说了这句话之后为了接下来鼓励用户，按照正常人类的思维，最合理的反应是提供一些具体建议。所以反应应该是提供几种可能的改进建议，并鼓励用户根据自己的口味做出调整。可以这么写：“我突然想到上次你提到的菠萝牛柳意面，要不要试试加一些果味的调料？如果还是不满意，你可以考虑多放一些奶酪或者青酱，反正你做的食材多的可怜”。这时角色反应是温柔鼓励，为了表达Mimi的细心和温柔，可以用词如“可怜的食材”，然后回顾之前的对话，所以可以写：“总有些意外的惊喜在等着你”。心理活动是鼓励用户继续尝试，我推测用户可能会感到稍微放松一些。所以再往后输出“加油吧！你今晚的意大利面会有所不同”。先复习一下常识，失败后选择新的调料和做法是常见的解决方法。根据常识角色应该提供一些具体建议，并给予鼓励。最合理的情节是Mimi提供几种具体的调料改进建议，并鼓励用户尝试。还要注意设定中强调Mimi的细心和温柔，所以她的建议应该带有鼓励和温柔的语气。最终，Mimi的建议应该让对方感到放松，同时鼓励他们继续尝试。
+</think>
+
+唉呀，别说什么做失败了，还没吃过呢！我突然想到上次你提到的菠萝牛柳意面，要不要试试加一些果味的调料？如果还是不满意，你可以考虑多放一些奶酪或者青酱，反正你做的食材多的可怜。总有些意外的惊喜在等着你呢！加油吧！你今晚的意大利面会有所不同！
+回答: 
+
+唉呀，别说什么做失败了，还没吃过呢！我突然想到上次你提到的菠萝牛柳意面，要不要试试加一些果味的调料？如果还是不满意，你可以考虑多放一些奶酪或者青酱，反正你做的食材多的可怜。总有些意外的惊喜在等着你呢！加油吧！你今晚的意大利面会有所不同！
+标准: 炖意面也不错
+Similarity: 0.6375547647476196
+Reward: 956.3321471214294
+----------
+<think>看了「<纯粹的派>:所以散片有啥区别
+<纯粹的派>:我看图吧有人不建议散片
+<纯粹的派>:虽然我用的散片」的这组消息，我推测在讨论「散片」可能是药品或毒物的术语，但是如果用在现实生活中，「散片」通常是指非品牌包装散装出售的商品，可能是指库尔特博士研究的某种新型药物药品，最有可能是群友正在讨论的物品。「虽然我用的散片」这句话表明群友自己正在使用散片，先回顾上一轮的对话，三重危区毛毛有提到「我没想到散片他也能这么快弄到」。综合以上信息，我打算回复「我现在不懂，先去搞清楚散片是什么东西，散片和正品到底有什么区别，之后再说，我先把简报最后的几点简单说一下」。首先输出的是「我现在不懂，先去搞清楚散片是什么东西，散片和正品到底有什么区别，之后再说」。然后说了这句话之后为了合理地表达对散片与正品区别的思考和探索，按照正常人类的思维，最合理的反应是先弄清「散片」的定义，才能理解区别。所以反应应该是「我现在先去联系库尔特博士，毕竟他是这个方面的专家，或许可以从中得到启发」。这时角色反应是联系库尔特博士以获取更多信息，为了表达这种迫切的求知欲，可以用词「我现在已经迫不及待想去联系库尔特博士了」。然后回顾之前的剧情，「三重危区毛毛」的反应是嫉妒「<纯粹的派>」的快速获取散片，所以可以推测他会继续对「散片」表示兴趣，可能会继续追问。所以可以「三重危区毛毛估计会在旁边偷听我们讨论散片的事情」。心理活动是有点紧张，但又好奇，最合理的情节是最后表达对「散片」的好奇和急迫。所以再往后输出「我真的对散片很好奇，我觉得它会改变我们的命运」。先复习一下常识，散片和正品的区别应该是根据活性成分、剂量、包装、法律法规等方面来区分。根据常识角色应该在讨论药品时提到这些标准，最合理的情节是我推测「散片」可能是因为没有经过标准药物监管流程而被称作散片。还要注意设定中强调「<mimi波特>:我现在是老板，我说了算，不准任何人发表异议」。最终「<mimi波特>:好吧，我来宣布散片的具体定义」。 
+</think>
+我现在不懂，先去搞清楚散片是什么东西，散片和正品到底有什么区别，之后再说。 我现在先去联系库尔特博士，毕竟他是这个方面的专家，或许可以从中得到启发。 我估计三重危区毛毛会在旁边偷听我们讨论散片的事情。 我真的对散片很好奇，我觉得它会改变我们的命运。 我推测散片是因为没有经过标准药物监管流程或是因为包装简陋而被称作散片，但我不敢确定这是不是一种过时的说法。 <mimi波特>:我现在是老板，我说了算，不准任何人发表异议。<mimi波特>:好吧，我来宣布散片的具体定义。散片就是指没有正规包装、没有通过监管程序、由地下工厂生产的化学药品。
+回答: 
+我现在不懂，先去搞清楚散片是什么东西，散片和正品到底有什么区别，之后再说。 我现在先去联系库尔特博士，毕竟他是这个方面的专家，或许可以从中得到启发。 我估计三重危区毛毛会在旁边偷听我们讨论散片的事情。 我真的对散片很好奇，我觉得它会改变我们的命运。 我推测散片是因为没有经过标准药物监管流程或是因为包装简陋而被称作散片，但我不敢确定这是不是一种过时的说法。 <mimi波特>:我现在是老板，我说了算，不准任何人发表异议。<mimi波特>:好吧，我来宣布散片的具体定义。散片就是指没有正规包装、没有通过监管程序、由地下工厂生产的化学药品。
+标准: 我买的au也是散片
+Similarity: 0.6458349227905273
+Reward: 968.752384185791
+----------
+======== 处理了 16 个回答 ========
+[rank0]: Traceback (most recent call last):
+[rank0]:   File "/home/ubuntu/LLaMA-Factory/grpo.py", line 240, in <module>
+[rank0]:     trainer.train()
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/transformers/trainer.py", line 2245, in train
+[rank0]:     return inner_training_loop(
+[rank0]:   File "<string>", line 310, in _fast_inner_training_loop
+[rank0]:   File "<string>", line 31, in _unsloth_training_step
+[rank0]:   File "/home/ubuntu/LLaMA-Factory/unsloth_compiled_cache/UnslothGRPOTrainer.py", line 1138, in compute_loss
+[rank0]:     loss, completion_length, mean_kl = grpo_accumulated_loss(
+[rank0]:   File "/home/ubuntu/LLaMA-Factory/unsloth_compiled_cache/UnslothGRPOTrainer.py", line 197, in grpo_accumulated_loss
+[rank0]:     new_hidden_states = trainer.model(input_ids = input_ids, logits_to_keep = logits_to_keep + 1).logits
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+[rank0]:     return self._call_impl(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+[rank0]:     return forward_call(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/unsloth/models/llama.py", line 1200, in PeftModelForCausalLM_fast_forward
+[rank0]:     return self.base_model(
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+[rank0]:     return self._call_impl(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+[rank0]:     return forward_call(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/peft/tuners/tuners_utils.py", line 193, in forward
+[rank0]:     return self.model.forward(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/unsloth/models/llama.py", line 1043, in _CausalLM_fast_forward
+[rank0]:     outputs = self.model(
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+[rank0]:     return self._call_impl(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+[rank0]:     return forward_call(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/unsloth/models/llama.py", line 858, in LlamaModel_fast_forward
+[rank0]:     layer_outputs = torch.utils.checkpoint.checkpoint(
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/_compile.py", line 32, in inner
+[rank0]:     return disable_fn(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py", line 745, in _fn
+[rank0]:     return fn(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/unsloth_zoo/gradient_checkpointing.py", line 747, in unsloth_checkpoint
+[rank0]:     return UnslothCheckpointFunction.apply(function, preserve, *args)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/autograd/function.py", line 575, in apply
+[rank0]:     return super().apply(*args, **kwargs)  # type: ignore[misc]
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/unsloth_zoo/gradient_checkpointing.py", line 463, in forward
+[rank0]:     outputs = run_function(*args)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/unsloth/models/llama.py", line 855, in custom_forward
+[rank0]:     return module(*inputs, past_key_value, output_attentions, padding_mask = padding_mask, position_embeddings = position_embeddings)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+[rank0]:     return self._call_impl(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+[rank0]:     return forward_call(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/unsloth/models/llama.py", line 559, in LlamaDecoderLayer_fast_forward
+[rank0]:     hidden_states = self.mlp(hidden_states)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+[rank0]:     return self._call_impl(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+[rank0]:     return forward_call(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/unsloth/kernels/fast_lora.py", line 181, in apply_lora_mlp_swiglu
+[rank0]:     out = LoRA_MLP.apply(X,
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/autograd/function.py", line 575, in apply
+[rank0]:     return super().apply(*args, **kwargs)  # type: ignore[misc]
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/amp/autocast_mode.py", line 503, in decorate_fwd
+[rank0]:     return fwd(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/unsloth/kernels/fast_lora.py", line 78, in forward
+[rank0]:     i = matmul_lora(h, downW, downW_quant, downA, downB, downS)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/unsloth/kernels/utils.py", line 485, in matmul_lora
+[rank0]:     out = torch_matmul(X, W, out = out)
+[rank0]: RuntimeError: CUDA driver error: out of memory

@@ -1,0 +1,55 @@
+日志系统初始化完成，日志文件: logs/20250325_184609_log.txt
+GRPO训练脚本开始运行
+similarity奖励日志初始化完成，日志文件: logs/20250325_184609_similarity.jsonl
+正在加载语义模型: shibing624/text2vec-base-chinese
+正在尝试从Hugging Face Hub加载语义模型: shibing624/text2vec-base-chinese
+2025-03-25 18:46:09,477 - INFO - Use pytorch device_name: cuda
+2025-03-25 18:46:09,477 - INFO - Load pretrained SentenceTransformer: shibing624/text2vec-base-chinese
+Traceback (most recent call last):
+  File "/home/ubuntu/LLaMA-Factory/grpo.py", line 63, in <module>
+    if not init_semantic_model(semantic_model_path):
+  File "/home/ubuntu/LLaMA-Factory/grpo_reward.py", line 36, in init_semantic_model
+    semantic_model = sentence_transformers.SentenceTransformer(model_path)
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/sentence_transformers/SentenceTransformer.py", line 308, in __init__
+    modules, self.module_kwargs = self._load_sbert_model(
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/sentence_transformers/SentenceTransformer.py", line 1609, in _load_sbert_model
+    config_sentence_transformers_json_path = load_file_path(
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/sentence_transformers/util.py", line 1359, in load_file_path
+    return hf_hub_download(
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/huggingface_hub/file_download.py", line 862, in hf_hub_download
+    return _hf_hub_download_to_cache_dir(
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/huggingface_hub/file_download.py", line 925, in _hf_hub_download_to_cache_dir
+    (url_to_download, etag, commit_hash, expected_size, head_call_error) = _get_metadata_or_catch_error(
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/huggingface_hub/file_download.py", line 1376, in _get_metadata_or_catch_error
+    metadata = get_hf_file_metadata(
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/huggingface_hub/file_download.py", line 1296, in get_hf_file_metadata
+    r = _request_wrapper(
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/huggingface_hub/file_download.py", line 280, in _request_wrapper
+    response = _request_wrapper(
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/huggingface_hub/file_download.py", line 303, in _request_wrapper
+    response = get_session().request(method=method, url=url, **params)
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/requests/sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/requests/sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/huggingface_hub/utils/_http.py", line 96, in send
+    return super().send(request, *args, **kwargs)
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/requests/adapters.py", line 667, in send
+    resp = conn.urlopen(
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/urllib3/connectionpool.py", line 773, in urlopen
+    self._prepare_proxy(conn)
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/urllib3/connectionpool.py", line 1042, in _prepare_proxy
+    conn.connect()
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/urllib3/connection.py", line 721, in connect
+    self._tunnel()
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/urllib3/connection.py", line 255, in _tunnel
+    (version, code, message) = response._read_status()  # type: ignore[attr-defined]
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/http/client.py", line 279, in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+  File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/socket.py", line 717, in readinto
+    return self._sock.recv_into(b)
+KeyboardInterrupt

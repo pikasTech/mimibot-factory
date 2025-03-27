@@ -12,7 +12,8 @@ def merge_lora_to_base(
     alpha=1.0,
     output_precision=None,
     device_map="auto",
-    output_dir=None
+    output_dir=None,
+    offload_folder="tmp_offload"  # 修改：默认值不为None，而是一个默认路径
 ):
     """
     将LoRA模型合并到基础模型
@@ -23,6 +24,8 @@ def merge_lora_to_base(
         alpha: LoRA权重合并比例，默认为1.0
         output_precision: 输出模型的精度，可选值为 "fp16", "bf16" 或 None (保持原精度)
         device_map: 模型加载的设备映射策略
+        output_dir: 输出目录路径
+        offload_folder: 模型卸载目录路径，为了支持自动设备映射必须提供
 
     Returns:
         合并后模型的保存路径
@@ -34,11 +37,18 @@ def merge_lora_to_base(
     print(f"合并系数: {alpha}")
     print(f"输出精度: {output_precision if output_precision else '原始精度'}")
     print(f"设备映射: {device_map}")
+    print(f"卸载目录: {offload_folder}")
     print("-" * 50)
+
+    # 始终确保offload_folder存在
+    if offload_folder:
+        os.makedirs(offload_folder, exist_ok=True)
+        print(f"创建或确认卸载目录: {offload_folder}")
 
     # 准备模型加载配置
     model_kwargs = {
         "device_map": device_map,
+        "offload_folder": offload_folder,  # 总是提供offload_folder
     }
 
     # 配置精度选项
@@ -61,7 +71,13 @@ def merge_lora_to_base(
 
     try:
         print(f"正在加载LoRA模型: {lora_model_path}")
-        model = PeftModel.from_pretrained(base_model, lora_model_path)
+        # 确保为PeftModel提供必要的参数
+        peft_kwargs = {
+            "device_map": device_map,
+            "offload_dir": offload_folder,  # 总是提供offload_dir
+        }
+        
+        model = PeftModel.from_pretrained(base_model, lora_model_path, **peft_kwargs)
     except Exception as e:
         print(f"加载LoRA模型时出错: {str(e)}")
         raise
@@ -128,23 +144,30 @@ def merge_lora_to_base(
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="LoRA模型合并工具")
     parser.add_argument("--base_model_path", type=str,
-                        help="基础模型的路径", default="models/Tifa-DeepsexV2-7b-Cot-0317-F16")
+                        help="基础模型的路径", 
+                        default="output/mimibot_l3_v1.0")
     parser.add_argument("--lora_model_path", type=str,
-                        help="LoRA模型的路径", default="results/mimibot_tifa/checkpoint-500")
+                        help="LoRA模型的路径", default="results/mimibot_l3/checkpoint-1000")
     parser.add_argument("--alpha", type=float, default=1.0,
                         help="LoRA权重合并比例，默认为1.0")
     parser.add_argument("--output_dir", type=str,
                         help="合并后模型的保存路径", 
-                        default="output/mimibot_tifa_v3.0")
+                        default="output/mimibot_l3_v1.1")
     parser.add_argument("--output_precision", type=str, 
                         default="none",
                         choices=["fp16", "bf16", "none"],
                         help="输出模型的精度，可选值为fp16, bf16或none(保持原精度)")
-    parser.add_argument("--device_map", type=str, default="auto",
+    parser.add_argument("--device_map", type=str, default="cuda",
                         help="模型加载的设备映射策略")
+    parser.add_argument("--offload_folder", type=str, default="tmp_offload",    
+                        help="模型卸载目录的路径，用于处理大模型(必须提供)")
 
     args = parser.parse_args()
-
+    
+    # 始终确保offload_folder存在
+    os.makedirs(args.offload_folder, exist_ok=True)
+    print(f"使用卸载目录: {args.offload_folder}")
+        
     # 处理"none"字符串为None对象
     output_precision = None if args.output_precision == "none" else args.output_precision
 
@@ -154,5 +177,6 @@ if __name__ == "__main__":
         alpha=args.alpha,
         output_precision=output_precision,
         device_map=args.device_map,
-        output_dir=args.output_dir
+        output_dir=args.output_dir,
+        offload_folder=args.offload_folder
     )

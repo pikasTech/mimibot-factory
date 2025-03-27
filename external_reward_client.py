@@ -2,6 +2,7 @@
 外部奖励客户端工具
 在实际训练过程中使用此工具可以提供自定义的外部奖励
 """
+import re
 import socket
 import json
 import time
@@ -25,7 +26,7 @@ def signal_handler(sig, frame):
     running = False
     sys.exit(0)
 
-def calculate_reward(responses, prompts=None, answers=None):
+def calculate_reward(responses, prompts_origin=None, answers=None):
     """
     计算自定义奖励 - 使用OpenAI API评估回复质量
     
@@ -39,6 +40,11 @@ def calculate_reward(responses, prompts=None, answers=None):
     """
     # 创建OpenAI评估器 - 设置批次大小为8
     evaluator = OpenAIEvaluator(batch_size=8)  # 增加到8个回复一批
+
+    prompts = []
+    for prompt in prompts_origin:
+        user_message = re.findall(r"<\|start_header_id\|>user<\|end_header_id\|>(.*?)<\|eot_id\|>", prompt, re.DOTALL)[0].strip()
+        prompts.append(user_message)
     
     # 检查评估器是否可用
     if not evaluator.is_available():
@@ -49,22 +55,78 @@ def calculate_reward(responses, prompts=None, answers=None):
         # 记录开始时间
         start_time = time.time()
         
-        # 使用批量评估器评分
-        rewards, _ = evaluator.evaluate_batch(responses, prompts, answers)
+        # 按prompt和answer分组
+        grouped_data = {}
+        for i, response in enumerate(responses):
+            prompt = prompts[i] if prompts and i < len(prompts) else "未提供"
+            answer = answers[i] if answers and i < len(answers) else None
+            
+            # 使用(prompt, answer)作为分组键
+            group_key = (prompt, str(answer))  # 将answer转为字符串以便作为字典键
+            
+            if group_key not in grouped_data:
+                grouped_data[group_key] = {
+                    "prompt": prompt,
+                    "answer": answer,
+                    "responses": [],
+                    "indices": []  # 记录原始索引位置
+                }
+            
+            grouped_data[group_key]["responses"].append(response)
+            grouped_data[group_key]["indices"].append(i)
+        
+        # 记录所有回复的奖励值
+        all_rewards = [0] * len(responses)
+        
+        # 对每组数据分别评估
+        print(f"将{len(responses)}个回复分为{len(grouped_data)}个组进行评估")
+        
+        for group_key, group_data in grouped_data.items():
+            group_prompt = group_data["prompt"]
+            group_answer = group_data["answer"]
+            group_responses = group_data["responses"]
+            group_indices = group_data["indices"]
+            
+            # 只有在有标准答案时才使用相对评分
+            if group_answer:
+                print(f"评估组({len(group_responses)}个回复)，提示: {group_prompt[:30]}...")
+                try:
+                    # 使用evaluate_responses批量评估
+                    relative_scores, _, _ = evaluator.evaluate_responses(
+                        group_prompt, group_responses, group_answer, simplified=True
+                    )
+                    
+                    # 将分数分配到对应的位置
+                    for idx, score in zip(group_indices, relative_scores):
+                        all_rewards[idx] = score
+                except Exception as e:
+                    print(f"组评估失败: {str(e)}，使用备用评分方法...")
+                    # 使用备用方法评估该组
+                    backup_scores = calculate_backup_reward(
+                        group_responses, 
+                        [group_prompt] * len(group_responses), 
+                        [group_answer] * len(group_responses)
+                    )
+                    # 将备用分数分配到对应的位置
+                    for idx, score in zip(group_indices, backup_scores):
+                        all_rewards[idx] = score
+            else:
+                # 无标准答案时使用备用评分
+                print(f"组({len(group_responses)}个回复)缺少标准答案，使用备用评分方法...")
+                backup_scores = calculate_backup_reward(
+                    group_responses, 
+                    [group_prompt] * len(group_responses),
+                    None
+                )
+                # 将备用分数分配到对应的位置
+                for idx, score in zip(group_indices, backup_scores):
+                    all_rewards[idx] = score
         
         # 计算总耗时
         elapsed_time = time.time() - start_time
         print(f"评估 {len(responses)} 个回复总耗时: {elapsed_time:.2f}秒, 平均每个回复: {elapsed_time/len(responses):.2f}秒")
         
-        # 过滤掉None值，替换为备用分数
-        for i, reward in enumerate(rewards):
-            if reward is None:
-                prompt = prompts[i] if prompts and i < len(prompts) else None
-                answer = answers[i] if answers and i < len(answers) else None
-                backup_score = calculate_backup_reward([responses[i]], [prompt] if prompt else None, [answer] if answer else None)[0]
-                rewards[i] = backup_score
-        
-        return rewards
+        return all_rewards
     except Exception as e:
         print(f"使用OpenAI评估器时出错: {str(e)}")
         print("使用备用评分方法...")

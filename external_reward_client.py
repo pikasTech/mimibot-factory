@@ -9,6 +9,9 @@ import argparse
 import threading
 import sys
 import signal
+import os
+# 导入OpenAI评估器
+from openai_evaluator import OpenAIEvaluator
 
 # 全局变量
 running = True
@@ -24,7 +27,7 @@ def signal_handler(sig, frame):
 
 def calculate_reward(responses, prompts=None, answers=None):
     """
-    计算自定义奖励 - 在此处实现您的奖励函数
+    计算自定义奖励 - 使用OpenAI API评估回复质量
     
     Args:
         responses: 模型生成的回复列表
@@ -33,6 +36,36 @@ def calculate_reward(responses, prompts=None, answers=None):
     
     Returns:
         奖励值列表
+    """
+    # 创建OpenAI评估器 - 设置批次大小
+    evaluator = OpenAIEvaluator(batch_size=5)  # 每次评估5个回复
+    
+    # 检查评估器是否可用
+    if not evaluator.is_available():
+        print("警告: OpenAI API密钥未设置，将使用备用评分方法")
+        return calculate_backup_reward(responses, prompts, answers)
+    
+    try:
+        # 使用批量评估器评分
+        rewards, _ = evaluator.evaluate_batch(responses, prompts, answers)
+        
+        # 过滤掉None值，替换为备用分数
+        for i, reward in enumerate(rewards):
+            if reward is None:
+                prompt = prompts[i] if prompts and i < len(prompts) else None
+                answer = answers[i] if answers and i < len(answers) else None
+                backup_score = calculate_backup_reward([responses[i]], [prompt] if prompt else None, [answer] if answer else None)[0]
+                rewards[i] = backup_score
+        
+        return rewards
+    except Exception as e:
+        print(f"使用OpenAI评估器时出错: {str(e)}")
+        print("使用备用评分方法...")
+        return calculate_backup_reward(responses, prompts, answers)
+
+def calculate_backup_reward(responses, prompts=None, answers=None):
+    """
+    备用奖励计算方法 - 当OpenAI API不可用时使用
     """
     rewards = []
     
@@ -51,9 +84,6 @@ def calculate_reward(responses, prompts=None, answers=None):
             length_diff = abs(len(response) - len(answer))
             similarity = max(0, 1 - (length_diff / max(len(answer), 1, 100)))
             reward += similarity * 50
-        
-        # 添加您的自定义奖励逻辑...
-        # 例如，可以基于特定关键词的存在、特定模式的匹配等给予奖励
         
         rewards.append(round(reward, 2))
     

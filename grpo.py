@@ -23,6 +23,9 @@ from grpo_reward import (
     reward_similarity,
     reward_user_similarity,
     reward_len_response,
+    reward_EXTERNAL,
+    init_external_reward_server,
+    shutdown_external_reward_server,
     init_user_similarity_logger
 )
 # 导入OpenAI兼容API服务器
@@ -56,6 +59,9 @@ if __name__ == "__main__":
                         help='API服务器端口')
     parser.add_argument('--api_host', type=str, default='0.0.0.0',
                         help='API服务器主机地址')
+    # 添加外部奖励服务器参数
+    parser.add_argument('--external_reward_port', type=int, default=5678,
+                        help='外部奖励服务器端口')
     args = parser.parse_args()
 
     # 加载语义相似度模型并初始化奖励模块
@@ -63,6 +69,11 @@ if __name__ == "__main__":
     if not init_semantic_model(semantic_model_path):
         print("语义模型初始化失败，程序退出")
         exit(1)
+        
+    # 初始化外部奖励服务器
+    print(f"初始化外部奖励服务器，端口: {args.external_reward_port}")
+    if not init_external_reward_server(args.external_reward_port):
+        print("警告: 外部奖励服务器初始化失败，但程序将继续运行")
 
     # 设置环境变量以避免内存碎片
     # os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
@@ -233,6 +244,7 @@ if __name__ == "__main__":
             reward_no_repetition,
             reward_similarity,
             reward_len_response,
+            reward_EXTERNAL,
         ],
         train_dataset=dataset,
         args=training_args,
@@ -241,6 +253,10 @@ if __name__ == "__main__":
 
     # 开始训练
     trainer.train()
+
+    # 关闭外部奖励服务器
+    print("关闭外部奖励服务器...")
+    shutdown_external_reward_server()
 
     # 清理日志设置
     cleanup_logging(logging_context)

@@ -122,7 +122,7 @@ class OpenAIEvaluator:
             
             raise ValueError(f"无法从回复中提取JSON：{response_text}")
     
-    def evaluate_multiple(self, responses, prompts=None, references=None, simplified=True, max_retries=2):
+    def evaluate_multiple(self, responses, prompts=None, references=None, simplified=True, max_retries=2, include_references=False):
         """
         一次API调用评估多个回复的质量
         
@@ -132,6 +132,7 @@ class OpenAIEvaluator:
             references: 参考答案列表（可选）
             simplified: 是否使用简化格式返回结果（仅总分）
             max_retries: 最大重试次数
+            include_references: 是否在返回结果中包含参考答案的评分
             
         Returns:
             list: 评分列表（0-100）
@@ -142,7 +143,31 @@ class OpenAIEvaluator:
         
         if not responses:
             return [], [] if not simplified else None
+            
+        # 创建包含参考答案的回复列表并打乱顺序
+        all_responses = responses.copy()
+        all_prompts = prompts.copy() if prompts else None
+        ref_indices = []  # 保存参考答案的索引位置
         
+        if references:
+            for i, ref in enumerate(references):
+                if ref:  # 只添加非None的参考答案
+                    all_responses.append(ref)
+                    if all_prompts:
+                        all_prompts.append(prompts[i] if i < len(prompts) else "未提供")
+                    ref_indices.append(len(all_responses) - 1)  # 记录参考答案在列表中的位置
+        
+        # 打乱顺序处理
+        indices = list(range(len(all_responses)))
+        random.shuffle(indices)
+        
+        shuffled_responses = [all_responses[i] for i in indices]
+        shuffled_prompts = [all_prompts[i] for i in indices] if all_prompts else None
+        
+        # 记录参考答案在打乱后的位置
+        shuffled_ref_indices = [indices.index(idx) for idx in ref_indices]
+        
+        # 进行评估
         retry_count = 0
         last_error = None
         
@@ -153,15 +178,13 @@ class OpenAIEvaluator:
             try:
                 # 构建批量评估提示
                 evaluation_items = []
-                for i, response in enumerate(responses):
-                    prompt = prompts[i] if prompts and i < len(prompts) else "未提供"
-                    reference = references[i] if references and i < len(references) else None
+                for i, response in enumerate(shuffled_responses):
+                    prompt = shuffled_prompts[i] if shuffled_prompts and i < len(shuffled_prompts) else "未提供"
                     
                     item = f"""
                     回复 #{i+1}:
                     用户提问: {prompt}
                     AI回复: {response}
-                    {f"参考答案: {reference}" if reference else ""}
                     """
                     evaluation_items.append(item)
                 
@@ -170,7 +193,7 @@ class OpenAIEvaluator:
                 if simplified:
                     # 简化版本 - 仅返回总分数组
                     evaluation_prompt = f"""
-                    请评估以下 {len(responses)} 个AI回复的质量，对每个回复给出0-100分的评分。评分标准包括：
+                    请评估以下 {len(shuffled_responses)} 个AI回复的质量，对每个回复给出0-100分的评分。评分标准包括：
                     1. 上下文连贯性 (0-33分)
                     2. 逻辑性 (0-33分)
                     3. 问答对应性 (0-34分)
@@ -245,11 +268,29 @@ class OpenAIEvaluator:
                             scores = [max(0, min(100, float(score))) for score in scores]
                             scores = [round(score, 2) for score in scores]
                             
+                            # 恢复原始顺序的分数
+                            restored_scores = [0] * len(indices)
+                            for i, idx in enumerate(indices):
+                                restored_scores[idx] = scores[i]
+                            
+                            # 计算参考答案的平均分数
+                            ref_scores = [restored_scores[idx] for idx in ref_indices if idx < len(restored_scores)]
+                            avg_ref_score = sum(ref_scores) / len(ref_scores) if ref_scores else 0
+                            
+                            # 为每个原始回复减去参考答案的分数
+                            normalized_scores = []
+                            for i in range(len(responses)):
+                                norm_score = max(0, restored_scores[i] - avg_ref_score)
+                                normalized_scores.append(round(norm_score, 2))
+                            
                             # 计算并显示耗时
                             elapsed_time = time.time() - start_time
-                            print(f"批量评估({len(responses)}个回复)耗时: {elapsed_time:.2f}秒, 平均每个回复: {elapsed_time/len(responses):.2f}秒")
+                            print(f"批量评估({len(shuffled_responses)}个回复)耗时: {elapsed_time:.2f}秒, 平均每个回复: {elapsed_time/len(shuffled_responses):.2f}秒")
                             
-                            return scores, None
+                            if include_references:
+                                return normalized_scores, ref_scores
+                            else:
+                                return normalized_scores, None
                         
                         # 3. 如果不是直接的JSON数组，尝试提取
                         array_pattern = r'\[(\s*\d+\s*(?:,\s*\d+\s*)*)\]'
@@ -260,11 +301,29 @@ class OpenAIEvaluator:
                             scores = [max(0, min(100, float(score))) for score in scores]
                             scores = [round(score, 2) for score in scores]
                             
+                            # 恢复原始顺序的分数
+                            restored_scores = [0] * len(indices)
+                            for i, idx in enumerate(indices):
+                                restored_scores[idx] = scores[i]
+                            
+                            # 计算参考答案的平均分数
+                            ref_scores = [restored_scores[idx] for idx in ref_indices if idx < len(restored_scores)]
+                            avg_ref_score = sum(ref_scores) / len(ref_scores) if ref_scores else 0
+                            
+                            # 为每个原始回复减去参考答案的分数
+                            normalized_scores = []
+                            for i in range(len(responses)):
+                                norm_score = max(0, restored_scores[i] - avg_ref_score)
+                                normalized_scores.append(round(norm_score, 2))
+                            
                             # 计算并显示耗时
                             elapsed_time = time.time() - start_time
-                            print(f"批量评估({len(responses)}个回复)耗时: {elapsed_time:.2f}秒, 平均每个回复: {elapsed_time/len(responses):.2f}秒")
+                            print(f"批量评估({len(shuffled_responses)}个回复)耗时: {elapsed_time:.2f}秒, 平均每个回复: {elapsed_time/len(shuffled_responses):.2f}秒")
                             
-                            return scores, None
+                            if include_references:
+                                return normalized_scores, ref_scores
+                            else:
+                                return normalized_scores, None
                         
                         # 4. 如果无法提取数组，尝试直接提取数字
                         numbers = re.findall(r'\b\d+(?:\.\d+)?\b', response_text)
@@ -273,11 +332,29 @@ class OpenAIEvaluator:
                             scores = [max(0, min(100, score)) for score in scores]
                             scores = [round(score, 2) for score in scores]
                             
+                            # 恢复原始顺序的分数
+                            restored_scores = [0] * len(indices)
+                            for i, idx in enumerate(indices):
+                                restored_scores[idx] = scores[i]
+                            
+                            # 计算参考答案的平均分数
+                            ref_scores = [restored_scores[idx] for idx in ref_indices if idx < len(restored_scores)]
+                            avg_ref_score = sum(ref_scores) / len(ref_scores) if ref_scores else 0
+                            
+                            # 为每个原始回复减去参考答案的分数
+                            normalized_scores = []
+                            for i in range(len(responses)):
+                                norm_score = max(0, restored_scores[i] - avg_ref_score)
+                                normalized_scores.append(round(norm_score, 2))
+                            
                             # 计算并显示耗时
                             elapsed_time = time.time() - start_time
-                            print(f"批量评估({len(responses)}个回复)耗时: {elapsed_time:.2f}秒, 平均每个回复: {elapsed_time/len(responses):.2f}秒")
+                            print(f"批量评估({len(shuffled_responses)}个回复)耗时: {elapsed_time:.2f}秒, 平均每个回复: {elapsed_time/len(shuffled_responses):.2f}秒")
                             
-                            return scores, None
+                            if include_references:
+                                return normalized_scores, ref_scores
+                            else:
+                                return normalized_scores, None
                         
                         # 5. 如果所有方法都失败，打印错误信息并重试
                         print(f"无法解析简化JSON结果，尝试重试 (重试 {retry_count+1}/{max_retries})。")
@@ -384,6 +461,12 @@ class OpenAIEvaluator:
         if not responses:
             return [], [] if not simplified else None
         
+        # 确保每个回复都有对应的参考答案
+        if references:
+            assert len(responses) == len(references), "回复数量必须与参考答案数量相同"
+        else:
+            references = [None] * len(responses)
+        
         all_scores = []
         all_details = []
         
@@ -446,13 +529,20 @@ class OpenAIEvaluator:
                             reference = batch_references[j] if batch_references else None
                             
                             try:
-                                score, detail = self.evaluate(response, prompt, reference)
+                                # 将reference作为另一个回复一起评估
+                                if reference:
+                                    response_list = [response, reference]
+                                    prompt_list = [prompt, prompt] if prompt else None
+                                    scores, _ = self.evaluate_multiple(response_list, prompt_list, simplified=True)
+                                    # 减去参考答案的分数
+                                    score = max(0, scores[0] - scores[1])
+                                else:
+                                    score, detail = self.evaluate(response, prompt, reference)
+                                    
                                 all_scores.append(score)
                                 if not simplified:
-                                    all_details.append(detail)
+                                    all_details.append({"总分": score, "评价": "单独评估结果"})
                                 print(f"单个评估 - 回复 #{item_index+1}: {score}")
-                                if not simplified and detail:
-                                    print(f"评价: {detail.get('评价', '无评价')}")
                             except Exception as e:
                                 print(f"单个评估回复 #{item_index+1} 时出错: {str(e)}")
                                 # 使用默认分数

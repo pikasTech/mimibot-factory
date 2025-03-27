@@ -37,8 +37,8 @@ def calculate_reward(responses, prompts=None, answers=None):
     Returns:
         奖励值列表
     """
-    # 创建OpenAI评估器 - 设置批次大小
-    evaluator = OpenAIEvaluator(batch_size=5)  # 每次评估5个回复
+    # 创建OpenAI评估器 - 设置批次大小为8
+    evaluator = OpenAIEvaluator(batch_size=8)  # 增加到8个回复一批
     
     # 检查评估器是否可用
     if not evaluator.is_available():
@@ -46,8 +46,15 @@ def calculate_reward(responses, prompts=None, answers=None):
         return calculate_backup_reward(responses, prompts, answers)
     
     try:
+        # 记录开始时间
+        start_time = time.time()
+        
         # 使用批量评估器评分
         rewards, _ = evaluator.evaluate_batch(responses, prompts, answers)
+        
+        # 计算总耗时
+        elapsed_time = time.time() - start_time
+        print(f"评估 {len(responses)} 个回复总耗时: {elapsed_time:.2f}秒, 平均每个回复: {elapsed_time/len(responses):.2f}秒")
         
         # 过滤掉None值，替换为备用分数
         for i, reward in enumerate(rewards):

@@ -7,6 +7,8 @@ import json
 import sys
 import re
 import time
+import random
+import numpy as np
 from langchain_openai import ChatOpenAI
 from langchain_core.messages import SystemMessage, HumanMessage
 from config import OPENAI_API_KEY, OPENAI_BASE_URL, MODEL_NAME, TEMPERATURE, MAX_TOKENS
@@ -59,6 +61,9 @@ class OpenAIEvaluator:
         if not self.is_available():
             raise ValueError("OpenAI API密钥未设置")
         
+        # 开始计时
+        start_time = time.time()
+        
         # 构建评估提示
         evaluation_prompt = f"""
         请评估以下AI回复的质量，并给出0-100分的评分。评分标准包括：
@@ -105,8 +110,16 @@ class OpenAIEvaluator:
             # 确保分数在0-100范围内
             total_score = max(0, min(100, total_score))
             
+            # 计算耗时
+            elapsed_time = time.time() - start_time
+            print(f"单个评估耗时: {elapsed_time:.2f}秒")
+            
             return total_score, score_data
         else:
+            # 计算耗时（即使失败）
+            elapsed_time = time.time() - start_time
+            print(f"单个评估失败耗时: {elapsed_time:.2f}秒")
+            
             raise ValueError(f"无法从回复中提取JSON：{response_text}")
     
     def evaluate_multiple(self, responses, prompts=None, references=None, simplified=True, max_retries=2):
@@ -132,6 +145,9 @@ class OpenAIEvaluator:
         
         retry_count = 0
         last_error = None
+        
+        # 开始计时
+        start_time = time.time()
         
         while retry_count <= max_retries:
             try:
@@ -164,6 +180,8 @@ class OpenAIEvaluator:
                     请只返回一个总分数组，格式为JSON数组，如 [95, 78, 65]。
                     数组中的每个数字对应每个回复的总分（0-100之间的整数）。
                     不要返回任何其他文字或解释，只返回分数数组。
+                    每个回复的分数不能相同。
+                    不要粗略地返回5或者10的倍数，具体到个位数。
                     """
                 else:
                     evaluation_prompt_part1 = f"""
@@ -226,6 +244,11 @@ class OpenAIEvaluator:
                             # 确保分数在0-100范围内
                             scores = [max(0, min(100, float(score))) for score in scores]
                             scores = [round(score, 2) for score in scores]
+                            
+                            # 计算并显示耗时
+                            elapsed_time = time.time() - start_time
+                            print(f"批量评估({len(responses)}个回复)耗时: {elapsed_time:.2f}秒, 平均每个回复: {elapsed_time/len(responses):.2f}秒")
+                            
                             return scores, None
                         
                         # 3. 如果不是直接的JSON数组，尝试提取
@@ -236,6 +259,11 @@ class OpenAIEvaluator:
                             scores = json.loads(array_str)
                             scores = [max(0, min(100, float(score))) for score in scores]
                             scores = [round(score, 2) for score in scores]
+                            
+                            # 计算并显示耗时
+                            elapsed_time = time.time() - start_time
+                            print(f"批量评估({len(responses)}个回复)耗时: {elapsed_time:.2f}秒, 平均每个回复: {elapsed_time/len(responses):.2f}秒")
+                            
                             return scores, None
                         
                         # 4. 如果无法提取数组，尝试直接提取数字
@@ -244,6 +272,11 @@ class OpenAIEvaluator:
                             scores = [float(numbers[i]) for i in range(len(responses))]
                             scores = [max(0, min(100, score)) for score in scores]
                             scores = [round(score, 2) for score in scores]
+                            
+                            # 计算并显示耗时
+                            elapsed_time = time.time() - start_time
+                            print(f"批量评估({len(responses)}个回复)耗时: {elapsed_time:.2f}秒, 平均每个回复: {elapsed_time/len(responses):.2f}秒")
+                            
                             return scores, None
                         
                         # 5. 如果所有方法都失败，打印错误信息并重试
@@ -285,6 +318,10 @@ class OpenAIEvaluator:
                                 scores.append(round(total_score, 2))
                                 details.append(eval_item)
                             
+                            # 计算并显示耗时
+                            elapsed_time = time.time() - start_time
+                            print(f"详细批量评估({len(responses)}个回复)耗时: {elapsed_time:.2f}秒, 平均每个回复: {elapsed_time/len(responses):.2f}秒")
+                            
                             return scores, details
                         else:
                             # 如果找不到JSON对象，尝试提取数字作为分数
@@ -318,6 +355,10 @@ class OpenAIEvaluator:
                 else:
                     break
         
+        # 计算耗时（即使失败）
+        elapsed_time = time.time() - start_time
+        print(f"批量评估失败耗时: {elapsed_time:.2f}秒")
+        
         # 如果所有重试都失败，抛出最后一个错误
         if last_error:
             raise ValueError(f"评估多个回复失败，已达最大重试次数: {str(last_error)}")
@@ -346,8 +387,13 @@ class OpenAIEvaluator:
         all_scores = []
         all_details = []
         
+        # 开始计时
+        total_start_time = time.time()
+        
         # 按批次处理
         for i in range(0, len(responses), self.batch_size):
+            batch_start_time = time.time()
+            
             batch_responses = responses[i:i+self.batch_size]
             batch_prompts = prompts[i:i+self.batch_size] if prompts else None
             batch_references = references[i:i+self.batch_size] if references else None
@@ -367,6 +413,10 @@ class OpenAIEvaluator:
                     # 检查结果是否正确
                     if batch_scores and len(batch_scores) == len(batch_responses):
                         batch_success = True
+                        
+                        # 计算批次耗时
+                        batch_elapsed_time = time.time() - batch_start_time
+                        print(f"批次 {i//self.batch_size + 1} 评估耗时: {batch_elapsed_time:.2f}秒, 平均每个回复: {batch_elapsed_time/len(batch_responses):.2f}秒")
                         
                         # 打印结果
                         for j, score in enumerate(batch_scores):
@@ -416,13 +466,131 @@ class OpenAIEvaluator:
                         print(f"等待 2 秒后重试...")
                         time.sleep(2)
         
+        # 计算总耗时
+        total_elapsed_time = time.time() - total_start_time
+        print(f"\n总评估耗时: {total_elapsed_time:.2f}秒, 共 {len(responses)} 个回复, 平均每个回复: {total_elapsed_time/len(responses):.2f}秒")
+        
         return all_scores, all_details if not simplified else None
+    
+    def test_consistency(self, responses, prompts=None, references=None, num_tests=3, simplified=True):
+        """
+        测试评分的一致性，通过打乱顺序多次评估
+        
+        Args:
+            responses: 要评估的回复列表
+            prompts: 提问列表（可选）
+            references: 参考答案列表（可选）
+            num_tests: 测试次数
+            simplified: 是否使用简化格式
+            
+        Returns:
+            list: 多次评分结果列表
+            float: 评分一致性分数(0-1)
+        """
+        if len(responses) < 2:
+            print("需要至少2个回复来测试一致性")
+            return [[], []], 1.0
+        
+        all_results = []
+        original_indices = list(range(len(responses)))
+        
+        print(f"\n开始一致性测试，将进行 {num_tests} 次随机顺序评估...")
+        
+        # 保存原始顺序的结果
+        print("\n测试 #0: 原始顺序")
+        original_scores, _ = self.evaluate_batch(responses, prompts, references, simplified=simplified)
+        all_results.append(original_scores)
+        
+        # 进行多次打乱顺序的测试
+        for test_num in range(1, num_tests+1):
+            # 打乱索引
+            shuffled_indices = original_indices.copy()
+            random.shuffle(shuffled_indices)
+            
+            # 按打乱的顺序重排
+            shuffled_responses = [responses[i] for i in shuffled_indices]
+            shuffled_prompts = [prompts[i] for i in shuffled_indices] if prompts else None
+            shuffled_references = [references[i] for i in shuffled_indices] if references else None
+            
+            print(f"\n测试 #{test_num}: 随机顺序")
+            print(f"打乱后的顺序: {shuffled_indices}")
+            
+            # 评估打乱后的数据
+            shuffled_scores, _ = self.evaluate_batch(
+                shuffled_responses, shuffled_prompts, shuffled_references, simplified=simplified
+            )
+            
+            # 恢复原始顺序
+            restored_scores = [None] * len(shuffled_scores)
+            for i, orig_idx in enumerate(shuffled_indices):
+                restored_scores[orig_idx] = shuffled_scores[i]
+            
+            all_results.append(restored_scores)
+            
+            # 比较恢复后的分数与原始分数
+            diffs = [abs(original_scores[i] - restored_scores[i]) for i in range(len(original_scores))]
+            avg_diff = sum(diffs) / len(diffs)
+            max_diff = max(diffs)
+            
+            print(f"恢复顺序后的分数: {restored_scores}")
+            print(f"与原始分数的平均差异: {avg_diff:.2f}, 最大差异: {max_diff:.2f}")
+        
+        # 计算总体一致性
+        all_scores = np.array(all_results)
+        std_per_item = np.std(all_scores, axis=0)
+        mean_std = np.mean(std_per_item)
+        max_std = np.max(std_per_item)
+        
+        # 一致性分数：1 - 标准差/满分
+        consistency = 1 - (mean_std / 100)
+
+        # Calculate ranking consistency based on rank correlation
+        rank_consistency = 0.0
+
+        if len(all_results) > 1:
+            # Calculate Spearman rank correlation for each pair of evaluations
+            correlations = []
+            
+            for i in range(len(all_results)):
+                for j in range(i+1, len(all_results)):
+                    scores_i = np.array(all_results[i])
+                    scores_j = np.array(all_results[j])
+                    
+                    # Convert to ranks (argsort of argsort gives ranks)
+                    # Using negative scores so higher scores get lower ranks
+                    ranks_i = np.argsort(np.argsort(-scores_i))
+                    ranks_j = np.argsort(np.argsort(-scores_j))
+                    
+                    # Calculate Pearson correlation between ranks
+                    mean_i = np.mean(ranks_i)
+                    mean_j = np.mean(ranks_j)
+                    std_i = np.std(ranks_i)
+                    std_j = np.std(ranks_j)
+                    
+                    if std_i > 0 and std_j > 0:  # Avoid division by zero
+                        corr = np.mean((ranks_i - mean_i) * (ranks_j - mean_j)) / (std_i * std_j)
+                        correlations.append(corr)
+            
+            # Calculate average correlation (ranges from -1 to 1)
+            if correlations:
+                rank_consistency = np.mean(correlations)
+                # Scale to 0-1 range for easier interpretation
+                rank_consistency = (rank_consistency + 1) / 2
+        
+        print("\n一致性测试结果:")
+        print(f"所有测试的评分: {all_results}")
+        print(f"每项的标准差: {std_per_item}")
+        print(f"平均标准差: {mean_std:.2f}, 最大标准差: {max_std:.2f}")
+        print(f"一致性分数: {consistency:.4f} (0-1，越接近1表示一致性越高)")
+        print(f"排名一致性: {rank_consistency:.4f} (0-1，越接近1表示排名越一致)")
+        
+        return all_results, consistency
 
 if __name__ == "__main__":
     """
     简单的测试代码，通过实际调用API来测试评估器功能
     """
-    # 测试数据
+    # 测试数据 - 增加更多示例来测试8个一批
     test_cases = [
         {
             "prompt": "解释一下量子计算的基本原理",
@@ -433,14 +601,54 @@ if __name__ == "__main__":
             "prompt": "如何制作意大利面？",
             "response": "买一包面条煮一下就行。",
             "reference": "准备意大利面条、盐和水。将水烧开，加入盐。放入面条，根据包装说明煮8-12分钟至软硬适中。沥干水分，加入你喜欢的酱料搅拌均匀。可以添加橄榄油、帕马森奶酪、香草等增加风味。"
+        },
+        {
+            "prompt": "Python中如何创建一个函数？",
+            "response": "在Python中，使用def关键字创建函数。基本语法是：\n\ndef 函数名(参数1, 参数2, ...):\n    函数体\n    return 返回值\n\n例如：\n\ndef add(a, b):\n    return a + b\n\nresult = add(5, 3)  # 调用函数，结果为8",
+            "reference": None
+        },
+        {
+            "prompt": "什么是机器学习？",
+            "response": "机器学习是人工智能的一个分支，它使计算机能够从数据中学习，而无需明确编程。",
+            "reference": "机器学习是人工智能的一个分支，它使计算机系统能够从数据中学习并改进经验，而无需明确编程。它专注于开发能够访问数据并使用它来自我学习的算法。机器学习算法通过构建模型来识别数据中的模式，然后使用这些模型对新数据进行预测或决策。"
+        },
+        {
+            "prompt": "推荐一部经典电影",
+            "response": "《肖申克的救赎》是一部非常经典的电影，讲述了银行家安迪被错误判刑入狱后，在监狱中保持希望并最终获得自由的故事。",
+            "reference": None
+        },
+        {
+            "prompt": "解释下什么是区块链技术",
+            "response": "区块链就是比特币。",
+            "reference": "区块链是一种分布式账本技术，它通过一系列连接的区块存储信息，每个区块包含交易数据和前一个区块的哈希值。这种设计使得区块链具有不可篡改性和去中心化的特点。它不仅用于加密货币如比特币，还可应用于供应链追踪、智能合约等多个领域。"
+        },
+        {
+            "prompt": "如何改善睡眠质量？",
+            "response": "改善睡眠质量的方法：1. 保持规律的睡眠时间表 2. 创造舒适的睡眠环境，如适宜的温度和光线 3. 睡前避免使用电子设备 4. 避免睡前摄入咖啡因和酒精 5. 适度运动，但避免睡前剧烈运动 6. 睡前放松活动，如阅读或冥想 7. 舒适的床垫和枕头 8. 如持续失眠，考虑咨询医生",
+            "reference": None
+        },
+        {
+            "prompt": "介绍一下太阳系",
+            "response": "太阳系是恒星太阳及其周围天体的集合，包括八大行星（按距离顺序：水星、金星、地球、火星、木星、土星、天王星和海王星）、矮行星、卫星、小行星、彗星等。太阳占据太阳系质量的99.86%，其引力将整个系统束缚在一起。地球是目前已知唯一存在生命的行星。",
+            "reference": None
+        },
+        {
+            "prompt": "什么是可持续发展？",
+            "response": "可持续发展是指能够满足当代人需求而不损害后代人满足其需求能力的发展模式。它强调环境保护、社会公平和经济增长的平衡。可持续发展目标包括减少贫困、促进教育、性别平等、清洁能源、气候行动等多个方面。",
+            "reference": None
+        },
+        {
+            "prompt": "介绍一下人工智能的伦理问题",
+            "response": "人工智能伦理涉及的问题包括：隐私和数据保护、算法偏见和歧视、自动化导致的就业影响、自主武器系统的潜在危害、透明度和可解释性、责任归属等。随着AI技术的发展，建立适当的伦理框架和监管体系变得越来越重要。",
+            "reference": None
         }
     ]
     
     print("开始测试OpenAI评估器...\n")
     
     try:
-        # 创建评估器实例
-        evaluator = OpenAIEvaluator(batch_size=2)  # 设置批次大小为2进行测试
+        # 创建评估器实例 - 改为8个一批
+        evaluator = OpenAIEvaluator(batch_size=8)  # 设置批次大小为8进行测试
         
         # 检查API密钥和基础URL设置
         print(f"使用基础URL: {evaluator.base_url}")
@@ -451,34 +659,27 @@ if __name__ == "__main__":
             print("错误: API密钥未设置，无法进行测试")
             sys.exit(1)
         
-        # 逐个测试用例
-        for i, case in enumerate(test_cases):
-            print(f"测试用例 #{i+1}:")
-            print(f"提问: {case['prompt']}")
-            print(f"回复: {case['response']}")
-            if case['reference']:
-                print(f"参考: {case['reference']}")
-            
-            try:
-                # 调用评估函数
-                score, details = evaluator.evaluate(
-                    case['response'], 
-                    case['prompt'], 
-                    case['reference']
-                )
-                
-                # 输出结果
-                print("\n评分结果:")
-                print(f"总分: {score}/100")
-                print(f"连贯性: {details.get('连贯性', 'N/A')}")
-                print(f"逻辑性: {details.get('逻辑性', 'N/A')}")
-                print(f"对应性: {details.get('对应性', 'N/A')}")
-                print(f"评价: {details.get('评价', 'N/A')}")
-                print("\n" + "-"*50 + "\n")
-            except Exception as e:
-                print(f"测试失败: {str(e)}\n")
+        # 只保留单个回复评估的简化测试
+        print("测试单个回复评估:")
+        case = test_cases[0]
+        print(f"提问: {case['prompt']}")
+        print(f"回复: {case['response']}")
         
-        # 批量测试
+        score, details = evaluator.evaluate(
+            case['response'], 
+            case['prompt'], 
+            case['reference']
+        )
+        
+        print("\n评分结果:")
+        print(f"总分: {score}/100")
+        print(f"连贯性: {details.get('连贯性', 'N/A')}")
+        print(f"逻辑性: {details.get('逻辑性', 'N/A')}")
+        print(f"对应性: {details.get('对应性', 'N/A')}")
+        print(f"评价: {details.get('评价', 'N/A')}")
+        print("\n" + "-"*50 + "\n")
+        
+        # 准备批量测试数据
         print("批量评估测试:")
         responses = [case['response'] for case in test_cases]
         prompts = [case['prompt'] for case in test_cases]
@@ -486,14 +687,32 @@ if __name__ == "__main__":
         
         # 测试批量评估
         print("\n测试一次评估多个回复:")
-        scores, details = evaluator.evaluate_multiple(responses, prompts, references)
-        print(f"批量评分结果: {scores}")
+        # 只用前8个测试一次性评估
+        test_batch_size = min(8, len(responses))
+        batch_scores, _ = evaluator.evaluate_multiple(
+            responses[:test_batch_size], 
+            prompts[:test_batch_size], 
+            references[:test_batch_size]
+        )
+        print(f"批量评分结果: {batch_scores}")
         
-        print("\n测试分批评估:")
-        scores, details = evaluator.evaluate_batch(responses, prompts, references)
-        print(f"批量评分结果: {scores}\n")
+        print("\n测试分批评估(每批8个):")
+        all_scores, _ = evaluator.evaluate_batch(responses, prompts, references)
+        print(f"全部评分结果: {all_scores}\n")
         
-        print("测试完成!")
+        # 测试一致性（打乱顺序测试）
+        print("\n开始一致性测试（多次打乱顺序评估）:")
+        # 使用一部分数据进行一致性测试，避免过长
+        test_size = min(8, len(responses))
+        test_responses = responses[:test_size]
+        test_prompts = prompts[:test_size]
+        test_references = references[:test_size]
+        
+        all_test_results, consistency = evaluator.test_consistency(
+            test_responses, test_prompts, test_references, num_tests=3
+        )
+        
+        print("\n测试完成!")
     
     except Exception as e:
         print(f"测试过程中出错: {str(e)}")

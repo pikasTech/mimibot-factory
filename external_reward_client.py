@@ -28,7 +28,7 @@ def signal_handler(sig, frame):
     running = False
     sys.exit(0)
 
-def calculate_reward(responses, prompts_origin=None, answers=None, max_workers=4):
+def calculate_reward(responses, prompts_origin=None, answers=None, max_workers=16):
     """
     计算自定义奖励 - 使用OpenAI API评估回复质量
     

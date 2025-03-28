@@ -147,12 +147,12 @@ if __name__ == "__main__":
                         help="基础模型的路径", 
                         default="output/mimibot_l3_v1.0")
     parser.add_argument("--lora_model_path", type=str,
-                        help="LoRA模型的路径", default="results/mimibot_l3/checkpoint-1000")
+                        help="LoRA模型的路径", default="results/mimibot_l3/checkpoint-1500")
     parser.add_argument("--alpha", type=float, default=1.0,
                         help="LoRA权重合并比例，默认为1.0")
     parser.add_argument("--output_dir", type=str,
                         help="合并后模型的保存路径", 
-                        default="output/mimibot_l3_v1.1")
+                        default="output/mimibot_l3d_v1.1")
     parser.add_argument("--output_precision", type=str, 
                         default="none",
                         choices=["fp16", "bf16", "none"],

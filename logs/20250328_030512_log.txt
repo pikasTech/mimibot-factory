@@ -10505,3 +10505,228 @@ Chat prompt: <|begin_of_text|><|start_header_id|>system<|end_header_id|>
  74%|#######3  | 1477/2000 [5:34:01<2:38:13, 18.15s/it]reward_EXTERNAL 被调用，当前有 1 个客户端连接
 向客户端 1/1 发送奖励请求...
 等待客户端 1 响应...
+收到客户端 1 响应: {"rewards": [-90, -110, 180, -160, 30, -40, 140, 100, 150, 100, 80, 130, 180, 160, -40, 30]}
+客户端 1 返回的奖励: [-90, -110, 180, -160, 30, -40, 140, 100, 150, 100, 80, 130, 180, 160, -40, 30]
+最终计算的奖励: [-90, -110, 180, -160, 30, -40, 140, 100, 150, 100, 80, 130, 180, 160, -40, 30]
+ 74%|#######3  | 1478/2000 [5:34:17<2:32:42, 17.55s/it]                                                       {'loss': 0.006, 'grad_norm': 1.0186195373535156, 'learning_rate': 1.6191254986299044e-06, 'rewards/reward_external': 52.5, 'rewards/reward_format': 100.0, 'rewards/reward_no_repetition': -2031.25, 'rewards/reward_len_response': 5.0206828117370605, 'reward': -1873.729248046875, 'reward_std': 989.9226684570312, 'completion_length': 109.625, 'kl': 0.05957146733999252, 'epoch': 0.72}
+ 74%|#######3  | 1478/2000 [5:34:17<2:32:42, 17.55s/it]reward_EXTERNAL 被调用，当前有 1 个客户端连接
+向客户端 1/1 发送奖励请求...
+等待客户端 1 响应...
+收到客户端 1 响应: {"rewards": [70, 300, 200, 140, 350, 340, 110, 270, 300, 170, 50, 270, -70, 230, 130, 200]}
+客户端 1 返回的奖励: [70, 300, 200, 140, 350, 340, 110, 270, 300, 170, 50, 270, -70, 230, 130, 200]
+最终计算的奖励: [70, 300, 200, 140, 350, 340, 110, 270, 300, 170, 50, 270, -70, 230, 130, 200]
+ 74%|#######3  | 1479/2000 [5:34:33<2:29:35, 17.23s/it]                                                       {'loss': 0.0074, 'grad_norm': 1.1203854084014893, 'learning_rate': 1.6132849573965781e-06, 'rewards/reward_external': 191.25, 'rewards/reward_format': 100.0, 'rewards/reward_no_repetition': 0.0, 'rewards/reward_len_response': -60.09868621826172, 'reward': 231.15133666992188, 'reward_std': 109.99302673339844, 'completion_length': 96.9375, 'kl': 0.07387640327215195, 'epoch': 0.72}
+ 74%|#######3  | 1479/2000 [5:34:33<2:29:35, 17.23s/it]reward_EXTERNAL 被调用，当前有 1 个客户端连接
+向客户端 1/1 发送奖励请求...
+等待客户端 1 响应...
+收到客户端 1 响应: {"rewards": [-10, 10, -50, -40, -70, -60, -30, -20, 40, 70, 120, 220, 170, 370, 270, -80]}
+客户端 1 返回的奖励: [-10, 10, -50, -40, -70, -60, -30, -20, 40, 70, 120, 220, 170, 370, 270, -80]
+最终计算的奖励: [-10, 10, -50, -40, -70, -60, -30, -20, 40, 70, 120, 220, 170, 370, 270, -80]
+ 74%|#######4  | 1480/2000 [5:34:49<2:26:38, 16.92s/it]                                                       {'loss': 0.0085, 'grad_norm': 1.3007996082305908, 'learning_rate': 1.6074529422143398e-06, 'rewards/reward_external': 56.875, 'rewards/reward_format': 100.0, 'rewards/reward_no_repetition': 0.0, 'rewards/reward_len_response': 29.147220611572266, 'reward': 186.022216796875, 'reward_std': 101.34207153320312, 'completion_length': 93.6875, 'kl': 0.08471329510211945, 'epoch': 0.72}
+ 74%|#######4  | 1480/2000 [5:34:49<2:26:38, 16.92s/it]reward_EXTERNAL 被调用，当前有 1 个客户端连接
+向客户端 1/1 发送奖励请求...
+等待客户端 1 响应...
+收到客户端 1 响应: {"rewards": [170, 80, 50, 70, 130, 150, 30, 100, -70, 60, 430, 120, -110, 350, 170, 290]}
+客户端 1 返回的奖励: [170, 80, 50, 70, 130, 150, 30, 100, -70, 60, 430, 120, -110, 350, 170, 290]
+最终计算的奖励: [170, 80, 50, 70, 130, 150, 30, 100, -70, 60, 430, 120, -110, 350, 170, 290]
+ 74%|#######4  | 1481/2000 [5:35:06<2:26:34, 16.94s/it]                                                       {'loss': 0.0061, 'grad_norm': 0.9938817024230957, 'learning_rate': 1.6016294677652772e-06, 'rewards/reward_external': 126.25, 'rewards/reward_format': 100.0, 'rewards/reward_no_repetition': 0.0, 'rewards/reward_len_response': 11.634000778198242, 'reward': 237.8839874267578, 'reward_std': 116.53844451904297, 'completion_length': 97.375, 'kl': 0.06125188618898392, 'epoch': 0.72}
+ 74%|#######4  | 1481/2000 [5:35:06<2:26:34, 16.94s/it]reward_EXTERNAL 被调用，当前有 1 个客户端连接
+向客户端 1/1 发送奖励请求...
+等待客户端 1 响应...
+收到客户端 1 响应: {"rewards": [-240, -170, 60, -320, -100, -80, -270, -220, -100, 50, 200, 150, 100, -50, -200, -150]}
+客户端 1 返回的奖励: [-240, -170, 60, -320, -100, -80, -270, -220, -100, 50, 200, 150, 100, -50, -200, -150]
+最终计算的奖励: [-240, -170, 60, -320, -100, -80, -270, -220, -100, 50, 200, 150, 100, -50, -200, -150]
+ 74%|#######4  | 1482/2000 [5:35:23<2:25:10, 16.82s/it]                                                       {'loss': 0.0057, 'grad_norm': 1.0759294033050537, 'learning_rate': 1.5958145487099829e-06, 'rewards/reward_external': -83.75, 'rewards/reward_format': 100.0, 'rewards/reward_no_repetition': 0.0, 'rewards/reward_len_response': 21.8735294342041, 'reward': 38.12352752685547, 'reward_std': 147.971435546875, 'completion_length': 104.5, 'kl': 0.05692096799612045, 'epoch': 0.72}
+ 74%|#######4  | 1482/2000 [5:35:23<2:25:10, 16.82s/it]reward_EXTERNAL 被调用，当前有 1 个客户端连接
+向客户端 1/1 发送奖励请求...
+等待客户端 1 响应...
+收到客户端 1 响应: {"rewards": [130, 100, 120, 150, 140, 80, 170, 50, 300, 320, 350, 250, 380, 420, 450, 400]}
+客户端 1 返回的奖励: [130, 100, 120, 150, 140, 80, 170, 50, 300, 320, 350, 250, 380, 420, 450, 400]
+最终计算的奖励: [130, 100, 120, 150, 140, 80, 170, 50, 300, 320, 350, 250, 380, 420, 450, 400]
+ 74%|#######4  | 1483/2000 [5:35:42<2:31:48, 17.62s/it]                                                       {'loss': 0.0081, 'grad_norm': 1.0197484493255615, 'learning_rate': 1.5900081996875083e-06, 'rewards/reward_external': 238.125, 'rewards/reward_format': 100.0, 'rewards/reward_no_repetition': 0.0, 'rewards/reward_len_response': -2.5136404037475586, 'reward': 335.6113586425781, 'reward_std': 41.9998779296875, 'completion_length': 114.5, 'kl': 0.08133062720298767, 'epoch': 0.72}
+ 74%|#######4  | 1483/2000 [5:35:42<2:31:48, 17.62s/it]reward_EXTERNAL 被调用，当前有 1 个客户端连接
+向客户端 1/1 发送奖励请求...
+等待客户端 1 响应...
+收到客户端 1 响应: {"rewards": [-50, 50, 300, 100, -250, 200, 150, -150, -50, -300, -100, -250, -350, -150, -150, -200]}
+客户端 1 返回的奖励: [-50, 50, 300, 100, -250, 200, 150, -150, -50, -300, -100, -250, -350, -150, -150, -200]
+最终计算的奖励: [-50, 50, 300, 100, -250, 200, 150, -150, -50, -300, -100, -250, -350, -150, -150, -200]
+ 74%|#######4  | 1484/2000 [5:36:01<2:34:31, 17.97s/it]                                                       {'loss': 0.0144, 'grad_norm': 2.0683226585388184, 'learning_rate': 1.5842104353153286e-06, 'rewards/reward_external': -75.0, 'rewards/reward_format': 100.0, 'rewards/reward_no_repetition': 0.0, 'rewards/reward_len_response': -0.6210832595825195, 'reward': 24.37891387939453, 'reward_std': 151.5690155029297, 'completion_length': 110.8125, 'kl': 0.1439705491065979, 'epoch': 0.72}
+ 74%|#######4  | 1484/2000 [5:36:01<2:34:31, 17.97s/it]reward_EXTERNAL 被调用，当前有 1 个客户端连接
+向客户端 1/1 发送奖励请求...
+等待客户端 1 响应...
+收到客户端 1 响应: {"rewards": [100, -50, 30, -150, -200, -100, -250, 50, 400, 440, 490, 500, 530, -40, 460, 130]}
+客户端 1 返回的奖励: [100, -50, 30, -150, -200, -100, -250, 50, 400, 440, 490, 500, 530, -40, 460, 130]
+最终计算的奖励: [100, -50, 30, -150, -200, -100, -250, 50, 400, 440, 490, 500, 530, -40, 460, 130]
+ 74%|#######4  | 1485/2000 [5:36:21<2:37:53, 18.40s/it]                                                       {'loss': 0.0074, 'grad_norm': 1.005014419555664, 'learning_rate': 1.5784212701893088e-06, 'rewards/reward_external': 146.25, 'rewards/reward_format': 100.0, 'rewards/reward_no_repetition': 0.0, 'rewards/reward_len_response': 24.766000747680664, 'reward': 271.0160217285156, 'reward_std': 171.212158203125, 'completion_length': 114.625, 'kl': 0.0744176134467125, 'epoch': 0.73}
+ 74%|#######4  | 1485/2000 [5:36:21<2:37:53, 18.40s/it]reward_EXTERNAL 被调用，当前有 1 个客户端连接
+向客户端 1/1 发送奖励请求...
+等待客户端 1 响应...
+收到客户端 1 响应: {"rewards": [30, 130, 80, 60, -40, 100, -70, -20, 520, 450, 420, 500, 350, 480, 150, 200]}
+客户端 1 返回的奖励: [30, 130, 80, 60, -40, 100, -70, -20, 520, 450, 420, 500, 350, 480, 150, 200]
+最终计算的奖励: [30, 130, 80, 60, -40, 100, -70, -20, 520, 450, 420, 500, 350, 480, 150, 200]
+ 74%|#######4  | 1486/2000 [5:36:39<2:37:55, 18.43s/it]                                                       {'loss': 0.0061, 'grad_norm': 1.0376397371292114, 'learning_rate': 1.5726407188836672e-06, 'rewards/reward_external': 208.75, 'rewards/reward_format': 100.0, 'rewards/reward_no_repetition': 0.0, 'rewards/reward_len_response': 37.667564392089844, 'reward': 346.4175720214844, 'reward_std': 99.63542175292969, 'completion_length': 107.5, 'kl': 0.06060117855668068, 'epoch': 0.73}
+ 74%|#######4  | 1486/2000 [5:36:39<2:37:55, 18.43s/it]reward_EXTERNAL 被调用，当前有 1 个客户端连接
+向客户端 1/1 发送奖励请求...
+等待客户端 1 响应...
+收到客户端 1 响应: {"rewards": [60, -90, -70, -50, 30, -120, -20, -40, 300, 230, 370, 270, 250, 200, 330, 350]}
+客户端 1 返回的奖励: [60, -90, -70, -50, 30, -120, -20, -40, 300, 230, 370, 270, 250, 200, 330, 350]
+最终计算的奖励: [60, -90, -70, -50, 30, -120, -20, -40, 300, 230, 370, 270, 250, 200, 330, 350]
+外部奖励客户端已连接: ('127.0.0.1', 50488)
+已向客户端 ('127.0.0.1', 50488) 发送欢迎消息
+ 74%|#######4  | 1487/2000 [5:36:55<2:31:30, 17.72s/it]                                                       {'loss': 0.0055, 'grad_norm': 1.267423391342163, 'learning_rate': 1.566868795950932e-06, 'rewards/reward_external': 125.0, 'rewards/reward_format': 100.0, 'rewards/reward_no_repetition': 0.0, 'rewards/reward_len_response': -2.691692352294922, 'reward': 222.3083038330078, 'reward_std': 59.94673156738281, 'completion_length': 94.5625, 'kl': 0.05496789887547493, 'epoch': 0.73}
+ 74%|#######4  | 1487/2000 [5:36:55<2:31:30, 17.72s/it]reward_EXTERNAL 被调用，当前有 2 个客户端连接
+向客户端 1/2 发送奖励请求...
+等待客户端 1 响应...
+客户端 1 断开连接
+向客户端 2/2 发送奖励请求...
+等待客户端 2 响应...
+收到客户端 2 响应: {"rewards": [520, 530, 350, 550, 480, 450, 300, 580, 250, -100, 200, 150, -180, 220, -50, 180]}
+客户端 2 返回的奖励: [520, 530, 350, 550, 480, 450, 300, 580, 250, -100, 200, 150, -180, 220, -50, 180]
+最终计算的奖励: [520, 530, 350, 550, 480, 450, 300, 580, 250, -100, 200, 150, -180, 220, -50, 180]
+ 74%|#######4  | 1488/2000 [5:37:14<2:33:35, 18.00s/it]                                                       {'loss': 0.0074, 'grad_norm': 1.5534300804138184, 'learning_rate': 1.561105515921915e-06, 'rewards/reward_external': 276.875, 'rewards/reward_format': 100.0, 'rewards/reward_no_repetition': 0.0, 'rewards/reward_len_response': -92.46432495117188, 'reward': 284.4106750488281, 'reward_std': 152.23699951171875, 'completion_length': 103.625, 'kl': 0.07393273711204529, 'epoch': 0.73}
+ 74%|#######4  | 1488/2000 [5:37:14<2:33:35, 18.00s/it]reward_EXTERNAL 被调用，当前有 2 个客户端连接
+向客户端 1/2 发送奖励请求...
+从客户端 1 获取奖励失败: [Errno 32] Broken pipe
+向客户端 2/2 发送奖励请求...
+等待客户端 2 响应...
+收到客户端 2 响应: {"rewards": [-50, -100, 50, 280, 100, 150, 300, 200, 380, 450, 250, 200, 300, 100, -80, 50]}
+客户端 2 返回的奖励: [-50, -100, 50, 280, 100, 150, 300, 200, 380, 450, 250, 200, 300, 100, -80, 50]
+最终计算的奖励: [-50, -100, 50, 280, 100, 150, 300, 200, 380, 450, 250, 200, 300, 100, -80, 50]
+ 74%|#######4  | 1489/2000 [5:37:29<2:25:43, 17.11s/it]                                                       {'loss': 0.0063, 'grad_norm': 1.1549679040908813, 'learning_rate': 1.5553508933056665e-06, 'rewards/reward_external': 161.25, 'rewards/reward_format': 100.0, 'rewards/reward_no_repetition': 0.0, 'rewards/reward_len_response': 6.035595893859863, 'reward': 267.28558349609375, 'reward_std': 191.57032775878906, 'completion_length': 95.9375, 'kl': 0.06292328983545303, 'epoch': 0.73}
+ 74%|#######4  | 1489/2000 [5:37:29<2:25:43, 17.11s/it]reward_EXTERNAL 被调用，当前有 1 个客户端连接
+向客户端 1/1 发送奖励请求...
+等待客户端 1 响应...
+收到客户端 1 响应: {"rewards": [100, 250, 300, 400, 150, 350, 50, 200, -130, 30, -150, -70, -250, -30, -200, 10]}
+客户端 1 返回的奖励: [100, 250, 300, 400, 150, 350, 50, 200, -130, 30, -150, -70, -250, -30, -200, 10]
+最终计算的奖励: [100, 250, 300, 400, 150, 350, 50, 200, -130, 30, -150, -70, -250, -30, -200, 10]
+ 74%|#######4  | 1490/2000 [5:37:45<2:23:22, 16.87s/it]                                                       {'loss': 0.0057, 'grad_norm': 4.586819648742676, 'learning_rate': 1.549604942589441e-06, 'rewards/reward_external': 63.125, 'rewards/reward_format': 100.0, 'rewards/reward_no_repetition': 0.0, 'rewards/reward_len_response': -14.375, 'reward': 148.74998474121094, 'reward_std': 91.64010620117188, 'completion_length': 94.0, 'kl': 0.05737469717860222, 'epoch': 0.73}
+ 74%|#######4  | 1490/2000 [5:37:45<2:23:22, 16.87s/it]reward_EXTERNAL 被调用，当前有 1 个客户端连接
+向客户端 1/1 发送奖励请求...
+等待客户端 1 响应...
+收到客户端 1 响应: {"rewards": [-300, 50, 200, -100, -200, 150, 100, -50, -130, 100, 150, -50, -200, 50, 300, 200]}
+客户端 1 返回的奖励: [-300, 50, 200, -100, -200, 150, 100, -50, -130, 100, 150, -50, -200, 50, 300, 200]
+最终计算的奖励: [-300, 50, 200, -100, -200, 150, 100, -50, -130, 100, 150, -50, -200, 50, 300, 200]
+ 75%|#######4  | 1491/2000 [5:38:01<2:20:31, 16.56s/it]                                                       {'loss': 0.0043, 'grad_norm': 0.8929058909416199, 'learning_rate': 1.543867678238663e-06, 'rewards/reward_external': 16.875, 'rewards/reward_format': 100.0, 'rewards/reward_no_repetition': 0.0, 'rewards/reward_len_response': 6.3138017654418945, 'reward': 123.18880462646484, 'reward_std': 153.30751037597656, 'completion_length': 118.625, 'kl': 0.04327297583222389, 'epoch': 0.73}
+ 75%|#######4  | 1491/2000 [5:38:01<2:20:31, 16.56s/it]reward_EXTERNAL 被调用，当前有 1 个客户端连接
+向客户端 1/1 发送奖励请求...
+等待客户端 1 响应...
+收到客户端 1 响应: {"rewards": [300, 350, 400, 270, 230, 150, 330, 370, 100, -150, -50, 80, 150, -80, -100, 200]}
+客户端 1 返回的奖励: [300, 350, 400, 270, 230, 150, 330, 370, 100, -150, -50, 80, 150, -80, -100, 200]
+最终计算的奖励: [300, 350, 400, 270, 230, 150, 330, 370, 100, -150, -50, 80, 150, -80, -100, 200]
+ 75%|#######4  | 1492/2000 [5:38:21<2:27:33, 17.43s/it]                                                       {'loss': 0.0065, 'grad_norm': 1.1194044351577759, 'learning_rate': 1.5381391146968866e-06, 'rewards/reward_external': 159.375, 'rewards/reward_format': 100.0, 'rewards/reward_no_repetition': 0.0, 'rewards/reward_len_response': -28.248722076416016, 'reward': 231.1262664794922, 'reward_std': 111.7326431274414, 'completion_length': 117.875, 'kl': 0.06467819958925247, 'epoch': 0.73}
+ 75%|#######4  | 1492/2000 [5:38:21<2:27:33, 17.43s/it]reward_EXTERNAL 被调用，当前有 1 个客户端连接
+向客户端 1/1 发送奖励请求...
+等待客户端 1 响应...
+收到客户端 1 响应: {"rewards": [50, 100, 120, 150, 300, 80, 200, 250, -50, 100, 300, 50, 150, -350, 180, 220]}
+客户端 1 返回的奖励: [50, 100, 120, 150, 300, 80, 200, 250, -50, 100, 300, 50, 150, -350, 180, 220]
+最终计算的奖励: [50, 100, 120, 150, 300, 80, 200, 250, -50, 100, 300, 50, 150, -350, 180, 220]
+ 75%|#######4  | 1493/2000 [5:38:36<2:22:32, 16.87s/it]                                                       {'loss': 0.0067, 'grad_norm': 1.2666690349578857, 'learning_rate': 1.5324192663857673e-06, 'rewards/reward_external': 115.625, 'rewards/reward_format': 100.0, 'rewards/reward_no_repetition': 0.0, 'rewards/reward_len_response': 11.612833023071289, 'reward': 227.23782348632812, 'reward_std': 139.4801025390625, 'completion_length': 103.9375, 'kl': 0.06747273355722427, 'epoch': 0.73}
+ 75%|#######4  | 1493/2000 [5:38:36<2:22:32, 16.87s/it]reward_EXTERNAL 被调用，当前有 1 个客户端连接
+向客户端 1/1 发送奖励请求...
+等待客户端 1 响应...
+收到客户端 1 响应: {"rewards": [320, 100, 380, 450, 420, 50, 280, 350, 270, 330, 50, -50, 230, 150, 300, 350]}
+客户端 1 返回的奖励: [320, 100, 380, 450, 420, 50, 280, 350, 270, 330, 50, -50, 230, 150, 300, 350]
+最终计算的奖励: [320, 100, 380, 450, 420, 50, 280, 350, 270, 330, 50, -50, 230, 150, 300, 350]
+ 75%|#######4  | 1494/2000 [5:38:52<2:21:05, 16.73s/it]                                                       {'loss': 0.0062, 'grad_norm': 1.0957040786743164, 'learning_rate': 1.5267081477050132e-06, 'rewards/reward_external': 248.75, 'rewards/reward_format': 100.0, 'rewards/reward_no_repetition': 0.0, 'rewards/reward_len_response': 13.785994529724121, 'reward': 362.5360107421875, 'reward_std': 147.19923400878906, 'completion_length': 97.5, 'kl': 0.06192082166671753, 'epoch': 0.73}
+ 75%|#######4  | 1494/2000 [5:38:52<2:21:05, 16.73s/it]reward_EXTERNAL 被调用，当前有 1 个客户端连接
+向客户端 1/1 发送奖励请求...
+等待客户端 1 响应...
+收到客户端 1 响应: {"rewards": [-300, -250, 100, -200, -200, -350, -100, -150, -50, -400, 150, -300, -100, -200, 50, -150]}
+客户端 1 返回的奖励: [-300, -250, 100, -200, -200, -350, -100, -150, -50, -400, 150, -300, -100, -200, 50, -150]
+最终计算的奖励: [-300, -250, 100, -200, -200, -350, -100, -150, -50, -400, 150, -300, -100, -200, 50, -150]
+ 75%|#######4  | 1495/2000 [5:39:08<2:16:57, 16.27s/it]                                                       {'loss': 0.0053, 'grad_norm': 1.2241489887237549, 'learning_rate': 1.521005773032362e-06, 'rewards/reward_external': -153.125, 'rewards/reward_format': 100.0, 'rewards/reward_no_repetition': 0.0, 'rewards/reward_len_response': 21.532560348510742, 'reward': -31.592439651489258, 'reward_std': 164.86422729492188, 'completion_length': 98.625, 'kl': 0.052859172224998474, 'epoch': 0.73}
+ 75%|#######4  | 1495/2000 [5:39:08<2:16:57, 16.27s/it]reward_EXTERNAL 被调用，当前有 1 个客户端连接
+向客户端 1/1 发送奖励请求...
+等待客户端 1 响应...
+收到客户端 1 响应: {"rewards": [-250, 350, 320, 280, 400, 150, 50, -80, 270, 50, 130, 330, 350, 170, 400, 230]}
+客户端 1 返回的奖励: [-250, 350, 320, 280, 400, 150, 50, -80, 270, 50, 130, 330, 350, 170, 400, 230]
+最终计算的奖励: [-250, 350, 320, 280, 400, 150, 50, -80, 270, 50, 130, 330, 350, 170, 400, 230]
+ 75%|#######4  | 1496/2000 [5:39:25<2:18:43, 16.51s/it]                                                       {'loss': 0.0061, 'grad_norm': 0.8502352833747864, 'learning_rate': 1.5153121567235334e-06, 'rewards/reward_external': 196.875, 'rewards/reward_format': 100.0, 'rewards/reward_no_repetition': -156.25, 'rewards/reward_len_response': 27.78882598876953, 'reward': 168.413818359375, 'reward_std': 526.2171630859375, 'completion_length': 112.1875, 'kl': 0.061396848410367966, 'epoch': 0.73}
+ 75%|#######4  | 1496/2000 [5:39:25<2:18:43, 16.51s/it]reward_EXTERNAL 被调用，当前有 1 个客户端连接
+向客户端 1/1 发送奖励请求...
+等待客户端 1 响应...
+收到客户端 1 响应: {"rewards": [-130, -250, -50, -100, -150, -200, -170, -70, 250, 450, 200, 300, 400, -100, 380, 150]}
+客户端 1 返回的奖励: [-130, -250, -50, -100, -150, -200, -170, -70, 250, 450, 200, 300, 400, -100, 380, 150]
+最终计算的奖励: [-130, -250, -50, -100, -150, -200, -170, -70, 250, 450, 200, 300, 400, -100, 380, 150]
+ 75%|#######4  | 1497/2000 [5:39:42<2:21:26, 16.87s/it]                                                       {'loss': 0.0056, 'grad_norm': 0.9749065041542053, 'learning_rate': 1.5096273131121997e-06, 'rewards/reward_external': 56.875, 'rewards/reward_format': 100.0, 'rewards/reward_no_repetition': 0.0, 'rewards/reward_len_response': 4.626669883728027, 'reward': 161.50167846679688, 'reward_std': 118.09013366699219, 'completion_length': 113.9375, 'kl': 0.05622674897313118, 'epoch': 0.73}
+ 75%|#######4  | 1497/2000 [5:39:42<2:21:26, 16.87s/it]reward_EXTERNAL 被调用，当前有 1 个客户端连接
+向客户端 1/1 发送奖励请求...
+等待客户端 1 响应...
+收到客户端 1 响应: {"rewards": [230, 350, 150, 100, 300, 50, 270, -150, 300, 580, 520, 100, 480, 600, 450, 550]}
+客户端 1 返回的奖励: [230, 350, 150, 100, 300, 50, 270, -150, 300, 580, 520, 100, 480, 600, 450, 550]
+最终计算的奖励: [230, 350, 150, 100, 300, 50, 270, -150, 300, 580, 520, 100, 480, 600, 450, 550]
+ 75%|#######4  | 1498/2000 [5:39:57<2:16:24, 16.30s/it]                                                       {'loss': 0.0058, 'grad_norm': 1.0635966062545776, 'learning_rate': 1.5039512565099468e-06, 'rewards/reward_external': 305.0, 'rewards/reward_format': 100.0, 'rewards/reward_no_repetition': 0.0, 'rewards/reward_len_response': 23.86488151550293, 'reward': 428.8648681640625, 'reward_std': 165.65122985839844, 'completion_length': 96.5, 'kl': 0.05816446617245674, 'epoch': 0.73}
+ 75%|#######4  | 1498/2000 [5:39:57<2:16:24, 16.30s/it]reward_EXTERNAL 被调用，当前有 1 个客户端连接
+向客户端 1/1 发送奖励请求...
+等待客户端 1 响应...
+收到客户端 1 响应: {"rewards": [100, 80, 160, -270, 300, 260, -40, 30, 50, -250, -50, -30, -20, 30, -100, -70]}
+客户端 1 返回的奖励: [100, 80, 160, -270, 300, 260, -40, 30, 50, -250, -50, -30, -20, 30, -100, -70]
+最终计算的奖励: [100, 80, 160, -270, 300, 260, -40, 30, 50, -250, -50, -30, -20, 30, -100, -70]
+ 75%|#######4  | 1499/2000 [5:40:15<2:20:11, 16.79s/it]                                                       {'loss': 0.0063, 'grad_norm': 1.3152559995651245, 'learning_rate': 1.4982840012062428e-06, 'rewards/reward_external': 11.25, 'rewards/reward_format': 100.0, 'rewards/reward_no_repetition': -156.25, 'rewards/reward_len_response': 6.244725227355957, 'reward': -38.755271911621094, 'reward_std': 504.72344970703125, 'completion_length': 113.5, 'kl': 0.06322626769542694, 'epoch': 0.73}
+ 75%|#######4  | 1499/2000 [5:40:15<2:20:11, 16.79s/it]reward_EXTERNAL 被调用，当前有 1 个客户端连接
+向客户端 1/1 发送奖励请求...
+等待客户端 1 响应...
+收到客户端 1 响应: {"rewards": [20, -100, -60, -180, -50, 70, -80, -30, 300, 320, 280, 350, 150, 100, 200, 250]}
+客户端 1 返回的奖励: [20, -100, -60, -180, -50, 70, -80, -30, 300, 320, 280, 350, 150, 100, 200, 250]
+最终计算的奖励: [20, -100, -60, -180, -50, 70, -80, -30, 300, 320, 280, 350, 150, 100, 200, 250]
+ 75%|#######5  | 1500/2000 [5:40:30<2:14:24, 16.13s/it]                                                       {'loss': 0.0061, 'grad_norm': 1.0615402460098267, 'learning_rate': 1.4926255614683931e-06, 'rewards/reward_external': 96.25, 'rewards/reward_format': 100.0, 'rewards/reward_no_repetition': -312.5, 'rewards/reward_len_response': 15.014538764953613, 'reward': -101.2354736328125, 'reward_std': 875.1005249023438, 'completion_length': 105.4375, 'kl': 0.060890283435583115, 'epoch': 0.73}
+ 75%|#######5  | 1500/2000 [5:40:30<2:14:24, 16.13s/it]reward_EXTERNAL 被调用，当前有 1 个客户端连接
+向客户端 1/1 发送奖励请求...
+等待客户端 1 响应...
+收到客户端 1 响应: {"rewards": [100, 300, 400, 350, 250, 200, 150, 450, -170, -120, -40, -100, -470, -20, -140, -70]}
+客户端 1 返回的奖励: [100, 300, 400, 350, 250, 200, 150, 450, -170, -120, -40, -100, -470, -20, -140, -70]
+最终计算的奖励: [100, 300, 400, 350, 250, 200, 150, 450, -170, -120, -40, -100, -470, -20, -140, -70]
+ 75%|#######5  | 1501/2000 [5:40:48<2:18:34, 16.66s/it]                                                       {'loss': 0.0057, 'grad_norm': 0.9374110102653503, 'learning_rate': 1.4869759515415167e-06, 'rewards/reward_external': 66.875, 'rewards/reward_format': 100.0, 'rewards/reward_no_repetition': 0.0, 'rewards/reward_len_response': 5.496579170227051, 'reward': 172.37158203125, 'reward_std': 136.33351135253906, 'completion_length': 117.4375, 'kl': 0.05735848471522331, 'epoch': 0.73}
+ 75%|#######5  | 1501/2000 [5:40:48<2:18:34, 16.66s/it]reward_EXTERNAL 被调用，当前有 1 个客户端连接
+向客户端 1/1 发送奖励请求...
+等待客户端 1 响应...
+收到客户端 1 响应: {"rewards": [200, 250, -120, 180, -50, 150, 220, 50, 250, 550, 300, 400, 100, 200, 150, -100]}
+客户端 1 返回的奖励: [200, 250, -120, 180, -50, 150, 220, 50, 250, 550, 300, 400, 100, 200, 150, -100]
+最终计算的奖励: [200, 250, -120, 180, -50, 150, 220, 50, 250, 550, 300, 400, 100, 200, 150, -100]
+ 75%|#######5  | 1502/2000 [5:41:03<2:14:53, 16.25s/it]                                                       {'loss': 0.0079, 'grad_norm': 1.178584098815918, 'learning_rate': 1.4813351856484981e-06, 'rewards/reward_external': 170.625, 'rewards/reward_format': 100.0, 'rewards/reward_no_repetition': 0.0, 'rewards/reward_len_response': -8.462849617004395, 'reward': 262.16217041015625, 'reward_std': 179.1787567138672, 'completion_length': 109.75, 'kl': 0.0785200446844101, 'epoch': 0.73}
+ 75%|#######5  | 1502/2000 [5:41:03<2:14:53, 16.25s/it][rank0]: Traceback (most recent call last):
+[rank0]:   File "/home/ubuntu/LLaMA-Factory/grpo.py", line 257, in <module>
+[rank0]:     )
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/transformers/trainer.py", line 2245, in train
+[rank0]:     return inner_training_loop(
+[rank0]:   File "<string>", line 310, in _fast_inner_training_loop
+[rank0]:   File "<string>", line 25, in _unsloth_training_step
+[rank0]:   File "/home/ubuntu/LLaMA-Factory/unsloth_compiled_cache/UnslothGRPOTrainer.py", line 958, in _prepare_inputs
+[rank0]:     outputs = self.llm.generate(all_prompts_text, sampling_params=self.sampling_params, use_tqdm=False, lora_request = self.model.load_lora('grpo_trainer_lora_model', load_tensors = True))
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/utils.py", line 1066, in inner
+[rank0]:     return fn(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/entrypoints/llm.py", line 464, in generate
+[rank0]:     outputs = self._run_engine(use_tqdm=use_tqdm)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/entrypoints/llm.py", line 1371, in _run_engine
+[rank0]:     step_outputs = self.llm_engine.step()
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/engine/llm_engine.py", line 1435, in step
+[rank0]:     outputs = self.model_executor.execute_model(
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/executor/executor_base.py", line 139, in execute_model
+[rank0]:     output = self.collective_rpc("execute_model",
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/executor/uniproc_executor.py", line 56, in collective_rpc
+[rank0]:     answer = run_method(self.driver_worker, method, args, kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/utils.py", line 2216, in run_method
+[rank0]:     return func(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/worker/worker_base.py", line 420, in execute_model
+[rank0]:     output = self.model_runner.execute_model(
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+[rank0]:     return func(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/worker/model_runner.py", line 1798, in execute_model
+[rank0]:     output: SamplerOutput = self.model.sample(
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/model_executor/models/llama.py", line 544, in sample
+[rank0]:     next_tokens = self.sampler(logits, sampling_metadata)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+[rank0]:     return self._call_impl(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+[rank0]:     return forward_call(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/model_executor/layers/sampler.py", line 287, in forward
+[rank0]:     maybe_deferred_sample_results, maybe_sampled_tokens_tensor = _sample(
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/model_executor/layers/sampler.py", line 775, in _sample
+[rank0]:     return _sample_with_torch(
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/model_executor/layers/sampler.py", line 744, in _sample_with_torch
+[rank0]:     return get_pythonized_sample_results(
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/model_executor/layers/sampler.py", line 616, in get_pythonized_sample_results
+[rank0]:     sample_results = _random_sample(seq_groups,
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/vllm/model_executor/layers/sampler.py", line 485, in _random_sample
+[rank0]:     random_samples = random_samples.cpu()
+[rank0]: KeyboardInterrupt

@@ -96,7 +96,8 @@ if __name__ == "__main__":
     # MODEL_PATH = 'models/Tifa-DeepsexV2-7b-Cot-0317-F16'
     # MODEL_PATH = 'output/mimibot_tifa_v3.6'
     # MODEL_PATH = 'output/mimibot_l3_v1.1'
-    MODEL_PATH = 'output/mimibot_l3_v1.0'
+    # MODEL_PATH = 'output/mimibot_l3_v1.0'
+    MODEL_PATH = 'output/mimibot_l3d_v1.1'
 
     max_seq_length = 1024  # Can increase for longer reasoning traces
     lora_rank = 64

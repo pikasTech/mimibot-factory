@@ -13,6 +13,8 @@ import signal
 import os
 # 导入OpenAI评估器
 from openai_evaluator import OpenAIEvaluator
+# 添加多线程支持
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 # 全局变量
 running = True
@@ -26,7 +28,7 @@ def signal_handler(sig, frame):
     running = False
     sys.exit(0)
 
-def calculate_reward(responses, prompts_origin=None, answers=None):
+def calculate_reward(responses, prompts_origin=None, answers=None, max_workers=4):
     """
     计算自定义奖励 - 使用OpenAI API评估回复质量
     
@@ -34,6 +36,7 @@ def calculate_reward(responses, prompts_origin=None, answers=None):
         responses: 模型生成的回复列表
         prompts: 输入提示列表
         answers: 标准答案列表
+        max_workers: 最大线程数
     
     Returns:
         奖励值列表
@@ -78,14 +81,15 @@ def calculate_reward(responses, prompts_origin=None, answers=None):
         # 记录所有回复的奖励值
         all_rewards = [0] * len(responses)
         
-        # 对每组数据分别评估
-        print(f"将{len(responses)}个回复分为{len(grouped_data)}个组进行评估")
-        
-        for group_key, group_data in grouped_data.items():
+        # 定义单个组处理函数
+        def process_group(group_data):
+            """处理单个评估组"""
             group_prompt = group_data["prompt"]
             group_answer = group_data["answer"]
             group_responses = group_data["responses"]
             group_indices = group_data["indices"]
+            
+            result = {}
             
             # 只有在有标准答案时才使用相对评分
             if group_answer:
@@ -98,7 +102,7 @@ def calculate_reward(responses, prompts_origin=None, answers=None):
                     
                     # 将分数分配到对应的位置
                     for idx, score in zip(group_indices, relative_scores):
-                        all_rewards[idx] = score
+                        result[idx] = score
                 except Exception as e:
                     print(f"组评估失败: {str(e)}，使用备用评分方法...")
                     # 使用备用方法评估该组
@@ -109,7 +113,7 @@ def calculate_reward(responses, prompts_origin=None, answers=None):
                     )
                     # 将备用分数分配到对应的位置
                     for idx, score in zip(group_indices, backup_scores):
-                        all_rewards[idx] = score
+                        result[idx] = score
             else:
                 # 无标准答案时使用备用评分
                 print(f"组({len(group_responses)}个回复)缺少标准答案，使用备用评分方法...")
@@ -120,13 +124,40 @@ def calculate_reward(responses, prompts_origin=None, answers=None):
                 )
                 # 将备用分数分配到对应的位置
                 for idx, score in zip(group_indices, backup_scores):
-                    all_rewards[idx] = score
+                    result[idx] = score
+            
+            return result
+        
+        # 对每组数据并行评估
+        print(f"将{len(responses)}个回复分为{len(grouped_data)}个组进行多线程评估")
+        
+        # 确定线程数
+        actual_workers = min(max_workers, len(grouped_data))
+        print(f"使用{actual_workers}个线程进行评估")
+        
+        # 使用线程池并行处理各组
+        with ThreadPoolExecutor(max_workers=actual_workers) as executor:
+            future_to_group = {
+                executor.submit(process_group, group_data): group_key 
+                for group_key, group_data in grouped_data.items()
+            }
+            
+            # 收集结果
+            for future in as_completed(future_to_group):
+                group_key = future_to_group[future]
+                try:
+                    result = future.result()
+                    # 将结果合并到all_rewards
+                    for idx, reward in result.items():
+                        all_rewards[idx] = reward
+                except Exception as e:
+                    print(f"处理组{group_key}时出错: {str(e)}")
         
         # 计算总耗时
         elapsed_time = time.time() - start_time
-        print(f"评估 {len(responses)} 个回复总耗时: {elapsed_time:.2f}秒, 平均每个回复: {elapsed_time/len(responses):.2f}秒")
+        print(f"多线程评估 {len(responses)} 个回复总耗时: {elapsed_time:.2f}秒, 平均每个回复: {elapsed_time/len(responses):.2f}秒")
         
-        all_rewards = [r*10 for r in all_rewards]  # 将分数放大10倍
+        all_rewards = [r*100 for r in all_rewards]  # 将分数放大10倍
         return all_rewards
     except Exception as e:
         print(f"使用OpenAI评估器时出错: {str(e)}")

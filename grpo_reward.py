@@ -532,7 +532,7 @@ def shutdown_external_reward_server():
     
     print("外部奖励服务器已关闭")
 
-def reward_EXTERNAL(completions, prompts=None, answer=None, **kwargs):
+def reward_external(completions, prompts=None, answer=None, **kwargs):
     """
     获取外部API给出的奖励
     Args:

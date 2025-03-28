@@ -8,7 +8,7 @@ import threading
 import json
 from grpo_reward import (
     init_external_reward_server,
-    reward_EXTERNAL,
+    reward_external,
     shutdown_external_reward_server
 )
 
@@ -117,7 +117,7 @@ def main():
         prompts = ["测试提示"]
         answers = ["测试答案"]
         
-        rewards = reward_EXTERNAL(completions, prompts, answers)
+        rewards = reward_external(completions, prompts, answers)
         log(f"获取的奖励: {rewards}")
         
         if len(rewards) == len(completions) and all(r > 0 for r in rewards):

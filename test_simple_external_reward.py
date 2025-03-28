@@ -15,7 +15,7 @@ from contextlib import contextmanager
 # 导入需要测试的函数
 from grpo_reward import (
     init_external_reward_server, 
-    reward_EXTERNAL, 
+    reward_external, 
     shutdown_external_reward_server
 )
 
@@ -209,7 +209,7 @@ def run_test():
         try:
             with time_limit(10):
                 print("\n3. 测试1: 获取外部奖励...")
-                rewards = reward_EXTERNAL(completions, prompts, answers)
+                rewards = reward_external(completions, prompts, answers)
                 print(f"获取的奖励: {rewards}")
                 assert len(rewards) == len(completions), "奖励数量与回复数量不匹配"
                 assert all(r > 0 for r in rewards), "应返回正奖励值"
@@ -227,7 +227,7 @@ def run_test():
                 time.sleep(1)
                 
                 # 再次获取奖励
-                new_rewards = reward_EXTERNAL(completions, prompts, answers)
+                new_rewards = reward_external(completions, prompts, answers)
                 print(f"客户端断开后获取的奖励: {new_rewards}")
                 
                 # 应仍有奖励（来自客户端2）
@@ -249,7 +249,7 @@ def run_test():
                 last_rewards = new_rewards
                 
                 # 再次获取奖励
-                final_rewards = reward_EXTERNAL(completions, prompts, answers)
+                final_rewards = reward_external(completions, prompts, answers)
                 print(f"所有客户端断开后获取的奖励: {final_rewards}")
                 
                 # 应使用最后一次的奖励

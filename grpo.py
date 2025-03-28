@@ -23,7 +23,7 @@ from grpo_reward import (
     reward_similarity,
     reward_user_similarity,
     reward_len_response,
-    reward_EXTERNAL,
+    reward_external,
     init_external_reward_server,
     shutdown_external_reward_server,
     init_user_similarity_logger
@@ -47,7 +47,8 @@ if __name__ == "__main__":
     parser.add_argument('--alpaca_path', type=str, default='data/grpo_sorted.json',
                         help='Alpaca数据集路径')
     parser.add_argument('--semantic_model_path', type=str,
-                        default='shibing624/text2vec-base-chinese',
+                        # default='shibing624/text2vec-base-chinese',
+                        default=None,
                         help='Sentence Transformer模型路径')
     parser.add_argument('--load_lora_path', type=str,
                         default=None,
@@ -65,10 +66,11 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     # 加载语义相似度模型并初始化奖励模块
-    semantic_model_path = args.semantic_model_path
-    if not init_semantic_model(semantic_model_path):
-        print("语义模型初始化失败，程序退出")
-        exit(1)
+    if args.semantic_model_path is not None:
+        semantic_model_path = args.semantic_model_path
+        if not init_semantic_model(semantic_model_path):
+            print("语义模型初始化失败，程序退出")
+            exit(1)
         
     # 初始化外部奖励服务器
     print(f"初始化外部奖励服务器，端口: {args.external_reward_port}")
@@ -93,11 +95,12 @@ if __name__ == "__main__":
     # MODEL_PATH = 'output/mimibot_tifa_v3.0'
     # MODEL_PATH = 'models/Tifa-DeepsexV2-7b-Cot-0317-F16'
     # MODEL_PATH = 'output/mimibot_tifa_v3.6'
-    MODEL_PATH = 'output/mimibot_l3_v1.1'
+    # MODEL_PATH = 'output/mimibot_l3_v1.1'
+    MODEL_PATH = 'output/mimibot_l3_v1.0'
 
     max_seq_length = 1024  # Can increase for longer reasoning traces
     lora_rank = 64
-    max_data_length = 4096 # 1k examples
+    max_data_length = 1024 * 100 # 1k examples
 
     print(f"加载模型: {MODEL_PATH}")
     model, tokenizer = FastLanguageModel.from_pretrained(
@@ -196,8 +199,8 @@ if __name__ == "__main__":
     # 使用GRPOConfig而非TrainingArguments
     training_args = GRPOConfig(
         # learning_rate=1e-4,
-        # learning_rate=3e-5, # 1epoch 后训飞
-        learning_rate=1e-5,
+        learning_rate=3e-5, # 1epoch 后训飞，换成 V3 评委模型测试
+        # learning_rate=1e-5,
         adam_beta1=0.9,
         adam_beta2=0.99,
         weight_decay=0.1,
@@ -205,9 +208,9 @@ if __name__ == "__main__":
         output_dir="./results/mimibot_l3",  # 添加必要的output_dir参数
         lr_scheduler_type="cosine",
         optim="paged_adamw_8bit",
-        per_device_train_batch_size=16,
+        per_device_train_batch_size=32,
         gradient_accumulation_steps=1,
-        num_generations=8,
+        num_generations=4,
         logging_steps=1,
         save_strategy="steps",
         save_steps=100,
@@ -215,7 +218,8 @@ if __name__ == "__main__":
         max_grad_norm=0.1,
         max_completion_length=512,
         # reward_weights=[1e-3, 1e-3, 1e-3, 1e-3] # normalize to 1 not need
-        beta=0.1,  # 由 0.04 增大到 0.1 保留更多原模型能力
+        # beta=0.1,  # 由 0.04 增大到 0.1 保留更多原模型能力
+        beta=0.04,  # 由 0.04 增大到 0.1 保留更多原模型能力
     )
 
     # 创建回调列表
@@ -240,11 +244,11 @@ if __name__ == "__main__":
     trainer = GRPOTrainer(
         model=model,
         reward_funcs=[
+            reward_external,
             reward_format,
             reward_no_repetition,
-            reward_similarity,
+            # reward_similarity,
             reward_len_response,
-            reward_EXTERNAL,
         ],
         train_dataset=dataset,
         args=training_args,

@@ -126,6 +126,7 @@ def calculate_reward(responses, prompts_origin=None, answers=None):
         elapsed_time = time.time() - start_time
         print(f"评估 {len(responses)} 个回复总耗时: {elapsed_time:.2f}秒, 平均每个回复: {elapsed_time/len(responses):.2f}秒")
         
+        all_rewards = [r*10 for r in all_rewards]  # 将分数放大10倍
         return all_rewards
     except Exception as e:
         print(f"使用OpenAI评估器时出错: {str(e)}")

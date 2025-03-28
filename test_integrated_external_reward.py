@@ -8,7 +8,7 @@ import time
 import json
 import socket
 import random
-from grpo_reward import init_external_reward_server, reward_EXTERNAL, shutdown_external_reward_server
+from grpo_reward import init_external_reward_server, reward_external, shutdown_external_reward_server
 
 def run_mock_client(port=5678, client_id=1, auto_disconnect=False):
     """运行一个模拟的客户端"""
@@ -124,7 +124,7 @@ def main():
         
         # 测试1: 使用多客户端获取奖励
         print("\n测试1: 使用多客户端获取奖励")
-        rewards1 = reward_EXTERNAL(completions, prompts, answers)
+        rewards1 = reward_external(completions, prompts, answers)
         print(f"获取的奖励: {rewards1}")
         assert len(rewards1) == len(completions), "奖励数量应与回复数量相同"
         assert all(r > 50 for r in rewards1), "所有奖励应大于50"
@@ -135,7 +135,7 @@ def main():
         
         # 测试2: 验证断开连接后使用最后一次的奖励
         print("测试2: 验证断开连接后使用最后一次的奖励")
-        rewards2 = reward_EXTERNAL(completions, prompts, answers)
+        rewards2 = reward_external(completions, prompts, answers)
         print(f"第二次获取的奖励: {rewards2}")
         print(f"与上次奖励相同: {rewards1 == rewards2}")
         print("测试2通过\n")
@@ -143,7 +143,7 @@ def main():
         # 测试3: 测试不同长度输入
         print("测试3: 测试不同长度输入")
         more_completions = completions + ["<think>额外思考</think>额外回复"]
-        rewards3 = reward_EXTERNAL(more_completions, prompts, answers)
+        rewards3 = reward_external(more_completions, prompts, answers)
         print(f"不同长度输入的奖励: {rewards3}")
         assert len(rewards3) == len(more_completions), "奖励数量应与新的回复数量相同"
         print("测试3通过\n")

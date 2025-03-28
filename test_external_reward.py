@@ -11,7 +11,7 @@ import random
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 # 导入需要测试的模块
-from grpo_reward import init_external_reward_server, reward_EXTERNAL, shutdown_external_reward_server
+from grpo_reward import init_external_reward_server, reward_external, shutdown_external_reward_server
 
 class TestExternalReward(unittest.TestCase):
     """测试外部奖励功能"""
@@ -55,7 +55,7 @@ class TestExternalReward(unittest.TestCase):
         time.sleep(0.5)
         
         # 调用奖励函数
-        rewards = reward_EXTERNAL(completions, prompts, answers)
+        rewards = reward_external(completions, prompts, answers)
         
         # 验证结果
         self.assertEqual(len(rewards), len(completions), "奖励值数量应与完成数量匹配")
@@ -83,7 +83,7 @@ class TestExternalReward(unittest.TestCase):
         answers = ["标准答案1", "标准答案2"]
         
         # 调用奖励函数
-        rewards = reward_EXTERNAL(completions, prompts, answers)
+        rewards = reward_external(completions, prompts, answers)
         
         # 验证结果
         self.assertEqual(len(rewards), len(completions), "奖励值数量应与完成数量匹配")
@@ -127,7 +127,7 @@ class TestExternalReward(unittest.TestCase):
         answers = ["标准答案1", "标准答案2"]
         
         # 调用奖励函数
-        rewards = reward_EXTERNAL(completions, prompts, answers)
+        rewards = reward_external(completions, prompts, answers)
         
         # 验证结果 - 多个客户端的奖励应当累加
         self.assertEqual(len(rewards), len(completions), "奖励值数量应与完成数量匹配")
@@ -159,13 +159,13 @@ class TestExternalReward(unittest.TestCase):
         answers = ["标准答案1", "标准答案2"]
         
         # 第一次调用奖励函数，获取初始奖励
-        initial_rewards = reward_EXTERNAL(completions, prompts, answers)
+        initial_rewards = reward_external(completions, prompts, answers)
         
         # 等待客户端断开连接
         time.sleep(3)
         
         # 再次调用奖励函数，应使用上次的奖励
-        second_rewards = reward_EXTERNAL(completions, prompts, answers)
+        second_rewards = reward_external(completions, prompts, answers)
         
         # 验证结果
         self.assertEqual(initial_rewards, second_rewards, "断开连接后应使用上次的奖励")

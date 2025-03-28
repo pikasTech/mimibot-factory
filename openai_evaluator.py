@@ -111,9 +111,8 @@ class OpenAIEvaluator:
                     evaluation_prompt = f"""
                     请评估以下 {len(shuffled_responses)} 个对同一个问题的AI回复质量，对每个回复给出0-100分的评分。评分标准包括：
                     1. 回答切中最新问题的程度
-                    2. 逻辑性
-                    3. 类似人类回复的程度
-                    4. 有趣或引人入胜的程度
+                    2. 类似人类回复的程度
+                    3. 有趣或引人入胜的程度
                     
                     用户提问: {prompt}
                     

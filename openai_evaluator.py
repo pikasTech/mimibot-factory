@@ -182,7 +182,7 @@ class OpenAIEvaluator:
                         
                         # 获取参考答案的分数
                         reference_score = restored_scores[ref_idx]
-                        print("参考答案分数:", reference_score)
+                        # print("参考答案分数:", reference_score)
                         
                         # 计算相对于参考答案的分数
                         relative_scores = []
@@ -193,7 +193,7 @@ class OpenAIEvaluator:
                         
                         # 计算并显示耗时
                         elapsed_time = time.time() - start_time
-                        print(f"多回复评估({len(responses)}个回复)耗时: {elapsed_time:.2f}秒, 平均每个回复: {elapsed_time/len(responses):.2f}秒")
+                        # print(f"多回复评估({len(responses)}个回复)耗时: {elapsed_time:.2f}秒, 平均每个回复: {elapsed_time/len(responses):.2f}秒")
                         
                         return relative_scores, restored_scores, None
                 else:

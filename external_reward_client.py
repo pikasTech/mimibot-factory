@@ -3,6 +3,7 @@
 在实际训练过程中使用此工具可以提供自定义的外部奖励
 """
 import re
+import prompt_utils
 import socket
 import json
 import time
@@ -93,7 +94,7 @@ def calculate_reward(responses, prompts_origin=None, answers=None, max_workers=1
             
             # 只有在有标准答案时才使用相对评分
             if group_answer:
-                print(f"评估组({len(group_responses)}个回复)，提示: {group_prompt[:30]}...")
+                # print(f"评估组({len(group_responses)}个回复)，提示: {group_prompt[:30]}...")
                 try:
                     # 使用evaluate_responses批量评估
                     relative_scores, _, _ = evaluator.evaluate_responses(
@@ -129,11 +130,11 @@ def calculate_reward(responses, prompts_origin=None, answers=None, max_workers=1
             return result
         
         # 对每组数据并行评估
-        print(f"将{len(responses)}个回复分为{len(grouped_data)}个组进行多线程评估")
+        # print(f"将{len(responses)}个回复分为{len(grouped_data)}个组进行多线程评估")
         
         # 确定线程数
         actual_workers = min(max_workers, len(grouped_data))
-        print(f"使用{actual_workers}个线程进行评估")
+        # print(f"使用{actual_workers}个线程进行评估")
         
         # 使用线程池并行处理各组
         with ThreadPoolExecutor(max_workers=actual_workers) as executor:
@@ -158,6 +159,19 @@ def calculate_reward(responses, prompts_origin=None, answers=None, max_workers=1
         print(f"多线程评估 {len(responses)} 个回复总耗时: {elapsed_time:.2f}秒, 平均每个回复: {elapsed_time/len(responses):.2f}秒")
         
         all_rewards = [r*100 for r in all_rewards]  # 将分数放大10倍
+        # 打印前4个reward最多的
+        questions = [prompt_utils.extract_latest(prompts[i]) for i in range(len(prompts))]
+        best_indexs = sorted(range(len(all_rewards)),
+                             key=lambda i: all_rewards[i], reverse=True)[:4]
+        # 倒着顺序打印
+        best_indexs.reverse()
+        for i in best_indexs:
+            print('-' * 10)
+            print(f"问题: {questions[i]}")
+            print(f"标准: {answers[i]}")
+            print(f"回答: {responses[i].strip()}")
+            print(f"Reward: {all_rewards[i]}")
+        print(f"======== 处理了 {len(responses)} 个回答 ========")
         return all_rewards
     except Exception as e:
         print(f"使用OpenAI评估器时出错: {str(e)}")
@@ -263,8 +277,8 @@ def run_client(host, port, client_id=1):
                         prompts = request["data"]["prompts"]
                         answers = request["data"].get("answers", [])
                         
-                        print(f"\n收到奖励请求 #{processed_requests + 1}")
-                        print(f"回复数量: {len(responses)}")
+                        # print(f"\n收到奖励请求 #{processed_requests + 1}")
+                        # print(f"回复数量: {len(responses)}")
                         
                         # 计算奖励
                         rewards = calculate_reward(responses, prompts, answers)
@@ -274,8 +288,8 @@ def run_client(host, port, client_id=1):
                         client.send((json.dumps(response) + "\n").encode('utf-8'))
                         
                         processed_requests += 1
-                        print(f"已发送奖励响应: {rewards}")
-                        print(f"已处理请求总数: {processed_requests}")
+                        # print(f"已发送奖励响应: {rewards}")
+                        # print(f"已处理请求总数: {processed_requests}")
                     else:
                         print(f"未知请求类型: {request.get('type', '未知')}")
                 

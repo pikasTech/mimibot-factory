@@ -113,7 +113,8 @@ def extract_response_from_thinking(completion):
     if "</think>" in completion:
         response = completion.split("</think>")[-1]
     else:
-        response = completion
+        # 只保留最后50个字符
+        response = completion[-50:]
     return response
 
 

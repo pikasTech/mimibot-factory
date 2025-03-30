@@ -1,0 +1,98 @@
+日志系统初始化完成，日志文件: logs/20250330_103511_log.txt
+GRPO训练脚本开始运行
+similarity奖励日志初始化完成，日志文件: logs/20250330_103511_similarity.jsonl
+初始化外部奖励服务器，端口: 5678
+外部奖励服务器已启动，监听端口 5678服务器主循环已启动，等待客户端连接...
+加载模型: models/Tifa-DeepsexV2-7b-Cot-0317-F16
+
+外部奖励客户端已连接: ('127.0.0.1', 40580)
+已向客户端 ('127.0.0.1', 40580) 发送欢迎消息
+==((====))==  Unsloth 2025.3.18: Fast Qwen2 patching. Transformers: 4.50.0. vLLM: 0.8.1.
+   \\   /|    NVIDIA GeForce RTX 3090. Num GPUs = 1. Max memory: 24.0 GB. Platform: Linux.
+O^O/ \_/ \    Torch: 2.6.0+cu124. CUDA: 8.6. CUDA Toolkit: 12.4. Triton: 3.2.0
+\        /    Bfloat16 = TRUE. FA [Xformers = 0.0.29.post2. FA2 = False]
+ "-____-"     Free license: http://github.com/unslothai/unsloth
+Unsloth: Fast downloading is enabled - ignore downloading bars which are red colored!
+外部奖励客户端已连接: ('127.0.0.1', 40592)
+已向客户端 ('127.0.0.1', 40592) 发送欢迎消息
+Unsloth: vLLM loading models/Tifa-DeepsexV2-7b-Cot-0317-F16 with actual GPU utilization = 66.29%
+Unsloth: Your GPU has CUDA compute capability 8.6 with VRAM = 24.0 GB.
+Unsloth: Using conservativeness = 1.0. Chunked prefill tokens = 1024. Num Sequences = 128.
+Unsloth: vLLM's KV Cache can use up to 1.42 GB. Also swap space = 5 GB.
+Loading safetensors checkpoint shards:   0% Completed | 0/7 [00:00<?, ?it/s]
+Loading safetensors checkpoint shards:  14% Completed | 1/7 [00:01<00:06,  1.14s/it]
+Loading safetensors checkpoint shards:  29% Completed | 2/7 [00:01<00:04,  1.18it/s]
+Loading safetensors checkpoint shards:  43% Completed | 3/7 [00:02<00:03,  1.25it/s]
+Loading safetensors checkpoint shards:  57% Completed | 4/7 [00:03<00:02,  1.49it/s]
+Loading safetensors checkpoint shards:  71% Completed | 5/7 [00:03<00:01,  1.49it/s]
+Loading safetensors checkpoint shards:  86% Completed | 6/7 [00:04<00:00,  1.62it/s]
+Loading safetensors checkpoint shards: 100% Completed | 7/7 [00:04<00:00,  1.91it/s]
+Loading safetensors checkpoint shards: 100% Completed | 7/7 [00:04<00:00,  1.55it/s]
+
+Capturing CUDA graph shapes:   0%|          | 0/19 [00:00<?, ?it/s]Capturing CUDA graph shapes:   5%|5         | 1/19 [00:00<00:08,  2.15it/s]Capturing CUDA graph shapes:  11%|#         | 2/19 [00:00<00:08,  2.08it/s]Capturing CUDA graph shapes:  16%|#5        | 3/19 [00:01<00:07,  2.11it/s]Capturing CUDA graph shapes:  21%|##1       | 4/19 [00:01<00:07,  2.09it/s]Capturing CUDA graph shapes:  26%|##6       | 5/19 [00:02<00:06,  2.13it/s]Capturing CUDA graph shapes:  32%|###1      | 6/19 [00:02<00:06,  2.14it/s]Capturing CUDA graph shapes:  37%|###6      | 7/19 [00:03<00:05,  2.12it/s]Capturing CUDA graph shapes:  42%|####2     | 8/19 [00:03<00:05,  2.12it/s]Capturing CUDA graph shapes:  47%|####7     | 9/19 [00:04<00:04,  2.18it/s]Capturing CUDA graph shapes:  53%|#####2    | 10/19 [00:04<00:03,  2.26it/s]Capturing CUDA graph shapes:  58%|#####7    | 11/19 [00:05<00:03,  2.33it/s]Capturing CUDA graph shapes:  63%|######3   | 12/19 [00:05<00:02,  2.37it/s]Capturing CUDA graph shapes:  68%|######8   | 13/19 [00:05<00:02,  2.39it/s]Capturing CUDA graph shapes:  74%|#######3  | 14/19 [00:06<00:02,  2.41it/s]Capturing CUDA graph shapes:  79%|#######8  | 15/19 [00:06<00:01,  2.39it/s]Capturing CUDA graph shapes:  84%|########4 | 16/19 [00:07<00:01,  2.38it/s]Capturing CUDA graph shapes:  89%|########9 | 17/19 [00:07<00:00,  2.39it/s]Capturing CUDA graph shapes:  95%|#########4| 18/19 [00:07<00:00,  2.42it/s]Capturing CUDA graph shapes: 100%|##########| 19/19 [00:08<00:00,  2.38it/s]Capturing CUDA graph shapes: 100%|##########| 19/19 [00:08<00:00,  2.28it/s]
+models/Tifa-DeepsexV2-7b-Cot-0317-F16 does not have a padding token! Will use pad_token = <|endoftext|>.
+Map:   0%|          | 0/5447 [00:00<?, ? examples/s]Map:  38%|###7      | 2056/5447 [00:00<00:00, 20466.09 examples/s]Map:  92%|#########1| 5000/5447 [00:00<00:00, 18391.38 examples/s]Map: 100%|##########| 5447/5447 [00:00<00:00, 18735.24 examples/s]
+{'prompt': '<|im_start|>system\n\n    你是mimi波特，你要回复群聊，带上你的思考。【示例输出】\n<think>我看到群友在聊...所以我想回复...</think>你的回复 \n    <|im_end|>\n<|im_start|>user\n【任务目标】\n你是mimi波特，回复群聊\n\n【最新消息】\n<此身非我>:吃肉蛋堡吗<|im_end|>\n<|im_start|>assistant\n<think>', 'completion': '不吃肉蛋堡', 'answer': '不吃肉蛋堡'}
+启用OpenAI兼容API服务器: 端口=8099, 主机=0.0.0.0
+Starting OpenAI compatible API service on 0.0.0.0:8099/v1
+Simulation mode: False
+Started background request processing thread
+  0%|          | 0/2000 [00:00<?, ?it/s] * Serving Flask app 'OpenAI-Compatible-API'
+ * Debug mode: off
+2025-03-30 10:35:45,768 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8099
+ * Running on http://172.21.107.235:8099
+2025-03-30 10:35:45,768 - INFO - [33mPress CTRL+C to quit[0m
+reward_EXTERNAL 被调用，当前有 2 个客户端连接
+向客户端 1/2 发送奖励请求...
+等待客户端 1 响应...
+从客户端 1 获取奖励失败: timed out
+向客户端 2/2 发送奖励请求...
+等待客户端 2 响应...
+客户端 2 断开连接
+没有收到任何客户端奖励，使用上次奖励: 没有上次奖励
+外部奖励客户端已连接: ('127.0.0.1', 45976)
+已向客户端 ('127.0.0.1', 45976) 发送欢迎消息
+[rank0]: Traceback (most recent call last):
+[rank0]:   File "/home/ubuntu/LLaMA-Factory/grpo.py", line 262, in <module>
+[rank0]:     trainer.train()
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/transformers/trainer.py", line 2245, in train
+[rank0]:     return inner_training_loop(
+[rank0]:   File "<string>", line 310, in _fast_inner_training_loop
+[rank0]:   File "<string>", line 77, in _unsloth_training_step
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/accelerate/accelerator.py", line 2359, in backward
+[rank0]:     loss.backward(**kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/_tensor.py", line 626, in backward
+[rank0]:     torch.autograd.backward(
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/autograd/__init__.py", line 347, in backward
+[rank0]:     _engine_run_backward(
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/autograd/graph.py", line 823, in _engine_run_backward
+[rank0]:     return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/autograd/function.py", line 307, in apply
+[rank0]:     return user_fn(self, *args)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/unsloth_zoo/gradient_checkpointing.py", line 554, in backward
+[rank0]:     outputs = ctx.run_function(*detached_inputs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/unsloth/models/llama.py", line 855, in custom_forward
+[rank0]:     return module(*inputs, past_key_value, output_attentions, padding_mask = padding_mask, position_embeddings = position_embeddings)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+[rank0]:     return self._call_impl(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+[rank0]:     return forward_call(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/unsloth/models/llama.py", line 559, in LlamaDecoderLayer_fast_forward
+[rank0]:     hidden_states = self.mlp(hidden_states)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+[rank0]:     return self._call_impl(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+[rank0]:     return forward_call(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/unsloth/kernels/fast_lora.py", line 181, in apply_lora_mlp_swiglu
+[rank0]:     out = LoRA_MLP.apply(X,
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/autograd/function.py", line 575, in apply
+[rank0]:     return super().apply(*args, **kwargs)  # type: ignore[misc]
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/torch/amp/autocast_mode.py", line 503, in decorate_fwd
+[rank0]:     return fwd(*args, **kwargs)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/unsloth/kernels/fast_lora.py", line 77, in forward
+[rank0]:     h = _forward_function(e, g)
+[rank0]:   File "/home/ubuntu/miniconda3/envs/trl/lib/python3.10/site-packages/unsloth/kernels/swiglu.py", line 44, in swiglu_fg_kernel
+[rank0]:     h = torch.empty((batch, seq_len, hd), dtype = e.dtype, device = e.device)
+[rank0]: RuntimeError: CUDA driver error: out of memory

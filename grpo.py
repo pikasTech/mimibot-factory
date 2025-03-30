@@ -1,4 +1,5 @@
 from datasets import load_dataset, Dataset
+import config
 from prompt_utils import parse_prompt
 from unsloth import FastLanguageModel
 from trl import GRPOTrainer, GRPOConfig
@@ -29,7 +30,7 @@ from grpo_reward import (
     init_user_similarity_logger
 )
 # 导入OpenAI兼容API服务器
-from api_server.openai_compatible_server import OpenAICompatibleCallback, OpenAICompatibleServer
+from openai_compatible_server import OpenAICompatibleCallback, OpenAICompatibleServer
 
 if __name__ == "__main__":
     # 设置日志记录
@@ -97,7 +98,8 @@ if __name__ == "__main__":
     # MODEL_PATH = 'output/mimibot_tifa_v3.6'
     # MODEL_PATH = 'output/mimibot_l3_v1.1'
     # MODEL_PATH = 'output/mimibot_l3_v1.0'
-    MODEL_PATH = 'output/mimibot_l3d_v1.1'
+    # MODEL_PATH = 'output/mimibot_l3d_v1.1'
+    MODEL_PATH = config.BASE_MODEL
 
     max_seq_length = 1024  # Can increase for longer reasoning traces
     lora_rank = 64
@@ -206,10 +208,10 @@ if __name__ == "__main__":
         adam_beta2=0.99,
         weight_decay=0.1,
         warmup_ratio=0.01,
-        output_dir="./results/mimibot_l3",  # 添加必要的output_dir参数
+        output_dir=config.LORA_OUTPUT,  # 添加必要的output_dir参数
         lr_scheduler_type="cosine",
         optim="paged_adamw_8bit",
-        per_device_train_batch_size=32,
+        per_device_train_batch_size=16,
         gradient_accumulation_steps=1,
         num_generations=4,
         logging_steps=1,

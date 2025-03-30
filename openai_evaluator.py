@@ -45,7 +45,7 @@ class OpenAIEvaluator:
         """检查评估器是否可用（API密钥是否存在）"""
         return bool(self.api_key)
     
-    def _evaluate_responses_for_prompt(self, prompt, responses, reference_idx=-1, simplified=True, max_retries=2):
+    def _evaluate_responses_for_prompt(self, prompt, responses, reference_idx=-1, max_retries=2):
         """
         评估同一个prompt的多个回复，其中一个可能是参考答案
         
@@ -53,13 +53,11 @@ class OpenAIEvaluator:
             prompt: 用户提问
             responses: 多个回复的列表，包括可能的参考答案
             reference_idx: 参考答案在responses中的索引，默认为-1（最后一个）
-            simplified: 是否使用简化格式返回结果
             max_retries: 最大重试次数
             
         Returns:
             list: 相对于参考答案的评分列表（0-100）
             list: 原始评分列表（包含参考答案的分数）
-            dict: 详细评分数据（如果simplified=False）
         """
         if not self.is_available():
             raise ValueError("OpenAI API密钥未设置")
@@ -106,58 +104,43 @@ class OpenAIEvaluator:
                 
                 evaluation_items_str = "\n".join(evaluation_items)
                 
-                if simplified:
-                    # 简化版本 - 仅返回总分数组
-                    evaluation_prompt = f"""
-                    请评估以下 {len(shuffled_responses)} 个对同一个问题的AI回复质量，对每个回复给出0-100分的评分。评分标准包括：
-                    1. 回答切中最新问题的程度
-                    2. 类似人类回复的程度
-                    3. 有趣或引人入胜的程度
+                # 简化版本 - 仅返回总分数组
+                evaluation_prompt = f"""
+                请评估以下 {len(shuffled_responses)} 个对同一个问题的AI回复质量，对每个回复给出0-100分的评分。评分标准包括以下，重要性从高到低：
+                - 奖励切中最新问题的回答
+                - 惩罚胡言乱语，难以理解，存在乱码、不完整的回答
+                - 惩罚超过 20 字的回答
+                - 鼓励和群友的对话相似的风格
+                - 惩罚看起来是AI生成的回答
+                - 鼓励言之有物的，具体的，有细节的，有信息量的回答
+                - 惩罚宽泛的，模糊的，空洞的回答
+                - 惩罚有代码块、表格等格式的回答
+                - 鼓励提到了群友名字的回答，但是不要代替群友发言，例如 <群友id>:XXX
+                - 惩罚带有口头禅的回答，即在多个回答中出现频率过高的语气词，比如“确实”、“没错”、“好啦~”等
+                - 惩罚带有颜文字、表情符号等的回答
+                - 惩罚过于客气，过于正式的回答，鼓励更接地气的表达
+                - 惩罚重复性回答
+                - 惩罚过于简单、无意义的回答
+                - 惩罚过于复杂、冗长的回答
+                - 鼓励日常口语化的表达，避免过于正式或生硬
+                - 鼓励像是可爱少女的回答，避免过于严肃
+                - 鼓励像是损友互相调侃的回答，锐评、讽刺、挖苦都可以
+                - 鼓励回答中包含一些个人观点和情感色彩
+                - 鼓励有想象力的回答
+                - 鼓励用隐喻、讥讽等手法回答
+                - 鼓励用简单的语言回答，避免过于专业术语
+                - 鼓励有创意的回答
                     
-                    用户提问: {prompt}
+                用户提问: {prompt}
                     
-                    {evaluation_items_str}
+                {evaluation_items_str}
                     
-                    请只返回一个总分数组，格式为JSON数组，如 [95, 78, 65]。
-                    数组中的每个数字对应每个回复的总分（0-100之间的整数）。
-                    不要返回任何其他文字或解释，只返回分数数组。
-                    细致评估每个回复，即使回复内容相似，也要根据质量差异给出不同的分数。
-                    不要粗略地返回5或者10的倍数，具体到个位数。
-                    """
-                else:
-                    # 详细版本 - 返回完整评估数据
-                    evaluation_prompt = f"""
-                    请评估以下 {len(shuffled_responses)} 个对同一个问题的AI回复质量，对每个回复给出0-100分的评分。评分标准包括：
-                    1. 上下文连贯性 (0-33分)
-                    2. 逻辑性 (0-33分)
-                    3. 问答对应性 (0-34分)
-                    
-                    用户提问: {prompt}
-                    
-                    {evaluation_items_str}
-                    
-                    请以JSON格式返回评分结果，格式如下：
-                    {{
-                        "评估结果": [
-                            {{
-                                "回复编号": 1,
-                                "连贯性": [分数],
-                                "逻辑性": [分数],
-                                "对应性": [分数],
-                                "总分": [总分],
-                                "评价": "[简短评价]"
-                            }},
-                            {{
-                                "回复编号": 2,
-                                ...
-                            }},
-                            ...
-                        ]
-                    }}
-                    
-                    仅返回JSON格式，不要有其他文字。确保每个回复都有对应的评分结果。
-                    细致评估每个回复，即使回复内容相似，也要根据质量差异给出不同的分数。
-                    """
+                请只返回一个总分数组，格式为JSON数组，如 [95, 78, 65]。
+                数组中的每个数字对应每个回复的总分（0-100之间的整数）。
+                不要返回任何其他文字或解释，只返回分数数组。
+                细致评估每个回复，即使回复内容相似，也要根据质量差异给出不同的分数。
+                不要粗略地返回5或者10的倍数，具体到个位数。
+                """
 
                 # 使用LangChain调用OpenAI API
                 messages = [
@@ -170,78 +153,31 @@ class OpenAIEvaluator:
                 response_text = response_message.content
                 
                 # 解析API响应
-                if simplified:
-                    # 尝试解析简化版本的响应（仅总分数组）
-                    scores = self._parse_simplified_scores(response_text)
+                # 尝试解析简化版本的响应（仅总分数组）
+                scores = self._parse_simplified_scores(response_text)
                     
-                    if scores and len(scores) == len(shuffled_responses):
-                        # 恢复原始顺序的分数
-                        restored_scores = [0] * len(indices)
-                        for i, idx in enumerate(indices):
-                            restored_scores[idx] = scores[i]
+                if scores and len(scores) == len(shuffled_responses):
+                    # 恢复原始顺序的分数
+                    restored_scores = [0] * len(indices)
+                    for i, idx in enumerate(indices):
+                        restored_scores[idx] = scores[i]
                         
-                        # 获取参考答案的分数
-                        reference_score = restored_scores[ref_idx]
-                        # print("参考答案分数:", reference_score)
+                    # 获取参考答案的分数
+                    reference_score = restored_scores[ref_idx]
+                    # print("参考答案分数:", reference_score)
                         
-                        # 计算相对于参考答案的分数
-                        relative_scores = []
-                        for i, score in enumerate(restored_scores):
-                            if i != ref_idx:  # 跳过参考答案本身
-                                rel_score = score - reference_score
-                                relative_scores.append(round(rel_score, 2))
+                    # 计算相对于参考答案的分数
+                    relative_scores = []
+                    for i, score in enumerate(restored_scores):
+                        if i != ref_idx:  # 跳过参考答案本身
+                            rel_score = score - reference_score
+                            relative_scores.append(round(rel_score, 2))
                         
-                        # 计算并显示耗时
-                        elapsed_time = time.time() - start_time
-                        # print(f"多回复评估({len(responses)}个回复)耗时: {elapsed_time:.2f}秒, 平均每个回复: {elapsed_time/len(responses):.2f}秒")
+                    # 计算并显示耗时
+                    elapsed_time = time.time() - start_time
+                    # print(f"多回复评估({len(responses)}个回复)耗时: {elapsed_time:.2f}秒, 平均每个回复: {elapsed_time/len(responses):.2f}秒")
                         
-                        return relative_scores, restored_scores, None
-                else:
-                    # 解析详细版本的响应
-                    try:
-                        json_start = response_text.find("{")
-                        json_end = response_text.rfind("}") + 1
-                        
-                        if json_start >= 0 and json_end > json_start:
-                            json_str = response_text[json_start:json_end]
-                            result_data = json.loads(json_str)
-                            evaluation_results = result_data.get("评估结果", [])
-                            
-                            # 恢复原始顺序
-                            restored_results = [None] * len(responses)
-                            restored_scores = [0] * len(responses)
-                            
-                            for i, eval_item in enumerate(evaluation_results):
-                                orig_idx = indices[i]
-                                total_score = eval_item.get("总分", 0)
-                                restored_results[orig_idx] = eval_item
-                                restored_scores[orig_idx] = round(total_score, 2)
-                            
-                            # 获取参考答案的分数
-                            reference_score = restored_scores[ref_idx]
-                            
-                            # 计算相对于参考答案的分数
-                            relative_scores = []
-                            relative_results = []
-                            for i, score in enumerate(restored_scores):
-                                if i != ref_idx:  # 跳过参考答案本身
-                                    rel_score = score - reference_score
-                                    relative_scores.append(round(rel_score, 2))
-                                    
-                                    # 复制评估详情，但更新总分
-                                    if restored_results[i]:
-                                        rel_result = restored_results[i].copy()
-                                        rel_result["总分"] = rel_score
-                                        rel_result["相对分数"] = True
-                                        relative_results.append(rel_result)
-                            
-                            # 计算并显示耗时
-                            elapsed_time = time.time() - start_time
-                            print(f"详细多回复评估({len(responses)}个回复)耗时: {elapsed_time:.2f}秒, 平均每个回复: {elapsed_time/len(responses):.2f}秒")
-                            
-                            return relative_scores, restored_scores, relative_results
-                    except Exception as e:
-                        raise ValueError(f"解析详细响应失败: {str(e)}")
+                    return relative_scores, restored_scores, None
                 
             except Exception as e:
                 last_error = e
@@ -260,13 +196,13 @@ class OpenAIEvaluator:
         return [], [], None
     
 
-    def evaluate_responses(self, prompts, responses, reference=None, simplified=True, max_retries=2):
+    def evaluate_responses(self, prompts, responses, reference=None, max_retries=2):
         if reference is not None:
             responses.append(reference)
             referece_idx = len(responses) - 1
         else:
             referece_idx = -1
-        return self._evaluate_responses_for_prompt(prompts, responses, referece_idx, simplified, max_retries)
+        return self._evaluate_responses_for_prompt(prompts, responses, referece_idx, max_retries)
 
     
     def _parse_simplified_scores(self, response_text):
@@ -321,7 +257,7 @@ if __name__ == "__main__":
     reference="量子计算利用量子力学原理，如叠加和纠缠来处理信息。与传统计算机使用位不同，量子计算机使用量子位（qubit）。每个量子位可以同时处于多个状态，这赋予量子计算机处理大量可能性的能力。",
     # 为 evaluate_responses 编写测试 
     evaluator = OpenAIEvaluator()
-    relative_scores, total_scores, detailed_results = evaluator.evaluate_responses(prompt, responses, reference=reference, simplified=True)
+    relative_scores, total_scores, detailed_results = evaluator.evaluate_responses(prompt, responses, reference=reference)
     print("相对分数:", relative_scores)
     print("总分数:", total_scores)
 

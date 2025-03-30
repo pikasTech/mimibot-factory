@@ -1,4 +1,5 @@
 import threading
+import config
 import time
 import uuid
 import json
@@ -34,6 +35,8 @@ class OpenAICompatibleServer:
         self.server = None
         self.app = None
         self.system_prompt = None
+        self.processing_thread = None
+        self.stop_processing = False
 
     def _format_chat_response(self, request_id, completion_text, prompt_tokens, completion_tokens, model_name):
         """格式化聊天完成API的响应"""
@@ -514,7 +517,37 @@ class OpenAICompatibleServer:
         )
         self.server_thread.start()
 
+        # 如果不是模拟模式，启动后台处理线程
+        if not self.simulation_mode and self.trainer is not None:
+            self.stop_processing = False
+            self.processing_thread = threading.Thread(
+                target=self._background_processing,
+                daemon=daemon
+            )
+            self.processing_thread.start()
+            print("Started background request processing thread")
+
         return self.server_thread
+
+    def _background_processing(self):
+        """后台线程，周期性地处理请求队列"""
+        while not self.stop_processing:
+            try:
+                # 如果有请求，处理它们
+                if self.request_queue:
+                    self.process_requests()
+                # 短暂休眠以减少CPU使用
+                time.sleep(0.1)
+            except Exception as e:
+                print(f"Background processing error: {str(e)}")
+                time.sleep(1)  # 发生错误时暂停更长时间
+
+    def stop(self):
+        """停止服务器和处理线程"""
+        self.stop_processing = True
+        if self.processing_thread and self.processing_thread.is_alive():
+            self.processing_thread.join(timeout=2)
+            print("Stopped background processing thread")
 
     def process_requests(self):
         """处理队列中的推理请求 - 供回调使用"""
@@ -563,7 +596,7 @@ class OpenAICompatibleServer:
                 [prompt],
                 sampling_params=sampling_params,
                 use_tqdm=False,
-                lora_request = self.trainer.model.load_lora('grpo_trainer_lora_model', load_tensors = True)
+                lora_request=self.trainer.model.load_lora('grpo_trainer_lora_model', load_tensors=True)
             )
 
             for output in outputs:
@@ -656,13 +689,80 @@ class OpenAICompatibleCallback(TrainerCallback):
         return self.on_step_begin(args, state, control, **kwargs)
 
 
+def load_model_for_inference(base_model_path, lora_model_path=None, device_map="auto", offload_folder="tmp_offload",
+                             gpu_memory_utilization=0.8, max_model_len=4096, trust_remote_code=True):
+    """
+    加载基础模型和可选的LoRA模型用于推理
+    
+    Args:
+        base_model_path: 基础模型的路径
+        lora_model_path: LoRA模型的路径，如果不提供则只加载基础模型
+        device_map: 模型加载的设备映射策略
+        offload_folder: 模型卸载目录路径
+        gpu_memory_utilization: GPU内存利用率(0.0-1.0)
+        max_model_len: 模型最大序列长度
+        trust_remote_code: 是否允许远程代码执行
+        
+    Returns:
+        加载好的模型和分词器
+    """
+    import os
+    from transformers import AutoModelForCausalLM, AutoTokenizer
+    from vllm import LLM
+    
+    print(f"开始加载模型...")
+    print(f"基础模型: {base_model_path}")
+    if lora_model_path:
+        print(f"LoRA模型: {lora_model_path}")
+    print(f"设备映射: {device_map}")
+    print(f"卸载目录: {offload_folder}")
+    print("-" * 50)
+    
+    # 始终确保offload_folder存在
+    if offload_folder:
+        os.makedirs(offload_folder, exist_ok=True)
+        print(f"创建或确认卸载目录: {offload_folder}")
+    
+    try:
+        print(f"正在加载基础模型和分词器: {base_model_path}")
+        # 首先加载分词器
+        tokenizer = AutoTokenizer.from_pretrained(base_model_path)
+        
+        # 初始化LLM
+        llm = LLM(
+            model=base_model_path,
+            tokenizer=base_model_path,
+            tensor_parallel_size=1,  # 可以根据GPU数量调整
+            gpu_memory_utilization=gpu_memory_utilization,  # 增加GPU内存利用率
+            max_model_len=max_model_len,  # 降低最大模型长度，减少KV缓存需求
+            quantization=None,  # 可选的量化参数
+            trust_remote_code=trust_remote_code  # 允许远程代码执行
+        )
+        
+        print(f"模型加载完成!")
+        return tokenizer, llm
+        
+    except Exception as e:
+        print(f"加载模型时出错: {str(e)}")
+        raise
+
+
 # 当直接运行此文件时，以模拟模式启动服务器
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='启动OpenAI兼容的API服务器')
     parser.add_argument('--port', type=int, default=8099, help='服务器端口')
     parser.add_argument('--host', type=str, default='0.0.0.0', help='服务器主机地址')
     parser.add_argument('--base-path', type=str, default='/v1', help='API基础路径')
-    parser.add_argument('--no-simulation', action='store_true', help='禁用模拟模式')
+    parser.add_argument('--no-simulation', default=True, help='禁用模拟模式')
+    # 添加模型加载相关参数
+    parser.add_argument('--base_model_path', default=config.BASE_MODEL, help='基础模型的路径')
+    parser.add_argument('--lora_model_path', default=config.LORA_PATH, help='LoRA模型的路径')
+    parser.add_argument('--gpu_memory_utilization', type=float, default=0.95, help='GPU内存利用率(0.0-1.0)')
+    parser.add_argument('--max_model_len', type=int, default=256, help='模型最大序列长度')
+    parser.add_argument('--device_map', type=str, default="cuda", help='模型加载的设备映射策略')
+    parser.add_argument('--offload_folder', type=str, default="tmp_offload", help='模型卸载目录路径')
+    parser.add_argument('--trust_remote_code', action='store_true', help='允许远程代码执行')
+    parser.add_argument('--system_prompt', type=str, default=None, help='系统提示文本')
 
     args = parser.parse_args()
 
@@ -672,6 +772,48 @@ if __name__ == "__main__":
         base_path=args.base_path,
         simulation_mode=not args.no_simulation
     )
+    
+    # 当指定了基础模型路径且不在模拟模式时，加载模型
+    if args.base_model_path and not server.simulation_mode:
+        try:
+            # 创建一个包含trainer属性的虚拟对象
+            class TrainerSimulator:
+                def __init__(self, tokenizer, llm):
+                    self.tokenizer = tokenizer
+                    self.llm = llm
+                    # 添加一个假的accelerator对象，用于兼容原有代码
+                    class Accelerator:
+                        def __init__(self):
+                            self.is_main_process = True
+                    self.accelerator = Accelerator()
+            
+            # 加载模型
+            tokenizer, llm = load_model_for_inference(
+                args.base_model_path, 
+                args.lora_model_path,
+                args.device_map,
+                args.offload_folder,
+                gpu_memory_utilization=args.gpu_memory_utilization,
+                max_model_len=args.max_model_len,
+                trust_remote_code=args.trust_remote_code
+            )
+            
+            # 创建trainer模拟器
+            trainer = TrainerSimulator(tokenizer, llm)
+            
+            # 设置trainer和tokenizer
+            server.set_trainer(trainer)
+            server.set_tokenizer(tokenizer)
+            
+            # 设置系统提示
+            if args.system_prompt:
+                server.set_system_prompt(args.system_prompt)
+                
+            print("模型加载成功，准备启动API服务")
+        except Exception as e:
+            print(f"加载模型失败: {str(e)}")
+            print("将以模拟模式启动服务器")
+            server.simulation_mode = True
 
     print("按Ctrl+C停止服务器")
     try:

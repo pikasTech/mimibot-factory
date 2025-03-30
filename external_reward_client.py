@@ -47,7 +47,8 @@ def calculate_reward(responses, prompts_origin=None, answers=None, max_workers=1
 
     prompts = []
     for prompt in prompts_origin:
-        user_message = re.findall(r"<\|start_header_id\|>user<\|end_header_id\|>(.*?)<\|eot_id\|>", prompt, re.DOTALL)[0].strip()
+        # user_message = re.findall(r"<\|start_header_id\|>user<\|end_header_id\|>(.*?)<\|eot_id\|>", prompt, re.DOTALL)[0].strip()
+        user_message = re.findall(r"<\|im_start\|>user(.*?)<\|im_end\|>", prompt, re.DOTALL)[0].strip()
         prompts.append(user_message)
     
     # 检查评估器是否可用
@@ -98,7 +99,7 @@ def calculate_reward(responses, prompts_origin=None, answers=None, max_workers=1
                 try:
                     # 使用evaluate_responses批量评估
                     relative_scores, _, _ = evaluator.evaluate_responses(
-                        group_prompt, group_responses, group_answer, simplified=True
+                        group_prompt, group_responses, group_answer
                     )
                     
                     # 将分数分配到对应的位置
@@ -158,20 +159,36 @@ def calculate_reward(responses, prompts_origin=None, answers=None, max_workers=1
         elapsed_time = time.time() - start_time
         print(f"多线程评估 {len(responses)} 个回复总耗时: {elapsed_time:.2f}秒, 平均每个回复: {elapsed_time/len(responses):.2f}秒")
         
-        all_rewards = [r*100 for r in all_rewards]  # 将分数放大10倍
-        # 打印前4个reward最多的
-        questions = [prompt_utils.extract_latest(prompts[i]) for i in range(len(prompts))]
-        best_indexs = sorted(range(len(all_rewards)),
-                             key=lambda i: all_rewards[i], reverse=True)[:4]
-        # 倒着顺序打印
-        best_indexs.reverse()
-        for i in best_indexs:
-            print('-' * 10)
-            print(f"问题: {questions[i]}")
-            print(f"标准: {answers[i]}")
-            print(f"回答: {responses[i].strip()}")
-            print(f"Reward: {all_rewards[i]}")
-        print(f"======== 处理了 {len(responses)} 个回答 ========")
+        all_rewards = [r*30 for r in all_rewards]  # 将分数放大10倍
+        # 按问题分组，找出每个分组中得分最高的回答
+        questions = [prompt_utils.extract_latest(prompt) for prompt in prompts]
+        question_groups = {}
+
+        for i in range(len(questions)):
+            question_key = questions[i]  # 使用提取出的问题作为键
+            if question_key not in question_groups:
+                question_groups[question_key] = {
+                    'best_score': -float('inf'),
+                    'best_index': -1
+                }
+            
+            # 如果当前回答的得分更高，则更新
+            if all_rewards[i] > question_groups[question_key]['best_score']:
+                question_groups[question_key]['best_score'] = all_rewards[i]
+                question_groups[question_key]['best_index'] = i
+
+        # 打印每个问题分组中得分最高的回答
+        print(f"======== 按问题分组的最佳回答 ========")
+        for question_key, group_data in question_groups.items():
+            i = group_data['best_index']
+            if i >= 0:  # 确保找到了有效的索引
+                print('-' * 40)
+                print(f"问题: {question_key}")
+                print(f"标准: {answers[i] if answers and i < len(answers) else 'N/A'}")
+                print(f"最佳回答: {responses[i].strip()}")
+                print(f"Reward: {all_rewards[i]}")
+
+        print(f"======== 共处理了 {len(responses)} 个回答，{len(question_groups)} 个不同问题 ========")
         return all_rewards
     except Exception as e:
         print(f"使用OpenAI评估器时出错: {str(e)}")
@@ -222,7 +239,7 @@ def run_client(host, port, client_id=1):
     
     client = None
     retry_count = 0
-    max_retries = 10
+    max_retries = 100
     
     while running and retry_count < max_retries:
         try:
@@ -310,15 +327,15 @@ def run_client(host, port, client_id=1):
         except ConnectionRefusedError:
             print(f"连接被拒绝，服务器可能未启动或端口不正确 ({retry_count+1}/{max_retries})")
             retry_count += 1
-            time.sleep(2)
+            time.sleep(10)
         except socket.timeout:
             print(f"连接超时 ({retry_count+1}/{max_retries})")
             retry_count += 1
-            time.sleep(2)
+            time.sleep(10)
         except Exception as e:
             print(f"连接出错: {str(e)} ({retry_count+1}/{max_retries})")
             retry_count += 1
-            time.sleep(2)
+            time.sleep(10)
         finally:
             if client:
                 try:

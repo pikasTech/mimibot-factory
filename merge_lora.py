@@ -1,4 +1,5 @@
 import os
+import config
 import argparse
 import torch
 import time
@@ -145,14 +146,14 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="LoRA模型合并工具")
     parser.add_argument("--base_model_path", type=str,
                         help="基础模型的路径", 
-                        default="output/mimibot_l3_v1.0")
+                        default=config.BASE_MODEL)
     parser.add_argument("--lora_model_path", type=str,
-                        help="LoRA模型的路径", default="results/mimibot_l3/checkpoint-1500")
+                        help="LoRA模型的路径", default=config.LORA_PATH)
     parser.add_argument("--alpha", type=float, default=1.0,
                         help="LoRA权重合并比例，默认为1.0")
     parser.add_argument("--output_dir", type=str,
                         help="合并后模型的保存路径", 
-                        default="output/mimibot_l3d_v1.1")
+                        default="output/mimibot_l3d_v1.2")
     parser.add_argument("--output_precision", type=str, 
                         default="none",
                         choices=["fp16", "bf16", "none"],
